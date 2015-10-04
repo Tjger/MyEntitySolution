@@ -1,4 +1,6 @@
-﻿using System;
+﻿using EntitySolution.Domain.Abstract;
+using EntitySolution.EntityDB;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +10,13 @@ namespace EntitySolution.WebUI.Controllers
 {
     public class HomeController : Controller
     {
+        private ICategoryRepository categoryProvider;
+
+        public HomeController(ICategoryRepository categoryRepository)
+        {
+            categoryProvider = categoryRepository;
+        }
+
         public ActionResult Index()
         {
             return View();
@@ -27,6 +36,22 @@ namespace EntitySolution.WebUI.Controllers
             return View();
         }
 
+        public JsonResult GetAllCategory()
+        {
+            JsonResult jResult = new JsonResult();
+            try
+            {
+                List<Category> lstData = categoryProvider.GetAllCategory();
+                jResult = Json(lstData, JsonRequestBehavior.AllowGet);
 
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return jResult;
+        }
     }
 }

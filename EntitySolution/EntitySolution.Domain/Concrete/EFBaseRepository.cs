@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EntitySolution.EntityDB;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -9,9 +10,11 @@ namespace EntitySolution.Domain.Concrete
 {
     public class EFBaseRepository
     {
-        public class EFDbContext : DbContext
+        public EntityDBContext _context = null;
+
+        public EFBaseRepository()
         {
-          
+            _context = new EntityDBContext();
         }
 
     }

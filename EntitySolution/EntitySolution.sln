@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntitySolution.WebUI", "Ent
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntitySolution.Domain", "EntitySolution.Domain\EntitySolution.Domain.csproj", "{A6FACB62-6391-4319-BCAA-B08707050342}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntitySolution.EntityDB", "EntitySolution.EntityDB\EntitySolution.EntityDB.csproj", "{EB9698B7-FD11-41EC-9C87-B27DFF899CEB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{A6FACB62-6391-4319-BCAA-B08707050342}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6FACB62-6391-4319-BCAA-B08707050342}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6FACB62-6391-4319-BCAA-B08707050342}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB9698B7-FD11-41EC-9C87-B27DFF899CEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB9698B7-FD11-41EC-9C87-B27DFF899CEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB9698B7-FD11-41EC-9C87-B27DFF899CEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB9698B7-FD11-41EC-9C87-B27DFF899CEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

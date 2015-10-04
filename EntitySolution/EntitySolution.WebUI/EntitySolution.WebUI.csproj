@@ -173,6 +173,9 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\BackEnd\demo.css" />
+    <Content Include="Content\BackEnd\font-awesome.css" />
+    <Content Include="Content\BackEnd\style.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -180,6 +183,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="App_Data\Error.log" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -217,10 +221,9 @@
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\_LayoutLogin.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -233,6 +236,10 @@
     <ProjectReference Include="..\EntitySolution.Domain\EntitySolution.Domain.csproj">
       <Project>{a6facb62-6391-4319-bcaa-b08707050342}</Project>
       <Name>EntitySolution.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EntitySolution.EntityDB\EntitySolution.EntityDB.csproj">
+      <Project>{eb9698b7-fd11-41ec-9c87-b27dff899ceb}</Project>
+      <Name>EntitySolution.EntityDB</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
