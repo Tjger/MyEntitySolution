@@ -17,5 +17,6 @@ namespace EntitySolution.Domain.Concrete
             _context = new EntityDBContext();
         }
 
+       
     }
 }

@@ -24,6 +24,7 @@ namespace EntitySolution.WebUI.Infrastructure
         {
             // put bindings here 
             ninjectKernel.Bind<ICategoryRepository>().To<EFCategoryRepository>();
+            ninjectKernel.Bind<IAuthenticateRepository>().To<EFAuthenticateRepository>();
         }
     }
 }

@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>Trang Quản lý - Admin Page</title>
+
+    @*<script src="<%: ResolveUrl(" ~ />BackEnd/js/jquery-1.11.1.min.js")%>"></script>
+    <script src="<%: ResolveUrl(" ~ />BackEnd/js/bootstrap.min.js") %>"></script>
+    <script src="<%: ResolveUrl(" ~ />BackEnd/js/modernizr.min.js") %>"></script>
+    <script src="<%: ResolveUrl(" ~ />BackEnd/js/pace.min.js") %>"></script>
+    <script src="<%: ResolveUrl(" ~ />BackEnd/js/retina.min.js") %>"></script>
+    <script src="<%: ResolveUrl(" ~ />BackEnd/js/jquery.cookies.js") %>"></script>
+    <script src="<%: ResolveUrl(" ~ />BackEnd/js/flot/jquery.flot.min.js") %>"></script>
+    <script src="<%: ResolveUrl(" ~ />BackEnd/js/flot/jquery.flot.resize.min.js") %>"></script>
+    <script src="<%: ResolveUrl(" ~ />BackEnd/js/flot/jquery.flot.spline.min.js") %>"></script>
+    <script src="<%: ResolveUrl(" ~ />BackEnd/js/jquery.sparkline.min.js") %>"></script>
+    <script src="<%: ResolveUrl(" ~ />BackEnd/js/morris.min.js") %>"></script>
+    <script src="<%: ResolveUrl(" ~ />BackEnd/js/raphael-2.1.0.min.js") %>"></script>
+    <script src="<%: ResolveUrl(" ~ />BackEnd/js/bootstrap-wizard.min.js") %>"></script>
+    <script src="<%: ResolveUrl(" ~ />BackEnd/js/select2.min.js") %>"></script>
+    <script src="<%: ResolveUrl(" ~ />BackEnd/js/custom.js") %>"></script>
+    <script src="<%: ResolveUrl(" ~ />BackEnd/js/dashboard.js") %>"></script>*@
+
+    @Styles.Render("~/Content/BackEnd/style.default.css")
+    @Styles.Render("~/Content/BackEnd/morris.css")
+    @Styles.Render("~/Content/BackEnd/select2.css")
+    @Styles.Render("~/Content/BackEnd/control-style.css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+
+<body>
+
+    <header>
+        <div class="headerwrapper">
+            <div class="header-left">
+                <a href="/home/" class="logo">
+                    <img src="FrontEnd/image/logo-small.png" alt="" />
+                </a>
+                <div class="pull-right">
+                    <a href="#" class="menu-collapse">
+                        <i class="fa fa-bars"></i>
+                    </a>
+                </div>
+            </div>
+            <!-- header-left -->
+
+            <div class="header-right">
+
+                <div class="pull-right">
+                    <div class="btn-group btn-group-list btn-group-notification">
+                        <!-- dropdown-menu -->
+                    </div>
+                    <!-- btn-group -->
+
+                    <div class="btn-group btn-group-list btn-group-messages">
+                        <!-- dropdown-menu -->
+                    </div>
+                    <!-- btn-group -->
+
+                    <div class="btn-group btn-group-option">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-caret-down"></i>
+                        </button>
+                        <ul class="dropdown-menu pull-right" role="menu">
+                            <li><a href="Login.aspx"><i class="glyphicon glyphicon-log-out"></i>Thoát</a></li>
+                        </ul>
+                    </div>
+                    <!-- btn-group -->
+
+                </div>
+                <!-- pull-right -->
+
+            </div>
+            <!-- header-right -->
+
+        </div>
+        <!-- headerwrapper -->
+    </header>
+
+    <section>
+        <div class="mainwrapper">
+            <div class="leftpanel">
+                <div class="media profile-left">            
+                    <div class="media-body">
+                        <h4 class="media-heading"><a href="Admin.aspx?module=10">Admin</a></h4>
+                        <small class="text-muted">Management</small>
+                    </div>
+                </div>
+                <!-- media -->
+             
+                <ul class="nav nav-pills nav-stacked">                  
+                    <li><a href="Admin.aspx?module=1"><i class="fa fa-qrcode"></i><span>Nhóm Sản Phẩm</span></a></li>
+                    <li><a href="Admin.aspx?module=2"><i class="fa fa-suitcase"></i><span>Sản phẩm</span></a></li>
+                    <li><a href="Admin.aspx?module=3"><i class="fa fa-navicon"></i><span>Combo</span></a></li>
+                    <li><a href="Admin.aspx?module=4"><i class="fa fa-magic"></i><span>SEO</span></a></li>
+                    <li><a href="Admin.aspx?module=5"><i class="fa fa-pencil-square-o"></i><span>Tin Tức</span></a></li>
+                    <li><a href="Admin.aspx?module=11"><i class="fa fa-check-circle"></i><span>Config</span></a></li>
+                    <li><a href="Admin.aspx?module=12"><i class="fa fa-check-circle"></i><span>Quy Định Chung</span></a></li>
+                </ul>
+            </div>
+            <!-- leftpanel -->
+
+            <div class="mainpanel">
+                <div class="pageheader">
+                    <div class="media">
+                        <div class="pageicon pull-left">
+                            <a href="Admin.aspx"><i class="fa fa-home"></i></a>
+                        </div>
+                        <div class="media-body">
+                            
+                        </div>
+                    </div>
+                    <!-- media -->
+                </div>
+                <!-- pageheader -->
+                <div class="contentpanel">
+                    <div>
+                        @RenderBody()
+                    </div>
+                    <!-- panel -->
+                </div>
+
+
+
+                <div class="col-md-4">
+                </div>
+                <!-- col-md-4 -->
+            </div>
+            <!-- row -->
+            <!-- row -->
+
+        </div>
+
+    </section>
+
+</body>
+</html>

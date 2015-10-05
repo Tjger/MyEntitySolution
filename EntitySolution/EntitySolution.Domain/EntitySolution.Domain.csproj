@@ -47,9 +47,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IAuthenticateRepository.cs" />
     <Compile Include="Abstract\ICategoryRepository.cs" />
     <Compile Include="Common\Core.cs" />
     <Compile Include="Common\Logging.cs" />
+    <Compile Include="Concrete\EFAuthenticateRepository.cs" />
     <Compile Include="Concrete\EFBaseRepository.cs" />
     <Compile Include="Concrete\EFCategoryRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

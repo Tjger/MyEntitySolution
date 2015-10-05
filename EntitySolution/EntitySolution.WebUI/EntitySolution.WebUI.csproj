@@ -173,9 +173,13 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\BackEnd\control-style.css" />
     <Content Include="Content\BackEnd\demo.css" />
     <Content Include="Content\BackEnd\font-awesome.css" />
+    <Content Include="Content\BackEnd\morris.css" />
+    <Content Include="Content\BackEnd\select2.css" />
     <Content Include="Content\BackEnd\style.css" />
+    <Content Include="Content\BackEnd\style.default.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -222,6 +226,8 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />
+    <Content Include="Views\Shared\_LayoutBackEnd.cshtml" />
+    <Content Include="Views\Account\Receipt.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -27,5 +27,6 @@ namespace EntitySolution.EntityDB
     
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Item> Items { get; set; }
+        public virtual DbSet<Emp> Emps { get; set; }
     }
 }
