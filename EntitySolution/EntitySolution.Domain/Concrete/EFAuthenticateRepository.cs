@@ -11,22 +11,34 @@ namespace EntitySolution.Domain.Concrete
 {
     public class EFAuthenticateRepository : EFBaseRepository, IAuthenticateRepository
     {
-        public bool Authenticate(string Username, string Password)
+        public bool Authenticate(string Username, string Password, ref bool isSuperAdmin, ref string sUserID)
         {
             bool ret = false;
             try
             {
-                Emp e = (from it in _context.Emps
-                         where it.LoginID.ToLower() == Username.ToLower()
-                         select it).FirstOrDefault();
-                if (e != null)
+                if (Username.ToLower() == Var.SuperAdminLoginID.ToLower() && Password.ToLower() == Var.SuperAdminPassword)
                 {
-                    string PasswordEncrypt = Core.Encrypt(Password);
-                    if (e.Pass == PasswordEncrypt)
+                    ret = true;
+                    isSuperAdmin = true;
+                    sUserID = "1986";
+                }
+                else
+                {
+                    Emp e = (from it in _context.Emps
+                             where it.LoginID.ToLower() == Username.ToLower()
+                             select it).FirstOrDefault();
+                    if (e != null)
                     {
-                        ret = true;
+                        string PasswordEncrypt = Core.Encrypt(Password);
+                        if (e.Pass == PasswordEncrypt)
+                        {
+                            ret = true;
+                            isSuperAdmin = false;
+                            sUserID = e.EmpID.ToString();
+                        }
                     }
                 }
+              
             }
             catch (Exception)
             {

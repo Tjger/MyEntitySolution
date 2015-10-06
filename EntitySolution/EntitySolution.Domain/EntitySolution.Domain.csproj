@@ -51,6 +51,7 @@
     <Compile Include="Abstract\ICategoryRepository.cs" />
     <Compile Include="Common\Core.cs" />
     <Compile Include="Common\Logging.cs" />
+    <Compile Include="Common\Var.cs" />
     <Compile Include="Concrete\EFAuthenticateRepository.cs" />
     <Compile Include="Concrete\EFBaseRepository.cs" />
     <Compile Include="Concrete\EFCategoryRepository.cs" />

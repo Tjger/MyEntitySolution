@@ -1,0 +1,45 @@
+﻿@model EntitySolution.WebUI.Models.LoginObjectEntity
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<div>
+
+    <section id="loginForm" class="main">
+        @using (Html.BeginForm("Login", "AdminPage", FormMethod.Post, new { @class = "form-2" }))
+        {
+            @Html.AntiForgeryToken()
+            <h1><span class="log-in">Đăng nhập hệ thống</span> </h1>
+            <div class="col-md-10">
+                <p class="float">
+                    @Html.LabelFor(m => m.UserName)
+
+                    @Html.TextBoxFor(m => m.UserName)
+                    @Html.ValidationMessageFor(m => m.UserName)
+
+                </p>
+            </div>
+            <div class="col-md-10">
+                <p class="float">
+
+                    @Html.LabelFor(m => m.Password)
+
+                    @Html.PasswordFor(m => m.Password)
+                    @Html.ValidationMessageFor(m => m.Password)
+
+
+                </p>
+            </div>
+            @Html.ValidationSummary(true)
+
+            <p class="clearfix">
+                <input type="submit" name="submit" value="Đăng nhập" id="btnLogin" style="width: 98% !important; margin-top: 20px;">
+
+            </p>
+
+        }
+    </section>
+
+</div>
+
