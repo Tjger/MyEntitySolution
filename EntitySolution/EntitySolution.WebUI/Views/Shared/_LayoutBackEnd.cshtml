@@ -95,7 +95,7 @@
                 <ul class="nav nav-pills nav-stacked">  
                          
                     <li><a href="@Url.Action("Category","AdminPage")"><i class="fa fa-qrcode"></i><span>Nhóm Sản Phẩm</span></a></li>
-                    <li><a href="@Url.Action("Item","AdminPage")"><i class="fa fa-suitcase"></i><span>Sản phẩm</span></a></li>
+                    <li><a href="@Url.Action("Item","AdminPage")"><i class="fa fa-suitcase"></i><span>Sản Phẩm</span></a></li>
                     <li><a href="@Url.Action("News","AdminPage")"><i class="fa fa-pencil-square-o"></i><span>Tin Tức</span></a></li>
                     <li><a href="@Url.Action("ConfigAbout","AdminPage")"><i class="fa fa-check-circle"></i><span>Giới Thiệu</span></a></li>     
                     <li><a href="@Url.Action("ConfigContacts","AdminPage")"><i class="fa fa-check-circle"></i><span>Liên Hệ</span></a></li>             
@@ -137,6 +137,26 @@
     </section>
 
 
-    
+    <div class="modal fade" id="modalShowError" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header" style="padding:35px 50px;">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4>Thông Báo</h4>
+                </div>
+                <div class="modal-body">
+                    <p id="lblMessageModal">Thông Báo</p>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-danger btn-default" data-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+
+
 </html>

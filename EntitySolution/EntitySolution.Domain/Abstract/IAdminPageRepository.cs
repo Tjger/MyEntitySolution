@@ -10,5 +10,8 @@ namespace EntitySolution.Domain.Abstract
    public interface IAdminPageRepository
     {
        List<Category> GetAllCategory();
+       bool SaveCategory(Category newCategory);
+       bool EditCategory(Category editCategory);
+       bool DeleteCategory(int deleteCategoryID);
     }
 }

@@ -31,11 +31,11 @@ namespace EntitySolution.Domain.Concrete
             try
             {
                 _context.Categories.Add(newCategory);
-                if (_context.SaveChanges() >0 )
+                if (_context.SaveChanges() > 0)
                 {
                     ret = true;
                 }
-                
+
             }
             catch (Exception e)
             {
@@ -49,11 +49,55 @@ namespace EntitySolution.Domain.Concrete
             bool ret = false;
             try
             {
+                Category oldCategory = (from ite in _context.Categories
+                                        where ite.CategoryID == editCategory.CategoryID
+                                        select ite).FirstOrDefault();
 
-                _context.Categories.Add(editCategory);
-                if (_context.SaveChanges() > 0)
+                if (oldCategory != null)
                 {
-                    ret = true;
+                    oldCategory.CategoryName = editCategory.CategoryName;
+                    oldCategory.CategoryName2 = editCategory.CategoryName2;
+                    oldCategory.Active = editCategory.Active;
+
+                    if (_context.SaveChanges() > 0)
+                    {
+                        ret = true;
+                    }
+
+                }
+
+            }
+            catch (Exception e)
+            {
+                Logging.LogError("GetAllCategory", e.Message);
+            }
+            return ret;
+        }
+
+        public bool DeleteCategory(int deleteCategoryID)
+        {
+            bool ret = false;
+            try
+            {
+                Category oldCategory = (from ite in _context.Categories
+                                        where ite.CategoryID == deleteCategoryID
+                                        select ite).FirstOrDefault();
+
+                if (oldCategory != null)
+                {
+                    Item lstItem = (from ite in _context.Items
+                                    where ite.CategoryID == deleteCategoryID
+                                    select ite).FirstOrDefault();
+                    if (lstItem == null)
+                    {
+                        _context.Categories.Remove(oldCategory);
+                        if (_context.SaveChanges() > 0)
+                        {
+                            ret = true;
+                        }
+
+                    }
+
                 }
 
             }

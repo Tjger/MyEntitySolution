@@ -1,58 +1,1011 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "Home Page";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<script type="text/javascript" src="~/Scripts/jquery-1.10.2.js"></script>
+
 <script>
     $(document).ready(function () {
-        LoadAllCategory();
+  
     });
 
-    function LoadAllCategory() {
-      
-        $.ajax({
-            url: '@Url.Action("GetAllCategory", "Home")',
-            contentType: "application/json; charset=utf-8",
-            type: 'GET',
-            dataType: "json",
-            data: {},
-            success: function (data) {               
-                var items = '<table><tr><th>CategoryID</th><th>CategoryName</th></tr>';
-                $.each(data, function (i, cate) {                   
-                    items += "<tr><td>" + cate.CategoryID + "</td><td>" + cate.CategoryName + "</td></tr>";
-                });
-                items += "</table>";
-
-                $('#divShow').html(items);
-            
-            }
-        });
-
-    }
+ 
 </script>
-<div class="jumbotron" id="divShow">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
-</div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+<div class="menu-content-main col-md-12 col-lg-12 padd0">
+    <ul class="nav nav-tabs nav-justified">
+        <li class="active"><a data-toggle="tab" href="#home">CONTAINER VĂN PHÒNG</a></li>
+        <li><a data-toggle="tab" href="#menu1">CONTAINER KHÔ</a></li>
+        <li><a data-toggle="tab" href="#menu2">CONTAINER LẠNH</a></li>
+        <li><a data-toggle="tab" href="#menu3">CONTAINER TOILET</a></li>
+    </ul>
+</div>
+<div class="col-md-12 col-lg-12 padd0">
+    <div class="tab-content">
+        <div id="home" class="tab-pane fade in active">
+            <div class="col-md-12 col-lg-12 padd0">
+                <div class="col-md-4 col-lg-4 mt15">
+                    <div class="box-show-product col-md-12 col-lg-12 padd0">
+                        <div class="box-img col-md-12 col-lg-12">
+                            <a href="#">
+                                <img src="images/img-container.png" class="img-responsive" alt="" />
+                            </a>
+                        </div>
+                        <div class="col-md-12 col-lg-12 padd0">
+                            <p class="box-info-danhgia">
+                                Container Khô
+                            </p>
+                            <p class="box-star">
+                                <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o">
+                                </i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                            <p class="box-datetime">
+                                <i class="fa fa-clock-o"></i><span class="small day-post">239 Days</span><span class="small time-post">
+                                    13:13:11
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 mt15">
+                    <div class="box-show-product col-md-12 col-lg-12 padd0">
+                        <div class="box-img col-md-12 col-lg-12">
+                            <a href="#">
+                                <img src="images/con-kho.png" class="img-responsive" alt="" />
+                            </a>
+                        </div>
+                        <div class="col-md-12 col-lg-12 padd0">
+                            <p class="box-info-danhgia">
+                                Container Khô
+                            </p>
+                            <p class="box-star">
+                                <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o">
+                                </i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                            <p class="box-datetime">
+                                <i class="fa fa-clock-o"></i><span class="small day-post">239 Days</span><span class="small time-post">
+                                    13:13:11
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 mt15">
+                    <div class="box-show-product col-md-12 col-lg-12 padd0">
+                        <div class="box-img col-md-12 col-lg-12">
+                            <a href="#">
+                                <img src="images/conkho2.png" class="img-responsive" alt="" />
+                            </a>
+                        </div>
+                        <div class="col-md-12 col-lg-12 padd0">
+                            <p class="box-info-danhgia">
+                                Container Khô
+                            </p>
+                            <p class="box-star">
+                                <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o">
+                                </i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                            <p class="box-datetime">
+                                <i class="fa fa-clock-o"></i><span class="small day-post">239 Days</span><span class="small time-post">
+                                    13:13:11
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-12 padd0">
+                <div class="col-md-4 col-lg-4 mt15">
+                    <div class="box-show-product col-md-12 col-lg-12 padd0">
+                        <div class="box-img col-md-12 col-lg-12">
+                            <a href="#">
+                                <img src="images/img-container.png" class="img-responsive" alt="" />
+                            </a>
+                        </div>
+                        <div class="col-md-12 col-lg-12 padd0">
+                            <p class="box-info-danhgia">
+                                Container Khô
+                            </p>
+                            <p class="box-star">
+                                <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o">
+                                </i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                            <p class="box-datetime">
+                                <i class="fa fa-clock-o"></i><span class="small day-post">239 Days</span><span class="small time-post">
+                                    13:13:11
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 mt15">
+                    <div class="box-show-product col-md-12 col-lg-12 padd0">
+                        <div class="box-img col-md-12 col-lg-12">
+                            <a href="#">
+                                <img src="images/con-kho.png" class="img-responsive" alt="" />
+                            </a>
+                        </div>
+                        <div class="col-md-12 col-lg-12 padd0">
+                            <p class="box-info-danhgia">
+                                Container Khô
+                            </p>
+                            <p class="box-star">
+                                <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o">
+                                </i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                            <p class="box-datetime">
+                                <i class="fa fa-clock-o"></i><span class="small day-post">239 Days</span><span class="small time-post">
+                                    13:13:11
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 mt15">
+                    <div class="box-show-product col-md-12 col-lg-12 padd0">
+                        <div class="box-img col-md-12 col-lg-12">
+                            <a href="#">
+                                <img src="images/conkho2.png" class="img-responsive" alt="" />
+                            </a>
+                        </div>
+                        <div class="col-md-12 col-lg-12 padd0">
+                            <p class="box-info-danhgia">
+                                Container Khô
+                            </p>
+                            <p class="box-star">
+                                <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o">
+                                </i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                            <p class="box-datetime">
+                                <i class="fa fa-clock-o"></i><span class="small day-post">239 Days</span><span class="small time-post">
+                                    13:13:11
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-12 padd0">
+                <div class="col-md-4 col-lg-4 mt15">
+                    <div class="box-show-product col-md-12 col-lg-12 padd0">
+                        <div class="box-img col-md-12 col-lg-12">
+                            <a href="#">
+                                <img src="images/img-container.png" class="img-responsive" alt="" />
+                            </a>
+                        </div>
+                        <div class="col-md-12 col-lg-12 padd0">
+                            <p class="box-info-danhgia">
+                                Container Khô
+                            </p>
+                            <p class="box-star">
+                                <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o">
+                                </i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                            <p class="box-datetime">
+                                <i class="fa fa-clock-o"></i><span class="small day-post">239 Days</span><span class="small time-post">
+                                    13:13:11
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 mt15">
+                    <div class="box-show-product col-md-12 col-lg-12 padd0">
+                        <div class="box-img col-md-12 col-lg-12">
+                            <a href="#">
+                                <img src="images/con-kho.png" class="img-responsive" alt="" />
+                            </a>
+                        </div>
+                        <div class="col-md-12 col-lg-12 padd0">
+                            <p class="box-info-danhgia">
+                                Container Khô
+                            </p>
+                            <p class="box-star">
+                                <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o">
+                                </i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                            <p class="box-datetime">
+                                <i class="fa fa-clock-o"></i><span class="small day-post">239 Days</span><span class="small time-post">
+                                    13:13:11
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 mt15">
+                    <div class="box-show-product col-md-12 col-lg-12 padd0">
+                        <div class="box-img col-md-12 col-lg-12">
+                            <a href="#">
+                                <img src="images/conkho2.png" class="img-responsive" alt="" />
+                            </a>
+                        </div>
+                        <div class="col-md-12 col-lg-12 padd0">
+                            <p class="box-info-danhgia">
+                                Container Khô
+                            </p>
+                            <p class="box-star">
+                                <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o">
+                                </i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                            <p class="box-datetime">
+                                <i class="fa fa-clock-o"></i><span class="small day-post">239 Days</span><span class="small time-post">
+                                    13:13:11
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-12 text-center padd0">
+                <ul class="pagination mt50">
+                    <li>
+                        <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span> </a>
+                    </li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span> </a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="menu1" class="tab-pane fade">
+            <div class="col-md-12 col-lg-12 padd0">
+                <div class="col-md-4 col-lg-4 mt15">
+                    <div class="box-show-product col-md-12 col-lg-12 padd0">
+                        <div class="box-img col-md-12 col-lg-12">
+                            <a href="#">
+                                <img src="images/img-container.png" class="img-responsive" alt="" />
+                            </a>
+                        </div>
+                        <div class="col-md-12 col-lg-12 padd0">
+                            <p class="box-info-danhgia">
+                                Container Khô
+                            </p>
+                            <p class="box-star">
+                                <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o">
+                                </i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                            <p class="box-datetime">
+                                <i class="fa fa-clock-o"></i><span class="small day-post">239 Days</span><span class="small time-post">
+                                    13:13:11
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 mt15">
+                    <div class="box-show-product col-md-12 col-lg-12 padd0">
+                        <div class="box-img col-md-12 col-lg-12">
+                            <a href="#">
+                                <img src="images/con-kho.png" class="img-responsive" alt="" />
+                            </a>
+                        </div>
+                        <div class="col-md-12 col-lg-12 padd0">
+                            <p class="box-info-danhgia">
+                                Container Khô
+                            </p>
+                            <p class="box-star">
+                                <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o">
+                                </i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                            <p class="box-datetime">
+                                <i class="fa fa-clock-o"></i><span class="small day-post">239 Days</span><span class="small time-post">
+                                    13:13:11
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 mt15">
+                    <div class="box-show-product col-md-12 col-lg-12 padd0">
+                        <div class="box-img col-md-12 col-lg-12">
+                            <a href="#">
+                                <img src="images/conkho2.png" class="img-responsive" alt="" />
+                            </a>
+                        </div>
+                        <div class="col-md-12 col-lg-12 padd0">
+                            <p class="box-info-danhgia">
+                                Container Khô
+                            </p>
+                            <p class="box-star">
+                                <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o">
+                                </i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                            <p class="box-datetime">
+                                <i class="fa fa-clock-o"></i><span class="small day-post">239 Days</span><span class="small time-post">
+                                    13:13:11
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-12 padd0">
+                <div class="col-md-4 col-lg-4 mt15">
+                    <div class="box-show-product col-md-12 col-lg-12 padd0">
+                        <div class="box-img col-md-12 col-lg-12">
+                            <a href="#">
+                                <img src="images/img-container.png" class="img-responsive" alt="" />
+                            </a>
+                        </div>
+                        <div class="col-md-12 col-lg-12 padd0">
+                            <p class="box-info-danhgia">
+                                Container Khô
+                            </p>
+                            <p class="box-star">
+                                <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o">
+                                </i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                            <p class="box-datetime">
+                                <i class="fa fa-clock-o"></i><span class="small day-post">239 Days</span><span class="small time-post">
+                                    13:13:11
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 mt15">
+                    <div class="box-show-product col-md-12 col-lg-12 padd0">
+                        <div class="box-img col-md-12 col-lg-12">
+                            <a href="#">
+                                <img src="images/con-kho.png" class="img-responsive" alt="" />
+                            </a>
+                        </div>
+                        <div class="col-md-12 col-lg-12 padd0">
+                            <p class="box-info-danhgia">
+                                Container Khô
+                            </p>
+                            <p class="box-star">
+                                <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o">
+                                </i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                            <p class="box-datetime">
+                                <i class="fa fa-clock-o"></i><span class="small day-post">239 Days</span><span class="small time-post">
+                                    13:13:11
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 mt15">
+                    <div class="box-show-product col-md-12 col-lg-12 padd0">
+                        <div class="box-img col-md-12 col-lg-12">
+                            <a href="#">
+                                <img src="images/conkho2.png" class="img-responsive" alt="" />
+                            </a>
+                        </div>
+                        <div class="col-md-12 col-lg-12 padd0">
+                            <p class="box-info-danhgia">
+                                Container Khô
+                            </p>
+                            <p class="box-star">
+                                <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o">
+                                </i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                            <p class="box-datetime">
+                                <i class="fa fa-clock-o"></i><span class="small day-post">239 Days</span><span class="small time-post">
+                                    13:13:11
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-12 padd0">
+                <div class="col-md-4 col-lg-4 mt15">
+                    <div class="box-show-product col-md-12 col-lg-12 padd0">
+                        <div class="box-img col-md-12 col-lg-12">
+                            <a href="#">
+                                <img src="images/img-container.png" class="img-responsive" alt="" />
+                            </a>
+                        </div>
+                        <div class="col-md-12 col-lg-12 padd0">
+                            <p class="box-info-danhgia">
+                                Container Khô
+                            </p>
+                            <p class="box-star">
+                                <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o">
+                                </i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                            <p class="box-datetime">
+                                <i class="fa fa-clock-o"></i><span class="small day-post">239 Days</span><span class="small time-post">
+                                    13:13:11
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 mt15">
+                    <div class="box-show-product col-md-12 col-lg-12 padd0">
+                        <div class="box-img col-md-12 col-lg-12">
+                            <a href="#">
+                                <img src="images/con-kho.png" class="img-responsive" alt="" />
+                            </a>
+                        </div>
+                        <div class="col-md-12 col-lg-12 padd0">
+                            <p class="box-info-danhgia">
+                                Container Khô
+                            </p>
+                            <p class="box-star">
+                                <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o">
+                                </i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                            <p class="box-datetime">
+                                <i class="fa fa-clock-o"></i><span class="small day-post">239 Days</span><span class="small time-post">
+                                    13:13:11
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 mt15">
+                    <div class="box-show-product col-md-12 col-lg-12 padd0">
+                        <div class="box-img col-md-12 col-lg-12">
+                            <a href="#">
+                                <img src="images/conkho2.png" class="img-responsive" alt="" />
+                            </a>
+                        </div>
+                        <div class="col-md-12 col-lg-12 padd0">
+                            <p class="box-info-danhgia">
+                                Container Khô
+                            </p>
+                            <p class="box-star">
+                                <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o">
+                                </i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                            <p class="box-datetime">
+                                <i class="fa fa-clock-o"></i><span class="small day-post">239 Days</span><span class="small time-post">
+                                    13:13:11
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-12 text-center padd0">
+                <ul class="pagination mt50">
+                    <li>
+                        <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span> </a>
+                    </li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span> </a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="menu2" class="tab-pane fade">
+            <div class="col-md-12 col-lg-12 padd0">
+                <div class="col-md-4 col-lg-4 mt15">
+                    <div class="box-show-product col-md-12 col-lg-12 padd0">
+                        <div class="box-img col-md-12 col-lg-12">
+                            <a href="#">
+                                <img src="images/img-container.png" class="img-responsive" alt="" />
+                            </a>
+                        </div>
+                        <div class="col-md-12 col-lg-12 padd0">
+                            <p class="box-info-danhgia">
+                                Container LẠNH
+                            </p>
+                            <p class="box-star">
+                                <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o">
+                                </i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                            <p class="box-datetime">
+                                <i class="fa fa-clock-o"></i><span class="small day-post">239 Days</span><span class="small time-post">
+                                    13:13:11
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 mt15">
+                    <div class="box-show-product col-md-12 col-lg-12 padd0">
+                        <div class="box-img col-md-12 col-lg-12">
+                            <a href="#">
+                                <img src="images/con-kho.png" class="img-responsive" alt="" />
+                            </a>
+                        </div>
+                        <div class="col-md-12 col-lg-12 padd0">
+                            <p class="box-info-danhgia">
+                                Container LẠNH
+                            </p>
+                            <p class="box-star">
+                                <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o">
+                                </i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                            <p class="box-datetime">
+                                <i class="fa fa-clock-o"></i><span class="small day-post">239 Days</span><span class="small time-post">
+                                    13:13:11
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 mt15">
+                    <div class="box-show-product col-md-12 col-lg-12 padd0">
+                        <div class="box-img col-md-12 col-lg-12">
+                            <a href="#">
+                                <img src="images/conkho2.png" class="img-responsive" alt="" />
+                            </a>
+                        </div>
+                        <div class="col-md-12 col-lg-12 padd0">
+                            <p class="box-info-danhgia">
+                                Container Khô
+                            </p>
+                            <p class="box-star">
+                                <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o">
+                                </i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                            <p class="box-datetime">
+                                <i class="fa fa-clock-o"></i><span class="small day-post">239 Days</span><span class="small time-post">
+                                    13:13:11
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-12 padd0">
+                <div class="col-md-4 col-lg-4 mt15">
+                    <div class="box-show-product col-md-12 col-lg-12 padd0">
+                        <div class="box-img col-md-12 col-lg-12">
+                            <a href="#">
+                                <img src="images/img-container.png" class="img-responsive" alt="" />
+                            </a>
+                        </div>
+                        <div class="col-md-12 col-lg-12 padd0">
+                            <p class="box-info-danhgia">
+                                Container Khô
+                            </p>
+                            <p class="box-star">
+                                <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o">
+                                </i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                            <p class="box-datetime">
+                                <i class="fa fa-clock-o"></i><span class="small day-post">239 Days</span><span class="small time-post">
+                                    13:13:11
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 mt15">
+                    <div class="box-show-product col-md-12 col-lg-12 padd0">
+                        <div class="box-img col-md-12 col-lg-12">
+                            <a href="#">
+                                <img src="images/con-kho.png" class="img-responsive" alt="" />
+                            </a>
+                        </div>
+                        <div class="col-md-12 col-lg-12 padd0">
+                            <p class="box-info-danhgia">
+                                Container Khô
+                            </p>
+                            <p class="box-star">
+                                <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o">
+                                </i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                            <p class="box-datetime">
+                                <i class="fa fa-clock-o"></i><span class="small day-post">239 Days</span><span class="small time-post">
+                                    13:13:11
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 mt15">
+                    <div class="box-show-product col-md-12 col-lg-12 padd0">
+                        <div class="box-img col-md-12 col-lg-12">
+                            <a href="#">
+                                <img src="images/conkho2.png" class="img-responsive" alt="" />
+                            </a>
+                        </div>
+                        <div class="col-md-12 col-lg-12 padd0">
+                            <p class="box-info-danhgia">
+                                Container Khô
+                            </p>
+                            <p class="box-star">
+                                <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o">
+                                </i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                            <p class="box-datetime">
+                                <i class="fa fa-clock-o"></i><span class="small day-post">239 Days</span><span class="small time-post">
+                                    13:13:11
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-12 padd0">
+                <div class="col-md-4 col-lg-4 mt15">
+                    <div class="box-show-product col-md-12 col-lg-12 padd0">
+                        <div class="box-img col-md-12 col-lg-12">
+                            <a href="#">
+                                <img src="images/img-container.png" class="img-responsive" alt="" />
+                            </a>
+                        </div>
+                        <div class="col-md-12 col-lg-12 padd0">
+                            <p class="box-info-danhgia">
+                                Container Khô
+                            </p>
+                            <p class="box-star">
+                                <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o">
+                                </i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                            <p class="box-datetime">
+                                <i class="fa fa-clock-o"></i><span class="small day-post">239 Days</span><span class="small time-post">
+                                    13:13:11
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 mt15">
+                    <div class="box-show-product col-md-12 col-lg-12 padd0">
+                        <div class="box-img col-md-12 col-lg-12">
+                            <a href="#">
+                                <img src="images/con-kho.png" class="img-responsive" alt="" />
+                            </a>
+                        </div>
+                        <div class="col-md-12 col-lg-12 padd0">
+                            <p class="box-info-danhgia">
+                                Container Khô
+                            </p>
+                            <p class="box-star">
+                                <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o">
+                                </i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                            <p class="box-datetime">
+                                <i class="fa fa-clock-o"></i><span class="small day-post">239 Days</span><span class="small time-post">
+                                    13:13:11
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 mt15">
+                    <div class="box-show-product col-md-12 col-lg-12 padd0">
+                        <div class="box-img col-md-12 col-lg-12">
+                            <a href="#">
+                                <img src="images/conkho2.png" class="img-responsive" alt="" />
+                            </a>
+                        </div>
+                        <div class="col-md-12 col-lg-12 padd0">
+                            <p class="box-info-danhgia">
+                                Container Khô
+                            </p>
+                            <p class="box-star">
+                                <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o">
+                                </i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                            <p class="box-datetime">
+                                <i class="fa fa-clock-o"></i><span class="small day-post">239 Days</span><span class="small time-post">
+                                    13:13:11
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-12 text-center padd0">
+                <ul class="pagination mt50">
+                    <li>
+                        <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span> </a>
+                    </li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span> </a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="menu3" class="tab-pane fade">
+            <div class="col-md-12 col-lg-12 padd0">
+                <div class="col-md-4 col-lg-4 mt15">
+                    <div class="box-show-product col-md-12 col-lg-12 padd0">
+                        <div class="box-img col-md-12 col-lg-12">
+                            <a href="#">
+                                <img src="images/img-container.png" class="img-responsive" alt="" />
+                            </a>
+                        </div>
+                        <div class="col-md-12 col-lg-12 padd0">
+                            <p class="box-info-danhgia">
+                                Container TOILET
+                            </p>
+                            <p class="box-star">
+                                <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o">
+                                </i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                            <p class="box-datetime">
+                                <i class="fa fa-clock-o"></i><span class="small day-post">239 Days</span><span class="small time-post">
+                                    13:13:11
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 mt15">
+                    <div class="box-show-product col-md-12 col-lg-12 padd0">
+                        <div class="box-img col-md-12 col-lg-12">
+                            <a href="#">
+                                <img src="images/con-kho.png" class="img-responsive" alt="" />
+                            </a>
+                        </div>
+                        <div class="col-md-12 col-lg-12 padd0">
+                            <p class="box-info-danhgia">
+                                Container TOILET
+                            </p>
+                            <p class="box-star">
+                                <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o">
+                                </i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                            <p class="box-datetime">
+                                <i class="fa fa-clock-o"></i><span class="small day-post">239 Days</span><span class="small time-post">
+                                    13:13:11
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 mt15">
+                    <div class="box-show-product col-md-12 col-lg-12 padd0">
+                        <div class="box-img col-md-12 col-lg-12">
+                            <a href="#">
+                                <img src="images/conkho2.png" class="img-responsive" alt="" />
+                            </a>
+                        </div>
+                        <div class="col-md-12 col-lg-12 padd0">
+                            <p class="box-info-danhgia">
+                                Container TOILET
+                            </p>
+                            <p class="box-star">
+                                <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o">
+                                </i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                            <p class="box-datetime">
+                                <i class="fa fa-clock-o"></i><span class="small day-post">239 Days</span><span class="small time-post">
+                                    13:13:11
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-12 padd0">
+                <div class="col-md-4 col-lg-4 mt15">
+                    <div class="box-show-product col-md-12 col-lg-12 padd0">
+                        <div class="box-img col-md-12 col-lg-12">
+                            <a href="#">
+                                <img src="images/img-container.png" class="img-responsive" alt="" />
+                            </a>
+                        </div>
+                        <div class="col-md-12 col-lg-12 padd0">
+                            <p class="box-info-danhgia">
+                                Container Khô
+                            </p>
+                            <p class="box-star">
+                                <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o">
+                                </i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                            <p class="box-datetime">
+                                <i class="fa fa-clock-o"></i><span class="small day-post">239 Days</span><span class="small time-post">
+                                    13:13:11
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 mt15">
+                    <div class="box-show-product col-md-12 col-lg-12 padd0">
+                        <div class="box-img col-md-12 col-lg-12">
+                            <a href="#">
+                                <img src="images/con-kho.png" class="img-responsive" alt="" />
+                            </a>
+                        </div>
+                        <div class="col-md-12 col-lg-12 padd0">
+                            <p class="box-info-danhgia">
+                                Container Khô
+                            </p>
+                            <p class="box-star">
+                                <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o">
+                                </i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                            <p class="box-datetime">
+                                <i class="fa fa-clock-o"></i><span class="small day-post">239 Days</span><span class="small time-post">
+                                    13:13:11
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 mt15">
+                    <div class="box-show-product col-md-12 col-lg-12 padd0">
+                        <div class="box-img col-md-12 col-lg-12">
+                            <a href="#">
+                                <img src="images/conkho2.png" class="img-responsive" alt="" />
+                            </a>
+                        </div>
+                        <div class="col-md-12 col-lg-12 padd0">
+                            <p class="box-info-danhgia">
+                                Container Khô
+                            </p>
+                            <p class="box-star">
+                                <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o">
+                                </i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                            <p class="box-datetime">
+                                <i class="fa fa-clock-o"></i><span class="small day-post">239 Days</span><span class="small time-post">
+                                    13:13:11
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-12 padd0">
+                <div class="col-md-4 col-lg-4 mt15">
+                    <div class="box-show-product col-md-12 col-lg-12 padd0">
+                        <div class="box-img col-md-12 col-lg-12">
+                            <a href="#">
+                                <img src="images/img-container.png" class="img-responsive" alt="" />
+                            </a>
+                        </div>
+                        <div class="col-md-12 col-lg-12 padd0">
+                            <p class="box-info-danhgia">
+                                Container Khô
+                            </p>
+                            <p class="box-star">
+                                <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o">
+                                </i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                            <p class="box-datetime">
+                                <i class="fa fa-clock-o"></i><span class="small day-post">239 Days</span><span class="small time-post">
+                                    13:13:11
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 mt15">
+                    <div class="box-show-product col-md-12 col-lg-12 padd0">
+                        <div class="box-img col-md-12 col-lg-12">
+                            <a href="#">
+                                <img src="images/con-kho.png" class="img-responsive" alt="" />
+                            </a>
+                        </div>
+                        <div class="col-md-12 col-lg-12 padd0">
+                            <p class="box-info-danhgia">
+                                Container Khô
+                            </p>
+                            <p class="box-star">
+                                <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o">
+                                </i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                            <p class="box-datetime">
+                                <i class="fa fa-clock-o"></i><span class="small day-post">239 Days</span><span class="small time-post">
+                                    13:13:11
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 mt15">
+                    <div class="box-show-product col-md-12 col-lg-12 padd0">
+                        <div class="box-img col-md-12 col-lg-12">
+                            <a href="#">
+                                <img src="images/conkho2.png" class="img-responsive" alt="" />
+                            </a>
+                        </div>
+                        <div class="col-md-12 col-lg-12 padd0">
+                            <p class="box-info-danhgia">
+                                Container Khô
+                            </p>
+                            <p class="box-star">
+                                <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o">
+                                </i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                            <p class="box-datetime">
+                                <i class="fa fa-clock-o"></i><span class="small day-post">239 Days</span><span class="small time-post">
+                                    13:13:11
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-12 text-center padd0">
+                <ul class="pagination mt50">
+                    <li>
+                        <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span> </a>
+                    </li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span> </a></li>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
