@@ -1,4 +1,5 @@
 ﻿using EntitySolution.Domain.Abstract;
+using EntitySolution.EntityDB;
 using EntitySolution.WebUI.Models;
 using System;
 using System.Collections.Generic;
@@ -12,11 +13,12 @@ namespace EntitySolution.WebUI.Controllers
 {
     public class AdminPageController : Controller
     {
-
-        private IAuthenticateRepository authenticateRepository;
-        public AdminPageController(IAuthenticateRepository authenticateProvider)
+        private IAdminPageRepository adminPageProvider;
+        private IAuthenticateRepository authenticateProvider;
+        public AdminPageController(IAuthenticateRepository authenticateRepository, IAdminPageRepository adminPageRepository)
         {
-            authenticateRepository = authenticateProvider;
+            authenticateProvider = authenticateRepository;
+            adminPageProvider = adminPageRepository;
         }
 
         [AllowAnonymous]
@@ -42,7 +44,7 @@ namespace EntitySolution.WebUI.Controllers
                     {
                         bool isSuperAdmin = false;
                         string sUserID = "";
-                        if (authenticateRepository.Authenticate(model.UserName, model.Password, ref isSuperAdmin, ref sUserID))
+                        if (authenticateProvider.Authenticate(model.UserName, model.Password, ref isSuperAdmin, ref sUserID))
                         {
                             Session["EmpID"] = sUserID;
                             if (isSuperAdmin)
@@ -53,7 +55,7 @@ namespace EntitySolution.WebUI.Controllers
                             {
                                 Session["isSuperAdmin"] = "0";
                             }
-                            return RedirectToAction("Receipt");
+                            return RedirectToAction("Category");
                         }
                     }
                 }
@@ -87,7 +89,7 @@ namespace EntitySolution.WebUI.Controllers
             }
         }
 
-        public ActionResult Group()
+        public ActionResult Category()
         {
             if (Session["EmpID"] != null)
             {
@@ -145,6 +147,83 @@ namespace EntitySolution.WebUI.Controllers
                 return RedirectToAction("Login");
             }
         }
-        
+
+        public ActionResult ConfigAbout()
+        {
+            if (Session["EmpID"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+        }
+        public ActionResult ConfigContacts()
+        {
+            if (Session["EmpID"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+        }
+
+
+        public JsonResult LoadAllCategory()
+        {
+            JsonResult jResult = new JsonResult();
+            try
+            {
+
+                jResult = Json(new { success = true, returnList = adminPageProvider.GetAllCategory() }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception)
+            {
+
+
+            }
+
+            return jResult;
+        }
+
+        public JsonResult SaveCategory()
+        {
+            JsonResult jResult = new JsonResult();
+            try
+            {
+
+                jResult = Json(new { success = true, returnList = adminPageProvider.GetAllCategory() }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception)
+            {
+
+
+            }
+
+            return jResult;
+        }
+
+        public JsonResult EditCategory()
+        {
+            JsonResult jResult = new JsonResult();
+            try
+            {
+
+                jResult = Json(new { success = true, returnList = adminPageProvider.GetAllCategory() }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception)
+            {
+
+
+            }
+
+            return jResult;
+        }
     }
 }

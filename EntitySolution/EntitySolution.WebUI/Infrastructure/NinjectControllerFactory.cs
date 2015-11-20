@@ -23,7 +23,7 @@ namespace EntitySolution.WebUI.Infrastructure
         private void AddBindings()
         {
             // put bindings here 
-            ninjectKernel.Bind<ICategoryRepository>().To<EFCategoryRepository>();
+            ninjectKernel.Bind<IAdminPageRepository>().To<EFAdminPageRepository>();
             ninjectKernel.Bind<IAuthenticateRepository>().To<EFAuthenticateRepository>();
         }
     }

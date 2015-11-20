@@ -265,6 +265,19 @@
     <Content Include="Content\BackEnd\js\select2.min.js" />
     <Content Include="Content\BackEnd\js\toggles.min.js" />
     <Content Include="Content\BackEnd\js\wysihtml5-0.3.0.min.js" />
+    <Content Include="Content\bootstrap-3.3.5\css\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-3.3.5\css\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap-3.3.5\css\bootstrap.css" />
+    <Content Include="Content\bootstrap-3.3.5\css\bootstrap.min.css" />
+    <Content Include="Content\bootstrap-3.3.5\js\bootstrap.js" />
+    <Content Include="Content\bootstrap-3.3.5\js\bootstrap.min.js" />
+    <Content Include="Content\bootstrap-3.3.5\js\npm.js" />
+    <Content Include="Content\bootstrap-switch\css\bootstrap2\bootstrap-switch.css" />
+    <Content Include="Content\bootstrap-switch\css\bootstrap2\bootstrap-switch.min.css" />
+    <Content Include="Content\bootstrap-switch\css\bootstrap3\bootstrap-switch.css" />
+    <Content Include="Content\bootstrap-switch\css\bootstrap3\bootstrap-switch.min.css" />
+    <Content Include="Content\bootstrap-switch\js\bootstrap-switch.js" />
+    <Content Include="Content\bootstrap-switch\js\bootstrap-switch.min.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -293,6 +306,13 @@
     <Content Include="Content\BackEnd\fonts\weathericons-regular-webfont.ttf" />
     <Content Include="Content\BackEnd\fonts\weathericons-regular-webfont.woff" />
     <Content Include="Content\BackEnd\fonts\weathericons-regular-webfontd41d.eot" />
+    <Content Include="Content\bootstrap-3.3.5\css\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap-3.3.5\css\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-3.3.5\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap-3.3.5\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\bootstrap-3.3.5\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\bootstrap-3.3.5\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\bootstrap-3.3.5\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -325,11 +345,13 @@
     <Content Include="Views\Shared\_LayoutBackEnd.cshtml" />
     <Content Include="Views\AdminPage\Receipt.cshtml" />
     <Content Include="Views\AdminPage\Login.cshtml" />
-    <Content Include="Views\AdminPage\Group.cshtml" />
+    <Content Include="Views\AdminPage\Category.cshtml" />
     <Content Include="Views\AdminPage\Item.cshtml" />
     <Content Include="Views\AdminPage\News.cshtml" />
     <Content Include="Views\AdminPage\Config.cshtml" />
     <Content Include="Views\AdminPage\UserInformation.cshtml" />
+    <Content Include="Views\AdminPage\ConfigAbout.cshtml" />
+    <Content Include="Views\AdminPage\ConfigContacts.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

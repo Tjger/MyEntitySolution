@@ -10,9 +10,9 @@ namespace EntitySolution.WebUI.Controllers
 {
     public class HomeController : Controller
     {
-        private ICategoryRepository categoryProvider;
+        private IAdminPageRepository categoryProvider;
 
-        public HomeController(ICategoryRepository categoryRepository)
+        public HomeController(IAdminPageRepository categoryRepository)
         {
             categoryProvider = categoryRepository;
         }

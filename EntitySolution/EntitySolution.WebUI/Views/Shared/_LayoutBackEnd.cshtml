@@ -8,16 +8,28 @@
     <meta name="author" content="" />
 
     <title>Trang Quản lý - Admin Page</title>
-
-    @*<script src="<%: ResolveUrl(" ~ />BackEnd/js/flot/jquery.flot.min.js") %>"></script>
-    <script src="<%: ResolveUrl(" ~ />BackEnd/js/flot/jquery.flot.resize.min.js") %>"></script>
-    <script src="<%: ResolveUrl(" ~ />BackEnd/js/flot/jquery.flot.spline.min.js") %>"></script>*@
-
+     
     @Styles.Render("~/Content/BackEnd/css/style.default.css")
     @Styles.Render("~/Content/BackEnd/css/morris.css")
-    @Styles.Render("~/Content/BackEnd/css/select2.css")
-    @Styles.Render("~/Content/BackEnd/css/control-style.css")
-    
+    @Styles.Render("~/Content/BackEnd/css/select2.css")  
+    @Styles.Render("~/Content/bootstrap-3.3.5/css/bootstrap.min.css")
+    @Styles.Render("~/Content/bootstrap-switch/css/bootstrap3/bootstrap-switch.min.css")
+
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/Content/BackEnd/js/jquery-1.11.1.min.js")
+    @Scripts.Render("~/Content/bootstrap-3.3.5/js/bootstrap.min.js")
+    @Scripts.Render("~/Content/bootstrap-switch/js/bootstrap-switch.min.js")
+    @Scripts.Render("~/Content/BackEnd/js/modernizr.min.js")
+    @Scripts.Render("~/Content/BackEnd/js/pace.min.js")
+    @Scripts.Render("~/Content/BackEnd/js/retina.min.js")
+    @Scripts.Render("~/Content/BackEnd/js/jquery.cookies.js")
+    @Scripts.Render("~/Content/BackEnd/js/jquery.sparkline.min.js")
+    @Scripts.Render("~/Content/BackEnd/js/morris.min.js")
+    @Scripts.Render("~/Content/BackEnd/js/raphael-2.1.0.min.js")
+    @Scripts.Render("~/Content/BackEnd/js/bootstrap-wizard.min.js")
+    @Scripts.Render("~/Content/BackEnd/js/select2.min.js")
+    @Scripts.Render("~/Content/BackEnd/js/custom.js")
+     
 </head>
 
 <body>
@@ -74,18 +86,19 @@
             <div class="leftpanel">
                 <div class="media profile-left">            
                     <div class="media-body">
-                        <h4 class="media-heading"><a href="@Url.Action("UserInformation","AdminPage")">Admin</a></h4>
+                        <h3 class="media-heading"><a href="@Url.Action("UserInformation","AdminPage")">Admin</a></h3>
                         <small class="text-muted">Management</small>
                     </div>
                 </div>
                 <!-- media -->
              
                 <ul class="nav nav-pills nav-stacked">  
-                    <li><a href="@Url.Action("Receipt", "AdminPage")"><i class="fa fa-th-list"></i><span>Đơn Hàng</span></a></li>                
-                    <li><a href="@Url.Action("Group","AdminPage")"><i class="fa fa-qrcode"></i><span>Nhóm Sản Phẩm</span></a></li>
+                         
+                    <li><a href="@Url.Action("Category","AdminPage")"><i class="fa fa-qrcode"></i><span>Nhóm Sản Phẩm</span></a></li>
                     <li><a href="@Url.Action("Item","AdminPage")"><i class="fa fa-suitcase"></i><span>Sản phẩm</span></a></li>
                     <li><a href="@Url.Action("News","AdminPage")"><i class="fa fa-pencil-square-o"></i><span>Tin Tức</span></a></li>
-                    <li><a href="@Url.Action("Config","AdminPage")"><i class="fa fa-check-circle"></i><span>Config</span></a></li>             
+                    <li><a href="@Url.Action("ConfigAbout","AdminPage")"><i class="fa fa-check-circle"></i><span>Giới Thiệu</span></a></li>     
+                    <li><a href="@Url.Action("ConfigContacts","AdminPage")"><i class="fa fa-check-circle"></i><span>Liên Hệ</span></a></li>             
                 </ul>
             </div>
             <!-- leftpanel -->
@@ -94,7 +107,7 @@
                 <div class="pageheader">
                     <div class="media">
                         <div class="pageicon pull-left">
-                            <a href=@Url.Action("Receipt", "AdminPage")><i class="fa fa-home"></i></a>
+                            <a href=@Url.Action("Category", "AdminPage")><i class="fa fa-home"></i></a>
                         </div>
                         <div class="media-body">
                             
@@ -122,25 +135,8 @@
         </div>
 
     </section>
-    @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/Content/BackEnd/js/jquery-1.11.1.min.js")
-    @Scripts.Render("~/Content/BackEnd/js/bootstrap.min.js")
-    @Scripts.Render("~/Content/BackEnd/js/modernizr.min.js")
-    @Scripts.Render("~/Content/BackEnd/js/pace.min.js")
-    @Scripts.Render("~/Content/BackEnd/js/retina.min.js")
-    @Scripts.Render("~/Content/BackEnd/js/jquery.cookies.js")
-    @Scripts.Render("~/Content/BackEnd/js/jquery.sparkline.min.js")
-    @Scripts.Render("~/Content/BackEnd/js/morris.min.js")
-    @Scripts.Render("~/Content/BackEnd/js/raphael-2.1.0.min.js")
-    @Scripts.Render("~/Content/BackEnd/js/bootstrap-wizard.min.js")
-    @Scripts.Render("~/Content/BackEnd/js/select2.min.js")
-    @Scripts.Render("~/Content/BackEnd/js/custom.js")
-    @Scripts.Render("~/Content/BackEnd/js/dashboard.js")
-
-    @Scripts.Render("~/Content/BackEnd/js/flot/jquery.flot.min.js")
-    @Scripts.Render("~/Content/BackEnd/js/flot/jquery.flot.resize.min.js")
-    @Scripts.Render("~/Content/BackEnd/js/flot/jquery.flot.spline.min.js")
 
 
+    
 </body>
 </html>

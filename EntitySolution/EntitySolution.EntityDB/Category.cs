@@ -16,5 +16,7 @@ namespace EntitySolution.EntityDB
     {
         public int CategoryID { get; set; }
         public string CategoryName { get; set; }
+        public string Active { get; set; }
+        public string CategoryName2 { get; set; }
     }
 }

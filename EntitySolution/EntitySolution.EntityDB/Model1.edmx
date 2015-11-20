@@ -11,6 +11,8 @@
           </Key>
           <Property Name="CategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CategoryName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CategoryName2" Type="nvarchar" MaxLength="50" />
+          <Property Name="Active" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Emp">
           <Key>
@@ -43,6 +45,8 @@
           </Key>
           <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryName2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Item">
           <Key>
@@ -74,6 +78,8 @@
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="EntitySolutionModel.Category">
               <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="CategoryName2" ColumnName="CategoryName2" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
                 <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
               </MappingFragment>

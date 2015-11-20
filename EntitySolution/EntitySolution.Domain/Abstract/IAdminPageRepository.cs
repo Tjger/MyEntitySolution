@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EntitySolution.Domain.Abstract
 {
-   public interface ICategoryRepository
+   public interface IAdminPageRepository
     {
        List<Category> GetAllCategory();
     }
