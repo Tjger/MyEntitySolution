@@ -178,7 +178,7 @@ namespace EntitySolution.WebUI.Controllers
             try
             {
 
-                jResult = Json(new { success = true, returnList = adminPageProvider.GetAllCategory() }, JsonRequestBehavior.AllowGet);
+                jResult = Json(new { success = true, returnList = adminPageProvider.LoadAllCategory() }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception)
@@ -190,13 +190,13 @@ namespace EntitySolution.WebUI.Controllers
             return jResult;
         }
 
-        public JsonResult SaveCategory(Category categoryInfor)
+        public JsonResult AddNewCategory(Category categoryInfor)
         {
             JsonResult jResult = new JsonResult();
             try
             {
 
-                jResult = Json(new { success = adminPageProvider.SaveCategory(categoryInfor), returnList = adminPageProvider.GetAllCategory() }, JsonRequestBehavior.AllowGet);
+                jResult = Json(new { success = adminPageProvider.AddNewCategory(categoryInfor), returnList = adminPageProvider.LoadAllCategory() }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception)
@@ -214,7 +214,7 @@ namespace EntitySolution.WebUI.Controllers
             try
             {
 
-                jResult = Json(new { success = adminPageProvider.EditCategory(categoryInfor), returnList = adminPageProvider.GetAllCategory() }, JsonRequestBehavior.AllowGet);
+                jResult = Json(new { success = adminPageProvider.EditCategory(categoryInfor), returnList = adminPageProvider.LoadAllCategory() }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception)
@@ -232,7 +232,80 @@ namespace EntitySolution.WebUI.Controllers
             try
             {
 
-                jResult = Json(new { success = adminPageProvider.DeleteCategory(deleteCategoryID), returnList = adminPageProvider.GetAllCategory() }, JsonRequestBehavior.AllowGet);
+                jResult = Json(new { success = adminPageProvider.DeleteCategory(deleteCategoryID), returnList = adminPageProvider.LoadAllCategory() }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception)
+            {
+
+
+            }
+
+            return jResult;
+        }
+
+
+        public JsonResult LoadAllItem()
+        {
+            JsonResult jResult = new JsonResult();
+            try
+            {
+
+                jResult = Json(new { success = true, returnList = adminPageProvider.LoadAllItem() }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception)
+            {
+
+
+            }
+
+            return jResult;
+        }
+
+        public JsonResult AddNewItem(Item itemInfor)
+        {
+            JsonResult jResult = new JsonResult();
+            try
+            {
+
+                jResult = Json(new { success = adminPageProvider.AddNewItem(itemInfor), returnList = adminPageProvider.LoadAllItem() }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception)
+            {
+
+
+            }
+
+            return jResult;
+        }
+
+        public JsonResult EditItem(Item itemInfor)
+        {
+            JsonResult jResult = new JsonResult();
+            try
+            {
+
+                jResult = Json(new { success = adminPageProvider.EditItem(itemInfor), returnList = adminPageProvider.LoadAllItem() }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception)
+            {
+
+
+            }
+
+            return jResult;
+        }
+
+        public JsonResult DeleteItem(int deleteItemID)
+        {
+            JsonResult jResult = new JsonResult();
+            try
+            {
+
+                jResult = Json(new { success = adminPageProvider.DeleteItem(deleteItemID), returnList = adminPageProvider.LoadAllItem() }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception)

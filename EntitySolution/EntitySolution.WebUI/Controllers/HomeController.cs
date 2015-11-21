@@ -41,7 +41,7 @@ namespace EntitySolution.WebUI.Controllers
             JsonResult jResult = new JsonResult();
             try
             {
-                List<Category> lstData = categoryProvider.GetAllCategory();
+                List<Category> lstData = categoryProvider.LoadAllCategory();
                 jResult = Json(lstData, JsonRequestBehavior.AllowGet);
 
             }

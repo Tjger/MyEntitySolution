@@ -9,6 +9,9 @@ namespace EntitySolution.Domain.Common
   public  class Var
     {
       public static string SuperAdminLoginID = "tientung";
-      public static string SuperAdminPassword = "tungtien2161986";
+      public static string SuperAdminPassword = "tungtien";
+
+      public static string UrlUploadImage = "~/Content/Upload/";
+     
     }
 }

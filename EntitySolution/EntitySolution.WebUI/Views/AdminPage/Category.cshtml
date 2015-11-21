@@ -1,0 +1,277 @@
+﻿@{
+    ViewBag.Title = "Group";
+    Layout = "~/Views/Shared/_LayoutBackEnd.cshtml";
+}
+
+<h2>Nhóm Sản Phẩm</h2>
+
+<script>
+    var isAddNewCategory = false;
+    $(document).ready(function () {
+        LoadAllCategory();
+
+
+        $("#categoryActive").bootstrapSwitch();
+
+
+        $("#btnAddNew").click(function () {
+            isAddNewCategory = true;
+            $("#categoryID").val("-1");
+            $("#categoryName").val("");
+            $("#categoryName2").val("");
+            $('#categoryActive').bootstrapSwitch('state', true);
+            $("#modalCategoryInformation").modal("show");
+        });
+
+        $("#btnCategoryModalSave").click(function (e) {
+            e.preventDefault();
+            SaveCategory();
+        });
+        $("#btnConfirmDelete").click(function (e) {
+            e.preventDefault();
+            DeleteCategory();
+        });
+        
+    });// end of document ready
+
+    function SaveCategory() {
+        var cActive = "0";
+        var state = $('#categoryActive').bootstrapSwitch('state');
+       
+        if ($('#categoryActive').bootstrapSwitch('state')) {
+            cActive = "1";
+        }
+        
+        var categoryInfor = {
+            CategoryID: $("#categoryID").val(),
+            CategoryName: $("#categoryName").val(),
+            Active: cActive,
+            CategoryName2: $("#categoryName2").val(),
+        }
+
+        if (isAddNewCategory) {
+            $.ajax({
+                url: '@Url.Action("AddNewCategory", "AdminPage")',
+               
+                type: 'POST',
+                dataType: "json",
+                data: categoryInfor,
+                success: function (data) {
+
+                    if (data.success === true) {
+                        isAddNewCategory = false;
+                        FillDataToGridTableHtml(data.returnList);
+                    }
+
+
+                }
+            });
+        }
+        else {
+            $.ajax({
+                url: '@Url.Action("EditCategory", "AdminPage")',
+                
+                type: 'POST',
+                dataType: "json",
+                data: categoryInfor,
+                success: function (data) {
+
+                    if (data.success === true) {
+                        isAddNewCategory = false;
+                        FillDataToGridTableHtml(data.returnList);
+                    }
+
+
+                }
+            });
+        }
+       
+    };
+
+    function DeleteCategory() {
+        var deleteCategoryID = $("#deleteCategoryID").val();
+        $.ajax({
+            url: '@Url.Action("DeleteCategory", "AdminPage")',
+            contentType: "application/json; charset=utf-8",
+            type: 'POST',
+            dataType: "json",
+            data:  JSON.stringify( { "deleteCategoryID":$("#deleteCategoryID").val() } ) ,
+            success: function (data) {
+                if (data.success === true) {
+                   
+                    FillDataToGridTableHtml(data.returnList);
+                }
+                else {
+                    $("#lblMessageModal").html("Trước khi xóa nhóm sản phẩm này, hãy xóa hết các sản phẩm nằm trong nó.");
+
+                    $("#modalShowError").modal("show");
+                }
+            }
+        });
+    };
+
+    function LoadAllCategory() {
+        $.ajax({
+            url: '@Url.Action("LoadAllCategory", "AdminPage")',
+            contentType: "application/json; charset=utf-8",
+            type: 'GET',
+            dataType: "json",
+            data: {},
+            success: function (data) {
+
+                
+                FillDataToGridTableHtml(data.returnList);
+            }
+        });
+    };
+
+    function ShowDeleteCategory(sCategoryID) {
+        $("#deleteCategoryID").val(sCategoryID);
+
+        $("#modalConfirmDeleteCategory").modal("show");
+    };
+
+    function ShowEditCategory(sCategoryID, sCategoryName, sCategoryName2, sCategoryActive) {
+        isAddNewCategory = false;
+        $("#categoryID").val(sCategoryID);
+        $("#categoryName").val(sCategoryName);
+        $("#categoryName2").val(sCategoryName2);
+        if (sCategoryActive == "1") {
+            $('#categoryActive').bootstrapSwitch('state', true);
+        }
+        else {
+            $('#categoryActive').bootstrapSwitch('state', false);
+
+        };
+        $("#modalCategoryInformation").modal("show");
+    };
+
+    function InitGridTableHtml() {
+
+        var gridTableHtml = "<table cellspacing=\"0\" cellpadding=\"4\" style=\"color:#333333;border-collapse:collapse;\"  class=\"table\"> ";
+        gridTableHtml += "<tbody> <tr style=\"color:White;background-color:#428BCA;font-weight:bold;\">";
+        gridTableHtml += "<th scope=\"col\">ID</th>";
+        gridTableHtml += "<th scope=\"col\">Tên</th>";
+        gridTableHtml += "<th scope=\"col\">Tên 2</th>";
+        gridTableHtml += "<th scope=\"col\">Trạng Thái</th>";
+        gridTableHtml += "<th scope=\"col\">&nbsp;</th>";
+        gridTableHtml += "<th scope=\"col\">&nbsp;</th>";
+        gridTableHtml += " </tr>";
+        return gridTableHtml;
+    };
+
+    function FillDataToGridTableHtml(listData) {
+
+       
+        $("#ContentPlaceHolder").html("");
+        var gridTableHtml = InitGridTableHtml();
+
+        $.each(listData, function (index, item) {
+
+            gridTableHtml += "<tr>";
+            gridTableHtml += "<td>" + item.CategoryID + "</td>";
+            gridTableHtml += "<td>" + item.CategoryName + "</td>";
+            gridTableHtml += "<td>" + item.CategoryName2 + "</td>";
+            gridTableHtml += "<td>"
+            if (item.Active == "1") {
+                gridTableHtml += "On</td>";
+            }
+            else {
+                gridTableHtml += "Off</td>";
+            }
+            gridTableHtml += "<td style=\"width:60px;\"><a style=\"color:#333333;\" onclick=\"ShowEditCategory('" + item.CategoryID + "','" + item.CategoryName + "','" + item.CategoryName2 + "','" + item.Active + "')\">Edit</a></td>";
+            gridTableHtml += "<td style=\"width:60px;\"><a style=\"color:red;\" onclick=\"ShowDeleteCategory('" + item.CategoryID + "')\">Delete</a></td>";
+            gridTableHtml += " </tr>";
+        });
+
+        gridTableHtml += "</tbody></table>";
+
+        $("#ContentPlaceHolder").html(gridTableHtml);
+    };
+</script>
+
+<form id="form1" action="" method="post">
+
+    <div id="ContentPlaceHolder">
+
+        <table cellspacing="0" cellpadding="4" style="color:#333333;border-collapse:collapse;" class="table">
+            <tbody>
+                <tr style="color:White;background-color:#428BCA;font-weight:bold;">
+                    <th scope="col">ID</th>
+                    <th scope="col">Tên</th>
+                    <th scope="col">Tên 2</th>
+                    <th scope="col">Trạng Thái</th>                    
+                    <th scope="col">&nbsp;</th>
+                    <th scope="col">&nbsp;</th>
+                </tr>
+
+            </tbody>
+        </table>
+
+
+    </div>
+    <button type="button" id="btnAddNew" class="btn btn-success btn-default">Add New</button>
+</form>
+
+<div class="modal fade" id="modalCategoryInformation" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header"  >
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4>Thông Tin Chi Tiết</h4>
+            </div>
+            <div class="modal-body" style="padding:40px 50px;">
+                <input type="hidden" disabled="disabled" id="categoryID">
+                <form role="form" id="frmCategoryModal">
+                    <div class="form-group">
+                        <label for="categoryName">Tên</label>
+                        <input type="text" class="form-control" name="CategoryName" id="categoryName">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="categoryName">Tên 2</label>
+                        <input type="text" class="form-control" name="CategoryName2" id="categoryName2">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="categoryActive">Trạng Thái</label>
+                        <br />
+                        <input type="checkbox" id="categoryActive">
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="btnCategoryModalSave" class="btn btn-primary  btn-default" data-dismiss="modal">Save</button>
+                <button type="button" class="btn btn-danger btn-default" data-dismiss="modal">Cancel</button>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="modalConfirmDeleteCategory" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header" >
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4>Xác Nhận</h4>
+            </div>
+            <input type="hidden" disabled="disabled" id="deleteCategoryID">
+            <div class="modal-body">
+                <p>Bạn có chắc chắn sẽ xóa item này ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="btnConfirmDelete" data-dismiss="modal" class="btn btn-primary btn-default">Ok</button>
+                <button type="button" class="btn btn-danger btn-default" data-dismiss="modal">Cancel</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

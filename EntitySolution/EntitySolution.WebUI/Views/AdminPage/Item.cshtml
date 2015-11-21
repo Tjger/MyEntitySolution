@@ -1,65 +1,74 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Item";
     Layout = "~/Views/Shared/_LayoutBackEnd.cshtml";
 }
-
+@using EntitySolution.Domain.Common
 <h2>Sản Phẩm</h2>
 <script>
-    var isAddNewCategory = false;
+    var isAddNew = false;
     $(document).ready(function () {
-        //LoadAllCategory();
+        LoadAllItem();
+         
+        $("#itemFileUpload").change(function () {
+            previewFile(this);
+        });
+         
+        $("#itemActive").bootstrapSwitch();
 
+        $("#itemHot").bootstrapSwitch();
+        
+        CKEDITOR.replace('itemDescription');
 
-        $("#categoryActive").bootstrapSwitch();
-
+        CKEDITOR.instances.itemDescription.setData('<p>This is the editor data.</p>');
 
         $("#btnAddNew").click(function () {
-            isAddNewCategory = true;
-            $("#categoryID").val("-1");
-            $("#categoryName").val("");
-            $("#categoryName2").val("");
-            $('#categoryActive').bootstrapSwitch('state', true);
-            $("#modalCategoryInformation").modal("show");
+            isAddNew = true;
+            $("#itemID").val("-1");
+            $("#itemName").val("");
+            $("#itemName2").val("");
+            $('#itemActive').bootstrapSwitch('state', true);
+            $("#modalDetailsInformation").modal("show");
         });
 
-        $("#btnCategoryModalSave").click(function (e) {
+        $("#btnModalSave").click(function (e) {
             e.preventDefault();
-            SaveCategory();
+            //var data = CKEDITOR.instances.itemDescription.getData();
+            //alert(data);          
+            SaveItem();
         });
         $("#btnConfirmDelete").click(function (e) {
             e.preventDefault();
-            DeleteCategory();
+            DeleteItem();
         });
 
     });// end of document ready
 
-    function SaveCategory() {
+    function SaveItem() {
         var cActive = "0";
-        var state = $('#categoryActive').bootstrapSwitch('state');
 
-        if ($('#categoryActive').bootstrapSwitch('state')) {
+
+        if ($('#itemActive').bootstrapSwitch('state')) {
             cActive = "1";
         }
 
-        var categoryInfor = {
-            CategoryID: $("#categoryID").val(),
-            CategoryName: $("#categoryName").val(),
+        var itemInfor = {
+            CategoryID: $("#itemID").val(),
+            CategoryName: $("#itemName").val(),
             Active: cActive,
-            CategoryName2: $("#categoryName2").val(),
+            CategoryName2: $("#itemName2").val(),
         }
 
-        if (isAddNewCategory) {
+        if (isAddNew) {
             $.ajax({
-                url: '@Url.Action("SaveCategory", "AdminPage")',
+                url: '@Url.Action("AddNewItem", "AdminPage")',
 
                 type: 'POST',
                 dataType: "json",
-                data: categoryInfor,
+                data: itemInfor,
                 success: function (data) {
 
                     if (data.success === true) {
-                        isAddNewCategory = false;
+                        isAddNew = false;
                         FillDataToGridTableHtml(data.returnList);
                     }
 
@@ -69,15 +78,15 @@
         }
         else {
             $.ajax({
-                url: '@Url.Action("EditCategory", "AdminPage")',
+                url: '@Url.Action("EditItem", "AdminPage")',
 
                 type: 'POST',
                 dataType: "json",
-                data: categoryInfor,
+                data: itemInfor,
                 success: function (data) {
 
                     if (data.success === true) {
-                        isAddNewCategory = false;
+                        isAddNew = false;
                         FillDataToGridTableHtml(data.returnList);
                     }
 
@@ -85,24 +94,38 @@
                 }
             });
         }
-
+            
     };
 
-    function DeleteCategory() {
-        var deleteCategoryID = $("#deleteCategoryID").val();
+    function previewFile(input) {
+        
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#itemImage').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+
+    }
+     
+    function DeleteItem() {
+
         $.ajax({
-            url: '@Url.Action("DeleteCategory", "AdminPage")',
+            url: '@Url.Action("DeleteItem", "AdminPage")',
             contentType: "application/json; charset=utf-8",
             type: 'POST',
             dataType: "json",
-            data:  JSON.stringify( { "deleteCategoryID":$("#deleteCategoryID").val() } ) ,
+            data: JSON.stringify({ "deleteItemID": $("#deleteItemID").val() }),
             success: function (data) {
                 if (data.success === true) {
 
                     FillDataToGridTableHtml(data.returnList);
                 }
                 else {
-                    $("#lblMessageModal").html("Trước khi xóa nhóm sản phẩm này, hãy xóa hết các sản phẩm nằm trong nó.");
+                    $("#lblMessageModal").html("Có lỗi xảy ra khi xóa sản phẩm, xin hãy thử lại sau.");
 
                     $("#modalShowError").modal("show");
                 }
@@ -110,9 +133,9 @@
         });
     };
 
-    function LoadAllCategory() {
+    function LoadAllItem() {
         $.ajax({
-            url: '@Url.Action("LoadAllCategory", "AdminPage")',
+            url: '@Url.Action("LoadAllItem", "AdminPage")',
             contentType: "application/json; charset=utf-8",
             type: 'GET',
             dataType: "json",
@@ -125,25 +148,25 @@
         });
     };
 
-    function ShowDeleteCategory(sCategoryID) {
-        $("#deleteCategoryID").val(sCategoryID);
+    function ShowDeleteItem(sItemID) {
+        $("#deleteItemID").val(sItemID);
 
-        $("#modalConfirmDeleteCategory").modal("show");
+        $("#modalConfirmDelete").modal("show");
     };
 
-    function ShowEditCategory(sCategoryID, sCategoryName, sCategoryName2, sCategoryActive) {
-        isAddNewCategory = false;
-        $("#categoryID").val(sCategoryID);
-        $("#categoryName").val(sCategoryName);
-        $("#categoryName2").val(sCategoryName2);
-        if (sCategoryActive == "1") {
-            $('#categoryActive').bootstrapSwitch('state', true);
+    function ShowEditItem(sItemID, sItemName, sItemName2, sItemActive) {
+        isAddNew = false;
+        $("#itemID").val(sItemID);
+        $("#itemName").val(sItemName);
+        $("#itemName2").val(sItemName2);
+        if (sItemActive == "1") {
+            $('#itemActive').bootstrapSwitch('state', true);
         }
         else {
-            $('#categoryActive').bootstrapSwitch('state', false);
+            $('#itemActive').bootstrapSwitch('state', false);
 
         };
-        $("#modalCategoryInformation").modal("show");
+        $("#modalDetailsInformation").modal("show");
     };
 
     function InitGridTableHtml() {
@@ -151,9 +174,15 @@
         var gridTableHtml = "<table cellspacing=\"0\" cellpadding=\"4\" style=\"color:#333333;border-collapse:collapse;\"  class=\"table\"> ";
         gridTableHtml += "<tbody> <tr style=\"color:White;background-color:#428BCA;font-weight:bold;\">";
         gridTableHtml += "<th scope=\"col\">ID</th>";
+        gridTableHtml += "<th scope=\"col\">Image</th>";
         gridTableHtml += "<th scope=\"col\">Tên</th>";
         gridTableHtml += "<th scope=\"col\">Tên 2</th>";
+        gridTableHtml += "<th scope=\"col\" class=\"hidden\">ID</th>";
+        gridTableHtml += "<th scope=\"col\">Nhóm Sản Phẩm</th>";
         gridTableHtml += "<th scope=\"col\">Trạng Thái</th>";
+        gridTableHtml += "<th scope=\"col\">Hot</th>";
+        gridTableHtml += "<th scope=\"col\">Price</th>";
+        gridTableHtml += "<th scope=\"col\">Từ Khóa Tìm Kiếm</th>";
         gridTableHtml += "<th scope=\"col\">&nbsp;</th>";
         gridTableHtml += "<th scope=\"col\">&nbsp;</th>";
         gridTableHtml += " </tr>";
@@ -169,9 +198,12 @@
         $.each(listData, function (index, item) {
 
             gridTableHtml += "<tr>";
-            gridTableHtml += "<td>" + item.CategoryID + "</td>";
+            gridTableHtml += "<td>" + item.ItemID + "</td>";
+            gridTableHtml += "<td><img src=\"" + '@Url.Content(Var.UrlUploadImage)' + item.ItemImageURL + "\" style=\"height:30px;width:30px;\"></td>";
+            gridTableHtml += "<td>" + item.ItemName + "</td>";
+            gridTableHtml += "<td>" + item.ItemName2 + "</td>";
+            gridTableHtml += "<td class=\"hidden\">" + item.CategoryID + "</td>";
             gridTableHtml += "<td>" + item.CategoryName + "</td>";
-            gridTableHtml += "<td>" + item.CategoryName2 + "</td>";
             gridTableHtml += "<td>"
             if (item.Active == "1") {
                 gridTableHtml += "On</td>";
@@ -179,8 +211,17 @@
             else {
                 gridTableHtml += "Off</td>";
             }
-            gridTableHtml += "<td style=\"width:60px;\"><a style=\"color:#333333;\" onclick=\"ShowEditCategory('" + item.CategoryID + "','" + item.CategoryName + "','" + item.CategoryName2 + "','" + item.Active + "')\">Edit</a></td>";
-            gridTableHtml += "<td style=\"width:60px;\"><a style=\"color:red;\" onclick=\"ShowDeleteCategory('" + item.CategoryID + "')\">Delete</a></td>";
+            gridTableHtml += "<td>"
+            if (item.Hot == "1") {
+                gridTableHtml += "On</td>";
+            }
+            else {
+                gridTableHtml += "Off</td>";
+            }
+            gridTableHtml += "<td>" + item.ItemPrice + "</td>";
+            gridTableHtml += "<td>" + item.KeySearch + "</td>";
+            gridTableHtml += "<td style=\"width:60px;\"><a style=\"color:#333333;\" onclick=\"ShowEditItem('" + item.CategoryID + "','" + item.CategoryName + "','" + item.CategoryName2 + "','" + item.Active + "')\">Edit</a></td>";
+            gridTableHtml += "<td style=\"width:60px;\"><a style=\"color:red;\" onclick=\"ShowDeleteItem('" + item.ItemID + "')\">Delete</a></td>";
             gridTableHtml += " </tr>";
         });
 
@@ -191,54 +232,144 @@
 </script>
 
 <form id="form1" action="" method="post">
-    <table class="table" cellspacing="0" cellpadding="4" id="ContentPlaceHolder1_ctl00_GridView1" style="color:#333333;border-collapse:collapse;">
-        <tbody>
-            <tr style="color:White;background-color:#428BCA;font-weight:bold;">
-                <th scope="col">ID</th>
-                <th scope="col">Image</th>
-                <th scope="col">Name</th>
-                <th scope="col">Active</th>
-                <th scope="col">Hot</th>
-                <th scope="col">Price</th>
-                <th scope="col">Xuất xứ</th>
-                <th scope="col">Key Search</th>
-                <th scope="col">&nbsp;</th>
-                <th scope="col">&nbsp;</th>
-            </tr>
-            <tr>
-                <td>14</td>
-                <td><img src="UpLoad/Images/Kuangtai.jpg" style="height:30px;width:30px;"></td>
-                <td>kuangtai que hàn </td>
-                <td><span class="aspNetDisabled"><input id="ContentPlaceHolder1_ctl00_GridView1_ctl02_0" type="checkbox" name="ctl00$ContentPlaceHolder1$ctl00$GridView1$ctl02$ctl02" checked="checked" disabled="disabled"></span></td>
-                <td><span class="aspNetDisabled"><input id="ContentPlaceHolder1_ctl00_GridView1_ctl03_0" type="checkbox" name="ctl00$ContentPlaceHolder1$ctl00$GridView1$ctl02$ctl03" disabled="disabled"></span></td>
-                <td>NA</td>
-                <td>Taiwan</td>
-                <td>KT-401 E6019	E4301	- KT-403 -	E4303	E350RB KT-410 E6010 E4310	E350C KT-411 E6011	E4311	E353C KT-413 E6013	E4313 E35ZR KT-413V E6013	E4313	E35ZR KT-26 -	E4340	- KT-7 -	E4303 E350RB KT-42 -	E4303	E350RB/kuangtai</td>
-                <td><a href="Admin.aspx?module=6&amp;m=1&amp;Id=14">View Detail</a></td>
-                <td style="width:60px;"><a onclick="return confirm('Do you want to delete?');" href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Delete$0')" style="color:#333333;">Delete</a></td>
-            </tr>
-     
-            <tr class="gridview">
-                <td colspan="10">
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td><span>1</span></td>
-                                <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$2')" style="color:#333333;">2</a></td>
-                                <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$3')" style="color:#333333;">3</a></td>
-                                <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$4')" style="color:#333333;">4</a></td>
-                                <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$5')" style="color:#333333;">5</a></td>
-                                <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$6')" style="color:#333333;">6</a></td>
-                                <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$7')" style="color:#333333;">7</a></td>
-                                <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$8')" style="color:#333333;">8</a></td>
-                                <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$9')" style="color:#333333;">9</a></td>
-                                <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$10')" style="color:#333333;">10</a></td>
-                                <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$11')" style="color:#333333;">...</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div id="ContentPlaceHolder">
+        <table class="table" cellspacing="0" cellpadding="4" style="color:#333333;border-collapse:collapse;">
+            <tbody>
+
+                <tr>
+                    <td>14</td>
+                    <td><img src="UpLoad/Images/Kuangtai.jpg" style="height:30px;width:30px;"></td>
+                    <td>kuangtai que hàn </td>
+                    <td><span class="aspNetDisabled"><input id="ContentPlaceHolder1_ctl00_GridView1_ctl02_0" type="checkbox" name="ctl00$ContentPlaceHolder1$ctl00$GridView1$ctl02$ctl02" checked="checked" disabled="disabled"></span></td>
+                    <td><span class="aspNetDisabled"><input id="ContentPlaceHolder1_ctl00_GridView1_ctl03_0" type="checkbox" name="ctl00$ContentPlaceHolder1$ctl00$GridView1$ctl02$ctl03" disabled="disabled"></span></td>
+                    <td>NA</td>
+                    <td>Taiwan</td>
+                    <td>KT-401 E6019	E4301	- KT-403 -	E4303	E350RB KT-410 E6010 E4310	E350C KT-411 E6011	E4311	E353C KT-413 E6013	E4313 E35ZR KT-413V E6013	E4313	E35ZR KT-26 -	E4340	- KT-7 -	E4303 E350RB KT-42 -	E4303	E350RB/kuangtai</td>
+                    <td><a href="Admin.aspx?module=6&amp;m=1&amp;Id=14">View Detail</a></td>
+                    <td style="width:60px;"><a onclick="return confirm('Do you want to delete?');" href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Delete$0')" style="color:#333333;">Delete</a></td>
+                </tr>
+
+                <tr class="gridview">
+                    <td colspan="10">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td><span>1</span></td>
+                                    <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$2')" style="color:#333333;">2</a></td>
+                                    <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$3')" style="color:#333333;">3</a></td>
+                                    <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$4')" style="color:#333333;">4</a></td>
+                                    <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$5')" style="color:#333333;">5</a></td>
+                                    <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$6')" style="color:#333333;">6</a></td>
+                                    <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$7')" style="color:#333333;">7</a></td>
+                                    <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$8')" style="color:#333333;">8</a></td>
+                                    <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$9')" style="color:#333333;">9</a></td>
+                                    <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$10')" style="color:#333333;">10</a></td>
+                                    <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$11')" style="color:#333333;">...</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </form>
+
+<div class="modal fade" id="modalDetailsInformation" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" >
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4>Thông Tin Chi Tiết</h4>
+            </div>
+            <div class="modal-body " style="padding:10px 10px;">
+                <input type="hidden" disabled="disabled" id="itemID">
+                <form role="form" id="frmModalDetailsInformation">
+                    <div class="form-group">
+                        <img id="itemImage" src="@Url.Content("~/Content/FontEnd/images/sl2.png")" style="height:200px;width:200px;padding: 5px;">
+                        <input type="file" id="itemFileUpload" name="file" />
+                       
+                    </div>
+
+                    <div class="form-group">
+                        <label for="itemName">Tên</label>
+                        <input type="text" class="form-control" name="ItemName" id="itemName">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="categoryName">Tên 2</label>
+                        <input type="text" class="form-control" name="ItemName2" id="itemName2">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="itemActive">Trạng Thái</label>
+                        <br />
+                        <input type="checkbox" id="itemActive">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="itemHot">Hot</label>
+                        <br />
+                        <input type="checkbox" id="itemHot">
+                    </div>
+                    <div class="form-group">
+                        <label for="cboCategory">Nhóm Sản Phẩm</label>
+                        <select id="cboCategory">
+                            <option value="1">Mr</option>
+                            <option value="2">Mrs</option>
+                            <option value="3">Ms</option>
+                            <option value="4">Dr</option>
+                            <option value="5">Prof</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="itemPrice">Giá</label>
+                        <input type="text" class="form-control" name="ItemPrice" id="itemPrice">
+                    </div>
+                    <div class="form-group">
+                        <label for="itemKeySearch">Từ Khóa Tìm Kiếm</label>
+                        <input type="text" class="form-control" name="ItemKeySearch" id="itemKeySearch">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="itemDescription">Mô Tả Sản Phẩm</label>
+                        <textarea  class="form-control" name="ItemDescription" id="itemDescription">
+                           
+                        </textarea> 
+                        
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="btnModalSave" class="btn btn-primary  btn-default" data-dismiss="modal">Save</button>
+                <button type="button" class="btn btn-danger btn-default" data-dismiss="modal">Cancel</button>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="modalConfirmDelete" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4>Xác Nhận</h4>
+            </div>
+            <input type="hidden" disabled="disabled" id="deleteItemID">
+            <div class="modal-body">
+                <p>Bạn có chắc chắn sẽ xóa item này ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="btnConfirmDelete" data-dismiss="modal" class="btn btn-primary btn-default">Ok</button>
+                <button type="button" class="btn btn-danger btn-default" data-dismiss="modal">Cancel</button>
+
+            </div>
+        </div>
+    </div>
+</div>
