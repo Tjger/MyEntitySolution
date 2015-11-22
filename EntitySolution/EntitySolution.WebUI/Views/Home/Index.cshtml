@@ -4,17 +4,96 @@
 
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@using EntitySolution.Domain.Common
 <script>
+    var CategoryList = null;
     $(document).ready(function () {
-  
+        LoadAllCategory();
     });
 
- 
+    function LoadAllCategory() {
+
+        $.ajax({
+            url: '@Url.Action("LoadAllCategory", "AdminPage")',
+            contentType: "application/json; charset=utf-8",
+            type: 'POST',
+            dataType: "json",
+            data: JSON.stringify({ "sCategoryStatus": '@((int)Var.SystemStatus.Active)' }),
+            success: function (data) {
+
+
+                CategoryList = data.returnList;
+                BindDataToCategoryComboBox(CategoryList, null);
+                BindDataToCategoryPanelLeft(CategoryList);
+                BindDataToCategoryPanelTop(CategoryList);
+            }
+        });
+
+    };
+
+    function BindDataToCategoryComboBox(ListCategory, sDefaultValue) {
+        $("#cboCategory").html("");
+        var gridTableHtml = "<option value=\"" + '@((int)Var.DefaultValueInComboBox)' + "\" selected>" + "All" + "</option>";
+
+        $.each(ListCategory, function (index, item) {
+
+            if (sDefaultValue != null) {
+                if (item.CategoryID == sDefaultValue) {
+
+                    gridTableHtml += "<option value=\"" + item.CategoryID + "\" >" + item.CategoryName + "</option>";
+                }
+                else {
+                    gridTableHtml += "<option value=\"" + item.CategoryID + "\">" + item.CategoryName + "</option>";
+                }
+            }
+            else {
+                if (index == '0') {
+                    gridTableHtml += "<option value=\"" + item.CategoryID + "\" >" + item.CategoryName + "</option>";
+                }
+                else {
+                    gridTableHtml += "<option value=\"" + item.CategoryID + "\">" + item.CategoryName + "</option>";
+                }
+            }
+
+
+        });
+
+        $("#cboCategory").html(gridTableHtml);
+    }
+
+    function BindDataToCategoryPanelLeft(ListCategory) {
+        $("#lstCategoryPanelLeft").html("");
+        var gridTableHtml = "";
+        $.each(ListCategory, function (index, item) {
+            if (index == '0') {
+                gridTableHtml += "<li  class=\"active\"> <a data-toggle=\"tab\" href=\"#menu" + item.CategoryID + "\"> <i class=\"fa fa-chevron-right\" style=\"padding-right: 10px;\"> </i>" + item.CategoryName + "</a></li>";
+            }
+            else {
+                gridTableHtml += "<li> <a data-toggle=\"tab\" href=\"#menu" + item.CategoryID + "\"> <i class=\"fa fa-chevron-right\" style=\"padding-right: 10px;\"> </i>" + item.CategoryName + "</a></li>";
+            }
+        });
+
+        $("#lstCategoryPanelLeft").html(gridTableHtml);
+    }
+
+    function BindDataToCategoryPanelTop(ListCategory) {
+        $("#lstCategoryPanelTop").html("");
+        var gridTableHtml = "";
+        $.each(ListCategory, function (index, item) {
+            if (index == '0') {
+                gridTableHtml += "<li  class=\"active\"> <a data-toggle=\"tab\" href=\"#menu" + item.CategoryID + "\">"  + item.CategoryName + "</a></li>";
+            }
+            else {
+                gridTableHtml += "<li> <a data-toggle=\"tab\" href=\"#menu" + item.CategoryID + "\">" + item.CategoryName + "</a></li>";
+            }
+        });
+
+        $("#lstCategoryPanelTop").html(gridTableHtml);
+    }
 </script>
 
 <div class="menu-content-main col-md-12 col-lg-12 padd0">
-    <ul class="nav nav-tabs nav-justified">
+    <ul class="nav nav-tabs nav-justified" id="lstCategoryPanelTop">
         <li class="active"><a data-toggle="tab" href="#home">CONTAINER VĂN PHÒNG</a></li>
         <li><a data-toggle="tab" href="#menu1">CONTAINER KHÔ</a></li>
         <li><a data-toggle="tab" href="#menu2">CONTAINER LẠNH</a></li>

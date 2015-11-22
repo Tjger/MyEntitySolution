@@ -19,5 +19,14 @@ namespace EntitySolution.Domain.Abstract
        bool AddNewItem(Item newItem);
        bool EditItem(Item editItem);
        bool DeleteItem(int deleteItemID);
+
+       List<News> LoadAllNews(string sNewsStatus);
+       News LoadNewsByNewsID(int sNewsID);
+       bool AddNewNews(News newNews);
+       bool EditNews(News editNews);
+       bool DeleteNews(int deleteNewsID);
+
+       SysPara GetSysPara(string fieldSysPara);
+       bool EditSysPara(SysPara editSysPara);
     }
 }

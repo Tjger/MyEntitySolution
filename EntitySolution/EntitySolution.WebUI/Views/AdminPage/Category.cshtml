@@ -150,7 +150,7 @@
 
         var gridTableHtml = "<table cellspacing=\"0\" cellpadding=\"4\" style=\"color:#333333;border-collapse:collapse;\"  class=\"table\"> ";
         gridTableHtml += "<tbody> <tr style=\"color:White;background-color:#428BCA;font-weight:bold;\">";
-        gridTableHtml += "<th scope=\"col\">ID</th>";
+        gridTableHtml += "<th scope=\"col\"  class=\"hidden\">ID</th>";
         gridTableHtml += "<th scope=\"col\">Tên</th>";
         gridTableHtml += "<th scope=\"col\">Tên 2</th>";
         gridTableHtml += "<th scope=\"col\">Trạng Thái</th>";
@@ -169,7 +169,7 @@
         $.each(listData, function (index, item) {
 
             gridTableHtml += "<tr>";
-            gridTableHtml += "<td>" + item.CategoryID + "</td>";
+            gridTableHtml += "<td  class=\"hidden\">" + item.CategoryID + "</td>";
             gridTableHtml += "<td>" + item.CategoryName + "</td>";
             gridTableHtml += "<td>" + item.CategoryName2 + "</td>";
             gridTableHtml += "<td>"

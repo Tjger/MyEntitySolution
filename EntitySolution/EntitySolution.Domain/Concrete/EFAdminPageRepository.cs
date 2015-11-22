@@ -29,7 +29,6 @@ namespace EntitySolution.Domain.Concrete
             }
             return ret;
         }
-
         public bool AddNewCategory(Category newCategory)
         {
             bool ret = false;
@@ -48,7 +47,6 @@ namespace EntitySolution.Domain.Concrete
             }
             return ret;
         }
-
         public bool EditCategory(Category editCategory)
         {
             bool ret = false;
@@ -78,7 +76,6 @@ namespace EntitySolution.Domain.Concrete
             }
             return ret;
         }
-
         public bool DeleteCategory(int deleteCategoryID)
         {
             bool ret = false;
@@ -128,7 +125,6 @@ namespace EntitySolution.Domain.Concrete
             }
             return ret;
         }
-
         public bool AddNewItem(Item newItem)
         {
             bool ret = false;
@@ -144,8 +140,8 @@ namespace EntitySolution.Domain.Concrete
                 newItem.ItemPrice = newItem.ItemPrice == null ? "" : newItem.ItemPrice;
                 newItem.Hot = newItem.Hot == null ? "" : newItem.Hot;
                 newItem.KeySearch = newItem.KeySearch == null ? "" : newItem.KeySearch;
-                newItem.ItemImageURL = newItem.ItemImageURL;
 
+                newItem.ItemImageURL = newItem.ItemImageURL == null ? "" : newItem.ItemImageURL;
                 newItem.Active = newItem.Active == null ? "" : newItem.Active;
 
                 _context.Items.Add(newItem);
@@ -161,10 +157,9 @@ namespace EntitySolution.Domain.Concrete
             }
             return ret;
         }
-
         public Item LoadItemByItemID(int sItemID)
         {
-            Item ret = null;
+            Item ret = new Item();
             try
             {
                 ret = (from ite in _context.Items
@@ -178,8 +173,6 @@ namespace EntitySolution.Domain.Concrete
             }
             return ret;
         }
-
-
         public bool EditItem(Item editItem)
         {
             bool ret = false;
@@ -221,7 +214,6 @@ namespace EntitySolution.Domain.Concrete
             }
             return ret;
         }
-
         public bool DeleteItem(int deleteItemID)
         {
             bool ret = false;
@@ -234,6 +226,209 @@ namespace EntitySolution.Domain.Concrete
                 if (oldItem != null)
                 {
                     _context.Items.Remove(oldItem);
+                    if (_context.SaveChanges() > 0)
+                    {
+                        ret = true;
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                Logging.LogError("GetAllCategory", e.Message);
+            }
+            return ret;
+        }
+
+        public List<News> LoadAllNews(string sNewsStatus)
+        {
+            List<News> ret = new List<News>();
+            try
+            {
+                ret = (from ite in _context.News
+                       where (sNewsStatus == null || sNewsStatus == "" || sNewsStatus == allValue || ite.Active == sNewsStatus)
+                       select ite).OrderByDescending(p => p.CreatedDate).ToList();
+            }
+            catch (Exception e)
+            {
+                Logging.LogError("GetAllCategory", e.Message);
+            }
+            return ret;
+        }
+        public bool AddNewNews(News newNews)
+        {
+            bool ret = false;
+            try
+            {
+                newNews.CreatedDate = DateTime.Now;
+                newNews.Title = newNews.Title == null ? "" : newNews.Title;
+
+                newNews.Title2 = newNews.Title2 == null ? "" : newNews.Title2;
+
+                newNews.Description = newNews.Description == null ? "" : newNews.Description;
+                newNews.Description2 = newNews.Description2 == null ? "" : newNews.Description2;
+
+                newNews.MainContent = newNews.MainContent == null ? "" : newNews.MainContent;
+
+                newNews.MainContent2 = newNews.MainContent2 == null ? "" : newNews.MainContent2;
+
+                newNews.KeySearch = newNews.KeySearch == null ? "" : newNews.KeySearch;
+                newNews.ItemImageURL = newNews.ItemImageURL == null ? "" : newNews.ItemImageURL;
+
+                newNews.Active = newNews.Active == null ? "" : newNews.Active;
+
+                _context.News.Add(newNews);
+                if (_context.SaveChanges() > 0)
+                {
+                    ret = true;
+                }
+
+            }
+            catch (Exception e)
+            {
+                Logging.LogError("GetAllCategory", e.Message);
+            }
+            return ret;
+        }
+        public News LoadNewsByNewsID(int sNewsID)
+        {
+            News ret = new News();
+            try
+            {
+                ret = (from ite in _context.News
+                       where ite.NewsID == sNewsID
+                       select ite).FirstOrDefault();
+
+            }
+            catch (Exception e)
+            {
+                Logging.LogError("GetAllCategory", e.Message);
+            }
+            return ret;
+        }
+        public bool EditNews(News editNews)
+        {
+            bool ret = false;
+            try
+            {
+                News oldItem = (from ite in _context.News
+                                where ite.NewsID == editNews.NewsID
+                                select ite).FirstOrDefault();
+
+                if (oldItem != null)
+                {
+                    oldItem.Title = editNews.Title == null ? "" : editNews.Title;
+
+                    oldItem.Title2 = editNews.Title2 == null ? "" : editNews.Title2;
+
+
+                    oldItem.Title2 = editNews.Title2 == null ? "" : editNews.Title2;
+
+                    oldItem.Description = editNews.Description == null ? "" : editNews.Description;
+                    oldItem.Description2 = editNews.Description2 == null ? "" : editNews.Description2;
+
+                    oldItem.MainContent = editNews.MainContent == null ? "" : editNews.MainContent;
+
+                    oldItem.MainContent2 = editNews.MainContent2 == null ? "" : editNews.MainContent2;
+
+                    oldItem.KeySearch = editNews.KeySearch == null ? "" : editNews.KeySearch;
+
+
+                    oldItem.Active = editNews.Active == null ? "" : editNews.Active;
+
+
+                    if (editNews.ItemImageURL != null && editNews.ItemImageURL != "")
+                    {
+                        oldItem.ItemImageURL = editNews.ItemImageURL;
+                    }
+
+                    if (_context.SaveChanges() > 0)
+                    {
+                        ret = true;
+                    }
+
+                }
+
+            }
+            catch (Exception e)
+            {
+                Logging.LogError("GetAllCategory", e.Message);
+            }
+            return ret;
+        }
+        public bool DeleteNews(int deleteNewsID)
+        {
+            bool ret = false;
+            try
+            {
+                News oldItem = (from ite in _context.News
+                                where ite.NewsID == deleteNewsID
+                                select ite).FirstOrDefault();
+
+                if (oldItem != null)
+                {
+                    _context.News.Remove(oldItem);
+                    if (_context.SaveChanges() > 0)
+                    {
+                        ret = true;
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                Logging.LogError("GetAllCategory", e.Message);
+            }
+            return ret;
+        }
+
+
+        public SysPara GetSysPara(string fieldSysPara)
+        {
+            SysPara ret = new SysPara();
+            ret.Field = fieldSysPara;
+            ret.Value = "";
+            ret.DefaultValue = "";
+            try
+            {
+              var   _ret = (from ite in _context.SysParas
+                       where ite.Field == fieldSysPara
+                       select ite).FirstOrDefault();
+              if (_ret != null)
+              {
+                  ret = _ret;
+              }
+            }
+            catch (Exception e)
+            {
+                Logging.LogError("GetAllCategory", e.Message);
+            }
+            return ret;
+        }
+        public bool EditSysPara(SysPara editSysPara)
+        {
+            bool ret = false;
+            try
+            {
+                SysPara oldItem = (from ite in _context.SysParas
+                                   where ite.Field == editSysPara.Field
+                                   select ite).FirstOrDefault();
+
+                if (oldItem != null)
+                {
+                    oldItem.Value = editSysPara.Value == null ? "" : editSysPara.Value;
+
+                    oldItem.DefaultValue = editSysPara.DefaultValue == null ? "" : editSysPara.DefaultValue;
+                     
+                    if (_context.SaveChanges() > 0)
+                    {
+                        ret = true;
+                    }
+
+                }
+                else
+                {
+                    _context.SysParas.Add(editSysPara);
                     if (_context.SaveChanges() > 0)
                     {
                         ret = true;

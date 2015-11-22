@@ -40,10 +40,37 @@
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="KeySearch" Type="ntext" />
         </EntityType>
+        <EntityType Name="News">
+          <Key>
+            <PropertyRef Name="NewsID" />
+          </Key>
+          <Property Name="NewsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="ntext" />
+          <Property Name="Title2" Type="ntext" />
+          <Property Name="Description" Type="ntext" />
+          <Property Name="MainContent" Type="ntext" />
+          <Property Name="Description2" Type="ntext" />
+          <Property Name="MainContent2" Type="ntext" />
+          <Property Name="ItemImageURL" Type="nvarchar" MaxLength="250" />
+          <Property Name="Active" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="KeySearch" Type="ntext" />
+        </EntityType>
+        <EntityType Name="SysPara">
+          <Key>
+            <PropertyRef Name="AutoID" />
+          </Key>
+          <Property Name="AutoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Field" Type="nvarchar" MaxLength="50" />
+          <Property Name="Value" Type="ntext" />
+          <Property Name="DefaultValue" Type="ntext" />
+        </EntityType>
         <EntityContainer Name="EntitySolutionModelStoreContainer">
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Emp" EntityType="Self.Emp" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SysPara" EntityType="Self.SysPara" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -80,6 +107,8 @@
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Items" EntityType="Self.Item" />
           <EntitySet Name="Emps" EntityType="EntitySolutionModel.Emp" />
+          <EntitySet Name="News" EntityType="EntitySolutionModel.News" />
+          <EntitySet Name="SysParas" EntityType="EntitySolutionModel.SysPara" />
         </EntityContainer>
         <EntityType Name="Emp">
           <Key>
@@ -88,6 +117,31 @@
           <Property Name="EmpID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="LoginID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Pass" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="News">
+          <Key>
+            <PropertyRef Name="NewsID" />
+          </Key>
+          <Property Name="NewsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MainContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MainContent2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ItemImageURL" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="KeySearch" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Title2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="SysPara">
+          <Key>
+            <PropertyRef Name="AutoID" />
+          </Key>
+          <Property Name="AutoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Field" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DefaultValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -130,6 +184,33 @@
                 <ScalarProperty Name="Pass" ColumnName="Pass" />
                 <ScalarProperty Name="LoginID" ColumnName="LoginID" />
                 <ScalarProperty Name="EmpID" ColumnName="EmpID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="News">
+            <EntityTypeMapping TypeName="EntitySolutionModel.News">
+              <MappingFragment StoreEntitySet="News">
+                <ScalarProperty Name="Title2" ColumnName="Title2" />
+                <ScalarProperty Name="Description2" ColumnName="Description2" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="KeySearch" ColumnName="KeySearch" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ItemImageURL" ColumnName="ItemImageURL" />
+                <ScalarProperty Name="MainContent2" ColumnName="MainContent2" />
+                <ScalarProperty Name="MainContent" ColumnName="MainContent" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="NewsID" ColumnName="NewsID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SysParas">
+            <EntityTypeMapping TypeName="EntitySolutionModel.SysPara">
+              <MappingFragment StoreEntitySet="SysPara">
+                <ScalarProperty Name="DefaultValue" ColumnName="DefaultValue" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Field" ColumnName="Field" />
+                <ScalarProperty Name="AutoID" ColumnName="AutoID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

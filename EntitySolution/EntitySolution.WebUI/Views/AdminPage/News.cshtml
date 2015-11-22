@@ -3,6 +3,490 @@
     ViewBag.Title = "News";
     Layout = "~/Views/Shared/_LayoutBackEnd.cshtml";
 }
+@using EntitySolution.Domain.Common
+<h2>Tin Tức</h2>
+  
+<script>
+    var isAddNew = false;
+    var isUploadImageSuccess = false;
+    var jqXHRData;
+    var CategoryList = null;
+    $(document).ready(function () {
+        LoadAllNews();
 
-<h2>News</h2>
+        initSimpleFileUpload();
 
+        $("#itemFileUpload").change(function () {
+            if (isUploadImageSuccess) {
+                previewFile(this);
+                isUploadImageSuccess = false
+            }
+
+        });
+
+        $("#btnUploadImage").click(function () {
+            $("#itemFileUpload").trigger("click");
+
+        });
+
+        $("#itemActive").bootstrapSwitch();
+         
+        CKEDITOR.replace('itemMainContent');
+        CKEDITOR.replace('itemMainContent2');
+         
+        $("#btnAddNew").click(function () {
+            if (isAddNew === false) {
+                isAddNew = true;
+                ClearModal();
+            }
+
+            $("#itemID").val("-1");
+
+            $("#modalDetailsInformation").modal("show");
+        });
+
+        $("#btnModalSave").click(function (e) {
+            e.preventDefault();
+
+            SaveItem();
+        });
+
+        $("#btnModalCancel").click(function (e) {
+            e.preventDefault();
+
+            ClearModal();
+        });
+
+        $("#btnConfirmDelete").click(function (e) {
+            e.preventDefault();
+            DeleteItem();
+        });
+
+    });// end of document ready
+
+    function ClearModal() {
+        $("#itemTitle").val("");
+        $("#itemTitle2").val("");
+        $('#itemActive').bootstrapSwitch('state', true);
+       
+        $("#itemDescription").val("");
+        $("#itemDescription2").val("");
+        CKEDITOR.instances.itemMainContent.setData('<p>Nội dung bằng tiếng việt.</p>');
+        CKEDITOR.instances.itemMainContent2.setData('<p>Nội dung bằng tiếng anh.</p>');
+       
+        $("#itemKeySearch").val("");
+        $('#itemImage').attr('src', '@Url.Content("~/Content/FontEnd/images/no_image.png")');
+    }
+
+
+    function initSimpleFileUpload() {
+        'use strict';
+
+        $('#itemFileUpload').fileupload({
+            url: '@Url.Action("UploadFile", "AdminPage")',
+            dataType: 'json',
+            maxFileSize: 10240000,
+            acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+            add: function (e, data) {
+
+                if (data.files[0].size > 10240000) {
+                    alert("Chỉ cho phép upload ảnh dưới 10MB.");
+                }
+                else {
+                    isUploadImageSuccess = true;
+                    jqXHRData = data
+                    if (jqXHRData) {
+                        jqXHRData.submit();
+                    }
+                }
+
+                return false;
+
+            },
+            done: function (event, data) {
+                if (data.result.isUploaded) {
+
+                }
+                else {
+
+                }
+                //alert(data.result.message);
+            },
+            fail: function (event, data) {
+                if (data.files[0].error) {
+                    //alert(data.files[0].error);
+                }
+            }
+        });
+    }
+
+
+    function SaveItem() {
+        var cActive = "0";
+      
+        var mainContent = CKEDITOR.instances.itemMainContent.getData();
+        var mainContent2 = CKEDITOR.instances.itemMainContent2.getData();
+
+        if ($('#itemActive').bootstrapSwitch('state')) {
+            cActive = "1";
+        }
+         
+        var newsInfor = {
+            NewsID: $("#itemID").val(),
+            Title: $("#itemTitle").val(),
+            Title2: $("#itemTitle2").val(),
+            MainContent: mainContent,
+            MainContent2: mainContent2,
+            Description: $("#itemDescription").val(),
+            Description2: $("#itemDescription2").val(),
+            Active: cActive,            
+            KeySearch: $("#itemKeySearch").val(),
+        }
+
+        if (isAddNew) {
+            $.ajax({
+                url: '@Url.Action("AddNewNews", "AdminPage")',
+                contentType: "application/json; charset=utf-8",
+                type: 'POST',
+                dataType: "json",
+
+                data: JSON.stringify({ "newsInfor": newsInfor }),
+                success: function (data) {
+
+                    if (data.success === true) {
+                        isAddNew = false;
+                        FillDataToGridTableHtml(data.returnList);
+                    }
+
+
+                }
+            });
+        }
+        else {
+            $.ajax({
+                url: '@Url.Action("EditNews", "AdminPage")',
+                contentType: "application/json; charset=utf-8",
+                type: 'POST',
+                dataType: "json",
+                data: JSON.stringify({ "newsInfor": newsInfor }),
+                success: function (data) {
+
+                    if (data.success === true) {
+                        isAddNew = false;
+                        FillDataToGridTableHtml(data.returnList);
+                    }
+
+
+                }
+            });
+        }
+
+    };
+
+    function previewFile(input) {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#itemImage').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+
+    }
+
+    function DeleteItem() {
+
+        $.ajax({
+            url: '@Url.Action("DeleteNews", "AdminPage")',
+            contentType: "application/json; charset=utf-8",
+            type: 'POST',
+            dataType: "json",
+            data: JSON.stringify({ "deleteNewsID": $("#deleteItemID").val() }),
+            success: function (data) {
+                if (data.success === true) {
+
+                    FillDataToGridTableHtml(data.returnList);
+                }
+                else {
+                    $("#lblMessageModal").html("Có lỗi xảy ra , xin hãy thử lại sau.");
+
+                    $("#modalShowError").modal("show");
+                }
+            }
+        });
+    };
+
+    function LoadAllNews() {
+        $.ajax({
+            url: '@Url.Action("LoadAllNews", "AdminPage")',
+            contentType: "application/json; charset=utf-8",
+            type: 'POST',
+            dataType: "json",
+            data: JSON.stringify({ "sNewsStatus": '@((int)Var.DefaultValueInComboBox)' }),
+            success: function (data) {
+
+                FillDataToGridTableHtml(data.returnList);
+            }
+        });
+    };
+
+    function ShowDeleteItem(sNewsID) {
+        $("#deleteItemID").val(sNewsID);
+
+        $("#modalConfirmDelete").modal("show");
+    };
+
+    function ShowEditItem(sNewsID) {
+        isAddNew = false;
+
+        $.ajax({
+            url: '@Url.Action("LoadNewsByNewsID", "AdminPage")',
+            contentType: "application/json; charset=utf-8",
+            type: 'POST',
+            dataType: "json",
+            data: JSON.stringify({ "sNewsID": sNewsID }),
+            success: function (data) {
+                if (data.success === true) {
+
+                    $("#itemID").val(data.returnList.NewsID);
+
+                    $('#itemImage').attr('src', '@Url.Content(Var.UrlUploadCompanyNewsImage)' + data.returnList.ItemImageURL);
+                    $("#itemTitle").val(data.returnList.Title);
+                    $("#itemTitle2").val(data.returnList.Title2);
+                     
+                    if (data.returnList.Active == "1") {
+                        $('#itemActive').bootstrapSwitch('state', true);
+                    }
+                    else {
+                        $('#itemActive').bootstrapSwitch('state', false);
+
+                    };
+                    $("#itemDescription").val(data.returnList.Description);
+                    $("#itemDescription2").val(data.returnList.Description2);
+
+                    $("#itemKeySearch").val(data.returnList.KeySearch);
+                    CKEDITOR.instances.itemMainContent.setData(data.returnList.MainContent);
+                    CKEDITOR.instances.itemMainContent2.setData(data.returnList.MainContent2);
+
+                    $("#modalDetailsInformation").modal("show");
+                }
+                else {
+                    $("#lblMessageModal").html("Có lỗi xảy ra , xin hãy thử lại sau.");
+
+                    $("#modalShowError").modal("show");
+                }
+            }
+        });
+
+    };
+
+    function InitGridTableHtml() {
+
+        var gridTableHtml = "<table cellspacing=\"0\" cellpadding=\"4\" style=\"color:#333333;border-collapse:collapse;\"  class=\"table\"> ";
+        gridTableHtml += "<tbody> <tr style=\"color:White;background-color:#428BCA;font-weight:bold;\">";
+        gridTableHtml += "<th scope=\"col\"  class=\"hidden\">ID</th>";
+        gridTableHtml += "<th scope=\"col\">Image</th>";
+        gridTableHtml += "<th scope=\"col\">Tiêu Đề</th>";
+        gridTableHtml += "<th scope=\"col\">Mô Tả</th>";
+        gridTableHtml += "<th scope=\"col\">Tiêu Đề 2</th>";
+        gridTableHtml += "<th scope=\"col\">Mô Tả 2</th>";
+        gridTableHtml += "<th scope=\"col\">Active</th>";
+        //gridTableHtml += "<th scope=\"col\">Ngày Tạo</th>";
+        gridTableHtml += "<th scope=\"col\">Từ Khóa Tìm Kiếm</th>";
+        gridTableHtml += "<th scope=\"col\">&nbsp;</th>";
+        gridTableHtml += "<th scope=\"col\">&nbsp;</th>";
+        gridTableHtml += " </tr>";
+        return gridTableHtml;
+    };
+
+    function formatDate(dateInput) {
+
+        date = new Date(dateInput);
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var ampm = hours >= 12 ? 'pm' : 'am';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        var strTime = hours + ':' + minutes + ' ' + ampm;
+        if ('@Var.FormatDate' === "dd/MM/yyyy") {
+            return date.getDate() + "/" + date.getMonth() + 1 + "/" + date.getFullYear() + "  " + strTime;
+        }
+        else {
+            return date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear() + "  " + strTime;
+        }
+        
+    }
+
+    function FillDataToGridTableHtml(listData) {
+
+
+        $("#ContentPlaceHolder").html("");
+        var gridTableHtml = InitGridTableHtml();
+
+        $.each(listData, function (index, item) {
+
+            gridTableHtml += "<tr>";
+            gridTableHtml += "<td  class=\"hidden\">" + item.NewsID + "</td>";
+            gridTableHtml += "<td><img src=\"" + '@Url.Content(Var.UrlUploadCompanyNewsImage)' + item.ItemImageURL + "\" style=\"height:30px;width:30px;\"></td>";
+            gridTableHtml += "<td>" + item.Title + "</td>";
+            gridTableHtml += "<td>" + item.Description + "</td>";
+            gridTableHtml += "<td>" + item.Title2 + "</td>";
+            gridTableHtml += "<td>" + item.Description2 + "</td>";
+            gridTableHtml += "<td>"
+            if (item.Active == "1") {
+                gridTableHtml += "On</td>";
+            }
+            else {
+                gridTableHtml += "Off</td>";
+            }
+            //gridTableHtml += "<td>" + formatDate(item.CreatedDate) + "</td>";
+            gridTableHtml += "<td>" + item.KeySearch + "</td>";
+            gridTableHtml += "<td style=\"width:60px;\"><a style=\"color:#333333;\" onclick=\"ShowEditItem('" + item.NewsID + "')\">Edit</a></td>";
+            gridTableHtml += "<td style=\"width:60px;\"><a style=\"color:red;\" onclick=\"ShowDeleteItem('" + item.NewsID + "')\">Delete</a></td>";
+            gridTableHtml += " </tr>";
+        });
+
+        gridTableHtml += "</tbody></table>";
+
+        $("#ContentPlaceHolder").html(gridTableHtml);
+    };
+</script>
+
+<form id="form1" action="" method="post">
+    <div id="ContentPlaceHolder">
+        <table class="table" cellspacing="0" cellpadding="4" style="color:#333333;border-collapse:collapse;">
+            <tbody>
+
+
+                @*<tr class="gridview">
+                        <td colspan="10">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td><span>1</span></td>
+                                        <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$2')" style="color:#333333;">2</a></td>
+                                        <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$3')" style="color:#333333;">3</a></td>
+                                        <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$4')" style="color:#333333;">4</a></td>
+                                        <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$5')" style="color:#333333;">5</a></td>
+                                        <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$6')" style="color:#333333;">6</a></td>
+                                        <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$7')" style="color:#333333;">7</a></td>
+                                        <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$8')" style="color:#333333;">8</a></td>
+                                        <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$9')" style="color:#333333;">9</a></td>
+                                        <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$10')" style="color:#333333;">10</a></td>
+                                        <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$11')" style="color:#333333;">...</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>*@
+            </tbody>
+        </table>
+    </div>
+
+    <button type="button" id="btnAddNew" class="btn btn-success btn-default">Add New</button>
+</form>
+
+<div class="modal fade" id="modalDetailsInformation" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4>Thông Tin Chi Tiết</h4>
+            </div>
+            <div class="modal-body " style="padding:10px 10px;">
+                <input type="hidden" disabled="disabled" id="itemID">
+                <form role="form" id="frmModalDetailsInformation">
+                    <div class="form-group">
+                        <img id="itemImage" src="@Url.Content("~/Content/FontEnd/images/no_image.png")" style="height:200px;width:200px;padding: 5px;">
+                        <input type="file" class="hidden" id="itemFileUpload" name="file" />
+                        <button type="button" class="btn btn-primary start" id="btnUploadImage">
+                            <i class="glyphicon glyphicon-upload"></i>
+                            <span>Upload</span>
+                        </button>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="itemActive">Trạng Thái</label>
+                        <br />
+                        <input type="checkbox" id="itemActive">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="itemKeySearch">Từ Khóa Tìm Kiếm</label>
+                        <input type="text" class="form-control" name="ItemKeySearch" id="itemKeySearch">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="itemName">Tiêu Đề</label>
+                        <input type="text" class="form-control" name="ItemTitle" id="itemTitle">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="itemDescription">Mô Tả </label>
+                        <textarea class="form-control" rows="2" name="ItemDescription" id="itemDescription"></textarea>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="itemDescription">Nội Dung </label>
+                        <textarea class="form-control" name="ItemMainContent" id="itemMainContent"></textarea>
+
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="categoryName">Tiêu Đề 2</label>
+                        <input type="text" class="form-control" name="ItemTitle2" id="itemTitle2">
+                    </div>
+                     
+                    <div class="form-group">
+                        <label for="itemDescription2">Mô Tả 2</label>
+                        <textarea class="form-control" rows="2" name="ItemDescription2" id="itemDescription2"></textarea>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="itemDescription">Nội Dung 2</label>
+                        <textarea class="form-control" name="ItemMainContent2" id="itemMainContent2"></textarea>
+
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="btnModalSave" class="btn btn-primary  btn-default" data-dismiss="modal">Save</button>
+                <button type="button" id="btnModalCancel" class=" btn btn-danger btn-default" data-dismiss="modal">Cancel</button>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="modalConfirmDelete" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4>Xác Nhận</h4>
+            </div>
+            <input type="hidden" disabled="disabled" id="deleteItemID">
+            <div class="modal-body">
+                <p>Bạn có chắc chắn sẽ xóa item này ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="btnConfirmDelete" data-dismiss="modal" class="btn btn-primary btn-default">Ok</button>
+                <button type="button" class="btn btn-danger btn-default" data-dismiss="modal">Cancel</button>
+
+            </div>
+        </div>
+    </div>
+</div>

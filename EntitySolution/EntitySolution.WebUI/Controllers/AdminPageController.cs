@@ -328,46 +328,6 @@ namespace EntitySolution.WebUI.Controllers
             return jResult;
         }
 
-        public JsonResult UploadFile(HttpPostedFileBase file)
-        {
-            JsonResult jResult = new JsonResult();
-            try
-            {
-
-                if (file != null && file.ContentLength != 0)
-                {
-                    TempData["HttpPostedFileBase"] = file;
-
-                }
-
-            }
-            catch (Exception)
-            {
-
-
-            }
-
-            return jResult;
-        }
-
-        private bool CreateFolderIfNeeded(string path)
-        {
-            bool result = true;
-            if (!Directory.Exists(path))
-            {
-                try
-                {
-                    Directory.CreateDirectory(path);
-                }
-                catch (Exception)
-                {
-                    /*TODO: You must process this exception.*/
-                    result = false;
-                }
-            }
-            return result;
-        }
-
         public JsonResult EditItem(Item itemInfor)
         {
             JsonResult jResult = new JsonResult();
@@ -416,6 +376,220 @@ namespace EntitySolution.WebUI.Controllers
             {
 
                 jResult = Json(new { success = adminPageProvider.DeleteItem(deleteItemID), returnList = adminPageProvider.LoadAllItem(allStatus) }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception)
+            {
+
+
+            }
+
+            return jResult;
+        }
+
+        public JsonResult LoadAllNews(string sNewsStatus)
+        {
+            JsonResult jResult = new JsonResult();
+            try
+            {
+
+                jResult = Json(new { success = true, returnList = adminPageProvider.LoadAllNews(sNewsStatus) }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception)
+            {
+
+
+            }
+
+            return jResult;
+        }
+
+        public JsonResult LoadNewsByNewsID(int sNewsID)
+        {
+            JsonResult jResult = new JsonResult();
+            try
+            {
+
+                jResult = Json(new { success = true, returnList = adminPageProvider.LoadNewsByNewsID(sNewsID) }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception)
+            {
+
+
+            }
+
+            return jResult;
+        }
+
+        public JsonResult AddNewNews(News newsInfor)
+        {
+            JsonResult jResult = new JsonResult();
+
+            try
+            {
+                bool isUploaded = false;
+                string message = "File upload failed";
+                if (TempData["HttpPostedFileBase"] != null)
+                {
+
+                    HttpPostedFileBase file = (HttpPostedFileBase)TempData["HttpPostedFileBase"];
+                    string pathForSaving = Server.MapPath(Var.UrlUploadItemImage);
+                    if (this.CreateFolderIfNeeded(pathForSaving))
+                    {
+                        try
+                        {
+                            file.SaveAs(Path.Combine(pathForSaving, file.FileName));
+                            isUploaded = true;
+                            message = "File uploaded successfully!";
+                            newsInfor.ItemImageURL = "/" + file.FileName;
+                            TempData["HttpPostedFileBase"] = null;
+                        }
+                        catch (Exception ex)
+                        {
+                            message = string.Format("File upload failed: {0}", ex.Message);
+                        }
+                    }
+                }
+
+
+                jResult = Json(new { success = adminPageProvider.AddNewNews(newsInfor), returnList = adminPageProvider.LoadAllNews(allStatus), isUploaded = isUploaded, msgError = message }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception)
+            {
+
+
+            }
+
+            return jResult;
+        }
+
+        public JsonResult EditNews(News newsInfor)
+        {
+            JsonResult jResult = new JsonResult();
+            try
+            {
+                bool isUploaded = false;
+                string message = "File upload failed";
+                if (TempData["HttpPostedFileBase"] != null)
+                {
+
+                    HttpPostedFileBase file = (HttpPostedFileBase)TempData["HttpPostedFileBase"];
+                    string pathForSaving = Server.MapPath(Var.UrlUploadCompanyNewsImage);
+                    if (this.CreateFolderIfNeeded(pathForSaving))
+                    {
+                        try
+                        {
+                            file.SaveAs(Path.Combine(pathForSaving, file.FileName));
+                            isUploaded = true;
+                            message = "File uploaded successfully!";
+                            newsInfor.ItemImageURL = "/" + file.FileName;
+                            TempData["HttpPostedFileBase"] = null;
+                        }
+                        catch (Exception ex)
+                        {
+                            message = string.Format("File upload failed: {0}", ex.Message);
+                        }
+                    }
+                }
+
+                jResult = Json(new { success = adminPageProvider.EditNews(newsInfor), returnList = adminPageProvider.LoadAllNews(allStatus), isUploaded = isUploaded, msgError = message }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception)
+            {
+
+
+            }
+
+            return jResult;
+        }
+
+        public JsonResult DeleteNews(int deleteNewsID)
+        {
+            JsonResult jResult = new JsonResult();
+            try
+            {
+
+                jResult = Json(new { success = adminPageProvider.DeleteNews(deleteNewsID), returnList = adminPageProvider.LoadAllNews(allStatus) }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception)
+            {
+
+
+            }
+
+            return jResult;
+        }
+
+        public JsonResult UploadFile(HttpPostedFileBase file)
+        {
+            JsonResult jResult = new JsonResult();
+            try
+            {
+
+                if (file != null && file.ContentLength != 0)
+                {
+                    TempData["HttpPostedFileBase"] = file;
+
+                }
+
+            }
+            catch (Exception)
+            {
+
+
+            }
+
+            return jResult;
+        }
+
+        private bool CreateFolderIfNeeded(string path)
+        {
+            bool result = true;
+            if (!Directory.Exists(path))
+            {
+                try
+                {
+                    Directory.CreateDirectory(path);
+                }
+                catch (Exception)
+                {
+                    /*TODO: You must process this exception.*/
+                    result = false;
+                }
+            }
+            return result;
+        }
+
+        public JsonResult GetSysPara(string fieldSysPara)
+        {
+            JsonResult jResult = new JsonResult();
+            try
+            {
+
+                jResult = Json(new { success = true, returnList = adminPageProvider.GetSysPara(fieldSysPara) }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception)
+            {
+
+
+            }
+
+            return jResult;
+        }
+
+        public JsonResult EditSysPara(SysPara editSysPara)
+        {
+            JsonResult jResult = new JsonResult();
+            try
+            {
+
+                jResult = Json(new { success = adminPageProvider.EditSysPara(editSysPara) }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception)
