@@ -26,5 +26,6 @@ namespace EntitySolution.EntityDB
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public string KeySearch { get; set; }
         public string CategoryName { get; set; }
+        public string Description2 { get; set; }
     }
 }

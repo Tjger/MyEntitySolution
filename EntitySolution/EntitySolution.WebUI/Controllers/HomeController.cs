@@ -36,22 +36,5 @@ namespace EntitySolution.WebUI.Controllers
             return View();
         }
 
-        public JsonResult GetAllCategory()
-        {
-            JsonResult jResult = new JsonResult();
-            try
-            {
-                List<Category> lstData = categoryProvider.LoadAllCategory();
-                jResult = Json(lstData, JsonRequestBehavior.AllowGet);
-
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-
-            return jResult;
-        }
     }
 }

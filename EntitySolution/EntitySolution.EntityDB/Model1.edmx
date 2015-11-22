@@ -33,6 +33,7 @@
           <Property Name="CategoryName" Type="nvarchar" MaxLength="250" />
           <Property Name="ItemImageURL" Type="nvarchar" MaxLength="250" />
           <Property Name="Description" Type="ntext" />
+          <Property Name="Description2" Type="ntext" />
           <Property Name="ItemPrice" Type="nvarchar" MaxLength="50" />
           <Property Name="Active" Type="nvarchar" MaxLength="50" />
           <Property Name="Hot" Type="nvarchar" MaxLength="50" />
@@ -73,6 +74,7 @@
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="KeySearch" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CategoryName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Description2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityContainer Name="EntityDBContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Categories" EntityType="Self.Category" />
@@ -106,6 +108,7 @@
           <EntitySetMapping Name="Items">
             <EntityTypeMapping TypeName="EntitySolutionModel.Item">
               <MappingFragment StoreEntitySet="Item">
+                <ScalarProperty Name="Description2" ColumnName="Description2" />
                 <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
                 <ScalarProperty Name="KeySearch" ColumnName="KeySearch" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />

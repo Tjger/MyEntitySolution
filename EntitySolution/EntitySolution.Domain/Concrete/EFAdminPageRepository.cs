@@ -6,16 +6,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using EntitySolution.Domain.Common;
+
 namespace EntitySolution.Domain.Concrete
 {
     public class EFAdminPageRepository : EFBaseRepository, IAdminPageRepository
     {
-        public List<Category> LoadAllCategory()
+        private string allValue = Var.DefaultValueInComboBox.ToString();
+
+        public List<Category> LoadAllCategory(string sCategoryStatus)
         {
             List<Category> ret = new List<Category>();
             try
             {
                 ret = (from ite in _context.Categories
+                       where (sCategoryStatus == null || sCategoryStatus == "" || sCategoryStatus == allValue || ite.Active == sCategoryStatus)
                        select ite).ToList();
             }
             catch (Exception e)
@@ -108,12 +113,13 @@ namespace EntitySolution.Domain.Concrete
             return ret;
         }
 
-        public List<Item> LoadAllItem()
+        public List<Item> LoadAllItem(string sItemStatus)
         {
             List<Item> ret = new List<Item>();
             try
             {
                 ret = (from ite in _context.Items
+                       where (sItemStatus == null || sItemStatus == "" || sItemStatus == allValue || ite.Active == sItemStatus)
                        select ite).ToList();
             }
             catch (Exception e)
@@ -128,6 +134,20 @@ namespace EntitySolution.Domain.Concrete
             bool ret = false;
             try
             {
+                newItem.CreatedDate = DateTime.Now;
+                newItem.ItemName = newItem.ItemName == null ? "" : newItem.ItemName;
+                newItem.ItemName2 = newItem.ItemName2 == null ? "" : newItem.ItemName2;
+
+                newItem.CategoryName = newItem.CategoryName == null ? "" : newItem.CategoryName;
+                newItem.Description = newItem.Description == null ? "" : newItem.Description;
+                newItem.Description2 = newItem.Description2 == null ? "" : newItem.Description2;
+                newItem.ItemPrice = newItem.ItemPrice == null ? "" : newItem.ItemPrice;
+                newItem.Hot = newItem.Hot == null ? "" : newItem.Hot;
+                newItem.KeySearch = newItem.KeySearch == null ? "" : newItem.KeySearch;
+                newItem.ItemImageURL = newItem.ItemImageURL;
+
+                newItem.Active = newItem.Active == null ? "" : newItem.Active;
+
                 _context.Items.Add(newItem);
                 if (_context.SaveChanges() > 0)
                 {
@@ -142,26 +162,50 @@ namespace EntitySolution.Domain.Concrete
             return ret;
         }
 
+        public Item LoadItemByItemID(int sItemID)
+        {
+            Item ret = null;
+            try
+            {
+                ret = (from ite in _context.Items
+                       where ite.ItemID == sItemID
+                       select ite).FirstOrDefault();
+
+            }
+            catch (Exception e)
+            {
+                Logging.LogError("GetAllCategory", e.Message);
+            }
+            return ret;
+        }
+
+
         public bool EditItem(Item editItem)
         {
             bool ret = false;
             try
             {
                 Item oldItem = (from ite in _context.Items
-                                        where ite.ItemID == editItem.ItemID
-                                        select ite).FirstOrDefault();
+                                where ite.ItemID == editItem.ItemID
+                                select ite).FirstOrDefault();
 
                 if (oldItem != null)
                 {
-                    oldItem.ItemName = editItem.ItemName;
+                    oldItem.ItemName = editItem.ItemName == null ? "" : editItem.ItemName;
                     oldItem.CategoryID = editItem.CategoryID;
-                    oldItem.Description = editItem.Description;
-                    oldItem.ItemPrice = editItem.ItemPrice;
-                    oldItem.Hot = editItem.Hot;
-                    oldItem.KeySearch = editItem.KeySearch;
-                    oldItem.ItemImageURL = editItem.ItemImageURL;
-                    oldItem.ItemName2 = editItem.ItemName2;
-                    oldItem.Active = editItem.Active;
+                    oldItem.CategoryName = editItem.CategoryName == null ? "" : editItem.CategoryName;
+                    oldItem.Description = editItem.Description == null ? "" : editItem.Description;
+                    oldItem.Description2 = editItem.Description2 == null ? "" : editItem.Description2;
+                    oldItem.ItemPrice = editItem.ItemPrice == null ? "" : editItem.ItemPrice;
+                    oldItem.Hot = editItem.Hot == null ? "" : editItem.Hot;
+                    oldItem.KeySearch = editItem.KeySearch == null ? "" : editItem.KeySearch;
+                    if (editItem.ItemImageURL != null && editItem.ItemImageURL != "")
+                    {
+                        oldItem.ItemImageURL = editItem.ItemImageURL;
+                    }
+
+                    oldItem.ItemName2 = editItem.ItemName2 == null ? "" : editItem.ItemName2;
+                    oldItem.Active = editItem.Active == null ? "" : editItem.Active;
 
                     if (_context.SaveChanges() > 0)
                     {

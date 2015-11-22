@@ -2,38 +2,66 @@
     ViewBag.Title = "Item";
     Layout = "~/Views/Shared/_LayoutBackEnd.cshtml";
 }
+
+
+
 @using EntitySolution.Domain.Common
 <h2>Sản Phẩm</h2>
 <script>
     var isAddNew = false;
+    var isUploadImageSuccess = false;
+    var jqXHRData;
+    var CategoryList = null;
     $(document).ready(function () {
         LoadAllItem();
-         
+        LoadAllCategory();
+        initSimpleFileUpload();
+
         $("#itemFileUpload").change(function () {
-            previewFile(this);
+            if (isUploadImageSuccess) {
+                previewFile(this);
+                isUploadImageSuccess = false
+            }
+
         });
+
+        $("#btnUploadImage").click(function () {
+            $("#itemFileUpload").trigger("click");
          
+        });
+
         $("#itemActive").bootstrapSwitch();
 
         $("#itemHot").bootstrapSwitch();
-        
+
         CKEDITOR.replace('itemDescription');
+        CKEDITOR.replace('itemDescription2');
+
 
         CKEDITOR.instances.itemDescription.setData('<p>This is the editor data.</p>');
 
         $("#btnAddNew").click(function () {
-            isAddNew = true;
+            if (isAddNew === false) {
+                isAddNew = true;
+                $("#itemName").val("");
+                $("#itemName2").val("");
+                $('#itemActive').bootstrapSwitch('state', true);
+                $('#itemHot').bootstrapSwitch('state', true);
+                CKEDITOR.instances.itemDescription.setData('<p>Mô tả sản phẩm bằng tiếng việt.</p>');
+                CKEDITOR.instances.itemDescription2.setData('<p>Mô tả sản phẩm bằng tiếng anh.</p>');
+                $("#itemPrice").val("");
+                $("#itemKeySearch").val("");
+                $('#itemImage').attr('src', '@Url.Content("~/Content/FontEnd/images/no_image.png")');
+            }
+
             $("#itemID").val("-1");
-            $("#itemName").val("");
-            $("#itemName2").val("");
-            $('#itemActive').bootstrapSwitch('state', true);
+
             $("#modalDetailsInformation").modal("show");
         });
 
         $("#btnModalSave").click(function (e) {
             e.preventDefault();
-            //var data = CKEDITOR.instances.itemDescription.getData();
-            //alert(data);          
+
             SaveItem();
         });
         $("#btnConfirmDelete").click(function (e) {
@@ -43,28 +71,135 @@
 
     });// end of document ready
 
+
+    function LoadAllCategory() {
+
+        $.ajax({
+            url: '@Url.Action("LoadAllCategory", "AdminPage")',
+            contentType: "application/json; charset=utf-8",
+            type: 'POST',
+            dataType: "json",
+            data: JSON.stringify({ "sCategoryStatus": '@((int)Var.SystemStatus.Active)' }),
+            success: function (data) {
+
+
+                CategoryList = data.returnList;
+                BindDataToCategoryComboBox(CategoryList,null);
+       
+
+            }
+        });
+         
+    };
+
+    function BindDataToCategoryComboBox(ListCategory, sDefaultValue){
+        $("#cboCategory").html("");
+        var gridTableHtml = "";
+
+        $.each(ListCategory, function (index, item) {
+
+            if (sDefaultValue !=null) {
+                if (item.CategoryID == sDefaultValue) {
+                   
+                    gridTableHtml += "<option value=\"" + item.CategoryID + "\" selected>" + item.CategoryName + "</option>";
+                }
+                else {
+                    gridTableHtml += "<option value=\"" + item.CategoryID + "\">" + item.CategoryName + "</option>";
+                }
+            }
+            else{
+                if (index == '0') {
+                    gridTableHtml += "<option value=\"" + item.CategoryID + "\" selected>" + item.CategoryName + "</option>";
+                }
+                else {
+                    gridTableHtml += "<option value=\"" + item.CategoryID + "\">" + item.CategoryName + "</option>";
+                }
+            }
+           
+             
+        });
+
+        $("#cboCategory").html(gridTableHtml);
+    }
+
+    function initSimpleFileUpload() {
+        'use strict';
+
+        $('#itemFileUpload').fileupload({
+            url: '@Url.Action("UploadFile", "AdminPage")',
+            dataType: 'json',
+            maxFileSize: 10240000,
+            acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+            add: function (e, data) {
+                 
+                if (data.files[0].size > 10240000) {
+                    alert("Chỉ cho phép upload ảnh dưới 10MB.");
+                }
+                else {
+                    isUploadImageSuccess = true;
+                    jqXHRData = data
+                    if (jqXHRData) {
+                        jqXHRData.submit();
+                    }
+                }
+               
+                return false;
+              
+            },
+            done: function (event, data) {
+                if (data.result.isUploaded) {
+
+                }
+                else {
+
+                }
+                //alert(data.result.message);
+            },
+            fail: function (event, data) {
+                if (data.files[0].error) {
+                    //alert(data.files[0].error);
+                }
+            }
+        });
+    }
+
+
     function SaveItem() {
         var cActive = "0";
-
+        var cHot = "0";
+        var description = CKEDITOR.instances.itemDescription.getData();
+        var description2 = CKEDITOR.instances.itemDescription2.getData();
 
         if ($('#itemActive').bootstrapSwitch('state')) {
             cActive = "1";
         }
 
+        if ($('#itemHot').bootstrapSwitch('state')) {
+            cHot = "1";
+        }
+
         var itemInfor = {
-            CategoryID: $("#itemID").val(),
-            CategoryName: $("#itemName").val(),
+            ItemID: $("#itemID").val(),
+            ItemName: $("#itemName").val(),
+            ItemName2: $("#itemName2").val(),
+            CategoryID: $("#cboCategory").val(),
+            CategoryName: $("#cboCategory option:selected").text(),
+            Description: description,
+            Description2: description2,
+            ItemPrice: $("#itemPrice").val(),
             Active: cActive,
-            CategoryName2: $("#itemName2").val(),
+            Hot: cHot,
+            KeySearch: $("#itemKeySearch").val(),
         }
 
         if (isAddNew) {
             $.ajax({
                 url: '@Url.Action("AddNewItem", "AdminPage")',
-
+                contentType: "application/json; charset=utf-8",
                 type: 'POST',
                 dataType: "json",
                 data: itemInfor,
+                data: JSON.stringify({ "itemInfor": itemInfor }),
                 success: function (data) {
 
                     if (data.success === true) {
@@ -79,10 +214,10 @@
         else {
             $.ajax({
                 url: '@Url.Action("EditItem", "AdminPage")',
-
+                contentType: "application/json; charset=utf-8",
                 type: 'POST',
                 dataType: "json",
-                data: itemInfor,
+                data: JSON.stringify({ "itemInfor": itemInfor }),
                 success: function (data) {
 
                     if (data.success === true) {
@@ -94,11 +229,11 @@
                 }
             });
         }
-            
+
     };
 
     function previewFile(input) {
-        
+
         if (input.files && input.files[0]) {
             var reader = new FileReader();
 
@@ -110,7 +245,7 @@
         }
 
     }
-     
+
     function DeleteItem() {
 
         $.ajax({
@@ -125,7 +260,7 @@
                     FillDataToGridTableHtml(data.returnList);
                 }
                 else {
-                    $("#lblMessageModal").html("Có lỗi xảy ra khi xóa sản phẩm, xin hãy thử lại sau.");
+                    $("#lblMessageModal").html("Có lỗi xảy ra , xin hãy thử lại sau.");
 
                     $("#modalShowError").modal("show");
                 }
@@ -139,7 +274,7 @@
             contentType: "application/json; charset=utf-8",
             type: 'GET',
             dataType: "json",
-            data: {},
+            data: JSON.stringify({ "sItemStatus": '@((int)Var.DefaultValueInComboBox)' }),
             success: function (data) {
 
 
@@ -154,19 +289,57 @@
         $("#modalConfirmDelete").modal("show");
     };
 
-    function ShowEditItem(sItemID, sItemName, sItemName2, sItemActive) {
+    function ShowEditItem(sItemID) {
         isAddNew = false;
-        $("#itemID").val(sItemID);
-        $("#itemName").val(sItemName);
-        $("#itemName2").val(sItemName2);
-        if (sItemActive == "1") {
-            $('#itemActive').bootstrapSwitch('state', true);
-        }
-        else {
-            $('#itemActive').bootstrapSwitch('state', false);
+         
+        $.ajax({
+            url: '@Url.Action("LoadItemByItemID", "AdminPage")',
+            contentType: "application/json; charset=utf-8",
+            type: 'POST',
+            dataType: "json",
+            data: JSON.stringify({ "sItemID": sItemID }),
+            success: function (data) {
+                if (data.success === true) {
 
-        };
-        $("#modalDetailsInformation").modal("show");
+                    $("#itemID").val(data.returnList.ItemID);
+
+                    $('#itemImage').attr('src', '@Url.Content(Var.UrlUploadItemImage)' + data.returnList.ItemImageURL);
+                    $("#itemName").val(data.returnList.ItemName);
+                    $("#itemName2").val(data.returnList.ItemName2);
+
+                    BindDataToCategoryComboBox(CategoryList, data.returnList.CategoryID);
+                     
+                    if (data.returnList.Active == "1") {
+                        $('#itemActive').bootstrapSwitch('state', true);
+                    }
+                    else {
+                        $('#itemActive').bootstrapSwitch('state', false);
+
+                    };
+
+                    if (data.returnList.Hot == "1") {
+                        $('#itemHot').bootstrapSwitch('state', true);
+                    }
+                    else {
+                        $('#itemHot').bootstrapSwitch('state', false);
+
+                    };
+
+                    $("#itemPrice").val(data.returnList.ItemPrice);
+                    $("#itemKeySearch").val(data.returnList.KeySearch);
+                    CKEDITOR.instances.itemDescription.setData(data.returnList.Description);
+                    CKEDITOR.instances.itemDescription2.setData(data.returnList.Description2);
+
+                    $("#modalDetailsInformation").modal("show");
+                }
+                else {
+                    $("#lblMessageModal").html("Có lỗi xảy ra , xin hãy thử lại sau.");
+
+                    $("#modalShowError").modal("show");
+                }
+            }
+        });
+
     };
 
     function InitGridTableHtml() {
@@ -183,6 +356,8 @@
         gridTableHtml += "<th scope=\"col\">Hot</th>";
         gridTableHtml += "<th scope=\"col\">Price</th>";
         gridTableHtml += "<th scope=\"col\">Từ Khóa Tìm Kiếm</th>";
+        gridTableHtml += "<th scope=\"col\" class=\"hidden\">Description</th>";
+        gridTableHtml += "<th scope=\"col\" class=\"hidden\">Description2</th>";
         gridTableHtml += "<th scope=\"col\">&nbsp;</th>";
         gridTableHtml += "<th scope=\"col\">&nbsp;</th>";
         gridTableHtml += " </tr>";
@@ -199,7 +374,7 @@
 
             gridTableHtml += "<tr>";
             gridTableHtml += "<td>" + item.ItemID + "</td>";
-            gridTableHtml += "<td><img src=\"" + '@Url.Content(Var.UrlUploadImage)' + item.ItemImageURL + "\" style=\"height:30px;width:30px;\"></td>";
+            gridTableHtml += "<td><img src=\"" + '@Url.Content(Var.UrlUploadItemImage)' + item.ItemImageURL + "\" style=\"height:30px;width:30px;\"></td>";
             gridTableHtml += "<td>" + item.ItemName + "</td>";
             gridTableHtml += "<td>" + item.ItemName2 + "</td>";
             gridTableHtml += "<td class=\"hidden\">" + item.CategoryID + "</td>";
@@ -220,7 +395,9 @@
             }
             gridTableHtml += "<td>" + item.ItemPrice + "</td>";
             gridTableHtml += "<td>" + item.KeySearch + "</td>";
-            gridTableHtml += "<td style=\"width:60px;\"><a style=\"color:#333333;\" onclick=\"ShowEditItem('" + item.CategoryID + "','" + item.CategoryName + "','" + item.CategoryName2 + "','" + item.Active + "')\">Edit</a></td>";
+            gridTableHtml += "<td class=\"hidden\">" + item.Description + "</td>";
+            gridTableHtml += "<td class=\"hidden\">" + item.Description2 + "</td>";
+            gridTableHtml += "<td style=\"width:60px;\"><a style=\"color:#333333;\" onclick=\"ShowEditItem('" + item.ItemID + "')\">Edit</a></td>";
             gridTableHtml += "<td style=\"width:60px;\"><a style=\"color:red;\" onclick=\"ShowDeleteItem('" + item.ItemID + "')\">Delete</a></td>";
             gridTableHtml += " </tr>";
         });
@@ -236,43 +413,33 @@
         <table class="table" cellspacing="0" cellpadding="4" style="color:#333333;border-collapse:collapse;">
             <tbody>
 
-                <tr>
-                    <td>14</td>
-                    <td><img src="UpLoad/Images/Kuangtai.jpg" style="height:30px;width:30px;"></td>
-                    <td>kuangtai que hàn </td>
-                    <td><span class="aspNetDisabled"><input id="ContentPlaceHolder1_ctl00_GridView1_ctl02_0" type="checkbox" name="ctl00$ContentPlaceHolder1$ctl00$GridView1$ctl02$ctl02" checked="checked" disabled="disabled"></span></td>
-                    <td><span class="aspNetDisabled"><input id="ContentPlaceHolder1_ctl00_GridView1_ctl03_0" type="checkbox" name="ctl00$ContentPlaceHolder1$ctl00$GridView1$ctl02$ctl03" disabled="disabled"></span></td>
-                    <td>NA</td>
-                    <td>Taiwan</td>
-                    <td>KT-401 E6019	E4301	- KT-403 -	E4303	E350RB KT-410 E6010 E4310	E350C KT-411 E6011	E4311	E353C KT-413 E6013	E4313 E35ZR KT-413V E6013	E4313	E35ZR KT-26 -	E4340	- KT-7 -	E4303 E350RB KT-42 -	E4303	E350RB/kuangtai</td>
-                    <td><a href="Admin.aspx?module=6&amp;m=1&amp;Id=14">View Detail</a></td>
-                    <td style="width:60px;"><a onclick="return confirm('Do you want to delete?');" href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Delete$0')" style="color:#333333;">Delete</a></td>
-                </tr>
 
-                <tr class="gridview">
-                    <td colspan="10">
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td><span>1</span></td>
-                                    <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$2')" style="color:#333333;">2</a></td>
-                                    <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$3')" style="color:#333333;">3</a></td>
-                                    <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$4')" style="color:#333333;">4</a></td>
-                                    <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$5')" style="color:#333333;">5</a></td>
-                                    <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$6')" style="color:#333333;">6</a></td>
-                                    <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$7')" style="color:#333333;">7</a></td>
-                                    <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$8')" style="color:#333333;">8</a></td>
-                                    <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$9')" style="color:#333333;">9</a></td>
-                                    <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$10')" style="color:#333333;">10</a></td>
-                                    <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$11')" style="color:#333333;">...</a></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
+                @*<tr class="gridview">
+                        <td colspan="10">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td><span>1</span></td>
+                                        <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$2')" style="color:#333333;">2</a></td>
+                                        <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$3')" style="color:#333333;">3</a></td>
+                                        <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$4')" style="color:#333333;">4</a></td>
+                                        <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$5')" style="color:#333333;">5</a></td>
+                                        <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$6')" style="color:#333333;">6</a></td>
+                                        <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$7')" style="color:#333333;">7</a></td>
+                                        <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$8')" style="color:#333333;">8</a></td>
+                                        <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$9')" style="color:#333333;">9</a></td>
+                                        <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$10')" style="color:#333333;">10</a></td>
+                                        <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$11')" style="color:#333333;">...</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>*@
             </tbody>
         </table>
     </div>
+
+    <button type="button" id="btnAddNew" class="btn btn-success btn-default">Add New</button>
 </form>
 
 <div class="modal fade" id="modalDetailsInformation" role="dialog">
@@ -280,7 +447,7 @@
 
         <!-- Modal content-->
         <div class="modal-content">
-            <div class="modal-header" >
+            <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4>Thông Tin Chi Tiết</h4>
             </div>
@@ -288,9 +455,13 @@
                 <input type="hidden" disabled="disabled" id="itemID">
                 <form role="form" id="frmModalDetailsInformation">
                     <div class="form-group">
-                        <img id="itemImage" src="@Url.Content("~/Content/FontEnd/images/sl2.png")" style="height:200px;width:200px;padding: 5px;">
-                        <input type="file" id="itemFileUpload" name="file" />
-                       
+                        <img id="itemImage" src="@Url.Content("~/Content/FontEnd/images/no_image.png")" style="height:200px;width:200px;padding: 5px;">
+                        <input type="file" class="hidden" id="itemFileUpload" name="file" />
+                        <button type="button" class="btn btn-primary start" id="btnUploadImage">
+                            <i class="glyphicon glyphicon-upload"></i>
+                            <span>Upload</span>
+                        </button>
+                        
                     </div>
 
                     <div class="form-group">
@@ -316,13 +487,7 @@
                     </div>
                     <div class="form-group">
                         <label for="cboCategory">Nhóm Sản Phẩm</label>
-                        <select id="cboCategory">
-                            <option value="1">Mr</option>
-                            <option value="2">Mrs</option>
-                            <option value="3">Ms</option>
-                            <option value="4">Dr</option>
-                            <option value="5">Prof</option>
-                        </select>
+                        <select id="cboCategory"></select>
                     </div>
 
                     <div class="form-group">
@@ -336,10 +501,13 @@
 
                     <div class="form-group">
                         <label for="itemDescription">Mô Tả Sản Phẩm</label>
-                        <textarea  class="form-control" name="ItemDescription" id="itemDescription">
-                           
-                        </textarea> 
-                        
+                        <textarea class="form-control" name="ItemDescription" id="itemDescription"></textarea>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="itemDescription2">Mô Tả Sản Phẩm 2</label>
+                        <textarea class="form-control" name="ItemDescription2" id="itemDescription2"></textarea>
+
                     </div>
                 </form>
             </div>

@@ -2,7 +2,7 @@
     ViewBag.Title = "Group";
     Layout = "~/Views/Shared/_LayoutBackEnd.cshtml";
 }
-
+@using EntitySolution.Domain.Common
 <h2>Nhóm Sản Phẩm</h2>
 
 <script>
@@ -89,7 +89,7 @@
     };
 
     function DeleteCategory() {
-        var deleteCategoryID = $("#deleteCategoryID").val();
+        
         $.ajax({
             url: '@Url.Action("DeleteCategory", "AdminPage")',
             contentType: "application/json; charset=utf-8",
@@ -114,9 +114,9 @@
         $.ajax({
             url: '@Url.Action("LoadAllCategory", "AdminPage")',
             contentType: "application/json; charset=utf-8",
-            type: 'GET',
+            type: 'POST',
             dataType: "json",
-            data: {},
+            data: JSON.stringify({ "sCategoryStatus": '@((int)Var.DefaultValueInComboBox)' }),
             success: function (data) {
 
                 

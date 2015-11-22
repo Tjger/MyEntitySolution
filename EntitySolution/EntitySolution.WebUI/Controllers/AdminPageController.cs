@@ -9,10 +9,14 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 
+using EntitySolution.Domain.Common;
+using System.IO;
 namespace EntitySolution.WebUI.Controllers
 {
     public class AdminPageController : Controller
     {
+        private string activeStatus = ((int)Var.SystemStatus.Active).ToString();
+        private string allStatus = ((int)Var.DefaultValueInComboBox).ToString();
         private IAdminPageRepository adminPageProvider;
         private IAuthenticateRepository authenticateProvider;
         public AdminPageController(IAuthenticateRepository authenticateRepository, IAdminPageRepository adminPageRepository)
@@ -172,13 +176,13 @@ namespace EntitySolution.WebUI.Controllers
         }
 
 
-        public JsonResult LoadAllCategory()
+        public JsonResult LoadAllCategory(string sCategoryStatus)
         {
             JsonResult jResult = new JsonResult();
             try
             {
 
-                jResult = Json(new { success = true, returnList = adminPageProvider.LoadAllCategory() }, JsonRequestBehavior.AllowGet);
+                jResult = Json(new { success = true, returnList = adminPageProvider.LoadAllCategory(sCategoryStatus) }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception)
@@ -196,7 +200,7 @@ namespace EntitySolution.WebUI.Controllers
             try
             {
 
-                jResult = Json(new { success = adminPageProvider.AddNewCategory(categoryInfor), returnList = adminPageProvider.LoadAllCategory() }, JsonRequestBehavior.AllowGet);
+                jResult = Json(new { success = adminPageProvider.AddNewCategory(categoryInfor), returnList = adminPageProvider.LoadAllCategory(allStatus) }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception)
@@ -214,7 +218,7 @@ namespace EntitySolution.WebUI.Controllers
             try
             {
 
-                jResult = Json(new { success = adminPageProvider.EditCategory(categoryInfor), returnList = adminPageProvider.LoadAllCategory() }, JsonRequestBehavior.AllowGet);
+                jResult = Json(new { success = adminPageProvider.EditCategory(categoryInfor), returnList = adminPageProvider.LoadAllCategory(allStatus) }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception)
@@ -232,7 +236,7 @@ namespace EntitySolution.WebUI.Controllers
             try
             {
 
-                jResult = Json(new { success = adminPageProvider.DeleteCategory(deleteCategoryID), returnList = adminPageProvider.LoadAllCategory() }, JsonRequestBehavior.AllowGet);
+                jResult = Json(new { success = adminPageProvider.DeleteCategory(deleteCategoryID), returnList = adminPageProvider.LoadAllCategory(allStatus) }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception)
@@ -245,13 +249,31 @@ namespace EntitySolution.WebUI.Controllers
         }
 
 
-        public JsonResult LoadAllItem()
+        public JsonResult LoadAllItem(string sItemStatus)
         {
             JsonResult jResult = new JsonResult();
             try
             {
 
-                jResult = Json(new { success = true, returnList = adminPageProvider.LoadAllItem() }, JsonRequestBehavior.AllowGet);
+                jResult = Json(new { success = true, returnList = adminPageProvider.LoadAllItem(sItemStatus) }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception)
+            {
+
+
+            }
+
+            return jResult;
+        }
+
+        public JsonResult LoadItemByItemID(int sItemID)
+        {
+            JsonResult jResult = new JsonResult();
+            try
+            {
+
+                jResult = Json(new { success = true, returnList = adminPageProvider.LoadItemByItemID(sItemID) }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception)
@@ -266,10 +288,35 @@ namespace EntitySolution.WebUI.Controllers
         public JsonResult AddNewItem(Item itemInfor)
         {
             JsonResult jResult = new JsonResult();
+
             try
             {
+                bool isUploaded = false;
+                string message = "File upload failed";
+                if (TempData["HttpPostedFileBase"] != null)
+                {
 
-                jResult = Json(new { success = adminPageProvider.AddNewItem(itemInfor), returnList = adminPageProvider.LoadAllItem() }, JsonRequestBehavior.AllowGet);
+                    HttpPostedFileBase file = (HttpPostedFileBase)TempData["HttpPostedFileBase"];
+                    string pathForSaving = Server.MapPath(Var.UrlUploadItemImage);
+                    if (this.CreateFolderIfNeeded(pathForSaving))
+                    {
+                        try
+                        {
+                            file.SaveAs(Path.Combine(pathForSaving, file.FileName));
+                            isUploaded = true;
+                            message = "File uploaded successfully!";
+                            itemInfor.ItemImageURL = "/" + file.FileName;
+                            TempData["HttpPostedFileBase"] = null;
+                        }
+                        catch (Exception ex)
+                        {
+                            message = string.Format("File upload failed: {0}", ex.Message);
+                        }
+                    }
+                }
+
+
+                jResult = Json(new { success = adminPageProvider.AddNewItem(itemInfor), returnList = adminPageProvider.LoadAllItem(allStatus), isUploaded = isUploaded, msgError = message }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception)
@@ -281,13 +328,76 @@ namespace EntitySolution.WebUI.Controllers
             return jResult;
         }
 
-        public JsonResult EditItem(Item itemInfor)
+        public JsonResult UploadFile(HttpPostedFileBase file)
         {
             JsonResult jResult = new JsonResult();
             try
             {
 
-                jResult = Json(new { success = adminPageProvider.EditItem(itemInfor), returnList = adminPageProvider.LoadAllItem() }, JsonRequestBehavior.AllowGet);
+                if (file != null && file.ContentLength != 0)
+                {
+                    TempData["HttpPostedFileBase"] = file;
+
+                }
+
+            }
+            catch (Exception)
+            {
+
+
+            }
+
+            return jResult;
+        }
+
+        private bool CreateFolderIfNeeded(string path)
+        {
+            bool result = true;
+            if (!Directory.Exists(path))
+            {
+                try
+                {
+                    Directory.CreateDirectory(path);
+                }
+                catch (Exception)
+                {
+                    /*TODO: You must process this exception.*/
+                    result = false;
+                }
+            }
+            return result;
+        }
+
+        public JsonResult EditItem(Item itemInfor)
+        {
+            JsonResult jResult = new JsonResult();
+            try
+            {
+                bool isUploaded = false;
+                string message = "File upload failed";
+                if (TempData["HttpPostedFileBase"] != null)
+                {
+
+                    HttpPostedFileBase file = (HttpPostedFileBase)TempData["HttpPostedFileBase"];
+                    string pathForSaving = Server.MapPath(Var.UrlUploadItemImage);
+                    if (this.CreateFolderIfNeeded(pathForSaving))
+                    {
+                        try
+                        {
+                            file.SaveAs(Path.Combine(pathForSaving, file.FileName));
+                            isUploaded = true;
+                            message = "File uploaded successfully!";
+                            itemInfor.ItemImageURL = "/" + file.FileName;
+                            TempData["HttpPostedFileBase"] = null;
+                        }
+                        catch (Exception ex)
+                        {
+                            message = string.Format("File upload failed: {0}", ex.Message);
+                        }
+                    }
+                }
+
+                jResult = Json(new { success = adminPageProvider.EditItem(itemInfor), returnList = adminPageProvider.LoadAllItem(allStatus), isUploaded = isUploaded, msgError = message }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception)
@@ -305,7 +415,7 @@ namespace EntitySolution.WebUI.Controllers
             try
             {
 
-                jResult = Json(new { success = adminPageProvider.DeleteItem(deleteItemID), returnList = adminPageProvider.LoadAllItem() }, JsonRequestBehavior.AllowGet);
+                jResult = Json(new { success = adminPageProvider.DeleteItem(deleteItemID), returnList = adminPageProvider.LoadAllItem(allStatus) }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception)

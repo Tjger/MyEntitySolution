@@ -6,12 +6,21 @@ using System.Threading.Tasks;
 
 namespace EntitySolution.Domain.Common
 {
-  public  class Var
+    public class Var
     {
-      public static string SuperAdminLoginID = "tientung";
-      public static string SuperAdminPassword = "tungtien";
+        public static string SuperAdminLoginID = "tientung";
+        public static string SuperAdminPassword = "tungtien";
 
-      public static string UrlUploadImage = "~/Content/Upload/";
-     
+        public static string UrlUploadItemImage = "~/Content/Upload/images";
+        public static string UrlUploadCompanyNewsImage = "~/Content/Upload/TinCongTy";
+        public static int DefaultValueInComboBox = -1;
+
+
+        public enum SystemStatus
+        {
+            Inactive = 0,
+            Active = 1,
+         
+        }
     }
 }
