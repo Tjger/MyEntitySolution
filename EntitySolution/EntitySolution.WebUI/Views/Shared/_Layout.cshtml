@@ -5,6 +5,7 @@
     <title>Tân Phong</title>
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700"
           rel="stylesheet" />
+
     @Styles.Render("~/Content/bootstrap-3.3.5/css/bootstrap.min.css")
     @Styles.Render("~/Content/bootstrap-3.3.5/css/bootstrap-theme.min.css")
     @Styles.Render("~/Content/FontEnd/css/tanphong.css")
@@ -161,36 +162,7 @@
                                 <i class="fa fa-list" style="padding-right: 10px;"></i>Danh Mục Sản Phẩm
                             </p>
                             <ul class="nav nav-pills nav-stacked" id="lstCategoryPanelLeft">
-                                <li class="active">
-                                    <a href="#">
-                                        <i class="fa fa-chevron-right" style="padding-right: 10px;">
-                                        </i>Container Văn Phòng
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-chevron-right" style="padding-right: 10px;"></i>Container
-                                        Khô
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-chevron-right" style="padding-right: 10px;"></i>Container
-                                        Toilet
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-chevron-right" style="padding-right: 10px;"></i>Container
-                                        Lạnh
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-chevron-right" style="padding-right: 10px;"></i>Container
-                                        Mới
-                                    </a>
-                                </li>
+                                
                             </ul>
                         </div>
                         <div class="col-md-12 col-lg-12 padd0">
@@ -198,31 +170,8 @@
                                 <i class="fa fa-cubes" style="padding-right: 10px;"></i>Sản Phẩm Mới
                             </p>
                             <div class="list-newproduct col-md-12 col-lg-12 paddtopbotton10 borderbottom">
-                                <ul style="list-style: none;">
-                                    <li>
-                                        <a href="#">
-                                            <img src="@Url.Content("~/Content/FontEnd/images/newproduct1.png")" class="img-responsive" />
-                                            <p class="tittle-small">
-                                                Container Khô 20 Feet
-                                            </p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <img src="@Url.Content("~/Content/FontEnd/images/newproduct.png")"  class="img-responsive" />
-                                            <p class="tittle-small">
-                                                Container Khô 40 Feet
-                                            </p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <img src="@Url.Content("~/Content/FontEnd/images/newproduct2.png" )"class="img-responsive" />
-                                            <p class="tittle-small">
-                                                Container Văn Phòng
-                                            </p>
-                                        </a>
-                                    </li>
+                                <ul style="list-style: none;" id="lstItemHotPanelLeft">
+                                    
                                 </ul>
                             </div>
                         </div>
@@ -231,34 +180,18 @@
                                 <i class="fa fa-building" style="padding-right: 10px;"></i>Tin Công Ty
                             </p>
                             <div class="list-newcompany col-md-12 col-lg-12 paddtopbotton10 borderbottom">
-                                <ul style="list-style: none;">
-                                    <li>
+                                <ul style="list-style: none;" id="lstNewsPanelLeft">
+                                    @*<li>
                                         <a href="#">
                                             <img src="@Url.Content("~/Content/FontEnd/images/newc.png")" class="img-responsive" />
                                             <p class="tittle-small">
                                                 SỨ MỆNH: CÔNG TY CP TM CK TÂN PHONG hoạt động với sứ mệnh tạo ra...
                                             </p>
+                                            
                                             <span class="link-deatail">Chi tiết</span>
                                         </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <img src="@Url.Content("~/Content/FontEnd/images/newc.png")" class="img-responsive" />
-                                            <p class="tittle-small">
-                                                CÔNG TY CP TM CK TÂN PHONG là công ty chuyên sản xuất, mua bán...
-                                            </p>
-                                            <span class="link-deatail">Chi tiết</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <img src="@Url.Content("~/Content/FontEnd/images/newc.png")" class="img-responsive" />
-                                            <p class="tittle-small">
-                                                SỨ MỆNH: CÔNG TY CP TM CK TÂN PHONG hoạt động với sứ mệnh tạo ra
-                                            </p>
-                                            <span class="link-deatail">Chi tiết</span>
-                                        </a>
-                                    </li>
+                                    </li>*@
+                                 
                                 </ul>
                             </div>
                         </div>

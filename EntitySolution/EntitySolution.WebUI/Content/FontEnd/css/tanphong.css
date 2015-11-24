@@ -10,12 +10,130 @@ body {
     background: #fff;
 }
 
+#contact-form ul {
+    list-style: none;
+}
+
+.box-show-lg {
+    border: 3px solid #cdcdcd;
+}
+
+    .box-show-lg .bx-controls-direction {
+        display: none;
+    }
+
+.box-show-thumb {
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+    .box-show-thumb a img {
+        border: 1px solid #cdcdcd;
+    }
+
+.box-title-detail {
+    border-bottom: 1px solid #cdcdcd;
+    font-weight: bold;
+    margin-bottom: 15px;
+    padding-top: 10px;
+}
+
+.box-img-deatailproduct {
+    border: 1px solid rgb(205, 205, 205);
+    padding: 5px;
+}
+
+.form-control2 {
+    border: 1px solid #cdcdcd;
+    border-radius: 0;
+    box-shadow: none;
+    height: 30px;
+    margin-top: 2px;
+    width: 300px;
+}
+
+.img-responsive80 {
+    width: 80%;
+}
+
+.title-namecompany {
+    text-transform: uppercase;
+    color: #008AFF;
+}
+
+.othernews {
+    border-top: 1px solid rgb(205, 205, 205);
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+    .othernews a {
+        color: #0060ff;
+    }
+
+        .othernews a:hover {
+            color: #f00;
+        }
+
+    .othernews h2 {
+        color: #333;
+        font-size: 12px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+    }
+
+    .othernews ul {
+        list-style: none;
+    }
+
+        .othernews ul li {
+            background: rgba(0, 0, 0, 0) url("../images/contacts.png") no-repeat scroll left top;
+            height: 20px;
+            line-height: 20px;
+            margin-bottom: 3px;
+            padding-left: 30px;
+        }
+
+            .othernews ul li span {
+                color: #333;
+            }
+
 .mt15 {
     margin-top: 15px;
 }
 
 .mt50 {
     margin-top: 50px;
+}
+
+.sub-listnews {
+    border-bottom: 1px dashed #cdcdcd;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+}
+
+.title-post {
+    text-transform: uppercase;
+    font-size: 22px;
+    border-bottom: 1px solid rgb(205, 205, 205);
+    padding-top: 15px;
+    color: rgb(36, 65, 165);
+}
+
+.date-post {
+    font-size: 11px;
+    float: right;
+    padding-right: 30px;
+    color: rgb(150, 150, 150);
+    margin: 0px auto;
+}
+
+.title-subpost {
+    text-transform: uppercase;
+    color: rgb(36, 65, 165);
+    font-size: 17px;
+    margin: 0 auto;
 }
 
 .name-company {
@@ -317,6 +435,7 @@ body {
         padding-bottom: 10px;
         padding-top: 10px;
         margin: 0 auto;
+        height: 105px;
     }
 
 .list-newproduct li a p.tittle-small {
@@ -364,7 +483,7 @@ body {
     margin-top: 5px !important;
 }
 
-.box-newsslider {    
+.box-newsslider {
     height: 300px;
 }
 
@@ -797,11 +916,10 @@ div.ft-contact {
     }
 
     .menu-main .navbar-nav > li > a {
-        height: 45px;
-        margin-top: 2px;
-        padding-bottom: 0;
-        padding-top: 12px;
         font-size: 14px;
+        height: 50px;
+        padding-bottom: 0;
+        padding-top: 14px;
     }
 /*css for nav main top*/
 .navigation {

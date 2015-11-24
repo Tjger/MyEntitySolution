@@ -255,7 +255,7 @@ namespace EntitySolution.WebUI.Controllers
             try
             {
 
-                jResult = Json(new { success = true, returnList = adminPageProvider.LoadAllItem(sItemStatus) }, JsonRequestBehavior.AllowGet);
+                jResult = Json(new { success = true, returnList = adminPageProvider.LoadAllItem(sItemStatus, Var.DefaultValueInComboBox.ToString()) }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception)
@@ -316,7 +316,7 @@ namespace EntitySolution.WebUI.Controllers
                 }
 
 
-                jResult = Json(new { success = adminPageProvider.AddNewItem(itemInfor), returnList = adminPageProvider.LoadAllItem(allStatus), isUploaded = isUploaded, msgError = message }, JsonRequestBehavior.AllowGet);
+                jResult = Json(new { success = adminPageProvider.AddNewItem(itemInfor), returnList = adminPageProvider.LoadAllItem(allStatus, allStatus), isUploaded = isUploaded, msgError = message }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception)
@@ -357,7 +357,7 @@ namespace EntitySolution.WebUI.Controllers
                     }
                 }
 
-                jResult = Json(new { success = adminPageProvider.EditItem(itemInfor), returnList = adminPageProvider.LoadAllItem(allStatus), isUploaded = isUploaded, msgError = message }, JsonRequestBehavior.AllowGet);
+                jResult = Json(new { success = adminPageProvider.EditItem(itemInfor), returnList = adminPageProvider.LoadAllItem(allStatus, allStatus), isUploaded = isUploaded, msgError = message }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception)
@@ -375,7 +375,7 @@ namespace EntitySolution.WebUI.Controllers
             try
             {
 
-                jResult = Json(new { success = adminPageProvider.DeleteItem(deleteItemID), returnList = adminPageProvider.LoadAllItem(allStatus) }, JsonRequestBehavior.AllowGet);
+                jResult = Json(new { success = adminPageProvider.DeleteItem(deleteItemID), returnList = adminPageProvider.LoadAllItem(allStatus, allStatus) }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception)
@@ -393,7 +393,7 @@ namespace EntitySolution.WebUI.Controllers
             try
             {
 
-                jResult = Json(new { success = true, returnList = adminPageProvider.LoadAllNews(sNewsStatus) }, JsonRequestBehavior.AllowGet);
+                jResult = Json(new { success = true, returnList = adminPageProvider.LoadAllNews(sNewsStatus,Var.DefaultValueInComboBox) }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception)
@@ -454,7 +454,7 @@ namespace EntitySolution.WebUI.Controllers
                 }
 
 
-                jResult = Json(new { success = adminPageProvider.AddNewNews(newsInfor), returnList = adminPageProvider.LoadAllNews(allStatus), isUploaded = isUploaded, msgError = message }, JsonRequestBehavior.AllowGet);
+                jResult = Json(new { success = adminPageProvider.AddNewNews(newsInfor), returnList = adminPageProvider.LoadAllNews(allStatus, Var.DefaultValueInComboBox), isUploaded = isUploaded, msgError = message }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception)
@@ -495,7 +495,7 @@ namespace EntitySolution.WebUI.Controllers
                     }
                 }
 
-                jResult = Json(new { success = adminPageProvider.EditNews(newsInfor), returnList = adminPageProvider.LoadAllNews(allStatus), isUploaded = isUploaded, msgError = message }, JsonRequestBehavior.AllowGet);
+                jResult = Json(new { success = adminPageProvider.EditNews(newsInfor), returnList = adminPageProvider.LoadAllNews(allStatus, Var.DefaultValueInComboBox), isUploaded = isUploaded, msgError = message }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception)
@@ -513,7 +513,7 @@ namespace EntitySolution.WebUI.Controllers
             try
             {
 
-                jResult = Json(new { success = adminPageProvider.DeleteNews(deleteNewsID), returnList = adminPageProvider.LoadAllNews(allStatus) }, JsonRequestBehavior.AllowGet);
+                jResult = Json(new { success = adminPageProvider.DeleteNews(deleteNewsID), returnList = adminPageProvider.LoadAllNews(allStatus, Var.DefaultValueInComboBox) }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception)

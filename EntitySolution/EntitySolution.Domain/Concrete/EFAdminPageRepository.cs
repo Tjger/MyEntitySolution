@@ -110,13 +110,14 @@ namespace EntitySolution.Domain.Concrete
             return ret;
         }
 
-        public List<Item> LoadAllItem(string sItemStatus)
+        public List<Item> LoadAllItem(string sItemStatus, string sHotStatus)
         {
             List<Item> ret = new List<Item>();
             try
             {
                 ret = (from ite in _context.Items
                        where (sItemStatus == null || sItemStatus == "" || sItemStatus == allValue || ite.Active == sItemStatus)
+                       && (sHotStatus == null || sHotStatus == "" || sHotStatus == allValue || ite.Hot == sHotStatus)
                        select ite).ToList();
             }
             catch (Exception e)
@@ -240,14 +241,24 @@ namespace EntitySolution.Domain.Concrete
             return ret;
         }
 
-        public List<News> LoadAllNews(string sNewsStatus)
+        public List<News> LoadAllNews(string sNewsStatus, int numberOfRecord)
         {
             List<News> ret = new List<News>();
             try
             {
-                ret = (from ite in _context.News
-                       where (sNewsStatus == null || sNewsStatus == "" || sNewsStatus == allValue || ite.Active == sNewsStatus)
-                       select ite).OrderByDescending(p => p.CreatedDate).ToList();
+                if (numberOfRecord == Var.DefaultValueInComboBox)
+                {
+                    ret = (from ite in _context.News
+                           where (sNewsStatus == null || sNewsStatus == "" || sNewsStatus == allValue || ite.Active == sNewsStatus)
+                           select ite).OrderByDescending(p => p.CreatedDate).ToList();
+                }
+                else
+                {
+                    ret = (from ite in _context.News
+                           where (sNewsStatus == null || sNewsStatus == "" || sNewsStatus == allValue || ite.Active == sNewsStatus)
+                           select ite).Take(numberOfRecord).OrderByDescending(p => p.CreatedDate).ToList();
+                }
+
             }
             catch (Exception e)
             {
@@ -391,13 +402,13 @@ namespace EntitySolution.Domain.Concrete
             ret.DefaultValue = "";
             try
             {
-              var   _ret = (from ite in _context.SysParas
-                       where ite.Field == fieldSysPara
-                       select ite).FirstOrDefault();
-              if (_ret != null)
-              {
-                  ret = _ret;
-              }
+                var _ret = (from ite in _context.SysParas
+                            where ite.Field == fieldSysPara
+                            select ite).FirstOrDefault();
+                if (_ret != null)
+                {
+                    ret = _ret;
+                }
             }
             catch (Exception e)
             {
@@ -419,7 +430,7 @@ namespace EntitySolution.Domain.Concrete
                     oldItem.Value = editSysPara.Value == null ? "" : editSysPara.Value;
 
                     oldItem.DefaultValue = editSysPara.DefaultValue == null ? "" : editSysPara.DefaultValue;
-                     
+
                     if (_context.SaveChanges() > 0)
                     {
                         ret = true;

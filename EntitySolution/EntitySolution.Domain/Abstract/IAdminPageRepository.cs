@@ -14,13 +14,13 @@ namespace EntitySolution.Domain.Abstract
        bool EditCategory(Category editCategory);
        bool DeleteCategory(int deleteCategoryID);
 
-       List<Item> LoadAllItem(string sItemStatus );
+       List<Item> LoadAllItem(string sItemStatus, string sHotStatus);
        Item LoadItemByItemID(int sItemID);
        bool AddNewItem(Item newItem);
        bool EditItem(Item editItem);
        bool DeleteItem(int deleteItemID);
 
-       List<News> LoadAllNews(string sNewsStatus);
+       List<News> LoadAllNews(string sNewsStatus, int numberOfRecord);
        News LoadNewsByNewsID(int sNewsID);
        bool AddNewNews(News newNews);
        bool EditNews(News editNews);

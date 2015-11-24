@@ -2,7 +2,89 @@
     ViewBag.Title = "About";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<p>Use this area to provide additional information.</p>
+@using EntitySolution.Domain.Common
+<script>
+    var CategoryList = null;
+    $(document).ready(function () {
+        GetSysPara();
+    });
+
+      function GetSysPara() {
+        $.ajax({
+            url: '@Url.Action("GetSysPara", "AdminPage")',
+            contentType: "application/json; charset=utf-8",
+            type: 'POST',
+            dataType: "json",
+            data: JSON.stringify({ "fieldSysPara": '@Var.ConfigAbout' }),
+            success: function (data) {
+                $("#ContactContent").html(data.returnList.Value);
+                //CKEDITOR.instances.itemMainContent.setData(data.returnList.Value);
+                //CKEDITOR.instances.itemMainContent2.setData(data.returnList.DefaultValue);
+            }
+        });
+    };
+</script>
+
+<div class="col-md-12 col-lg-12 padd0">
+    <p class="title-post">
+        Giới Thiệu
+    </p>
+</div>
+<div class="box-listnews">
+    <div class="sub-listnews col-md-12 col-lg-12" id="ContactContent">
+
+       
+    </div>
+</div>
+<div id="contact-form">
+    <div class="title-namecompany col-md-12 col-lg-12">
+        <b>Gởi mail trực tuyến</b>
+    </div>
+    <div class="col-md-12 col-lg-12">
+        <ul>
+            <li>
+                Họ và tên<span style="color: #f00;">(*)</span><br />
+                <input type="text" value="" class="form-control2" name="contactName" />
+            </li>
+            <li>
+                Chức vụ<br />
+                <input type="text" value="" class="form-control2" name="Chucvu" />
+            </li>
+            <li>
+                Công ty<br />
+                <input type="text" value="" class="form-control2" name="Congty" />
+            </li>
+            <li>
+                Địa chỉ<span style="color: #f00;">(*)</span><br />
+                <input type="text" value="" class="form-control2" name="contactAddress" />
+            </li>
+            <li>
+                Email<span style="color: #f00;">(*)</span><br />
+                <input type="text" value="" class="form-control2" name="Email" />
+            </li>
+            <li>
+                Điện thoại<span style="color: #f00;">(*)</span><br />
+                <input type="text" value="" class="form-control2" name="Telephone" />
+            </li>
+            <li>
+                Tiêu đề<span style="color: #f00;">(*)</span><br />
+                <input type="text" value="" class="form-control2" name="contactTitle" />
+            </li>
+            <li>
+                Nội dung<span style="color: #f00;">(*)</span><br />
+                <textarea style="width:350px;" name="contactMessage" rows="8"></textarea>
+            </li>
+        </ul>
+        <div class="col-md-12 col-lg-12">
+            <p align="center">
+                <button name="B2" class="btn btn-info" type="submit">
+                    Gửi nội dung
+                </button>
+                <button type="reset" class="btn btn-warning">
+                    Làm lại
+                </button>
+            </p>
+        </div>
+    </div>
+</div>

@@ -9,12 +9,16 @@
     var CategoryList = null;
     $(document).ready(function () {
         LoadAllCategory();
+
+        LoadAllItemHot();
+
+        LoadTopNews();
     });
 
     function LoadAllCategory() {
 
         $.ajax({
-            url: '@Url.Action("LoadAllCategory", "AdminPage")',
+            url: '@Url.Action("LoadAllCategory", "Home")',
             contentType: "application/json; charset=utf-8",
             type: 'POST',
             dataType: "json",
@@ -90,6 +94,61 @@
 
         $("#lstCategoryPanelTop").html(gridTableHtml);
     }
+
+    function LoadAllItemHot() {
+
+        $.ajax({
+            url: '@Url.Action("LoadAllItem", "Home")',
+            contentType: "application/json; charset=utf-8",
+            type: 'POST',
+            dataType: "json",
+            data: JSON.stringify({ "sItemStatus": '@((int)Var.SystemStatus.Active)', "sHotStatus": '@((int)Var.SystemStatus.Active)' }),
+            success: function (data) {
+                $("#lstItemHotPanelLeft").html("");
+                var gridTableHtml = "";
+                $.each(data.returnList, function (index, item) {
+                    gridTableHtml += "<li> <a href=\"javascript:ShowItemDetail('" + item.ItemID + "')\">";
+                    gridTableHtml += "<img src=\"" + '@Url.Content(Var.UrlUploadItemImage)' + item.ItemImageURL + "\" class=\"img-responsive\"> ";
+                    gridTableHtml += "<p class=\"tittle-small\">" + item.ItemName + "</p></a></li>";
+                });
+
+                $("#lstItemHotPanelLeft").html(gridTableHtml);
+            }
+        });
+
+    };
+
+    function ShowItemDetail(e) {
+        alert(e);
+    }
+
+    function LoadTopNews() {
+
+        $.ajax({
+            url: '@Url.Action("LoadAllNews", "Home")',
+            contentType: "application/json; charset=utf-8",
+            type: 'POST',
+            dataType: "json",
+            data: JSON.stringify({ "sNewsStatus": '@((int)Var.SystemStatus.Active)', "numberOfRecord": '3' }),
+            success: function (data) {
+                $("#lstNewsPanelLeft").html("");
+                var gridTableHtml = "";
+                $.each(data.returnList, function (index, item) {
+                    gridTableHtml += "<li> <a href=\"javascript:ShowNewsDetail('" + item.NewsID + "')\">";
+                    gridTableHtml += "<img src=\"" + '@Url.Content(Var.UrlUploadCompanyNewsImage)' + item.ItemImageURL + "\" class=\"img-responsive\"> ";
+                    gridTableHtml += "<p class=\"tittle-small\">" + item.Title + "</p>";
+                    gridTableHtml += "<span class=\"link-deatail\"  onclick=\"ShowNewsDetail('" + item.NewsID + "'\">Chi tiết</span></a></li>";
+                });
+
+                $("#lstNewsPanelLeft").html(gridTableHtml);
+            }
+        });
+
+    };
+    function ShowNewsDetail(e) {
+        alert(e);
+    }
+
 </script>
 
 <div class="menu-content-main col-md-12 col-lg-12 padd0">
