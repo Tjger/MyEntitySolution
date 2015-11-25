@@ -1,0 +1,127 @@
+﻿@{
+    ViewBag.Title = "News";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using EntitySolution.Domain.Common
+<script>
+    Number.prototype.padLeft = function (base, chr) {
+        var len = (String(base || 10).length - String(this).length) + 1;
+        return len > 0 ? new Array(len).join(chr || '0') + this : this;
+    }
+
+    var CategoryList = null;
+    $(document).ready(function () {
+
+        LoadAllNews();
+
+    });
+
+    function LoadAllNews() {
+
+        $.ajax({
+            url: '@Url.Action("LoadAllNews", "Home")',
+            contentType: "application/json; charset=utf-8",
+            type: 'POST',
+            dataType: "json",
+            data: JSON.stringify({ "sNewsStatus": '@((int)Var.SystemStatus.Active)', "numberOfRecord": '@Var.DefaultValueInComboBox' }),
+            success: function (data) {
+                $("#box-listnews").html("");
+                var gridTableHtml = "";
+                $.each(data.returnList, function (index, item) {
+
+                    var d = new Date(parseInt(item.CreatedDate.substr(6)));
+                    var dformat = [d.getDate().padLeft(),
+                    (d.getMonth() + 1).padLeft(),
+                    d.getFullYear()].join('/') +  ' ' +
+                    [d.getHours().padLeft(),
+                    d.getMinutes().padLeft(),
+                    d.getSeconds().padLeft()].join(':');
+
+
+                    gridTableHtml += " <div class=\"sub-listnews col-md-12 col-lg-12\">";
+                    gridTableHtml += " <div class=\"col-md-12 col-lg-12\">";
+                    gridTableHtml += " <p class=\"title-subpost\">";
+                    gridTableHtml += " <a href=\"Detail.html\">" + item.Title + "</a>";
+                    gridTableHtml += " </p></div>";
+                    gridTableHtml += " <div class=\"col-md-3 col-lg-3\">";
+                    gridTableHtml += "<a href=\"Detail.html\">";
+                    gridTableHtml += "<img src=\"" + '@Url.Content(Var.UrlUploadCompanyNewsImage)' + item.ItemImageURL + "\" class=\"img-responsive\" style=\"height: 125px; width: 175px;\"> ";
+                    gridTableHtml += " </a></div>";
+                    gridTableHtml += " <div class=\"col-md-9 col-lg-9\">";
+                    gridTableHtml += " <div class=\"col-md-12 col-lg-12 padd0\">";
+                    gridTableHtml += " <p>" + item.Description + "</p></div>";
+                    gridTableHtml += " <div class=\"col-md-12 col-lg-12 padd0\">";
+                    gridTableHtml += " <div class=\"col-md-6 col-lg-6 padd0\">";
+                    gridTableHtml += " <p class=\"date-post\" style=\"float: left;\">" + dformat + "</p></div>";
+                    gridTableHtml += " <div class=\"col-md-6 col-lg-6 padd0\">";
+                    gridTableHtml += " <a href=\"Detail.html\" style=\"float: right;\"><span class=\"link-deatail\">Chi tiết</span></a>";
+                    gridTableHtml += " </div></div></div></div>";
+
+                });
+
+                $("#box-listnews").html(gridTableHtml);
+            }
+        });
+
+    };
+
+    function ShowNewsDetail(e) {
+        alert(e);
+    }
+
+</script>
+<div class="col-md-12 col-lg-12 padd0">
+    <p class="title-post">
+        Tin Công Ty
+    </p>
+</div>
+<div class="box-listnews" id="box-listnews">
+    <div class="sub-listnews col-md-12 col-lg-12">
+        <div class="col-md-12 col-lg-12">
+            <p class="title-subpost">
+                <a href="Detail.html">Bảo hiểm container 2015</a>
+            </p>
+        </div>
+        <div class="col-md-3 col-lg-3">
+            <a href="Detail.html">
+                <img src="images/con-kho.png" class="img-responsive" alt="" />
+            </a>
+        </div>
+        <div class="col-md-9 col-lg-9">
+            <div class="col-md-12 col-lg-12 padd0">
+                <p>
+                    Hợp đồng bảo hiểm container này bảo hiểm cho các chi phí đóng góp tổn thất chung
+                    và các chi phí cứu hộ đã chi ra nhằm tránh hoặc liên quan đến việc tránh tổn thất
+                    xảy ra do bất kỳ nguyên nhân trừ những điểm đã được loại trừ trong điều khoản 4,
+                    5, 6, 7 và 8 hoặc những điều khác trongtrong hợp đồng bảo hiểm này, các chi phí
+                    này được tính toán và/hoặc được xác định theo hợp đồng vận chuyển và/hoặc luật pháp
+                    và tập quán hiện hành.
+                </p>
+            </div>
+            <div class="col-md-12 col-lg-12 padd0">
+                <div class="col-md-6 col-lg-6 padd0">
+                    <p class="date-post" style="float: left;">
+                        (19/11/2015)
+                    </p>
+                </div>
+                <div class="col-md-6 col-lg-6 padd0">
+                    <a href="Detail.html" style="float: right;"><span class="link-deatail">Chi tiết</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="col-md-12 col-lg-12 text-center padd0">
+    <ul class="pagination mt50">
+        <li>
+            <a aria-label="Previous" href="#"><span aria-hidden="true">«</span> </a>
+        </li>
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li><a aria-label="Next" href="#"><span aria-hidden="true">»</span> </a></li>
+    </ul>
+</div>

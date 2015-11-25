@@ -11,6 +11,9 @@ namespace EntitySolution.WebUI.Controllers
 {
     public class HomeController : Controller
     {
+        private string allValue = Var.DefaultValueInComboBox.ToString();
+        private string activeValue = ((int)Var.SystemStatus.Active).ToString();
+
         private IAdminPageRepository categoryProvider;
         private IAdminPageRepository adminPageProvider;
         public HomeController(IAdminPageRepository categoryRepository, IAdminPageRepository adminPageRepository)
@@ -26,16 +29,56 @@ namespace EntitySolution.WebUI.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-
+             
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+             
+            return View();
+        }
+
+        public ActionResult News()
+        {
+            
+            return View();
+        }
+
+        public ActionResult NewsDetail()
+        {
 
             return View();
+        }
+
+        public JsonResult LoadAllDataForHomePage()
+        {
+            JsonResult jResult = new JsonResult();
+            try
+            {
+                var CategoryList = adminPageProvider.LoadAllCategory(allValue);
+                var ItemList = adminPageProvider.LoadAllItem(activeValue, allValue);
+                var NewsList = adminPageProvider.LoadAllNews(activeValue, 3);
+
+                var ItemInCategory = new List<Item>[CategoryList.Capacity];
+
+                for (int i = 0; i < CategoryList.Capacity; i++)
+                {
+                     var ItemInCat = ItemList.Where(e => e.CategoryID == CategoryList[i].CategoryID).ToList();
+                     ItemInCategory[i] = ItemInCat;
+                }
+                
+                var ItemListHot = ItemList.Where(e => e.Hot == activeValue).ToList();
+                jResult = Json(new { success = true, CategoryList = CategoryList, NewsList = NewsList, ItemListHot = ItemListHot, ItemInCategory = ItemInCategory }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception)
+            {
+
+
+            }
+
+            return jResult;
         }
 
         public JsonResult LoadAllCategory(string sCategoryStatus)

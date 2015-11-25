@@ -838,6 +838,8 @@
     <Content Include="Views\AdminPage\UserInformation.cshtml" />
     <Content Include="Views\AdminPage\ConfigAbout.cshtml" />
     <Content Include="Views\AdminPage\ConfigContacts.cshtml" />
+    <Content Include="Views\Home\News.cshtml" />
+    <Content Include="Views\Home\NewsDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Upload\images\TinCongTy\" />

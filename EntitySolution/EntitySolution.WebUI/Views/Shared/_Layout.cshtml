@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using EntitySolution.Domain.Common
+<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta content="width=device-width" name="viewport" />
@@ -35,25 +36,121 @@
    
 </head>
 <body>
-    <script type="text/javascript">
-        $(document).ready(function () {
-           
-            $("#btn_close_modal").click(function () {
-                playPause();
-                alert("dadasda");
-            });
+
+<script>
+    var CategoryList = null;
+    $(document).ready(function () {
+        LoadAllDataForHomePage();
+         
+    });
+
+    function LoadAllDataForHomePage() {
+
+        $.ajax({
+            url: '@Url.Action("LoadAllDataForHomePage", "Home")',
+            contentType: "application/json; charset=utf-8",
+            type: 'POST',
+            dataType: "json",
+            data:{},
+            success: function (data) {
+
+                //
+                $("#cboCategory").html("");
+                $("#lstCategoryPanelLeft").html("");
+                $("#lstCategoryPanelTop").html("");
+                CategoryList = data.CategoryList;
+                var gridTableComboBoxHtml = "<option value=\"" + '@((int)Var.DefaultValueInComboBox)' + "\" selected>" + "All" + "</option>";
+                var gridTablePanelLeftHtml = "";
+                var gridTablePanelTopHtml = "";
+                $.each(CategoryList, function (index, item) {
+
+                    gridTableComboBoxHtml += "<option value=\"" + item.CategoryID + "\">" + item.CategoryName + "</option>";
+
+                    if (index == '0') {
+                        gridTablePanelLeftHtml += "<li  class=\"active\"> <a data-toggle=\"tab\" href=\"#menu" + item.CategoryID + "\"> <i class=\"fa fa-chevron-right\" style=\"padding-right: 10px;\"> </i>" + item.CategoryName + "</a></li>";
+                    }
+                    else {
+                        gridTablePanelLeftHtml += "<li> <a data-toggle=\"tab\" href=\"#menu" + item.CategoryID + "\"> <i class=\"fa fa-chevron-right\" style=\"padding-right: 10px;\"> </i>" + item.CategoryName + "</a></li>";
+                    }
+
+                    if (index == '0') {
+                        gridTablePanelTopHtml += "<li class=\"active\"> <a data-toggle=\"tab\" href=\"#menu" + item.CategoryID + "\">" + item.CategoryName + "</a></li>";
+                    }
+                    else {
+                        gridTablePanelTopHtml += "<li> <a data-toggle=\"tab\" href=\"#menu" + item.CategoryID + "\">" + item.CategoryName + "</a></li>";
+                    }
+
+                });
+
+                $("#cboCategory").html(gridTableComboBoxHtml);
+                $("#lstCategoryPanelLeft").html(gridTablePanelLeftHtml);
+                $("#lstCategoryPanelTop").html(gridTablePanelTopHtml);
+
+                //
+                $("#lstItemHotPanelLeft").html("");
+                var gridItemListHotHtml = "";
+                $.each(data.ItemListHot, function (index, item) {
+                    gridItemListHotHtml += "<li> <a href=\"javascript:ShowItemDetail('" + item.ItemID + "')\">";
+                    gridItemListHotHtml += "<img src=\"" + '@Url.Content(Var.UrlUploadItemImage)' + item.ItemImageURL + "\" class=\"img-responsive\"> ";
+                    gridItemListHotHtml += "<p class=\"tittle-small\">" + item.ItemName + "</p></a></li>";
+                });
+                $("#lstItemHotPanelLeft").html(gridItemListHotHtml);
+
+                //
+                $("#lstNewsPanelLeft").html("");
+                var gridNewsPanelLeftHtml = "";
+                $.each(data.NewsList, function (index, item) {
+                    gridNewsPanelLeftHtml += "<li style=\"height: 85px;\"> <a href=\"javascript:ShowNewsDetail('" + item.NewsID + "')\">";
+                    gridNewsPanelLeftHtml += "<img src=\"" + '@Url.Content(Var.UrlUploadCompanyNewsImage)' + item.ItemImageURL + "\" class=\"img-responsive\" style=\"height: 47px; width: 70px;\"> ";
+                    gridNewsPanelLeftHtml += "<p class=\"tittle-small\">" + item.Title + "</p>";
+                    gridNewsPanelLeftHtml += "<span class=\"link-deatail\"  onclick=\"ShowNewsDetail('" + item.NewsID + "'\">Chi tiết</span></a></li>";
+                });
+
+                $("#lstNewsPanelLeft").html(gridNewsPanelLeftHtml);
+
+                //
+                //$("#lstAllItem").html("");
+                //var gridAllItemHtml = "";
+                //var isFist = false;
+                //$.each(data.ItemInCategory, function (index, item) {
+
+                //    if (index == '0') {
+                      
+                //        isFist = true;
+                //    }
+                //    else {                        
+                //        isFist = false;
+                //    }
+
+                //    $.each(item, function (ix, im) {
+                //        if (isFist) {
+                //            gridAllItemHtml += "<div id=\"menu" + im.CategoryID + "\" class=\"tab-pane fade in active\">";
+                //        }
+                //        else {
+                //            gridAllItemHtml += "<div id=\"menu" + im.CategoryID + "\" class=\"tab-pane fade \">";
+                //        }
+
+                //        gridAllItemHtml += "<li style=\"height: 85px;\"> <a href=\"javascript:ShowNewsDetail('" + item.NewsID + "')\">";
+
+                //        alert(im.CategoryID);
+                //    });
+                //});
+                //$("#lstAllItem").html(gridAllItemHtml);
+            }
         });
 
+    };
+     
+    function ShowItemDetail(e) {
+        alert(e);
+    }
+     
+    function ShowNewsDetail(e) {
+        alert(e);
+    }
 
-        function playPause() {
-            if ($("#video1").paused) {
-                $("#video1").play();
-            }
-            else
-                $("#video1").pause();
-        }
+</script>
 
-    </script>
     <div class="bg">
         <div class="container box-content">
             <header>
@@ -98,7 +195,7 @@
                                         <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
                                         <li><a href="@Url.Action("About", "Home")">Giới Thiệu</a></li>
                                         <li><a href="@Url.Action("Index", "Home")">Sản Phẩm</a></li>
-                                        <li><a href="@Url.Action("Index", "Home")">Tin Công Ty</a></li>
+                                        <li><a href="@Url.Action("News", "Home")">Tin Công Ty</a></li>
                                         <li><a href="@Url.Action("Contact", "Home")">Liên Hệ</a></li>
                                     </ul>
                                 </div>
@@ -179,7 +276,7 @@
                             <p class="danhmucsp-menu-title">
                                 <i class="fa fa-building" style="padding-right: 10px;"></i>Tin Công Ty
                             </p>
-                            <div class="list-newcompany col-md-12 col-lg-12 paddtopbotton10 borderbottom">
+                            <div class="list-newcompany col-md-12 col-lg-12 paddtopbotton10 ">
                                 <ul style="list-style: none;" id="lstNewsPanelLeft">
                                     @*<li>
                                         <a href="#">
