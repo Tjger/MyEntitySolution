@@ -29,19 +29,19 @@ namespace EntitySolution.WebUI.Controllers
 
         public ActionResult About()
         {
-             
+
             return View();
         }
 
         public ActionResult Contact()
         {
-             
+
             return View();
         }
 
         public ActionResult News()
         {
-            
+
             return View();
         }
 
@@ -50,6 +50,18 @@ namespace EntitySolution.WebUI.Controllers
 
             return View();
         }
+
+        public ActionResult ProductDetails()
+        {
+            var id = RouteData.Values["id"];
+            ViewBag.ProductID = "";
+            if (id != null)
+            {
+                ViewBag.ProductID = id;
+            }
+            return View();
+        }
+
 
         public JsonResult LoadAllDataForHomePage()
         {
@@ -64,10 +76,10 @@ namespace EntitySolution.WebUI.Controllers
 
                 for (int i = 0; i < CategoryList.Capacity; i++)
                 {
-                     var ItemInCat = ItemList.Where(e => e.CategoryID == CategoryList[i].CategoryID).ToList();
-                     ItemInCategory[i] = ItemInCat;
+                    var ItemInCat = ItemList.Where(e => e.CategoryID == CategoryList[i].CategoryID).ToList();
+                    ItemInCategory[i] = ItemInCat;
                 }
-                
+
                 var ItemListHot = ItemList.Where(e => e.Hot == activeValue).ToList();
                 jResult = Json(new { success = true, CategoryList = CategoryList, NewsList = NewsList, ItemListHot = ItemListHot, ItemInCategory = ItemInCategory }, JsonRequestBehavior.AllowGet);
 

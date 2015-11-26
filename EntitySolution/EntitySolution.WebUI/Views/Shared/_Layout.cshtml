@@ -15,7 +15,7 @@
     @Styles.Render("~/Content/FontEnd/css/tabstyles.css")
     
     @*<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" />*@
-    @Styles.Render("~/Content/BackEnd/css/jquery-ui-1.10.3.css")
+    @Styles.Render("~/Content/BackEnd/css/jquery-ui.css")
     @Styles.Render("~/Content/BackEnd/css/font-awesome.min.css")
     
     
@@ -26,7 +26,7 @@
     @Scripts.Render("~/Content/FontEnd/js/buttons.js")
  
     @*<script type="text/javascript" src="http://code.jquery.com/ui/1.11.3/jquery-ui.js"></script>*@
-    @Scripts.Render("~/Content/BackEnd/js/jquery-ui-1.10.3.min.js")
+    @Scripts.Render("~/Content/BackEnd/js/jquery-ui.min.js")
     @Scripts.Render("~/Content/FontEnd/js/jssor.js")
     @Scripts.Render("~/Content/FontEnd/js/jssor.slider.js")
     @Scripts.Render("~/Content/FontEnd/js/jquery.bxslider.min.js")
@@ -41,8 +41,28 @@
     var CategoryList = null;
     $(document).ready(function () {
         LoadAllDataForHomePage();
-         
+
+        $('.pic-show').bxSlider({
+            pagerCustom: '#bx-pager'
+        });
+        $('.bxslider').bxSlider({
+            auto: true
+        });
+        $("#btn_close_modal").click(function () {
+            playPause();
+            
+        });
+
     });
+
+    function playPause() {
+        if ($("#video1").paused) {
+            $("#video1").play();
+        }
+        else
+            $("#video1").pause();
+    }
+
 
     function LoadAllDataForHomePage() {
 
@@ -51,7 +71,7 @@
             contentType: "application/json; charset=utf-8",
             type: 'POST',
             dataType: "json",
-            data:{},
+            data: {},
             success: function (data) {
 
                 //
@@ -67,17 +87,17 @@
                     gridTableComboBoxHtml += "<option value=\"" + item.CategoryID + "\">" + item.CategoryName + "</option>";
 
                     if (index == '0') {
-                        gridTablePanelLeftHtml += "<li  class=\"active\"> <a data-toggle=\"tab\" href=\"#menu" + item.CategoryID + "\"> <i class=\"fa fa-chevron-right\" style=\"padding-right: 10px;\"> </i>" + item.CategoryName + "</a></li>";
+                        gridTablePanelLeftHtml += "<li  class=\"active\"> <a data-toggle=\"tab\" href=\"#menu" + index + "\"> <i class=\"fa fa-chevron-right\" style=\"padding-right: 10px;\"> </i>" + item.CategoryName + "</a></li>";
                     }
                     else {
-                        gridTablePanelLeftHtml += "<li> <a data-toggle=\"tab\" href=\"#menu" + item.CategoryID + "\"> <i class=\"fa fa-chevron-right\" style=\"padding-right: 10px;\"> </i>" + item.CategoryName + "</a></li>";
+                        gridTablePanelLeftHtml += "<li> <a data-toggle=\"tab\" href=\"#menu" + index + "\"> <i class=\"fa fa-chevron-right\" style=\"padding-right: 10px;\"> </i>" + item.CategoryName + "</a></li>";
                     }
 
                     if (index == '0') {
-                        gridTablePanelTopHtml += "<li class=\"active\"> <a data-toggle=\"tab\" href=\"#menu" + item.CategoryID + "\">" + item.CategoryName + "</a></li>";
+                        gridTablePanelTopHtml += "<li class=\"active\"> <a data-toggle=\"tab\" href=\"#menu" + index + "\">" + item.CategoryName + "</a></li>";
                     }
                     else {
-                        gridTablePanelTopHtml += "<li> <a data-toggle=\"tab\" href=\"#menu" + item.CategoryID + "\">" + item.CategoryName + "</a></li>";
+                        gridTablePanelTopHtml += "<li> <a data-toggle=\"tab\" href=\"#menu" + index + "\">" + item.CategoryName + "</a></li>";
                     }
 
                 });
@@ -109,42 +129,73 @@
                 $("#lstNewsPanelLeft").html(gridNewsPanelLeftHtml);
 
                 //
-                //$("#lstAllItem").html("");
-                //var gridAllItemHtml = "";
-                //var isFist = false;
-                //$.each(data.ItemInCategory, function (index, item) {
+                $("#lstAllItem").html("");
+                var gridAllItemHtml = "";
+                var isFist = false;
+                $.each(data.ItemInCategory, function (index, item) {
 
-                //    if (index == '0') {
-                      
-                //        isFist = true;
-                //    }
-                //    else {                        
-                //        isFist = false;
-                //    }
+                    if (index == '0') {
 
-                //    $.each(item, function (ix, im) {
-                //        if (isFist) {
-                //            gridAllItemHtml += "<div id=\"menu" + im.CategoryID + "\" class=\"tab-pane fade in active\">";
-                //        }
-                //        else {
-                //            gridAllItemHtml += "<div id=\"menu" + im.CategoryID + "\" class=\"tab-pane fade \">";
-                //        }
+                        gridAllItemHtml += "<div id=\"menu" + index + "\" class=\"tab-pane fade in active\">";
 
-                //        gridAllItemHtml += "<li style=\"height: 85px;\"> <a href=\"javascript:ShowNewsDetail('" + item.NewsID + "')\">";
+                    }
+                    else {
+                        gridAllItemHtml += "<div id=\"menu" + index + "\" class=\"tab-pane fade \">";
 
-                //        alert(im.CategoryID);
-                //    });
-                //});
-                //$("#lstAllItem").html(gridAllItemHtml);
+                    }
+
+                    var numberRow = 1;
+                    gridAllItemHtml += "<div class=\"col-md-12 col-lg-12 padd0\" id=\"row" + index + numberRow + "\">";
+                    var indexTotal = 0;
+                    var numberRow = 1;
+                    $.each(item, function (ix, im) {
+                        indexTotal++;
+                        gridAllItemHtml += "<div class=\"col-md-4 col-lg-4 mt15\">";
+                        gridAllItemHtml += "<div class=\"box-show-product col-md-12 col-lg-12 padd0\">";
+                        gridAllItemHtml += "<div class=\"box-img col-md-12 col-lg-12\">";
+                        gridAllItemHtml += "<a href=\"javascript:ShowItemDetail('" + im.ItemID + "')\">";
+                        gridAllItemHtml += "<img src=\"" + '@Url.Content(Var.UrlUploadItemImage)' + im.ItemImageURL + "\" class=\"img-responsive\" style=\"height: 105px; width: 190px;\"> ";
+                        gridAllItemHtml += "</a>";
+                        gridAllItemHtml += "</div>";
+                        gridAllItemHtml += "<div class=\"col-md-12 col-lg-12 padd0\">";
+                        gridAllItemHtml += "<p class=\"box-info-danhgia\">";
+                        gridAllItemHtml += im.ItemName;
+                        gridAllItemHtml += "</p>";
+                        gridAllItemHtml += "<p class=\"box-star\">";
+                        gridAllItemHtml += "<i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i>";
+                        gridAllItemHtml += "</p>";
+                        gridAllItemHtml += "</div>";
+                        gridAllItemHtml += "<div class=\"col-md-12 col-lg-12\">";
+                        gridAllItemHtml += "<p class=\"box-datetime\">";
+                        gridAllItemHtml += "<i class=\"fa fa-clock-o\"></i>";
+                        gridAllItemHtml += "<span class=\"small day-post\">239 Days</span>";
+                        gridAllItemHtml += "<span class=\"small time-post\">13:13:11</span>";
+                        gridAllItemHtml += "</p>";
+                        gridAllItemHtml += "</div>";
+                        gridAllItemHtml += "</div>";
+                        gridAllItemHtml += "</div>";
+                        gridAllItemHtml += "";
+
+                        if (indexTotal % 3 == 0) {
+                            numberRow++;
+                            gridAllItemHtml += "</div><div class=\"col-md-12 col-lg-12 padd0\" id=\"row" + index + numberRow + "\">";
+                        }
+                    });
+
+                    gridAllItemHtml += "</div></div>"
+                });
+                $("#lstAllItem").html(gridAllItemHtml);
             }
         });
 
     };
-     
+
     function ShowItemDetail(e) {
-        alert(e);
+
+        var url = '@Url.Action("ProductDetails", "Home", new { id = "__id__" })';
+        window.location.href = url.replace('__id__', e);
     }
-     
+
     function ShowNewsDetail(e) {
         alert(e);
     }

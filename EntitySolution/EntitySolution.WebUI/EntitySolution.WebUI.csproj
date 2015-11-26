@@ -194,6 +194,7 @@
     <Content Include="Content\BackEnd\css\font-awesome.min.css" />
     <Content Include="Content\BackEnd\css\fullcalendar.css" />
     <Content Include="Content\BackEnd\css\jquery-ui-1.10.3.css" />
+    <Content Include="Content\BackEnd\css\jquery-ui.css" />
     <Content Include="Content\BackEnd\css\jquery.gritter.css" />
     <Content Include="Content\BackEnd\css\jquery.tagsinput.css" />
     <Content Include="Content\BackEnd\css\morris.css" />
@@ -241,6 +242,7 @@
     <Content Include="Content\BackEnd\js\jquery-jvectormap-world-mill-en.js" />
     <Content Include="Content\BackEnd\js\jquery-migrate-1.2.1.min.js" />
     <Content Include="Content\BackEnd\js\jquery-ui-1.10.3.min.js" />
+    <Content Include="Content\BackEnd\js\jquery-ui.js" />
     <Content Include="Content\BackEnd\js\jquery.autogrow-textarea.js" />
     <Content Include="Content\BackEnd\js\jquery.cookies.js" />
     <Content Include="Content\BackEnd\js\jquery.dataTables.min.js" />
@@ -653,7 +655,12 @@
     <Content Include="Content\ckeditor\skins\moono\images\spinner.gif" />
     <Content Include="Content\ckeditor\styles.js" />
     <Content Include="Content\FontEnd\css\animations.css" />
+    <Content Include="Content\FontEnd\css\bootstrap-theme.css" />
+    <Content Include="Content\FontEnd\css\bootstrap-theme.min.css" />
+    <Content Include="Content\FontEnd\css\bootstrap.css" />
+    <Content Include="Content\FontEnd\css\bootstrap.min.css" />
     <Content Include="Content\FontEnd\css\buttons.css" />
+    <Content Include="Content\FontEnd\css\fotorama.css" />
     <Content Include="Content\FontEnd\css\jquery.bxslider.css" />
     <Content Include="Content\FontEnd\css\tabstyles.css" />
     <Content Include="Content\FontEnd\css\tanphong.css" />
@@ -705,6 +712,7 @@
     <Content Include="Content\FontEnd\images\newproduct1.png" />
     <Content Include="Content\FontEnd\images\newproduct2.png" />
     <Content Include="Content\FontEnd\images\no_image.png" />
+    <Content Include="Content\FontEnd\images\pro.jpg" />
     <Content Include="Content\FontEnd\images\share-fb.png" />
     <Content Include="Content\FontEnd\images\share-googleplus.png" />
     <Content Include="Content\FontEnd\images\share-twist.png" />
@@ -799,6 +807,8 @@
     <Content Include="Content\ckeditor\samples\toolbarconfigurator\font\fontello.woff" />
     <Content Include="Content\ckeditor\samples\toolbarconfigurator\lib\codemirror\LICENSE" />
     <Content Include="Content\ckeditor\skins\moono\readme.md" />
+    <Content Include="Content\FontEnd\css\bootstrap-theme.css.map" />
+    <Content Include="Content\FontEnd\css\bootstrap.css.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -840,6 +850,7 @@
     <Content Include="Views\AdminPage\ConfigContacts.cshtml" />
     <Content Include="Views\Home\News.cshtml" />
     <Content Include="Views\Home\NewsDetail.cshtml" />
+    <Content Include="Views\Home\ProductDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Upload\images\TinCongTy\" />

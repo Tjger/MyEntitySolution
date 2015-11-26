@@ -18,6 +18,12 @@ namespace EntitySolution.WebUI
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+               name: "1",
+               url: "{Home}/{ProductDetails}/{id}",
+               defaults: new { controller = "Home", action = "ProductDetails", id = UrlParameter.Optional }
+           );
         }
     }
 }
