@@ -28,5 +28,9 @@ namespace EntitySolution.EntityDB
         public string CategoryName { get; set; }
         public string Description2 { get; set; }
         public string ItemCondition { get; set; }
+        public string ItemImageURL2 { get; set; }
+        public string ItemImageURL3 { get; set; }
+        public string ItemImageURL4 { get; set; }
+        public string FolderID { get; set; }
     }
 }

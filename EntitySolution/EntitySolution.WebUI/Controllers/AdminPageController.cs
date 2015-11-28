@@ -296,29 +296,13 @@ namespace EntitySolution.WebUI.Controllers
 
             try
             {
-                bool isUploaded = false;
+               
                 string message = "File upload failed";
-                if (TempData["HttpPostedFileBase"] != null)
-                {
+                string idFolder = DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString();
 
-                    HttpPostedFileBase file = (HttpPostedFileBase)TempData["HttpPostedFileBase"];
-                    string pathForSaving = Server.MapPath(Var.UrlUploadItemImage);
-                    if (this.CreateFolderIfNeeded(pathForSaving))
-                    {
-                        try
-                        {
-                            file.SaveAs(Path.Combine(pathForSaving, file.FileName));
-                            isUploaded = true;
-                            message = "File uploaded successfully!";
-                            itemInfor.ItemImageURL = "/" + file.FileName;
-                            TempData["HttpPostedFileBase"] = null;
-                        }
-                        catch (Exception ex)
-                        {
-                            message = string.Format("File upload failed: {0}", ex.Message);
-                        }
-                    }
-                }
+                string pathForSaving = Server.MapPath(Var.UrlUploadItemImage + "/" + idFolder );
+
+                SetURLImage(pathForSaving, idFolder, ref itemInfor);
 
                 bool ret = adminPageProvider.AddNewItem(itemInfor);
                 if (ret)
@@ -345,30 +329,12 @@ namespace EntitySolution.WebUI.Controllers
             JsonResult jResult = new JsonResult();
             try
             {
-                bool isUploaded = false;
+               
                 string message = "File upload failed";
-                if (TempData["HttpPostedFileBase"] != null)
-                {
-
-                    HttpPostedFileBase file = (HttpPostedFileBase)TempData["HttpPostedFileBase"];
-                    string pathForSaving = Server.MapPath(Var.UrlUploadItemImage);
-                    if (this.CreateFolderIfNeeded(pathForSaving))
-                    {
-                        try
-                        {
-                            file.SaveAs(Path.Combine(pathForSaving, file.FileName));
-                            isUploaded = true;
-                            message = "File uploaded successfully!";
-                            itemInfor.ItemImageURL = "/" + file.FileName;
-                            TempData["HttpPostedFileBase"] = null;
-                        }
-                        catch (Exception ex)
-                        {
-                            message = string.Format("File upload failed: {0}", ex.Message);
-                        }
-                    }
-                }
-
+                string pathForSaving = Server.MapPath(Var.UrlUploadItemImage);
+               
+                SetURLImage(pathForSaving, itemInfor.FolderID, ref itemInfor);
+                 
                 bool ret = adminPageProvider.EditItem(itemInfor);
                 if (ret)
                 {
@@ -509,7 +475,7 @@ namespace EntitySolution.WebUI.Controllers
             JsonResult jResult = new JsonResult();
             try
             {
-                bool isUploaded = false;
+                
                 string message = "File upload failed";
                 if (TempData["HttpPostedFileBase"] != null)
                 {
@@ -521,7 +487,7 @@ namespace EntitySolution.WebUI.Controllers
                         try
                         {
                             file.SaveAs(Path.Combine(pathForSaving, file.FileName));
-                            isUploaded = true;
+                           
                             message = "File uploaded successfully!";
                             newsInfor.ItemImageURL = "/" + file.FileName;
                             TempData["HttpPostedFileBase"] = null;
@@ -580,7 +546,7 @@ namespace EntitySolution.WebUI.Controllers
             return jResult;
         }
 
-        public JsonResult UploadFile(HttpPostedFileBase file)
+        public JsonResult UploadFile(HttpPostedFileBase file )
         {
             JsonResult jResult = new JsonResult();
             try
@@ -602,6 +568,171 @@ namespace EntitySolution.WebUI.Controllers
             return jResult;
         }
 
+        public void SetURLImage(string pathForSaving,string  idFolder, ref Item itemInfor)
+        {
+            try
+            {
+
+                itemInfor.FolderID = idFolder;
+                if (TempData["HttpPostedFileBase"] != null)
+                {
+
+                    HttpPostedFileBase file = (HttpPostedFileBase)TempData["HttpPostedFileBase"];
+                  
+                    if (this.CreateFolderIfNeeded(pathForSaving))
+                    {
+                        try
+                        {
+                            file.SaveAs(Path.Combine(pathForSaving, file.FileName));
+                            
+                             
+                            itemInfor.ItemImageURL = "/" + idFolder + "/" + file.FileName;
+                            TempData["HttpPostedFileBase"] = null;
+                        }
+                        catch (Exception ex)
+                        {
+                           
+                        }
+                    }
+                }
+
+                if (TempData["HttpPostedFileBase2"] != null)
+                {
+
+                    HttpPostedFileBase file = (HttpPostedFileBase)TempData["HttpPostedFileBase2"];
+
+                    if (this.CreateFolderIfNeeded(pathForSaving))
+                    {
+                        try
+                        {
+                            file.SaveAs(Path.Combine(pathForSaving, file.FileName));
+
+                          
+                            itemInfor.ItemImageURL2 = "/" + idFolder + "/" + file.FileName;
+                            TempData["HttpPostedFileBase2"] = null;
+                        }
+                        catch (Exception ex)
+                        {
+                            
+                        }
+                    }
+                }
+
+                if (TempData["HttpPostedFileBase3"] != null)
+                {
+
+                    HttpPostedFileBase file = (HttpPostedFileBase)TempData["HttpPostedFileBase3"];
+
+                    if (this.CreateFolderIfNeeded(pathForSaving))
+                    {
+                        try
+                        {
+                            file.SaveAs(Path.Combine(pathForSaving, file.FileName));
+
+
+                            itemInfor.ItemImageURL3 = "/" + idFolder + "/" + file.FileName;
+                            TempData["HttpPostedFileBase3"] = null;
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+                    }
+                }
+                if (TempData["HttpPostedFileBase4"] != null)
+                {
+
+                    HttpPostedFileBase file = (HttpPostedFileBase)TempData["HttpPostedFileBase4"];
+
+                    if (this.CreateFolderIfNeeded(pathForSaving))
+                    {
+                        try
+                        {
+                            file.SaveAs(Path.Combine(pathForSaving, file.FileName));
+
+
+                            itemInfor.ItemImageURL4 = "/" + idFolder + "/" + file.FileName;
+                            TempData["HttpPostedFileBase4"] = null;
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+                    }
+                }
+
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+        }
+        public JsonResult UploadFile2(HttpPostedFileBase file)
+        {
+            JsonResult jResult = new JsonResult();
+            try
+            {
+
+                if (file != null && file.ContentLength != 0)
+                {
+                    TempData["HttpPostedFileBase2"] = file;
+
+                }
+
+            }
+            catch (Exception)
+            {
+
+
+            }
+
+            return jResult;
+        }
+
+        public JsonResult UploadFile3(HttpPostedFileBase file)
+        {
+            JsonResult jResult = new JsonResult();
+            try
+            {
+
+                if (file != null && file.ContentLength != 0)
+                {
+                    TempData["HttpPostedFileBase3"] = file;
+
+                }
+
+            }
+            catch (Exception)
+            {
+
+
+            }
+
+            return jResult;
+        }
+
+        public JsonResult UploadFile4(HttpPostedFileBase file)
+        {
+            JsonResult jResult = new JsonResult();
+            try
+            {
+
+                if (file != null && file.ContentLength != 0)
+                {
+                    TempData["HttpPostedFileBase4"] = file;
+
+                }
+
+            }
+            catch (Exception)
+            {
+
+
+            }
+
+            return jResult;
+        }
         private bool CreateFolderIfNeeded(string path)
         {
             bool result = true;

@@ -32,6 +32,10 @@
           <Property Name="CategoryID" Type="int" />
           <Property Name="CategoryName" Type="nvarchar" MaxLength="250" />
           <Property Name="ItemImageURL" Type="nvarchar" MaxLength="250" />
+          <Property Name="ItemImageURL2" Type="nvarchar" MaxLength="250" />
+          <Property Name="ItemImageURL3" Type="nvarchar" MaxLength="250" />
+          <Property Name="ItemImageURL4" Type="nvarchar" MaxLength="250" />
+          <Property Name="FolderID" Type="nvarchar" MaxLength="250" />
           <Property Name="Description" Type="ntext" />
           <Property Name="Description2" Type="ntext" />
           <Property Name="ItemPrice" Type="nvarchar" MaxLength="250" />
@@ -104,6 +108,10 @@
           <Property Name="CategoryName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="Description2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ItemCondition" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ItemImageURL2" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ItemImageURL3" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ItemImageURL4" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="FolderID" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityContainer Name="EntityDBContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Categories" EntityType="Self.Category" />
@@ -164,6 +172,10 @@
           <EntitySetMapping Name="Items">
             <EntityTypeMapping TypeName="EntitySolutionModel.Item">
               <MappingFragment StoreEntitySet="Item">
+                <ScalarProperty Name="FolderID" ColumnName="FolderID" />
+                <ScalarProperty Name="ItemImageURL4" ColumnName="ItemImageURL4" />
+                <ScalarProperty Name="ItemImageURL3" ColumnName="ItemImageURL3" />
+                <ScalarProperty Name="ItemImageURL2" ColumnName="ItemImageURL2" />
                 <ScalarProperty Name="ItemCondition" ColumnName="ItemCondition" />
                 <ScalarProperty Name="Description2" ColumnName="Description2" />
                 <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />

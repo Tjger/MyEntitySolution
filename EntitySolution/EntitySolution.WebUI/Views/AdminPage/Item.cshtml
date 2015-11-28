@@ -18,7 +18,31 @@
 
         $("#itemFileUpload").change(function () {
             if (isUploadImageSuccess) {
-                previewFile(this);
+                previewFile(this,'1');
+                isUploadImageSuccess = false
+            }
+
+        });
+
+        $("#itemFileUpload2").change(function () {
+            if (isUploadImageSuccess) {
+                previewFile(this, '2');
+                isUploadImageSuccess = false
+            }
+
+        });
+
+        $("#itemFileUpload3").change(function () {
+            if (isUploadImageSuccess) {
+                previewFile(this, '3');
+                isUploadImageSuccess = false
+            }
+
+        });
+
+        $("#itemFileUpload4").change(function () {
+            if (isUploadImageSuccess) {
+                previewFile(this, '4');
                 isUploadImageSuccess = false
             }
 
@@ -26,6 +50,21 @@
 
         $("#btnUploadImage").click(function () {
             $("#itemFileUpload").trigger("click");
+
+        });
+
+        $("#btnUploadImage2").click(function () {
+            $("#itemFileUpload2").trigger("click");
+
+        });
+
+        $("#btnUploadImage3").click(function () {
+            $("#itemFileUpload3").trigger("click");
+
+        });
+
+        $("#btnUploadImage4").click(function () {
+            $("#itemFileUpload4").trigger("click");
 
         });
 
@@ -122,6 +161,7 @@
 
         $('#itemFileUpload').fileupload({
             url: '@Url.Action("UploadFile", "AdminPage")',
+          
             dataType: 'json',
             maxFileSize: 10240000,
             acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
@@ -142,18 +182,99 @@
 
             },
             done: function (event, data) {
-                //if (data.result.isUploaded) {
-
-                //}
-                //else {
-
-                //}
-                //alert(data.result.message);
+                 
             },
             fail: function (event, data) {
-                if (data.files[0].error) {
-                    //alert(data.files[0].error);
+                
+            }
+        });
+
+        $('#itemFileUpload2').fileupload({
+            url: '@Url.Action("UploadFile2", "AdminPage")',
+            dataType: 'json',
+            maxFileSize: 10240000,
+            acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+            add: function (e, data) {
+
+                if (data.files[0].size > 10240000) {
+                    alert("Chỉ cho phép upload ảnh dưới 10MB.");
                 }
+                else {
+                    isUploadImageSuccess = true;
+                    jqXHRData = data
+                    if (jqXHRData) {
+                        jqXHRData.submit();
+                    }
+                }
+
+                return false;
+
+            },
+            done: function (event, data) {
+
+            },
+            fail: function (event, data) {
+
+            }
+        });
+
+
+        $('#itemFileUpload3').fileupload({
+            url: '@Url.Action("UploadFile3", "AdminPage")',
+            dataType: 'json',
+            maxFileSize: 10240000,
+            
+            acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+            add: function (e, data) {
+
+                if (data.files[0].size > 10240000) {
+                    alert("Chỉ cho phép upload ảnh dưới 10MB.");
+                }
+                else {
+                    isUploadImageSuccess = true;
+                    jqXHRData = data
+                    if (jqXHRData) {
+                        jqXHRData.submit();
+                    }
+                }
+
+                return false;
+
+            },
+            done: function (event, data) {
+
+            },
+            fail: function (event, data) {
+
+            }
+        });
+
+        $('#itemFileUpload4').fileupload({
+            url: '@Url.Action("UploadFile4", "AdminPage")',
+            dataType: 'json',
+            maxFileSize: 10240000,
+            acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+            add: function (e, data) {
+
+                if (data.files[0].size > 10240000) {
+                    alert("Chỉ cho phép upload ảnh dưới 10MB.");
+                }
+                else {
+                    isUploadImageSuccess = true;
+                    jqXHRData = data
+                    if (jqXHRData) {
+                        jqXHRData.submit();
+                    }
+                }
+
+                return false;
+
+            },
+            done: function (event, data) {
+
+            },
+            fail: function (event, data) {
+
             }
         });
     }
@@ -169,6 +290,9 @@
         $("#itemCondition").val("");
         $("#itemKeySearch").val("");
         $('#itemImage').attr('src', '@Url.Content("~/Content/FontEnd/images/no_image.png")');
+        $('#itemImage2').attr('src', '@Url.Content("~/Content/FontEnd/images/no_image.png")');
+        $('#itemImage3').attr('src', '@Url.Content("~/Content/FontEnd/images/no_image.png")');
+        $('#itemImage4').attr('src', '@Url.Content("~/Content/FontEnd/images/no_image.png")');
     }
 
 
@@ -198,6 +322,7 @@
             ItemCondition: $("#itemCondition").val(),
             Active: cActive,
             Hot: cHot,
+            FolderID: $("#FolderID").val(),
             KeySearch: $("#itemKeySearch").val(),
         }
 
@@ -249,13 +374,25 @@
 
     };
 
-    function previewFile(input) {
+    function previewFile(input, index) {
 
         if (input.files && input.files[0]) {
             var reader = new FileReader();
 
             reader.onload = function (e) {
-                $('#itemImage').attr('src', e.target.result);
+                if (index == '2') {
+                    $('#itemImage2').attr('src', e.target.result);
+                }
+                else if (index == '3') {
+                    $('#itemImage3').attr('src', e.target.result);
+                }
+                else if (index == '4') {
+                    $('#itemImage4').attr('src', e.target.result);
+                }
+                else {
+                    $('#itemImage').attr('src', e.target.result);
+                }
+                
             }
 
             reader.readAsDataURL(input.files[0]);
@@ -328,7 +465,40 @@
 
                     $("#itemID").val(data.returnList.ItemID);
 
-                    $('#itemImage').attr('src', '@Url.Content(Var.UrlUploadItemImage)' + data.returnList.ItemImageURL);
+                    if (data.returnList.ItemImageURL != "") {
+                        $('#itemImage').attr('src', '@Url.Content(Var.UrlUploadItemImage)' + data.returnList.ItemImageURL);
+                        
+                        
+                    }
+                    else {
+                        $('#itemImage').attr('src', '@Url.Content("~/Content/FontEnd/images/no_image.png")');
+                    }
+
+                    if (data.returnList.ItemImageURL2 != "") {
+                        $('#itemImage2').attr('src', '@Url.Content(Var.UrlUploadItemImage)' + data.returnList.ItemImageURL2);
+                        
+                    }
+                    else {
+                        $('#itemImage2').attr('src', '@Url.Content("~/Content/FontEnd/images/no_image.png")');
+                    }
+
+                    if (data.returnList.ItemImageURL3 != "") {
+                        $('#itemImage3').attr('src', '@Url.Content(Var.UrlUploadItemImage)' + data.returnList.ItemImageURL3);
+                         
+                    }
+                    else {
+                        $('#itemImage3').attr('src', '@Url.Content("~/Content/FontEnd/images/no_image.png")');
+                    }
+
+                    if (data.returnList.ItemImageURL4 != "") {
+                        $('#itemImage4').attr('src', '@Url.Content(Var.UrlUploadItemImage)' + data.returnList.ItemImageURL4);
+                       
+                    }
+                    else {
+                        $('#itemImage4').attr('src', '@Url.Content("~/Content/FontEnd/images/no_image.png")');
+                    }
+                    $("#FolderID").val(data.returnList.FolderID);
+                    
                     $("#itemName").val(data.returnList.ItemName);
                     $("#itemName2").val(data.returnList.ItemName2);
 
@@ -479,17 +649,47 @@
             </div>
             <div class="modal-body " style="padding:10px 10px;">
                 <input type="hidden" disabled="disabled" id="itemID">
+                <input type="hidden" disabled="disabled" id="FolderID">
                 <form role="form" id="frmModalDetailsInformation">
                     <div class="form-group">
                         <img id="itemImage" src="@Url.Content("~/Content/FontEnd/images/no_image.png")" style="height:200px;width:200px;padding: 5px;">
                         <input type="file" class="hidden" id="itemFileUpload" name="file" />
                         <button type="button" class="btn btn-primary start" id="btnUploadImage">
                             <i class="glyphicon glyphicon-upload"></i>
-                            <span>Upload</span>
+                            <span>Upload Image</span>
                         </button>
 
                     </div>
 
+                    <div class="form-group">
+                        <img id="itemImage2" src="@Url.Content("~/Content/FontEnd/images/no_image.png")" style="height:200px;width:200px;padding: 5px;">
+                        <input type="file" class="hidden" id="itemFileUpload2" name="file" />
+                        <button type="button" class="btn btn-primary start" id="btnUploadImage2">
+                            <i class="glyphicon glyphicon-upload"></i>
+                            <span>Upload Image 2</span>
+                        </button>
+
+                    </div>
+
+                    <div class="form-group">
+                        <img id="itemImage3" src="@Url.Content("~/Content/FontEnd/images/no_image.png")" style="height:200px;width:200px;padding: 5px;">
+                        <input type="file" class="hidden" id="itemFileUpload3" name="file" />
+                        <button type="button" class="btn btn-primary start" id="btnUploadImage3">
+                            <i class="glyphicon glyphicon-upload"></i>
+                            <span>Upload Image 3</span>
+                        </button>
+
+                    </div>
+
+                    <div class="form-group">
+                        <img id="itemImage4" src="@Url.Content("~/Content/FontEnd/images/no_image.png")" style="height:200px;width:200px;padding: 5px;">
+                        <input type="file" class="hidden" id="itemFileUpload4" name="file" />
+                        <button type="button" class="btn btn-primary start" id="btnUploadImage4">
+                            <i class="glyphicon glyphicon-upload"></i>
+                            <span>Upload Image 4</span>
+                        </button>
+
+                    </div>
                     <div class="form-group">
                         <label for="itemName">Tên</label>
                         <input type="text" class="form-control" name="ItemName" id="itemName">

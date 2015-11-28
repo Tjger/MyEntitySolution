@@ -145,10 +145,15 @@ namespace EntitySolution.Domain.Concrete
                 newItem.Description = newItem.Description == null ? "" : newItem.Description;
                 newItem.Description2 = newItem.Description2 == null ? "" : newItem.Description2;
                 newItem.ItemPrice = newItem.ItemPrice == null ? "" : newItem.ItemPrice;
+                newItem.ItemCondition = newItem.ItemCondition == null ? "" : newItem.ItemCondition;
+                newItem.FolderID = newItem.FolderID == null ? "" : newItem.FolderID;
                 newItem.Hot = newItem.Hot == null ? "" : newItem.Hot;
                 newItem.KeySearch = newItem.KeySearch == null ? "" : newItem.KeySearch;
 
                 newItem.ItemImageURL = newItem.ItemImageURL == null ? "" : newItem.ItemImageURL;
+                newItem.ItemImageURL2 = newItem.ItemImageURL2 == null ? "" : newItem.ItemImageURL2;
+                newItem.ItemImageURL3 = newItem.ItemImageURL3 == null ? "" : newItem.ItemImageURL3;
+                newItem.ItemImageURL4 = newItem.ItemImageURL4 == null ? "" : newItem.ItemImageURL4;
                 newItem.Active = newItem.Active == null ? "" : newItem.Active;
 
                 _context.Items.Add(newItem);
@@ -205,6 +210,20 @@ namespace EntitySolution.Domain.Concrete
                         oldItem.ItemImageURL = editItem.ItemImageURL;
                     }
 
+                    if (editItem.ItemImageURL2 != null && editItem.ItemImageURL2 != "")
+                    {
+                        oldItem.ItemImageURL2 = editItem.ItemImageURL2;
+                    }
+
+                    if (editItem.ItemImageURL3 != null && editItem.ItemImageURL3 != "")
+                    {
+                        oldItem.ItemImageURL3 = editItem.ItemImageURL3;
+                    }
+
+                    if (editItem.ItemImageURL4 != null && editItem.ItemImageURL4 != "")
+                    {
+                        oldItem.ItemImageURL4 = editItem.ItemImageURL4;
+                    }
                     oldItem.ItemName2 = editItem.ItemName2 == null ? "" : editItem.ItemName2;
                     oldItem.Active = editItem.Active == null ? "" : editItem.Active;
 
