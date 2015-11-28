@@ -10,11 +10,13 @@ using System.Web.Mvc;
 using System.Web.Security;
 
 using EntitySolution.Domain.Common;
+using EntitySolution.Domain.Common.Paging;
 using System.IO;
 namespace EntitySolution.WebUI.Controllers
 {
     public class AdminPageController : Controller
     {
+        int totalCount = 0;
         private string activeStatus = ((int)Var.SystemStatus.Active).ToString();
         private string allStatus = ((int)Var.DefaultValueInComboBox).ToString();
         private IAdminPageRepository adminPageProvider;
@@ -249,13 +251,16 @@ namespace EntitySolution.WebUI.Controllers
         }
 
 
-        public JsonResult LoadAllItem(string sItemStatus)
+        public JsonResult LoadAllItem(string sItemStatus, int sPageIndex)
         {
             JsonResult jResult = new JsonResult();
             try
             {
 
-                jResult = Json(new { success = true, returnList = adminPageProvider.LoadAllItem(sItemStatus, Var.DefaultValueInComboBox.ToString()) }, JsonRequestBehavior.AllowGet);
+                IList<Item> lstItem = adminPageProvider.LoadAllItem(sItemStatus, Var.DefaultValueInComboBox.ToString(), ref totalCount);
+                IPagedList<Item> lstReturn = lstItem.ToPagedList(sPageIndex, Var.PageSize, totalCount);
+
+                jResult = Json(new { success = true, returnList = lstReturn, PageCount = lstReturn.PageCount, HasPreviousPage = lstReturn.HasPreviousPage, HasNextPage = lstReturn.HasNextPage }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception)
@@ -315,8 +320,15 @@ namespace EntitySolution.WebUI.Controllers
                     }
                 }
 
-
-                jResult = Json(new { success = adminPageProvider.AddNewItem(itemInfor), returnList = adminPageProvider.LoadAllItem(allStatus, allStatus), isUploaded = isUploaded, msgError = message }, JsonRequestBehavior.AllowGet);
+                bool ret = adminPageProvider.AddNewItem(itemInfor);
+                if (ret)
+                {
+                    return LoadAllItem(allStatus, 0);
+                }
+                else
+                {
+                    jResult = Json(new { success = false }, JsonRequestBehavior.AllowGet);
+                }
 
             }
             catch (Exception)
@@ -328,7 +340,7 @@ namespace EntitySolution.WebUI.Controllers
             return jResult;
         }
 
-        public JsonResult EditItem(Item itemInfor)
+        public JsonResult EditItem(Item itemInfor, int sPageIndex)
         {
             JsonResult jResult = new JsonResult();
             try
@@ -357,7 +369,15 @@ namespace EntitySolution.WebUI.Controllers
                     }
                 }
 
-                jResult = Json(new { success = adminPageProvider.EditItem(itemInfor), returnList = adminPageProvider.LoadAllItem(allStatus, allStatus), isUploaded = isUploaded, msgError = message }, JsonRequestBehavior.AllowGet);
+                bool ret = adminPageProvider.EditItem(itemInfor);
+                if (ret)
+                {
+                    return LoadAllItem(allStatus, sPageIndex);
+                }
+                else
+                {
+                    jResult = Json(new { success = false }, JsonRequestBehavior.AllowGet);
+                }
 
             }
             catch (Exception)
@@ -374,8 +394,16 @@ namespace EntitySolution.WebUI.Controllers
             JsonResult jResult = new JsonResult();
             try
             {
+                bool ret = adminPageProvider.DeleteItem(deleteItemID);
+                if (ret)
+                {
+                    return LoadAllItem(allStatus, 0);
+                }
+                else
+                {
+                    jResult = Json(new { success = false }, JsonRequestBehavior.AllowGet);
+                }
 
-                jResult = Json(new { success = adminPageProvider.DeleteItem(deleteItemID), returnList = adminPageProvider.LoadAllItem(allStatus, allStatus) }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception)
@@ -387,13 +415,16 @@ namespace EntitySolution.WebUI.Controllers
             return jResult;
         }
 
-        public JsonResult LoadAllNews(string sNewsStatus)
+        public JsonResult LoadAllNews(string sNewsStatus, int sPageIndex)
         {
             JsonResult jResult = new JsonResult();
             try
             {
+                totalCount = 0;
+                IList<News> lstItem = adminPageProvider.LoadAllNews(sNewsStatus, Var.DefaultValueInComboBox, ref totalCount);
+                IPagedList<News> lstReturn = lstItem.ToPagedList(sPageIndex, Var.PageSize, totalCount);
 
-                jResult = Json(new { success = true, returnList = adminPageProvider.LoadAllNews(sNewsStatus,Var.DefaultValueInComboBox) }, JsonRequestBehavior.AllowGet);
+                jResult = Json(new { success = true, returnList = lstReturn, PageCount = lstReturn.PageCount, HasPreviousPage = lstReturn.HasPreviousPage, HasNextPage = lstReturn.HasNextPage }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception)
@@ -453,9 +484,16 @@ namespace EntitySolution.WebUI.Controllers
                     }
                 }
 
-
-                jResult = Json(new { success = adminPageProvider.AddNewNews(newsInfor), returnList = adminPageProvider.LoadAllNews(allStatus, Var.DefaultValueInComboBox), isUploaded = isUploaded, msgError = message }, JsonRequestBehavior.AllowGet);
-
+                bool ret = adminPageProvider.AddNewNews(newsInfor);
+                if (ret)
+                {
+                    return LoadAllNews(allStatus, 0);
+                }
+                else
+                {
+                    jResult = Json(new { success = false }, JsonRequestBehavior.AllowGet);
+                }
+                 
             }
             catch (Exception)
             {
@@ -495,8 +533,16 @@ namespace EntitySolution.WebUI.Controllers
                     }
                 }
 
-                jResult = Json(new { success = adminPageProvider.EditNews(newsInfor), returnList = adminPageProvider.LoadAllNews(allStatus, Var.DefaultValueInComboBox), isUploaded = isUploaded, msgError = message }, JsonRequestBehavior.AllowGet);
-
+                bool ret = adminPageProvider.EditNews(newsInfor);
+                if (ret)
+                {
+                    return LoadAllNews(allStatus, 0);
+                }
+                else
+                {
+                    jResult = Json(new { success = false }, JsonRequestBehavior.AllowGet);
+                }
+                 
             }
             catch (Exception)
             {
@@ -513,7 +559,16 @@ namespace EntitySolution.WebUI.Controllers
             try
             {
 
-                jResult = Json(new { success = adminPageProvider.DeleteNews(deleteNewsID), returnList = adminPageProvider.LoadAllNews(allStatus, Var.DefaultValueInComboBox) }, JsonRequestBehavior.AllowGet);
+                bool ret = adminPageProvider.DeleteNews(deleteNewsID);
+                if (ret)
+                {
+                    return LoadAllNews(allStatus, 0);
+                }
+                else
+                {
+                    jResult = Json(new { success = false }, JsonRequestBehavior.AllowGet);
+                }
+                 
 
             }
             catch (Exception)

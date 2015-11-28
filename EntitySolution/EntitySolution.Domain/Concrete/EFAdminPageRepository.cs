@@ -110,15 +110,21 @@ namespace EntitySolution.Domain.Concrete
             return ret;
         }
 
-        public List<Item> LoadAllItem(string sItemStatus, string sHotStatus)
+        public List<Item> LoadAllItem(string sItemStatus, string sHotStatus, ref int totalCount)
         {
             List<Item> ret = new List<Item>();
+            totalCount = 0;
             try
             {
-                ret = (from ite in _context.Items
-                       where (sItemStatus == null || sItemStatus == "" || sItemStatus == allValue || ite.Active == sItemStatus)
-                       && (sHotStatus == null || sHotStatus == "" || sHotStatus == allValue || ite.Hot == sHotStatus)
+               var _ret = (from ite in _context.Items                      
                        select ite).ToList();
+               if (_ret != null)
+               {
+                   ret = _ret.Where(e => (sItemStatus == null || sItemStatus == "" || sItemStatus == allValue || e.Active == sItemStatus) && (sHotStatus == null || sHotStatus == "" || sHotStatus == allValue || e.Hot == sHotStatus)).ToList();
+
+                   totalCount = _ret.Count;
+               }
+               
             }
             catch (Exception e)
             {
@@ -241,24 +247,29 @@ namespace EntitySolution.Domain.Concrete
             return ret;
         }
 
-        public List<News> LoadAllNews(string sNewsStatus, int numberOfRecord)
+        public List<News> LoadAllNews(string sNewsStatus, int numberOfRecord, ref int totalCount)
         {
             List<News> ret = new List<News>();
             try
             {
-                if (numberOfRecord == Var.DefaultValueInComboBox)
-                {
-                    ret = (from ite in _context.News
-                           where (sNewsStatus == null || sNewsStatus == "" || sNewsStatus == allValue || ite.Active == sNewsStatus)
-                           select ite).OrderByDescending(p => p.CreatedDate).ToList();
-                }
-                else
-                {
-                    ret = (from ite in _context.News
-                           where (sNewsStatus == null || sNewsStatus == "" || sNewsStatus == allValue || ite.Active == sNewsStatus)
-                           select ite).Take(numberOfRecord).OrderByDescending(p => p.CreatedDate).ToList();
-                }
+                var _ret = (from ite in _context.News
+                            select ite).OrderByDescending(p => p.CreatedDate).ToList();
 
+                if (_ret != null)
+                {
+                    totalCount = _ret.Count;
+                    if (numberOfRecord == Var.DefaultValueInComboBox)
+                    {
+                        ret = _ret.Where(e => (sNewsStatus == null || sNewsStatus == "" || sNewsStatus == allValue || e.Active == sNewsStatus)).ToList();
+                            
+                    }
+                    else
+                    {
+                        ret = _ret.Where(e => (sNewsStatus == null || sNewsStatus == "" || sNewsStatus == allValue || e.Active == sNewsStatus)).Take(numberOfRecord).ToList();
+                        
+                    }
+                }
+                
             }
             catch (Exception e)
             {

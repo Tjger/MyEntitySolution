@@ -10,8 +10,9 @@
     var isUploadImageSuccess = false;
     var jqXHRData;
     var CategoryList = null;
+    var curPageIndex = 0;
     $(document).ready(function () {
-        LoadAllItem();
+        LoadAllItem('0');
         LoadAllCategory();
         initSimpleFileUpload();
 
@@ -141,12 +142,12 @@
 
             },
             done: function (event, data) {
-                if (data.result.isUploaded) {
+                //if (data.result.isUploaded) {
 
-                }
-                else {
+                //}
+                //else {
 
-                }
+                //}
                 //alert(data.result.message);
             },
             fail: function (event, data) {
@@ -210,9 +211,13 @@
 
                     if (data.success === true) {
                         isAddNew = false;
-                        FillDataToGridTableHtml(data.returnList);
+                        FillDataToGridTableHtml(data.returnList, data.PageCount, data.HasPreviousPage, data.HasNextPage);
                     }
+                    else {
+                        $("#lblMessageModal").html("Có lỗi xảy ra , xin hãy thử lại sau.");
 
+                        $("#modalShowError").modal("show");
+                    }
 
                 }
             });
@@ -223,14 +228,18 @@
                 contentType: "application/json; charset=utf-8",
                 type: 'POST',
                 dataType: "json",
-                data: JSON.stringify({ "itemInfor": itemInfor }),
+                data: JSON.stringify({ "itemInfor": itemInfor, "sPageIndex": curPageIndex }),
                 success: function (data) {
 
                     if (data.success === true) {
                         isAddNew = false;
-                        FillDataToGridTableHtml(data.returnList);
+                        FillDataToGridTableHtml(data.returnList, data.PageCount, data.HasPreviousPage, data.HasNextPage);
                     }
+                    else {
+                        $("#lblMessageModal").html("Có lỗi xảy ra , xin hãy thử lại sau.");
 
+                        $("#modalShowError").modal("show");
+                    }
 
                 }
             });
@@ -263,7 +272,7 @@
             success: function (data) {
                 if (data.success === true) {
 
-                    FillDataToGridTableHtml(data.returnList);
+                    FillDataToGridTableHtml(data.returnList, data.PageCount, data.HasPreviousPage, data.HasNextPage);
                 }
                 else {
                     $("#lblMessageModal").html("Có lỗi xảy ra , xin hãy thử lại sau.");
@@ -274,17 +283,25 @@
         });
     };
 
-    function LoadAllItem() {
+    function LoadAllItem(pageIndex) {
+        curPageIndex = pageIndex;
         $.ajax({
             url: '@Url.Action("LoadAllItem", "AdminPage")',
             contentType: "application/json; charset=utf-8",
             type: 'POST',
             dataType: "json",
-            data: JSON.stringify({ "sItemStatus": '@((int)Var.DefaultValueInComboBox)' }),
+            data: JSON.stringify({ "sItemStatus": '@((int)Var.DefaultValueInComboBox)', "sPageIndex": pageIndex }),
             success: function (data) {
+                 
+                if (data.success === true) {
 
+                    FillDataToGridTableHtml(data.returnList, data.PageCount, data.HasPreviousPage, data.HasNextPage);
+                }
+                else {
+                    $("#lblMessageModal").html("Có lỗi xảy ra , xin hãy thử lại sau.");
 
-                FillDataToGridTableHtml(data.returnList);
+                    $("#modalShowError").modal("show");
+                }
             }
         });
     };
@@ -369,9 +386,9 @@
         return gridTableHtml;
     };
 
-    function FillDataToGridTableHtml(listData) {
+    function FillDataToGridTableHtml(listData, PageCount, HasPreviousPage, HasNextPage) {
 
-
+       
         $("#ContentPlaceHolder").html("");
         var gridTableHtml = InitGridTableHtml();
 
@@ -409,7 +426,25 @@
         gridTableHtml += "</tbody></table>";
 
         $("#ContentPlaceHolder").html(gridTableHtml);
+
+        FillDataToPaging(PageCount, HasPreviousPage, HasNextPage);
     };
+
+    function FillDataToPaging(PageCount,HasPreviousPage, HasNextPage) {
+
+        $("#ulPaging").html("");
+        $("#PageCount").val(PageCount);
+        var gridTableHtml = "";
+        
+        for (var i = 0; i < PageCount; i++) {
+            var j = i + 1;
+            gridTableHtml += "<li><a href=\"javascript:LoadAllItem('" + i  + "')\">" + j + "</a></li>";
+
+        }
+       
+        $("#ulPaging").html(gridTableHtml);
+    };
+
 </script>
 
 <form id="form1" action="" method="post">
@@ -417,30 +452,15 @@
         <table class="table" cellspacing="0" cellpadding="4" style="color:#333333;border-collapse:collapse;">
             <tbody>
 
-
-                @*<tr class="gridview">
-                        <td colspan="10">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td><span>1</span></td>
-                                        <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$2')" style="color:#333333;">2</a></td>
-                                        <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$3')" style="color:#333333;">3</a></td>
-                                        <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$4')" style="color:#333333;">4</a></td>
-                                        <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$5')" style="color:#333333;">5</a></td>
-                                        <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$6')" style="color:#333333;">6</a></td>
-                                        <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$7')" style="color:#333333;">7</a></td>
-                                        <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$8')" style="color:#333333;">8</a></td>
-                                        <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$9')" style="color:#333333;">9</a></td>
-                                        <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$10')" style="color:#333333;">10</a></td>
-                                        <td><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00$GridView1','Page$11')" style="color:#333333;">...</a></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                    </tr>*@
             </tbody>
         </table>
+    </div>
+
+    <input id="PageCount" type="hidden" class="form-control" value="1" disabled="disabled">
+    <div class="col-md-12 col-lg-12 text-center padd0" id="divPaging">
+        <ul class="pagination mt50" id="ulPaging">
+             
+        </ul>
     </div>
 
     <button type="button" id="btnAddNew" class="btn btn-success btn-default">Add New</button>

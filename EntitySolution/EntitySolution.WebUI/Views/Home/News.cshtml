@@ -12,18 +12,18 @@
     var CategoryList = null;
     $(document).ready(function () {
 
-        LoadAllNews();
+        LoadAllNews('0');
 
     });
 
-    function LoadAllNews() {
+    function LoadAllNews(pageIndex) {
 
         $.ajax({
             url: '@Url.Action("LoadAllNews", "Home")',
             contentType: "application/json; charset=utf-8",
             type: 'POST',
             dataType: "json",
-            data: JSON.stringify({ "sNewsStatus": '@((int)Var.SystemStatus.Active)', "numberOfRecord": '@Var.DefaultValueInComboBox' }),
+            data: JSON.stringify({ "sNewsStatus": '@((int)Var.SystemStatus.Active)', "numberOfRecord": '@Var.DefaultValueInComboBox', "sPageIndex": pageIndex }),
             success: function (data) {
                 $("#box-listnews").html("");
                 var gridTableHtml = "";
@@ -41,10 +41,10 @@
                     gridTableHtml += " <div class=\"sub-listnews col-md-12 col-lg-12\">";
                     gridTableHtml += " <div class=\"col-md-12 col-lg-12\">";
                     gridTableHtml += " <p class=\"title-subpost\">";
-                    gridTableHtml += " <a href=\"Detail.html\">" + item.Title + "</a>";
+                    gridTableHtml += " <a href=\"javascript:ShowNewsDetail('" + item.NewsID + "')\">" + item.Title + "</a>";
                     gridTableHtml += " </p></div>";
                     gridTableHtml += " <div class=\"col-md-3 col-lg-3\">";
-                    gridTableHtml += "<a href=\"Detail.html\">";
+                    gridTableHtml += "<a href=\"javascript:ShowNewsDetail('" + item.NewsID + "')\">";
                     gridTableHtml += "<img src=\"" + '@Url.Content(Var.UrlUploadCompanyNewsImage)' + item.ItemImageURL + "\" class=\"img-responsive\" style=\"height: 125px; width: 175px;\"> ";
                     gridTableHtml += " </a></div>";
                     gridTableHtml += " <div class=\"col-md-9 col-lg-9\">";
@@ -54,19 +54,33 @@
                     gridTableHtml += " <div class=\"col-md-6 col-lg-6 padd0\">";
                     gridTableHtml += " <p class=\"date-post\" style=\"float: left;\">" + dformat + "</p></div>";
                     gridTableHtml += " <div class=\"col-md-6 col-lg-6 padd0\">";
-                    gridTableHtml += " <a href=\"Detail.html\" style=\"float: right;\"><span class=\"link-deatail\">Chi tiết</span></a>";
+                    gridTableHtml += " <a href=\"javascript:ShowNewsDetail('" + item.NewsID + "')\" style=\"float: right;\"><span class=\"link-deatail\">Chi tiết</span></a>";
                     gridTableHtml += " </div></div></div></div>";
 
                 });
 
                 $("#box-listnews").html(gridTableHtml);
+
+                $("#ulPaging").html("");
+                $("#PageCount").val(data.PageCount);
+                var gridTableHtml = "";
+
+                for (var i = 0; i < data.PageCount; i++) {
+                    var j = i + 1;
+                    gridTableHtml += "<li><a href=\"javascript:LoadAllNews('" + i + "')\">" + j + "</a></li>";
+
+                }
+
+                $("#ulPaging").html(gridTableHtml);
+
             }
         });
 
     };
 
     function ShowNewsDetail(e) {
-        alert(e);
+        var url = '@Url.Action("NewsDetail", "Home", new { id = "__id__" })';
+        window.location.href = url.replace('__id__', e);
     }
 
 </script>
@@ -112,16 +126,8 @@
     </div>
 
 </div>
-<div class="col-md-12 col-lg-12 text-center padd0">
-    <ul class="pagination mt50">
-        <li>
-            <a aria-label="Previous" href="#"><span aria-hidden="true">«</span> </a>
-        </li>
-        <li><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-        <li><a aria-label="Next" href="#"><span aria-hidden="true">»</span> </a></li>
-    </ul>
+
+<input id="PageCount" type="hidden" class="form-control" value="1" disabled="disabled">
+<div class="col-md-12 col-lg-12 text-center padd0" id="divPaging">
+    <ul class="pagination mt50" id="ulPaging"></ul>
 </div>

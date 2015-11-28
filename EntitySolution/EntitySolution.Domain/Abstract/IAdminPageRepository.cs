@@ -9,18 +9,18 @@ namespace EntitySolution.Domain.Abstract
 {
    public interface IAdminPageRepository
     {
-       List<Category> LoadAllCategory(string sCategoryStatus );
+       List<Category> LoadAllCategory(string sCategoryStatus);
        bool AddNewCategory(Category newCategory);
        bool EditCategory(Category editCategory);
        bool DeleteCategory(int deleteCategoryID);
 
-       List<Item> LoadAllItem(string sItemStatus, string sHotStatus);
+       List<Item> LoadAllItem(string sItemStatus, string sHotStatus, ref int totalCount);
        Item LoadItemByItemID(int sItemID);
        bool AddNewItem(Item newItem);
        bool EditItem(Item editItem);
        bool DeleteItem(int deleteItemID);
 
-       List<News> LoadAllNews(string sNewsStatus, int numberOfRecord);
+       List<News> LoadAllNews(string sNewsStatus, int numberOfRecord, ref int totalCount);
        News LoadNewsByNewsID(int sNewsID);
        bool AddNewNews(News newNews);
        bool EditNews(News editNews);

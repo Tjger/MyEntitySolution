@@ -197,7 +197,8 @@
     }
 
     function ShowNewsDetail(e) {
-        alert(e);
+        var url = '@Url.Action("NewsDetail", "Home", new { id = "__id__" })';
+        window.location.href = url.replace('__id__', e);
     }
 
 </script>
@@ -356,12 +357,12 @@
                         <div class="navbar-wrapper">
                             <nav class="navbar navbar-static-top footer-menu">
                                 <div id="Div1" class="navbar-collapse collapse">
-                                    <ul class="nav navbar-nav">
-                                        <li><a href="#">Trang Chủ</a></li>
-                                        <li><a href="#">Giới Thiệu</a></li>
-                                        <li><a href="#">Sản Phẩm</a></li>
-                                        <li><a href="#">Tin Công Ty</a></li>
-                                        <li><a href="#">Liên Hệ</a></li>
+                                    <ul class="nav navbar-nav">                                       
+                                        <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                                        <li><a href="@Url.Action("About", "Home")">Giới Thiệu</a></li>
+                                        <li><a href="@Url.Action("Index", "Home")">Sản Phẩm</a></li>
+                                        <li><a href="@Url.Action("News", "Home")">Tin Công Ty</a></li>
+                                        <li><a href="@Url.Action("Contact", "Home")">Liên Hệ</a></li>
                                     </ul>
                                 </div>
                             </nav>

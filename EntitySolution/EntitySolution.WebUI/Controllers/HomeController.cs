@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using EntitySolution.Domain.Common;
+using EntitySolution.Domain.Common.Paging;
 
 namespace EntitySolution.WebUI.Controllers
 {
@@ -68,9 +69,10 @@ namespace EntitySolution.WebUI.Controllers
             JsonResult jResult = new JsonResult();
             try
             {
+                int totalCount = 0;
                 var CategoryList = adminPageProvider.LoadAllCategory(allValue);
-                var ItemList = adminPageProvider.LoadAllItem(activeValue, allValue);
-                var NewsList = adminPageProvider.LoadAllNews(activeValue, 3);
+                var ItemList = adminPageProvider.LoadAllItem(activeValue, allValue, ref totalCount);
+                var NewsList = adminPageProvider.LoadAllNews(activeValue, 3, ref totalCount);
 
                 var ItemInCategory = new List<Item>[CategoryList.Capacity];
 
@@ -116,8 +118,8 @@ namespace EntitySolution.WebUI.Controllers
             JsonResult jResult = new JsonResult();
             try
             {
-
-                jResult = Json(new { success = true, returnList = adminPageProvider.LoadAllItem(sItemStatus, sHotStatus) }, JsonRequestBehavior.AllowGet);
+                int  totalCount = 0;
+                jResult = Json(new { success = true, returnList = adminPageProvider.LoadAllItem(sItemStatus, sHotStatus, ref totalCount) }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception)
@@ -129,13 +131,17 @@ namespace EntitySolution.WebUI.Controllers
             return jResult;
         }
 
-        public JsonResult LoadAllNews(string sNewsStatus, int numberOfRecord)
+     
+        public JsonResult LoadAllNews(string sNewsStatus, int numberOfRecord, int sPageIndex)
         {
             JsonResult jResult = new JsonResult();
             try
             {
+               int totalCount = 0;
+                IList<News> lstItem = adminPageProvider.LoadAllNews(sNewsStatus, Var.DefaultValueInComboBox, ref totalCount);
+                IPagedList<News> lstReturn = lstItem.ToPagedList(sPageIndex, Var.PageSize, totalCount);
 
-                jResult = Json(new { success = true, returnList = adminPageProvider.LoadAllNews(sNewsStatus, numberOfRecord) }, JsonRequestBehavior.AllowGet);
+                jResult = Json(new { success = true, returnList = lstReturn, PageCount = lstReturn.PageCount, HasPreviousPage = lstReturn.HasPreviousPage, HasNextPage = lstReturn.HasNextPage }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception)

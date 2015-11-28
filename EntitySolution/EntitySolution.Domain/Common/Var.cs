@@ -17,6 +17,8 @@ namespace EntitySolution.Domain.Common
 
         public static string ConfigAbout = "ConfigAbout";
         public static string ConfigContacts = "ConfigContacts";
+
+        public static int PageSize =4;
         public enum SystemStatus
         {
             Inactive = 0,
