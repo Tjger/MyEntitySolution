@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace EntitySolution.Domain.Common
@@ -72,5 +73,40 @@ namespace EntitySolution.Domain.Common
             return cipherText;
         }
 
+        public static void SendEmail(string EmailAddress,string Subject,string Body)
+        {
+            try
+            {
+                Thread oThread1 = new Thread(new ThreadStart(() => ProcessSendEmail(EmailAddress, Subject, Body)));
+                oThread1.Start();
+                //ProcessSendEmail(emailInfo, emailType, empID);
+            }
+            catch (Exception ex)
+            {
+                ErrorHandle.WriteError(ex.Message);
+            }
+        }
+
+        private static void ProcessSendEmail(string EmailAddress, string Subject, string Body)
+        {
+            bool bFlag = false;
+             
+            try
+            {
+                if (EmailAddress != null && EmailAddress != "" && Subject != null && Subject != "" && Body != null && Body != "")
+                {
+
+                    Email em = new Email();
+                    System.Net.Mail.MailMessage mailMessage = new System.Net.Mail.MailMessage();
+                    mailMessage = em.BuildMailMessage(EmailAddress, Subject, Body, true);
+                    bFlag = em.SendMail(mailMessage);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandle.WriteError(ex.Message);
+            }
+            
+        }
     }
 }

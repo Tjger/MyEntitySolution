@@ -35,7 +35,7 @@
 
         CKEDITOR.replace('itemDescription');
         CKEDITOR.replace('itemDescription2');
-         
+
         $("#btnAddNew").click(function () {
             if (isAddNew === false) {
                 isAddNew = true;
@@ -58,7 +58,7 @@
 
             ClearModal();
         });
-        
+
         $("#btnConfirmDelete").click(function (e) {
             e.preventDefault();
             DeleteItem();
@@ -166,6 +166,7 @@
         CKEDITOR.instances.itemDescription.setData('<p>Mô tả sản phẩm bằng tiếng việt.</p>');
         CKEDITOR.instances.itemDescription2.setData('<p>Mô tả sản phẩm bằng tiếng anh.</p>');
         $("#itemPrice").val("");
+        $("#itemCondition").val("");
         $("#itemKeySearch").val("");
         $('#itemImage').attr('src', '@Url.Content("~/Content/FontEnd/images/no_image.png")');
     }
@@ -194,6 +195,7 @@
             Description: description,
             Description2: description2,
             ItemPrice: $("#itemPrice").val(),
+            ItemCondition: $("#itemCondition").val(),
             Active: cActive,
             Hot: cHot,
             KeySearch: $("#itemKeySearch").val(),
@@ -292,7 +294,7 @@
             dataType: "json",
             data: JSON.stringify({ "sItemStatus": '@((int)Var.DefaultValueInComboBox)', "sPageIndex": pageIndex }),
             success: function (data) {
-                 
+
                 if (data.success === true) {
 
                     FillDataToGridTableHtml(data.returnList, data.PageCount, data.HasPreviousPage, data.HasNextPage);
@@ -349,6 +351,8 @@
                     };
 
                     $("#itemPrice").val(data.returnList.ItemPrice);
+                    $("#itemCondition").val(data.returnList.ItemCondition);
+
                     $("#itemKeySearch").val(data.returnList.KeySearch);
                     CKEDITOR.instances.itemDescription.setData(data.returnList.Description);
                     CKEDITOR.instances.itemDescription2.setData(data.returnList.Description2);
@@ -377,7 +381,8 @@
         gridTableHtml += "<th scope=\"col\">Nhóm Sản Phẩm</th>";
         gridTableHtml += "<th scope=\"col\">Trạng Thái</th>";
         gridTableHtml += "<th scope=\"col\">Hot</th>";
-        gridTableHtml += "<th scope=\"col\">Price</th>";
+        gridTableHtml += "<th scope=\"col\">Size</th>";
+        gridTableHtml += "<th scope=\"col\">Condition</th>";
         gridTableHtml += "<th scope=\"col\">Từ Khóa Tìm Kiếm</th>";
 
         gridTableHtml += "<th scope=\"col\">&nbsp;</th>";
@@ -388,7 +393,7 @@
 
     function FillDataToGridTableHtml(listData, PageCount, HasPreviousPage, HasNextPage) {
 
-       
+
         $("#ContentPlaceHolder").html("");
         var gridTableHtml = InitGridTableHtml();
 
@@ -416,6 +421,7 @@
                 gridTableHtml += "Off</td>";
             }
             gridTableHtml += "<td>" + item.ItemPrice + "</td>";
+            gridTableHtml += "<td>" + item.ItemCondition + "</td>";
             gridTableHtml += "<td>" + item.KeySearch + "</td>";
 
             gridTableHtml += "<td style=\"width:60px;\"><a style=\"color:#333333;\" onclick=\"ShowEditItem('" + item.ItemID + "')\">Edit</a></td>";
@@ -430,18 +436,18 @@
         FillDataToPaging(PageCount, HasPreviousPage, HasNextPage);
     };
 
-    function FillDataToPaging(PageCount,HasPreviousPage, HasNextPage) {
+    function FillDataToPaging(PageCount, HasPreviousPage, HasNextPage) {
 
         $("#ulPaging").html("");
         $("#PageCount").val(PageCount);
         var gridTableHtml = "";
-        
+
         for (var i = 0; i < PageCount; i++) {
             var j = i + 1;
-            gridTableHtml += "<li><a href=\"javascript:LoadAllItem('" + i  + "')\">" + j + "</a></li>";
+            gridTableHtml += "<li><a href=\"javascript:LoadAllItem('" + i + "')\">" + j + "</a></li>";
 
         }
-       
+
         $("#ulPaging").html(gridTableHtml);
     };
 
@@ -450,17 +456,13 @@
 <form id="form1" action="" method="post">
     <div id="ContentPlaceHolder">
         <table class="table" cellspacing="0" cellpadding="4" style="color:#333333;border-collapse:collapse;">
-            <tbody>
-
-            </tbody>
+            <tbody></tbody>
         </table>
     </div>
 
     <input id="PageCount" type="hidden" class="form-control" value="1" disabled="disabled">
     <div class="col-md-12 col-lg-12 text-center padd0" id="divPaging">
-        <ul class="pagination mt50" id="ulPaging">
-             
-        </ul>
+        <ul class="pagination mt50" id="ulPaging"></ul>
     </div>
 
     <button type="button" id="btnAddNew" class="btn btn-success btn-default">Add New</button>
@@ -485,7 +487,7 @@
                             <i class="glyphicon glyphicon-upload"></i>
                             <span>Upload</span>
                         </button>
-                        
+
                     </div>
 
                     <div class="form-group">
@@ -515,7 +517,11 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="itemPrice">Giá</label>
+                        <label for="itemPrice">Condition</label>
+                        <input type="text" class="form-control" name="ItemCondition" id="itemCondition">
+                    </div>
+                    <div class="form-group">
+                        <label for="itemPrice">Size</label>
                         <input type="text" class="form-control" name="ItemPrice" id="itemPrice">
                     </div>
                     <div class="form-group">

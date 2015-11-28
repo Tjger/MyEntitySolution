@@ -48,19 +48,33 @@ namespace EntitySolution.WebUI.Controllers
 
         public ActionResult NewsDetail()
         {
-
-            return View();
+            var id = RouteData.Values["id"];
+          
+            ViewBag.ListNewsAndRelative = new List<News>();
+            List<News> ListNewsAndRelative = new List<News>();
+            News NewsDetail = new News();
+            if (id != null)
+            {
+               
+                NewsDetail = adminPageProvider.LoadNewsAndRelativeOfIt(id.ToString(), 5, ref ListNewsAndRelative);
+                ViewBag.ListNewsAndRelative = ListNewsAndRelative;
+                
+            }
+            return View(NewsDetail);
         }
 
         public ActionResult ProductDetails()
         {
             var id = RouteData.Values["id"];
-            ViewBag.ProductID = "";
+            ViewBag.ListProductAndRelative = new List<Item>();
+            List<Item> ListProductAndRelative = new List<Item>();
+            Item ItemDetail = new Item();
             if (id != null)
             {
-                ViewBag.ProductID = id;
+                ItemDetail = adminPageProvider.LoadItemAndRelativeOfIt(id.ToString(),ref ListProductAndRelative);
+                ViewBag.ListProductAndRelative = ListProductAndRelative;
             }
-            return View();
+            return View(ItemDetail);
         }
 
 
@@ -118,7 +132,7 @@ namespace EntitySolution.WebUI.Controllers
             JsonResult jResult = new JsonResult();
             try
             {
-                int  totalCount = 0;
+                int totalCount = 0;
                 jResult = Json(new { success = true, returnList = adminPageProvider.LoadAllItem(sItemStatus, sHotStatus, ref totalCount) }, JsonRequestBehavior.AllowGet);
 
             }
@@ -131,13 +145,13 @@ namespace EntitySolution.WebUI.Controllers
             return jResult;
         }
 
-     
+
         public JsonResult LoadAllNews(string sNewsStatus, int numberOfRecord, int sPageIndex)
         {
             JsonResult jResult = new JsonResult();
             try
             {
-               int totalCount = 0;
+                int totalCount = 0;
                 IList<News> lstItem = adminPageProvider.LoadAllNews(sNewsStatus, Var.DefaultValueInComboBox, ref totalCount);
                 IPagedList<News> lstReturn = lstItem.ToPagedList(sPageIndex, Var.PageSize, totalCount);
 

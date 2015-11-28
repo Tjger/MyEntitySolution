@@ -17,8 +17,17 @@ namespace EntitySolution.Domain.Common
 
         public static string ConfigAbout = "ConfigAbout";
         public static string ConfigContacts = "ConfigContacts";
-
+        public static string CultureLanguage = "vi-VN";
         public static int PageSize =4;
+
+        public static string SMTPHost = "";
+        public static string SMTPEmailAddress = "";
+        public static string SMTPEmailPassword = "";
+        public static string SMTPEmailSenderName = "";
+        public static string SMTPEmailManager = "";
+        public static bool SMTPEnableSSL = true;
+        public static int SMTPPort = -1;
+
         public enum SystemStatus
         {
             Inactive = 0,

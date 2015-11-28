@@ -34,7 +34,8 @@
           <Property Name="ItemImageURL" Type="nvarchar" MaxLength="250" />
           <Property Name="Description" Type="ntext" />
           <Property Name="Description2" Type="ntext" />
-          <Property Name="ItemPrice" Type="nvarchar" MaxLength="50" />
+          <Property Name="ItemPrice" Type="nvarchar" MaxLength="250" />
+          <Property Name="ItemCondition" Type="nvarchar" MaxLength="250" />
           <Property Name="Active" Type="nvarchar" MaxLength="50" />
           <Property Name="Hot" Type="nvarchar" MaxLength="50" />
           <Property Name="CreatedDate" Type="datetime" />
@@ -95,13 +96,14 @@
           <Property Name="ItemName2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ItemImageURL" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ItemPrice" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ItemPrice" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="Active" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Hot" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="KeySearch" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CategoryName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="Description2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ItemCondition" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityContainer Name="EntityDBContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Categories" EntityType="Self.Category" />
@@ -162,6 +164,7 @@
           <EntitySetMapping Name="Items">
             <EntityTypeMapping TypeName="EntitySolutionModel.Item">
               <MappingFragment StoreEntitySet="Item">
+                <ScalarProperty Name="ItemCondition" ColumnName="ItemCondition" />
                 <ScalarProperty Name="Description2" ColumnName="Description2" />
                 <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
                 <ScalarProperty Name="KeySearch" ColumnName="KeySearch" />

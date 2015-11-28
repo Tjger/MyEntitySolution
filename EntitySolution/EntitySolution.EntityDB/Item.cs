@@ -27,5 +27,6 @@ namespace EntitySolution.EntityDB
         public string KeySearch { get; set; }
         public string CategoryName { get; set; }
         public string Description2 { get; set; }
+        public string ItemCondition { get; set; }
     }
 }

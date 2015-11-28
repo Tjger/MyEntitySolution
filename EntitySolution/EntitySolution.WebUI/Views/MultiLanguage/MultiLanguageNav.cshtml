@@ -1,0 +1,14 @@
+﻿
+@if (Session["Culture"].ToString().Contains("vi-VN"))
+{
+    <a href="@Url.Action("SwitchLang", "MultiLanguage", new { lang = "en-US", returnUrl = this.Request.RawUrl })" style="text-decoration:none;">
+        <img src="@Url.Content("~/Content/FontEnd/images/England-Flag-icon.png")" />
+    </a>
+}
+else
+{
+    <a href="@Url.Action("SwitchLang", "MultiLanguage", new { lang = "vi-VN", returnUrl = this.Request.RawUrl })" style="text-decoration:none;">
+        <img src="@Url.Content("~/Content/FontEnd/images/Vietnam-Flag-icon.png")" />
+    </a>
+}
+

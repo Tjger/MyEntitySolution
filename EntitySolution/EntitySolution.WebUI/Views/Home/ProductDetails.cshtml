@@ -1,13 +1,20 @@
-﻿
+﻿@using EntitySolution.Domain.Common;
+@model EntitySolution.EntityDB.Item
 @{
     ViewBag.Title = "ProductDetails";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    List<EntitySolution.EntityDB.Item> ListProductAndRelative = new List<EntitySolution.EntityDB.Item>();
+    if (ViewBag.ListProductAndRelative != null)
+    {
+        ListProductAndRelative = (List<EntitySolution.EntityDB.Item>)ViewBag.ListProductAndRelative;
+    }
 }
 
 <script>
     var ProductID = '@ViewBag.ProductID';
     $(document).ready(function () {
-       
+
     });
 
 </script>
@@ -15,32 +22,32 @@
 <div class="col-md-12 col-lg-12 padd0">
     <div class="box-title-detail col-md-12 col-lg-12">
         <p class="title-subpost">
-            40 Feet Standard Container
+            @Model.ItemName
         </p>
     </div>
     <div class="col-md-12 col-lg-12 padd0">
         <div class="col-md-5 col-lg-5">
             <div class="box-show-lg col-md-12 col-lg-12 padd0">
                 <ul class="pic-show">
-                    <li><img src="@Url.Content("~/Content/FontEnd/images/pro.jpg")"  class="img-responsive" /></li>
-                    <li><img src="@Url.Content("~/Content/FontEnd/images/pro.jpg")" class="img-responsive" /></li>
-                    <li><img src="@Url.Content("~/Content/FontEnd/images/pro.jpg")" class="img-responsive" /></li>
-                    <li><img src="@Url.Content("~/Content/FontEnd/images/pro.jpg")" class="img-responsive" /></li>
+                    <li><img src="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL)" class="img-responsive" style=" width: 320px;" /></li>
+                    <li><img src="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL)" class="img-responsive" style=" width: 320px;" /></li>
+                    <li><img src="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL)" class="img-responsive" style=" width:320px;" /></li>
+                    <li><img src="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL)" class="img-responsive" style=" width:320px;" /></li>
                 </ul>
             </div>
             <div class="box-show-thumb col-md-12 col-lg-12">
                 <div id="bx-pager" style="height:100px;">
                     <div class="col-md-3 col-lg-3 padd0">
-                        <a data-slide-index="0" href=""><img src="@Url.Content("~/Content/FontEnd/images/pro.jpg")" class="img-responsive" /></a>
+                        <a data-slide-index="0" href=""><img src="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL)" class="img-responsive" style=" width: 70px;" /></a>
                     </div>
                     <div class="col-md-3 col-lg-3 padd0">
-                        <a data-slide-index="1" href=""><img src="@Url.Content("~/Content/FontEnd/images/pro.jpg")" class="img-responsive" /></a>
+                        <a data-slide-index="1" href=""><img src="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL)" class="img-responsive" style=" width: 70px;" /></a>
                     </div>
                     <div class="col-md-3 col-lg-3 padd0">
-                        <a data-slide-index="2" href=""><img src="@Url.Content("~/Content/FontEnd/images/pro.jpg")" class="img-responsive" /></a>
+                        <a data-slide-index="2" href=""><img src="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL)" class="img-responsive" style=" width: 70px;" /></a>
                     </div>
                     <div class="col-md-3 col-lg-3 padd0">
-                        <a data-slide-index="3" href=""><img src="@Url.Content("~/Content/FontEnd/images/pro.jpg")" class="img-responsive" /></a>
+                        <a data-slide-index="3" href=""><img src="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL)" class="img-responsive" style=" width: 70px;" /></a>
                     </div>
                 </div>
 
@@ -50,12 +57,13 @@
             <div class="box-sum-info">
                 <div class="pro_rightface left">
                     <div class="pro_intro">
-                        <i class="fa fa-plus" style="color:#ff6a00;"></i>  <strong>Product</strong>: ISO Shipping Container <br>
-                        <i class="fa fa-plus" style="color:#ff6a00;"></i>  <strong>Condition</strong>: New and Standard<br>
-                        <i class="fa fa-plus" style="color:#ff6a00;"></i>  <strong>Size</strong>: 40 feet Container <br>
+                        <i class="fa fa-plus" style="color:#ff6a00;"></i>  <strong>Product</strong>: @Model.ItemName <br>
+                        <i class="fa fa-plus" style="color:#ff6a00;"></i>  <strong>Condition</strong>: @Model.ItemCondition<br>
+                        <i class="fa fa-plus" style="color:#ff6a00;"></i>  <strong>Size</strong>: @Model.ItemPrice<br>
                         <!--<i class="fa fa-plus" style="color:#ff6a00;"></i>  <strong>PRICE:</strong><span style="color: rgb(255, 0, 0);">$140.000</span><br>-->
                         <br>
-                        SMC is a leading manufacturer and supplier of standard container. Our international standard shipping containers have solid steel  structural components, timber flooring and standard double container  doors. Our container sizes are available in 40 feet, and can be fitted with accessories.<br>
+                        @Html.Raw(Model.Description)
+                        <br>
                         &nbsp;<br>
                         <br>
                         <br>
@@ -69,14 +77,14 @@
         <div class="content-description">
             <div class="menu-content-main col-md-12 col-lg-12 padd0">
                 <ul class="nav nav-tabs nav-justified">
-                    <li class="active"><a data-toggle="tab" href="#home">Specification & Dimension</a></li>
-                    <li><a data-toggle="tab" href="#menu1">Features & Uses & Accessories</a></li>
-                    <li><a data-toggle="tab" href="#menu2">Testing & Inspection</a></li>
+                    <li class="active"><a data-toggle="tab" href="#SpecificationDimension">Specification & Dimension</a></li>
+                    <li><a data-toggle="tab" href="#FeaturesUsesAccessories">Features & Uses & Accessories</a></li>
+                    <li><a data-toggle="tab" href="#TestingInspection">Testing & Inspection</a></li>
                 </ul>
             </div>
             <div class="col-md-12 col-lg-12 padd0">
                 <div class="tab-content">
-                    <div id="home" class="tab-pane fade in active">
+                    <div id="SpecificationDimension" class="tab-pane fade in active">
                         <div class="showContent">
                             <h3>Specifications of 40 Feet Standard Container:</h3>
                             1) 40' Standard Container Dimension:40' x 8' x 8'6" <br>
@@ -164,7 +172,7 @@
                             <br>
                         </div>
                     </div>
-                    <div id="menu1" class="tab-pane fade">
+                    <div id="FeaturesUsesAccessories" class="tab-pane fade">
                         <div class="col-md-12 col-lg-12 padd0">
                             <div class="showContent">
                                 <h3>Features of 40 Feet Standard Container:</h3>
@@ -183,7 +191,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="menu2" class="tab-pane fade">
+                    <div id="TestingInspection" class="tab-pane fade">
                         <div class="col-md-12 col-lg-12 padd0">
                             <div class="showContent">
                                 <h3>Testing &amp; Inspection</h3>
@@ -221,4 +229,21 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="col-md-12 col-lg-12 othernews">
+    <h2>
+        Sản Phẩm Cùng Loại
+    </h2>
+    <ul>
+        @for (int i = 0; i < ListProductAndRelative.Count; i++)
+        {
+            <li>
+                <a title="@ListProductAndRelative[i].ItemName" style="text-decoration: none;" href='@Url.Action("ProductDetails", "Home", new { id = ListProductAndRelative[i].ItemID })'>
+                    @ListProductAndRelative[i].ItemName
+                </a>
+            </li>
+        }
+
+    </ul>
 </div>

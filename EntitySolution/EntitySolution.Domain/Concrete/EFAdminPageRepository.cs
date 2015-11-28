@@ -25,7 +25,7 @@ namespace EntitySolution.Domain.Concrete
             }
             catch (Exception e)
             {
-                Logging.LogError("GetAllCategory", e.Message);
+                ErrorHandle.WriteError("GetAllCategory", e.Message);
             }
             return ret;
         }
@@ -43,7 +43,7 @@ namespace EntitySolution.Domain.Concrete
             }
             catch (Exception e)
             {
-                Logging.LogError("GetAllCategory", e.Message);
+                ErrorHandle.WriteError("GetAllCategory", e.Message);
             }
             return ret;
         }
@@ -72,7 +72,7 @@ namespace EntitySolution.Domain.Concrete
             }
             catch (Exception e)
             {
-                Logging.LogError("GetAllCategory", e.Message);
+                ErrorHandle.WriteError("GetAllCategory", e.Message);
             }
             return ret;
         }
@@ -105,7 +105,7 @@ namespace EntitySolution.Domain.Concrete
             }
             catch (Exception e)
             {
-                Logging.LogError("GetAllCategory", e.Message);
+                ErrorHandle.WriteError("GetAllCategory", e.Message);
             }
             return ret;
         }
@@ -116,19 +116,19 @@ namespace EntitySolution.Domain.Concrete
             totalCount = 0;
             try
             {
-               var _ret = (from ite in _context.Items                      
-                       select ite).ToList();
-               if (_ret != null)
-               {
-                   ret = _ret.Where(e => (sItemStatus == null || sItemStatus == "" || sItemStatus == allValue || e.Active == sItemStatus) && (sHotStatus == null || sHotStatus == "" || sHotStatus == allValue || e.Hot == sHotStatus)).ToList();
+                var _ret = (from ite in _context.Items
+                            select ite).ToList();
+                if (_ret != null)
+                {
+                    ret = _ret.Where(e => (sItemStatus == null || sItemStatus == "" || sItemStatus == allValue || e.Active == sItemStatus) && (sHotStatus == null || sHotStatus == "" || sHotStatus == allValue || e.Hot == sHotStatus)).ToList();
 
-                   totalCount = _ret.Count;
-               }
-               
+                    totalCount = _ret.Count;
+                }
+
             }
             catch (Exception e)
             {
-                Logging.LogError("GetAllCategory", e.Message);
+                ErrorHandle.WriteError("GetAllCategory", e.Message);
             }
             return ret;
         }
@@ -160,7 +160,7 @@ namespace EntitySolution.Domain.Concrete
             }
             catch (Exception e)
             {
-                Logging.LogError("GetAllCategory", e.Message);
+                ErrorHandle.WriteError("GetAllCategory", e.Message);
             }
             return ret;
         }
@@ -176,7 +176,7 @@ namespace EntitySolution.Domain.Concrete
             }
             catch (Exception e)
             {
-                Logging.LogError("GetAllCategory", e.Message);
+                ErrorHandle.WriteError("GetAllCategory", e.Message);
             }
             return ret;
         }
@@ -197,6 +197,7 @@ namespace EntitySolution.Domain.Concrete
                     oldItem.Description = editItem.Description == null ? "" : editItem.Description;
                     oldItem.Description2 = editItem.Description2 == null ? "" : editItem.Description2;
                     oldItem.ItemPrice = editItem.ItemPrice == null ? "" : editItem.ItemPrice;
+                    oldItem.ItemCondition = editItem.ItemCondition == null ? "" : editItem.ItemCondition;
                     oldItem.Hot = editItem.Hot == null ? "" : editItem.Hot;
                     oldItem.KeySearch = editItem.KeySearch == null ? "" : editItem.KeySearch;
                     if (editItem.ItemImageURL != null && editItem.ItemImageURL != "")
@@ -217,7 +218,7 @@ namespace EntitySolution.Domain.Concrete
             }
             catch (Exception e)
             {
-                Logging.LogError("GetAllCategory", e.Message);
+                ErrorHandle.WriteError("GetAllCategory", e.Message);
             }
             return ret;
         }
@@ -242,7 +243,40 @@ namespace EntitySolution.Domain.Concrete
             }
             catch (Exception e)
             {
-                Logging.LogError("GetAllCategory", e.Message);
+                ErrorHandle.WriteError("GetAllCategory", e.Message);
+            }
+            return ret;
+        }
+        public Item LoadItemAndRelativeOfIt(string sItemID, ref List<Item> listItemRelative)
+        {
+            Item ret = new Item();
+
+            try
+            {
+                int sItemIDTem = 1;
+                int.TryParse(sItemID, out sItemIDTem);
+                var _ret = (from ite in _context.Items
+                            where ite.ItemID == sItemIDTem
+                            select ite).FirstOrDefault();
+
+                if (_ret != null)
+                {
+                    ret = _ret;
+                    var _retList = (from ite in _context.Items
+                                    where ite.CategoryID == _ret.CategoryID && ite.ItemID != _ret.ItemID
+                                    select ite).OrderByDescending(p => p.ItemID).ToList();
+
+                    if (_retList != null)
+                    {
+                        listItemRelative = _retList;
+                    }
+
+                }
+
+            }
+            catch (Exception e)
+            {
+                ErrorHandle.WriteError("GetAllCategory", e.Message);
             }
             return ret;
         }
@@ -261,19 +295,19 @@ namespace EntitySolution.Domain.Concrete
                     if (numberOfRecord == Var.DefaultValueInComboBox)
                     {
                         ret = _ret.Where(e => (sNewsStatus == null || sNewsStatus == "" || sNewsStatus == allValue || e.Active == sNewsStatus)).ToList();
-                            
+
                     }
                     else
                     {
                         ret = _ret.Where(e => (sNewsStatus == null || sNewsStatus == "" || sNewsStatus == allValue || e.Active == sNewsStatus)).Take(numberOfRecord).ToList();
-                        
+
                     }
                 }
-                
+
             }
             catch (Exception e)
             {
-                Logging.LogError("GetAllCategory", e.Message);
+                ErrorHandle.WriteError("GetAllCategory", e.Message);
             }
             return ret;
         }
@@ -308,7 +342,7 @@ namespace EntitySolution.Domain.Concrete
             }
             catch (Exception e)
             {
-                Logging.LogError("GetAllCategory", e.Message);
+                ErrorHandle.WriteError("GetAllCategory", e.Message);
             }
             return ret;
         }
@@ -324,7 +358,7 @@ namespace EntitySolution.Domain.Concrete
             }
             catch (Exception e)
             {
-                Logging.LogError("GetAllCategory", e.Message);
+                ErrorHandle.WriteError("GetAllCategory", e.Message);
             }
             return ret;
         }
@@ -374,7 +408,7 @@ namespace EntitySolution.Domain.Concrete
             }
             catch (Exception e)
             {
-                Logging.LogError("GetAllCategory", e.Message);
+                ErrorHandle.WriteError("GetAllCategory", e.Message);
             }
             return ret;
         }
@@ -399,11 +433,43 @@ namespace EntitySolution.Domain.Concrete
             }
             catch (Exception e)
             {
-                Logging.LogError("GetAllCategory", e.Message);
+                ErrorHandle.WriteError("GetAllCategory", e.Message);
             }
             return ret;
         }
+        public News LoadNewsAndRelativeOfIt(string sNewsID, int numberOfRecordRelative, ref List<News> listNewsAndRelative)
+        {
+            News ret = new News();
 
+            try
+            {
+                int sNewsIDTem = 1;
+                int.TryParse(sNewsID, out sNewsIDTem);
+                var _ret = (from ite in _context.News
+                            where ite.NewsID == sNewsIDTem
+                            select ite).FirstOrDefault();
+
+                if (_ret != null)
+                {
+                    ret = _ret;
+                    var _retList = (from ite in _context.News
+                                    where ite.CreatedDate <= _ret.CreatedDate && ite.NewsID != _ret.NewsID
+                                    select ite).Take(numberOfRecordRelative).OrderByDescending(p => p.CreatedDate).ToList();
+
+                    if (_retList != null)
+                    {
+                        listNewsAndRelative = _retList;
+                    }
+                     
+                }
+
+            }
+            catch (Exception e)
+            {
+                ErrorHandle.WriteError("GetAllCategory", e.Message);
+            }
+            return ret;
+        }
 
         public SysPara GetSysPara(string fieldSysPara)
         {
@@ -423,7 +489,7 @@ namespace EntitySolution.Domain.Concrete
             }
             catch (Exception e)
             {
-                Logging.LogError("GetAllCategory", e.Message);
+                ErrorHandle.WriteError("GetAllCategory", e.Message);
             }
             return ret;
         }
@@ -460,7 +526,7 @@ namespace EntitySolution.Domain.Concrete
             }
             catch (Exception e)
             {
-                Logging.LogError("GetAllCategory", e.Message);
+                ErrorHandle.WriteError("GetAllCategory", e.Message);
             }
             return ret;
         }

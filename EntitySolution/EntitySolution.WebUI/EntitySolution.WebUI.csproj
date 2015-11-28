@@ -163,6 +163,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AdminPageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MultiLanguageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -692,6 +693,7 @@
     <Content Include="Content\FontEnd\images\con-kho.png" />
     <Content Include="Content\FontEnd\images\conkho2.png" />
     <Content Include="Content\FontEnd\images\controls.png" />
+    <Content Include="Content\FontEnd\images\England-Flag-icon.png" />
     <Content Include="Content\FontEnd\images\grid.png" />
     <Content Include="Content\FontEnd\images\home_h2_backgroud.png" />
     <Content Include="Content\FontEnd\images\ic-e.png" />
@@ -720,6 +722,7 @@
     <Content Include="Content\FontEnd\images\sl2.png" />
     <Content Include="Content\FontEnd\images\tabvideo.png" />
     <Content Include="Content\FontEnd\images\tencty.png" />
+    <Content Include="Content\FontEnd\images\Vietnam-Flag-icon.png" />
     <Content Include="Content\FontEnd\js\buttons.js" />
     <Content Include="Content\FontEnd\js\jquery.bxslider.js" />
     <Content Include="Content\FontEnd\js\jquery.bxslider.min.js" />
@@ -851,6 +854,7 @@
     <Content Include="Views\Home\News.cshtml" />
     <Content Include="Views\Home\NewsDetail.cshtml" />
     <Content Include="Views\Home\ProductDetails.cshtml" />
+    <Content Include="Views\MultiLanguage\MultiLanguageNav.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Upload\images\TinCongTy\" />
@@ -871,6 +875,10 @@
     <ProjectReference Include="..\EntitySolution.EntityDB\EntitySolution.EntityDB.csproj">
       <Project>{eb9698b7-fd11-41ec-9c87-b27dff899ceb}</Project>
       <Name>EntitySolution.EntityDB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EntitySolution.WebResource\EntitySolution.WebResource.csproj">
+      <Project>{ea8857cc-0acb-491d-b601-12ff5e70bcc2}</Project>
+      <Name>EntitySolution.WebResource</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

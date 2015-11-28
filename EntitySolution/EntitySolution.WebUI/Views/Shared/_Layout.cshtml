@@ -1,4 +1,5 @@
 ﻿@using EntitySolution.Domain.Common
+@using EntitySolution.WebResource
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -76,8 +77,8 @@
 
                 //
                 $("#cboCategory").html("");
-                $("#lstCategoryPanelLeft").html("");
-                $("#lstCategoryPanelTop").html("");
+               
+                
                 CategoryList = data.CategoryList;
                 var gridTableComboBoxHtml = "<option value=\"" + '@((int)Var.DefaultValueInComboBox)' + "\" selected>" + "All" + "</option>";
                 var gridTablePanelLeftHtml = "";
@@ -103,7 +104,10 @@
                 });
 
                 $("#cboCategory").html(gridTableComboBoxHtml);
+                $("#lstCategoryPanelLeft").html("");
                 $("#lstCategoryPanelLeft").html(gridTablePanelLeftHtml);
+
+                $("#lstCategoryPanelTop").html("");
                 $("#lstCategoryPanelTop").html(gridTablePanelTopHtml);
 
                 //
@@ -244,12 +248,14 @@
                                 </div>
                                 <div class="navbar-collapse collapse" id="navbar">
                                     <ul class="nav navbar-nav">
-                                        <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
-                                        <li><a href="@Url.Action("About", "Home")">Giới Thiệu</a></li>
+                                        <li><a href="@Url.Action("Index", "Home")">@Resource.HomePage</a></li>
+                                        <li><a href="@Url.Action("About", "Home")">@Resource.AboutUs</a></li>
                                         <li><a href="@Url.Action("Index", "Home")">Sản Phẩm</a></li>
                                         <li><a href="@Url.Action("News", "Home")">Tin Công Ty</a></li>
                                         <li><a href="@Url.Action("Contact", "Home")">Liên Hệ</a></li>
                                     </ul>
+
+                                    <div class="mullanguage" id="mulange">@{Html.RenderAction("MultiLanguageNav", "MultiLanguage");}</div>
                                 </div>
                             </div>
                         </nav>
@@ -311,7 +317,30 @@
                                 <i class="fa fa-list" style="padding-right: 10px;"></i>Danh Mục Sản Phẩm
                             </p>
                             <ul class="nav nav-pills nav-stacked" id="lstCategoryPanelLeft">
-                                
+                                <li class="active">
+                                    <a href="#">
+                                        <i class="fa fa-chevron-right" style="padding-right: 10px;">
+                                        </i>Container Văn Phòng
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fa fa-chevron-right" style="padding-right: 10px;"></i>Container
+                                        Khô
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fa fa-chevron-right" style="padding-right: 10px;"></i>Container
+                                        Toilet
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fa fa-chevron-right" style="padding-right: 10px;"></i>Container
+                                        Lạnh
+                                    </a>
+                                </li>                                
                             </ul>
                         </div>
                         <div class="col-md-12 col-lg-12 padd0">

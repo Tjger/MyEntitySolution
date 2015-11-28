@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -8,44 +9,86 @@ using System.Web.Mvc;
 
 namespace EntitySolution.Domain
 {
-    public class Logging 
+    public static class ErrorHandle
     {
-        public static void LogError(string sClassName, string sMsgErr)
+        public static string PhysicalPath;
+        public static void WriteError(string errorMessage)
         {
             try
             {
-                // You could use any logging approach here
-                var _file_name = DateTime.Now.ToString("yyyy-MM-dd") + ".txt";
-                var _file_path = AppDomain.CurrentDomain.BaseDirectory + "App_Data\\" + "Log\\" + _file_name;
-                if (!File.Exists(_file_path))
+                string path = "~/Error/" + DateTime.Today.ToString("dd-MM-yy") + ".txt";
+
+                if (!File.Exists(System.Web.HttpContext.Current.Server.MapPath(path)))
                 {
-                    File.Create(_file_path);
+                    File.Create(System.Web.HttpContext.Current.Server.MapPath(path)).Close();
                 }
-
-                //StreamReader _read;
-                //_read = new StreamReader(_file_path);
-                //if (_read.ReadToEnd().Trim().Length < 1)
-                //{
-                //    _read.Close();
-                //    string _file_log = string.Empty;
-                //    _file_log = "Error Details/ Output   ---   " + Server.GetLastError().Message.ToString() + ";    Execution Time:   ---    " + System.DateTime.Now;
-                //    StreamWriter _wrt;
-                //    _wrt = File.CreateText(_file_path.ToString());
-                //    _wrt.WriteLine(_file_log.ToString());
-                //    _wrt.Close();
-                //}
-
-                var sw = new System.IO.StreamWriter(_file_path, true);
-                sw.WriteLine(DateTime.Now.ToString() + ": " + sClassName + "[ " + sMsgErr + "]");
-                sw.Close();
+                using (StreamWriter w = File.AppendText(System.Web.HttpContext.Current.Server.MapPath(path)))
+                {
+                    w.WriteLine("\r\nLog Entry : ");
+                    w.WriteLine("{0}", DateTime.Now.ToString(CultureInfo.InvariantCulture));
+                    string err = "Error in: " + System.Web.HttpContext.Current.Request.Url.ToString() +
+                               ". Error Message:" + errorMessage;
+                    w.WriteLine(err);
+                    w.WriteLine("__________________________");
+                    w.Flush();
+                    w.Close();
+                }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                
-                throw;
+                WriteError1(ex.Message);
             }
-            
+        }
 
+
+        public static void WriteError1(string errorMessage)
+        {
+            try
+            {
+                string path = "~/Error/" + DateTime.Today.ToString("dd-MM-yy") + ".txt";
+
+                if (!File.Exists(System.Web.HttpContext.Current.Server.MapPath(path)))
+                {
+                    File.Create(System.Web.HttpContext.Current.Server.MapPath(path)).Close();
+                }
+                using (StreamWriter w = File.AppendText(System.Web.HttpContext.Current.Server.MapPath(path)))
+                {
+                    w.WriteLine(errorMessage);
+                    w.Flush();
+                    w.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                // WriteError(ex.Message);
+            }
+        }
+
+        public static void WriteError( string FunctionName,string errorMessage)
+        {
+            try
+            {
+                string path = "~/Error/" + DateTime.Today.ToString("dd-MM-yy") + ".txt";
+                if (!File.Exists(System.Web.HttpContext.Current.Server.MapPath(path)))
+                {
+                    File.Create(System.Web.HttpContext.Current.Server.MapPath(path)).Close();
+                }
+                using (StreamWriter w = File.AppendText(System.Web.HttpContext.Current.Server.MapPath(path)))
+                {
+                    w.WriteLine("\r\nLog Entry : ");
+                    w.WriteLine("{0}", DateTime.Now.ToString(CultureInfo.InvariantCulture));
+                    string err = "Error in: " + System.Web.HttpContext.Current.Request.Url.ToString() + " Function: " + FunctionName +
+                               ". Error Message:" + errorMessage;
+                    w.WriteLine(err);
+                    w.WriteLine("__________________________");
+                    w.Flush();
+                    w.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteError(ex.Message);
+            }
         }
     }
 }
