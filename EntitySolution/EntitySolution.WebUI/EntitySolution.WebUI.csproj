@@ -855,6 +855,7 @@
     <Content Include="Views\Home\NewsDetail.cshtml" />
     <Content Include="Views\Home\ProductDetails.cshtml" />
     <Content Include="Views\MultiLanguage\MultiLanguageNav.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Upload\images\TinCongTy\" />

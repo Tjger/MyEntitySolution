@@ -77,6 +77,24 @@ namespace EntitySolution.WebUI.Controllers
             return View(ItemDetail);
         }
 
+        public ActionResult Search(string search, string category)
+        {
+           
+           
+            
+            if (search != null && search.Trim() != "")
+            {
+                ViewBag.SearchText = search;
+                ViewBag.CategoryID = category;
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+           
+        }
+
 
         public JsonResult LoadAllDataForHomePage()
         {
@@ -127,13 +145,17 @@ namespace EntitySolution.WebUI.Controllers
             return jResult;
         }
 
-        public JsonResult LoadAllItem(string sItemStatus, string sHotStatus)
+        public JsonResult LoadAllItem(int sPageIndex, string sItemStatus, string sHotStatus, string sSearchText , string sCategoryID)
         {
             JsonResult jResult = new JsonResult();
             try
             {
+
                 int totalCount = 0;
-                jResult = Json(new { success = true, returnList = adminPageProvider.LoadAllItem(sItemStatus, sHotStatus, ref totalCount) }, JsonRequestBehavior.AllowGet);
+                IList<Item> lstItem = adminPageProvider.LoadAllItem(sItemStatus, sHotStatus, ref totalCount, sCategoryID, sSearchText);
+                IPagedList<Item> lstReturn = lstItem.ToPagedList(sPageIndex, Var.PageSize, totalCount);
+
+                jResult = Json(new { success = true, returnList = lstReturn, PageCount = lstReturn.PageCount, HasPreviousPage = lstReturn.HasPreviousPage, HasNextPage = lstReturn.HasNextPage }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception)

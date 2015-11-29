@@ -14,7 +14,7 @@ namespace EntitySolution.Domain.Abstract
        bool EditCategory(Category editCategory);
        bool DeleteCategory(int deleteCategoryID);
 
-       List<Item> LoadAllItem(string sItemStatus, string sHotStatus, ref int totalCount);
+       List<Item> LoadAllItem(string sItemStatus, string sHotStatus, ref int totalCount, string sCategoryID = "", string sSearchText = "");
        Item LoadItemByItemID(int sItemID);
        bool AddNewItem(Item newItem);
        bool EditItem(Item editItem);

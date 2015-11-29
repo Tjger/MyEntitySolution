@@ -288,6 +288,8 @@
         CKEDITOR.instances.itemDescription2.setData('<p>Mô tả sản phẩm bằng tiếng anh.</p>');
         $("#itemPrice").val("");
         $("#itemCondition").val("");
+        $("#itemPrice2").val("");
+        $("#itemCondition2").val("");
         $("#itemKeySearch").val("");
         $('#itemImage').attr('src', '@Url.Content("~/Content/FontEnd/images/no_image.png")');
         $('#itemImage2').attr('src', '@Url.Content("~/Content/FontEnd/images/no_image.png")');
@@ -320,6 +322,8 @@
             Description2: description2,
             ItemPrice: $("#itemPrice").val(),
             ItemCondition: $("#itemCondition").val(),
+            ItemPrice2: $("#itemPrice2").val(),
+            ItemCondition2: $("#itemCondition2").val(),
             Active: cActive,
             Hot: cHot,
             FolderID: $("#FolderID").val(),
@@ -522,7 +526,8 @@
 
                     $("#itemPrice").val(data.returnList.ItemPrice);
                     $("#itemCondition").val(data.returnList.ItemCondition);
-
+                    $("#itemPrice2").val(data.returnList.ItemPrice2);
+                    $("#itemCondition2").val(data.returnList.ItemCondition2);
                     $("#itemKeySearch").val(data.returnList.KeySearch);
                     CKEDITOR.instances.itemDescription.setData(data.returnList.Description);
                     CKEDITOR.instances.itemDescription2.setData(data.returnList.Description2);
@@ -619,6 +624,8 @@
         }
 
         $("#ulPaging").html(gridTableHtml);
+
+        scrollup();
     };
 
 </script>
@@ -721,8 +728,16 @@
                         <input type="text" class="form-control" name="ItemCondition" id="itemCondition">
                     </div>
                     <div class="form-group">
+                        <label for="itemPrice">Condition 2</label>
+                        <input type="text" class="form-control" name="ItemCondition2" id="itemCondition2">
+                    </div>
+                    <div class="form-group">
                         <label for="itemPrice">Size</label>
                         <input type="text" class="form-control" name="ItemPrice" id="itemPrice">
+                    </div>
+                    <div class="form-group">
+                        <label for="itemPrice">Size 2</label>
+                        <input type="text" class="form-control" name="ItemPrice" id="itemPrice2">
                     </div>
                     <div class="form-group">
                         <label for="itemKeySearch">Từ Khóa Tìm Kiếm</label>

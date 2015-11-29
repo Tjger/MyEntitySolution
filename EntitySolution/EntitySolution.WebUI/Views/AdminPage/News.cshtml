@@ -231,6 +231,7 @@
                 if (data.success === true) {
 
                     FillDataToGridTableHtml(data.returnList, data.PageCount, data.HasPreviousPage, data.HasNextPage);
+                    
                 }
                 else {
                     $("#lblMessageModal").html("Có lỗi xảy ra , xin hãy thử lại sau.");
@@ -379,6 +380,8 @@
         }
 
         $("#ulPaging").html(gridTableHtml);
+
+        scrollup();
     };
 </script>
 

@@ -11,18 +11,18 @@
     }
 }
 
-<script>
-    var ProductID = '@ViewBag.ProductID';
-    $(document).ready(function () {
-
-    });
-
-</script>
-
 <div class="col-md-12 col-lg-12 padd0">
     <div class="box-title-detail col-md-12 col-lg-12">
         <p class="title-subpost">
-            @Model.ItemName
+            @if (Session["Culture"].ToString().Contains("vi-VN"))
+            {
+                @Model.ItemName
+            }
+            else
+            {
+                 @Model.ItemName2
+            }
+
         </p>
     </div>
     <div class="col-md-12 col-lg-12 padd0">
@@ -57,12 +57,48 @@
             <div class="box-sum-info">
                 <div class="pro_rightface left">
                     <div class="pro_intro">
-                        <i class="fa fa-plus" style="color:#ff6a00;"></i>  <strong>Product</strong>: @Model.ItemName <br>
-                        <i class="fa fa-plus" style="color:#ff6a00;"></i>  <strong>Condition</strong>: @Model.ItemCondition<br>
-                        <i class="fa fa-plus" style="color:#ff6a00;"></i>  <strong>Size</strong>: @Model.ItemPrice<br>
+                        <i class="fa fa-plus" style="color:#ff6a00;"></i>  <strong>Product</strong>:
+                        @if (Session["Culture"].ToString().Contains("vi-VN"))
+                        {
+                            @Model.ItemName
+                        }
+                        else
+                        {
+                            @Model.ItemName2
+                        }
+                        <br>
+                        <i class="fa fa-plus" style="color:#ff6a00;"></i>  <strong>Condition</strong>: 
+                        @if (Session["Culture"].ToString().Contains("vi-VN"))
+                        {
+                            @Model.ItemCondition
+                        }
+                        else
+                        {
+                            @Model.ItemCondition2
+                        }
+                      <br>
+                        <i class="fa fa-plus" style="color:#ff6a00;"></i>  <strong>Size</strong>:
+                        @if (Session["Culture"].ToString().Contains("vi-VN"))
+                        {
+                              @Model.ItemPrice
+                        }
+                        else
+                        {
+                            @Model.ItemPrice2
+                        }
+                       <br>
                         <!--<i class="fa fa-plus" style="color:#ff6a00;"></i>  <strong>PRICE:</strong><span style="color: rgb(255, 0, 0);">$140.000</span><br>-->
                         <br>
-                        @Html.Raw(Model.Description)
+                        @if (Session["Culture"].ToString().Contains("vi-VN"))
+{
+    @Html.Raw(Model.Description)
+}
+else
+{
+     @Html.Raw(Model.Description2)
+}
+
+                      
                         <br>
                         &nbsp;<br>
                         <br>
@@ -239,9 +275,19 @@
         @for (int i = 0; i < ListProductAndRelative.Count; i++)
         {
             <li>
-                <a title="@ListProductAndRelative[i].ItemName" style="text-decoration: none;" href='@Url.Action("ProductDetails", "Home", new { id = ListProductAndRelative[i].ItemID })'>
+                @if (Session["Culture"].ToString().Contains("vi-VN"))
+                {
+                   <a title="@ListProductAndRelative[i].ItemName" style="text-decoration: none;" href='@Url.Action("ProductDetails", "Home", new { id = ListProductAndRelative[i].ItemID })'>
                     @ListProductAndRelative[i].ItemName
                 </a>
+                }
+                else
+                {
+                   <a title="@ListProductAndRelative[i].ItemName2" style="text-decoration: none;" href='@Url.Action("ProductDetails", "Home", new { id = ListProductAndRelative[i].ItemID })'>
+                    @ListProductAndRelative[i].ItemName2
+                </a>
+                }
+               
             </li>
         }
 

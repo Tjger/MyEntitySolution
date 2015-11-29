@@ -18,7 +18,7 @@ namespace EntitySolution.Domain.Common
         public static string ConfigAbout = "ConfigAbout";
         public static string ConfigContacts = "ConfigContacts";
         public static string CultureLanguage = "vi-VN";
-        public static int PageSize =4;
+        public static int PageSize =8;
 
         public static string SMTPHost = "";
         public static string SMTPEmailAddress = "";

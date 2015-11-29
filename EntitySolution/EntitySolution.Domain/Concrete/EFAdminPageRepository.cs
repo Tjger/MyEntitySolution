@@ -110,7 +110,7 @@ namespace EntitySolution.Domain.Concrete
             return ret;
         }
 
-        public List<Item> LoadAllItem(string sItemStatus, string sHotStatus, ref int totalCount)
+        public List<Item> LoadAllItem(string sItemStatus, string sHotStatus, ref int totalCount,string sCategoryID = "", string sSearchText = "" )
         {
             List<Item> ret = new List<Item>();
             totalCount = 0;
@@ -120,11 +120,14 @@ namespace EntitySolution.Domain.Concrete
                             select ite).ToList();
                 if (_ret != null)
                 {
-                    ret = _ret.Where(e => (sItemStatus == null || sItemStatus == "" || sItemStatus == allValue || e.Active == sItemStatus) && (sHotStatus == null || sHotStatus == "" || sHotStatus == allValue || e.Hot == sHotStatus)).ToList();
+                    ret = _ret.Where(e => (sItemStatus == null || sItemStatus == "" || sItemStatus == allValue || e.Active == sItemStatus) 
+                        && (sHotStatus == null || sHotStatus == "" || sHotStatus == allValue || e.Hot == sHotStatus)
+                         && (sCategoryID == null || sCategoryID == "" || sCategoryID == allValue || e.CategoryID.Value.ToString() == sCategoryID)
+                         && (sSearchText == null || sSearchText == "" || sSearchText == allValue || e.ItemName.Contains(sSearchText) || e.ItemName2.Contains(sSearchText))).ToList();
 
-                    totalCount = _ret.Count;
+                  
                 }
-
+                totalCount = ret.Count;
             }
             catch (Exception e)
             {
@@ -146,6 +149,8 @@ namespace EntitySolution.Domain.Concrete
                 newItem.Description2 = newItem.Description2 == null ? "" : newItem.Description2;
                 newItem.ItemPrice = newItem.ItemPrice == null ? "" : newItem.ItemPrice;
                 newItem.ItemCondition = newItem.ItemCondition == null ? "" : newItem.ItemCondition;
+                newItem.ItemPrice2 = newItem.ItemPrice2 == null ? "" : newItem.ItemPrice2;
+                newItem.ItemCondition2 = newItem.ItemCondition2 == null ? "" : newItem.ItemCondition2;
                 newItem.FolderID = newItem.FolderID == null ? "" : newItem.FolderID;
                 newItem.Hot = newItem.Hot == null ? "" : newItem.Hot;
                 newItem.KeySearch = newItem.KeySearch == null ? "" : newItem.KeySearch;
@@ -203,6 +208,8 @@ namespace EntitySolution.Domain.Concrete
                     oldItem.Description2 = editItem.Description2 == null ? "" : editItem.Description2;
                     oldItem.ItemPrice = editItem.ItemPrice == null ? "" : editItem.ItemPrice;
                     oldItem.ItemCondition = editItem.ItemCondition == null ? "" : editItem.ItemCondition;
+                    oldItem.ItemPrice2 = editItem.ItemPrice2 == null ? "" : editItem.ItemPrice2;
+                    oldItem.ItemCondition2 = editItem.ItemCondition2 == null ? "" : editItem.ItemCondition2;
                     oldItem.Hot = editItem.Hot == null ? "" : editItem.Hot;
                     oldItem.KeySearch = editItem.KeySearch == null ? "" : editItem.KeySearch;
                     if (editItem.ItemImageURL != null && editItem.ItemImageURL != "")

@@ -1,0 +1,105 @@
+﻿
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using EntitySolution.Domain.Common
+@using EntitySolution.WebResource
+<script>
+    
+    var SearchText = '@ViewBag.SearchText';
+    var CategoryID = '@ViewBag.CategoryID';
+    var Langguage = '@Session["Culture"].ToString()';
+    $(document).ready(function () {
+
+        LoadAllItem('0');
+
+    });
+
+    function LoadAllItem(pageIndex) {      
+        $.ajax({
+            url: '@Url.Action("LoadAllItem", "Home")',
+            contentType: "application/json; charset=utf-8",
+            type: 'POST',
+            dataType: "json",
+            data: JSON.stringify({ "sPageIndex": pageIndex, "sItemStatus": '@((int)Var.SystemStatus.Active)', "sHotStatus": '@Var.DefaultValueInComboBox', "sSearchText": SearchText, "sCategoryID": CategoryID }),
+            success: function (data) {
+                $("#box-listnews").html("");
+                
+                var gridTableHtml = "";
+                $.each(data.returnList, function (index, item) {
+
+                    var ItemName = "";
+                    var Description = "";
+                    if (Langguage === "vi-VN") {
+                        ItemName = item.ItemName;
+                        Description = item.Description;
+                    }
+                    else {
+                        ItemName = item.ItemName2;
+                        Description = item.Description2;
+                    }
+
+                  
+
+                    gridTableHtml += " <div class=\"sub-listnews col-md-12 col-lg-12\">";
+                    gridTableHtml += " <div class=\"col-md-12 col-lg-12\">";
+                    gridTableHtml += " <p class=\"title-subpost\">";
+                    gridTableHtml += " <a href=\"javascript:ShowItemDetail('" + item.ItemID + "')\">" + ItemName + "</a>";
+                    gridTableHtml += " </p></div>";
+                    gridTableHtml += " <div class=\"col-md-3 col-lg-3\">";
+                    gridTableHtml += "<a href=\"javascript:ShowItemDetail('" + item.ItemID + "')\">";
+                    gridTableHtml += "<img src=\"" + '@Url.Content(Var.UrlUploadItemImage)' + item.ItemImageURL + "\" class=\"img-responsive\" style=\"height: 125px; width: 175px;\"> ";
+                    gridTableHtml += " </a></div>";
+                    gridTableHtml += " <div class=\"col-md-9 col-lg-9\">";
+                    gridTableHtml += " <div class=\"col-md-12 col-lg-12 padd0\">";
+                    gridTableHtml += " <p>" + Description + "</p></div>";
+                    gridTableHtml += " <div class=\"col-md-12 col-lg-12 padd0\">";
+                    gridTableHtml += " <div class=\"col-md-6 col-lg-6 padd0\">";
+                    gridTableHtml += " </div>";
+                    gridTableHtml += " <div class=\"col-md-6 col-lg-6 padd0\">";
+                    gridTableHtml += " <a href=\"javascript:ShowItemDetail('" + item.ItemID + "')\" style=\"float: right;\"><span class=\"link-deatail\">" + '@Resource.ViewDetails' + "</span></a>";
+                    gridTableHtml += " </div></div></div></div>";
+
+                });
+
+                $("#box-listnews").html(gridTableHtml);
+
+                $("#ulPaging").html("");
+                $("#PageCount").val(data.PageCount);
+                var gridTableHtml = "";
+
+                for (var i = 0; i < data.PageCount; i++) {
+                    var j = i + 1;
+                    gridTableHtml += "<li><a href=\"javascript:LoadAllItem('" + i + "')\">" + j + "</a></li>";
+
+                }
+
+                $("#ulPaging").html(gridTableHtml);
+                scrollup();
+            }
+        });
+
+    };
+
+    function ShowItemDetail(e) {
+        var url = '@Url.Action("ProductDetails", "Home", new { id = "__id__" })';
+        window.location.href = url.replace('__id__', e);
+    }
+
+</script>
+<div class="col-md-12 col-lg-12 padd0">
+    <p class="title-post">
+        @Resource.Search
+    </p>
+</div>
+<div class="box-listnews" id="box-listnews">
+   
+
+</div>
+
+<input id="PageCount" type="hidden" class="form-control" value="1" disabled="disabled">
+<div class="col-md-12 col-lg-12 text-center padd0" id="divPaging">
+    <ul class="pagination mt50" id="ulPaging"></ul>
+</div>

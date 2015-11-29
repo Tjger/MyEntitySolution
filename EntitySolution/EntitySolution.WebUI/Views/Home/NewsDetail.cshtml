@@ -13,7 +13,15 @@
 
 <div class="col-md-12 col-lg-12 padd0">
     <p class="title-post">
-        @Model.Title
+        @if (Session["Culture"].ToString().Contains("vi-VN"))
+        {
+            @Model.Title
+        }
+        else
+        {
+            @Model.Title2
+        }
+      
     </p>
 </div>
 <div class="col-md-12 col-lg-12 padd0">
@@ -24,7 +32,16 @@
 <div class="col-md-12 col-lg-12 padd0">
     <div class="content-subpost">
         <p>
-            <b>@Model.Description</b><br /><br />
+            <b>
+                @if (Session["Culture"].ToString().Contains("vi-VN"))
+                {
+                    @Model.Description
+                }
+                else
+                {
+                    @Model.Description2
+                }
+          </b><br /><br />
 
 
         </p>
@@ -33,8 +50,15 @@
            
         </p>
         <br />
-
-        @Html.Raw(Model.MainContent)
+        @if (Session["Culture"].ToString().Contains("vi-VN"))
+        {
+          @Html.Raw(Model.MainContent)
+        }
+        else
+        {
+         @Html.Raw(Model.MainContent2)
+        }
+        
     </div>
 </div>
 <div class="col-md-12 col-lg-12 othernews">
@@ -45,9 +69,19 @@
         @for (int i = 0; i < ListNewsAndRelative.Count; i++)
         {
             <li>
-                <a title="@ListNewsAndRelative[i].Title" style="text-decoration: none;" href='@Url.Action("NewsDetail", "Home", new { id = ListNewsAndRelative[i].NewsID })'>
+                @if (Session["Culture"].ToString().Contains("vi-VN"))
+                {
+                   <a title="@ListNewsAndRelative[i].Title" style="text-decoration: none;" href='@Url.Action("NewsDetail", "Home", new { id = ListNewsAndRelative[i].NewsID })'>
                     @ListNewsAndRelative[i].Title  (@ListNewsAndRelative[i].CreatedDate.Value.ToString(Var.FormatDate))
                 </a>
+                }
+                else
+                {
+                    <a title="@ListNewsAndRelative[i].Title2" style="text-decoration: none;" href='@Url.Action("NewsDetail", "Home", new { id = ListNewsAndRelative[i].NewsID })'>
+                    @ListNewsAndRelative[i].Title2  (@ListNewsAndRelative[i].CreatedDate.Value.ToString(Var.FormatDate))
+                </a>
+                }
+               
             </li>
         }
        

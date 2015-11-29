@@ -3,6 +3,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @using EntitySolution.Domain.Common
+@using EntitySolution.WebResource
 <script>
     Number.prototype.padLeft = function (base, chr) {
         var len = (String(base || 10).length - String(this).length) + 1;
@@ -10,6 +11,7 @@
     }
 
     var CategoryList = null;
+    var Langguage = '@Session["Culture"].ToString()';
     $(document).ready(function () {
 
         LoadAllNews('0');
@@ -29,6 +31,17 @@
                 var gridTableHtml = "";
                 $.each(data.returnList, function (index, item) {
 
+                    var Title = "";
+                    var Description = "";
+                    if (Langguage === "vi-VN") {
+                        Title = item.Title;
+                        Description = item.Description;
+                    }
+                    else {
+                        Title = item.Title2;
+                        Description = item.Description2;
+                    }
+
                     var d = new Date(parseInt(item.CreatedDate.substr(6)));
                     var dformat = [d.getDate().padLeft(),
                     (d.getMonth() + 1).padLeft(),
@@ -41,7 +54,7 @@
                     gridTableHtml += " <div class=\"sub-listnews col-md-12 col-lg-12\">";
                     gridTableHtml += " <div class=\"col-md-12 col-lg-12\">";
                     gridTableHtml += " <p class=\"title-subpost\">";
-                    gridTableHtml += " <a href=\"javascript:ShowNewsDetail('" + item.NewsID + "')\">" + item.Title + "</a>";
+                    gridTableHtml += " <a href=\"javascript:ShowNewsDetail('" + item.NewsID + "')\">" + Title + "</a>";
                     gridTableHtml += " </p></div>";
                     gridTableHtml += " <div class=\"col-md-3 col-lg-3\">";
                     gridTableHtml += "<a href=\"javascript:ShowNewsDetail('" + item.NewsID + "')\">";
@@ -49,12 +62,12 @@
                     gridTableHtml += " </a></div>";
                     gridTableHtml += " <div class=\"col-md-9 col-lg-9\">";
                     gridTableHtml += " <div class=\"col-md-12 col-lg-12 padd0\">";
-                    gridTableHtml += " <p>" + item.Description + "</p></div>";
+                    gridTableHtml += " <p>" + Description + "</p></div>";
                     gridTableHtml += " <div class=\"col-md-12 col-lg-12 padd0\">";
                     gridTableHtml += " <div class=\"col-md-6 col-lg-6 padd0\">";
                     gridTableHtml += " <p class=\"date-post\" style=\"float: left;\">" + dformat + "</p></div>";
                     gridTableHtml += " <div class=\"col-md-6 col-lg-6 padd0\">";
-                    gridTableHtml += " <a href=\"javascript:ShowNewsDetail('" + item.NewsID + "')\" style=\"float: right;\"><span class=\"link-deatail\">Chi tiết</span></a>";
+                    gridTableHtml += " <a href=\"javascript:ShowNewsDetail('" + item.NewsID + "')\" style=\"float: right;\"><span class=\"link-deatail\">"+'@Resource.ViewDetails'+"</span></a>";
                     gridTableHtml += " </div></div></div></div>";
 
                 });
@@ -72,7 +85,7 @@
                 }
 
                 $("#ulPaging").html(gridTableHtml);
-
+                scrollup();
             }
         });
 

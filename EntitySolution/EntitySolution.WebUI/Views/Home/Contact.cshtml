@@ -2,9 +2,10 @@
     ViewBag.Title = "Contact";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@using EntitySolution.WebResource
 @using EntitySolution.Domain.Common
 <script>
-    var CategoryList = null;
+    var Langguage = '@Session["Culture"].ToString()';
     $(document).ready(function () {
         GetSysPara();
     });
@@ -17,9 +18,14 @@
             dataType: "json",
             data: JSON.stringify({ "fieldSysPara": '@Var.ConfigContacts' }),
             success: function (data) {
-                $("#ContactContent").html(data.returnList.Value);
-                //CKEDITOR.instances.itemMainContent.setData(data.returnList.Value);
-                //CKEDITOR.instances.itemMainContent2.setData(data.returnList.DefaultValue);
+               
+                if (Langguage === "vi-VN") {
+                    $("#ContactContent").html(data.returnList.Value);
+                }
+                else {
+                    $("#ContactContent").html(data.returnList.DefaultValue);
+                }
+                
             }
         });
     };
@@ -27,63 +33,34 @@
 
 <div class="col-md-12 col-lg-12 padd0">
     <p class="title-post">
-        Liên Hệ
+        @Resource.ContactUs
     </p>
 </div>
 <div class="box-listnews">
     <div class="sub-listnews col-md-12 col-lg-12" id="ContactContent">
-      
-        @*<div class="title-namecompany col-md-12 col-lg-12">
-            <b>CÔNG TY CỔ PHẦN THƯƠNG MẠI CƠ KHÍ TÂN PHONG </b>
-        </div>
-        <div class="col-md-12 col-lg-12">
-            <span>
-                <b>Địa chỉ:</b> <span>
-                    Phòng 606, Tòa nhà Indochina Park Tower.Số 4 Nguyễn Đình
-                    Chiểu,P. Đa Kao, Q.1,TP.HCM
-                </span>
-            </span>
-        </div>
-        <div class="col-md-12 col-lg-12">
-            <span>
-                <b>Địên Thoại:</b> <span>
-                    Kinh doanh: (08) 6297 2066 - Kỹ thuật: (08) 3601 9277
-                </span>
-            </span>
-        </div>
-        <div class="col-md-12 col-lg-12">
-            <span>
-                <b>Tài khoản ngân hàng công ty:</b> <span>
-                    CÔNG TY CỔ PHẦN THƯƠNG MẠI CƠ KHÍ TÂN
-                    PHONG
-                </span>
-            </span>
-        </div>
-        <div class="col-md-12 col-lg-12">
-            <span><b>Trang chủ:</b> <span><a href="Index.html">http://www.tanphong.com/About.html/</a></span></span>
-        </div>*@
+       
     </div>
 </div>
-<div id="contact-form">
+@*<div id="contact-form">
     <div class="title-namecompany col-md-12 col-lg-12">
-        <b>Gởi mail trực tuyến</b>
+        <b>@Resource.EmailUs</b>
     </div>
     <div class="col-md-12 col-lg-12">
         <ul>
             <li>
-                Họ và tên<span style="color: #f00;">(*)</span><br />
+                @Resource.YourName<span style="color: #f00;">(*)</span><br />
                 <input type="text" value="" class="form-control2" name="contactName" />
             </li>
             <li>
-                Chức vụ<br />
+                @Resource.YourPosition<br />
                 <input type="text" value="" class="form-control2" name="Chucvu" />
             </li>
             <li>
-                Công ty<br />
+                @Resource.YourCompany<br />
                 <input type="text" value="" class="form-control2" name="Congty" />
             </li>
             <li>
-                Địa chỉ<span style="color: #f00;">(*)</span><br />
+                @Resource.YourAddress<span style="color: #f00;">(*)</span><br />
                 <input type="text" value="" class="form-control2" name="contactAddress" />
             </li>
             <li>
@@ -91,27 +68,27 @@
                 <input type="text" value="" class="form-control2" name="Email" />
             </li>
             <li>
-                Điện thoại<span style="color: #f00;">(*)</span><br />
+                @Resource.YourPhone<span style="color: #f00;">(*)</span><br />
                 <input type="text" value="" class="form-control2" name="Telephone" />
             </li>
             <li>
-                Tiêu đề<span style="color: #f00;">(*)</span><br />
+                @Resource.Subject<span style="color: #f00;">(*)</span><br />
                 <input type="text" value="" class="form-control2" name="contactTitle" />
             </li>
             <li>
-                Nội dung<span style="color: #f00;">(*)</span><br />
+                @Resource.Body<span style="color: #f00;">(*)</span><br />
                 <textarea style="width:350px;" name="contactMessage" rows="8"></textarea>
             </li>
         </ul>
         <div class="col-md-12 col-lg-12">
             <p align="center">
                 <button name="B2" class="btn btn-info" type="submit">
-                    Gửi nội dung
+                    @Resource.SendEmail
                 </button>
                 <button type="reset" class="btn btn-warning">
-                    Làm lại
+                    @Resource.Cancel
                 </button>
             </p>
         </div>
     </div>
-</div>
+</div>*@

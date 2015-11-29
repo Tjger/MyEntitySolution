@@ -40,6 +40,7 @@
 
 <script>
     var CategoryList = null;
+    var Langguage = '@Session["Culture"].ToString()';
     $(document).ready(function () {
         LoadAllDataForHomePage();
 
@@ -51,7 +52,7 @@
         });
         $("#btn_close_modal").click(function () {
             playPause();
-            
+
         });
 
     });
@@ -77,28 +78,35 @@
 
                 //
                 $("#cboCategory").html("");
-               
-                
+
+
                 CategoryList = data.CategoryList;
-                var gridTableComboBoxHtml = "<option value=\"" + '@((int)Var.DefaultValueInComboBox)' + "\" selected>" + "All" + "</option>";
+                var gridTableComboBoxHtml = "<option value=\"" + '@((int)Var.DefaultValueInComboBox)' + "\" selected>" + '@Resource.All' + "</option>";
                 var gridTablePanelLeftHtml = "";
                 var gridTablePanelTopHtml = "";
                 $.each(CategoryList, function (index, item) {
-
-                    gridTableComboBoxHtml += "<option value=\"" + item.CategoryID + "\">" + item.CategoryName + "</option>";
-
-                    if (index == '0') {
-                        gridTablePanelLeftHtml += "<li  class=\"active\"> <a data-toggle=\"tab\" href=\"#menu" + index + "\"> <i class=\"fa fa-chevron-right\" style=\"padding-right: 10px;\"> </i>" + item.CategoryName + "</a></li>";
+                    var CategoryName = "";
+                    if (Langguage === "vi-VN") {
+                        CategoryName = item.CategoryName;
                     }
                     else {
-                        gridTablePanelLeftHtml += "<li> <a data-toggle=\"tab\" href=\"#menu" + index + "\"> <i class=\"fa fa-chevron-right\" style=\"padding-right: 10px;\"> </i>" + item.CategoryName + "</a></li>";
+                        CategoryName = item.CategoryName2;
+                    }
+
+                    gridTableComboBoxHtml += "<option value=\"" + item.CategoryID + "\">" + CategoryName + "</option>";
+
+                    if (index == '0') {
+                        gridTablePanelLeftHtml += "<li  class=\"active\"> <a data-toggle=\"tab\" href=\"#menu" + index + "\"> <i class=\"fa fa-chevron-right\" style=\"padding-right: 10px;\"> </i>" + CategoryName + "</a></li>";
+                    }
+                    else {
+                        gridTablePanelLeftHtml += "<li> <a data-toggle=\"tab\" href=\"#menu" + index + "\"> <i class=\"fa fa-chevron-right\" style=\"padding-right: 10px;\"> </i>" + CategoryName + "</a></li>";
                     }
 
                     if (index == '0') {
-                        gridTablePanelTopHtml += "<li class=\"active\"> <a data-toggle=\"tab\" href=\"#menu" + index + "\">" + item.CategoryName + "</a></li>";
+                        gridTablePanelTopHtml += "<li class=\"active\"> <a data-toggle=\"tab\" href=\"#menu" + index + "\">" + CategoryName + "</a></li>";
                     }
                     else {
-                        gridTablePanelTopHtml += "<li> <a data-toggle=\"tab\" href=\"#menu" + index + "\">" + item.CategoryName + "</a></li>";
+                        gridTablePanelTopHtml += "<li> <a data-toggle=\"tab\" href=\"#menu" + index + "\">" + CategoryName + "</a></li>";
                     }
 
                 });
@@ -114,9 +122,16 @@
                 $("#lstItemHotPanelLeft").html("");
                 var gridItemListHotHtml = "";
                 $.each(data.ItemListHot, function (index, item) {
+                    var ItemName = "";
+                    if (Langguage === "vi-VN") {
+                        ItemName = item.ItemName;
+                    }
+                    else {
+                        ItemName = item.ItemName2;
+                    }
                     gridItemListHotHtml += "<li> <a href=\"javascript:ShowItemDetail('" + item.ItemID + "')\">";
                     gridItemListHotHtml += "<img src=\"" + '@Url.Content(Var.UrlUploadItemImage)' + item.ItemImageURL + "\" class=\"img-responsive\"> ";
-                    gridItemListHotHtml += "<p class=\"tittle-small\">" + item.ItemName + "</p></a></li>";
+                    gridItemListHotHtml += "<p class=\"tittle-small\">" + ItemName + "</p></a></li>";
                 });
                 $("#lstItemHotPanelLeft").html(gridItemListHotHtml);
 
@@ -124,10 +139,17 @@
                 $("#lstNewsPanelLeft").html("");
                 var gridNewsPanelLeftHtml = "";
                 $.each(data.NewsList, function (index, item) {
+                    var Title = "";
+                    if (Langguage === "vi-VN") {
+                        Title = item.Title;
+                    }
+                    else {
+                        Title = item.Title2;
+                    }
                     gridNewsPanelLeftHtml += "<li style=\"height: 85px;\"> <a href=\"javascript:ShowNewsDetail('" + item.NewsID + "')\">";
                     gridNewsPanelLeftHtml += "<img src=\"" + '@Url.Content(Var.UrlUploadCompanyNewsImage)' + item.ItemImageURL + "\" class=\"img-responsive\" style=\"height: 47px; width: 70px;\"> ";
-                    gridNewsPanelLeftHtml += "<p class=\"tittle-small\">" + item.Title + "</p>";
-                    gridNewsPanelLeftHtml += "<span class=\"link-deatail\"  onclick=\"ShowNewsDetail('" + item.NewsID + "'\">Chi tiết</span></a></li>";
+                    gridNewsPanelLeftHtml += "<p class=\"tittle-small\">" + Title + "</p>";
+                    gridNewsPanelLeftHtml += "<span class=\"link-deatail\"  onclick=\"ShowNewsDetail('" + item.NewsID + "'\">" + '@Resource.ViewDetails' + "</span></a></li>";
                 });
 
                 $("#lstNewsPanelLeft").html(gridNewsPanelLeftHtml);
@@ -154,6 +176,13 @@
                     var numberRow = 1;
                     $.each(item, function (ix, im) {
                         indexTotal++;
+                        var ItemName = "";
+                        if (Langguage === "vi-VN") {
+                            ItemName = im.ItemName;
+                        }
+                        else {
+                            ItemName = im.ItemName2;
+                        }
                         gridAllItemHtml += "<div class=\"col-md-4 col-lg-4 mt15\">";
                         gridAllItemHtml += "<div class=\"box-show-product col-md-12 col-lg-12 padd0\">";
                         gridAllItemHtml += "<div class=\"box-img col-md-12 col-lg-12\">";
@@ -163,7 +192,7 @@
                         gridAllItemHtml += "</div>";
                         gridAllItemHtml += "<div class=\"col-md-12 col-lg-12 padd0\">";
                         gridAllItemHtml += "<p class=\"box-info-danhgia\">";
-                        gridAllItemHtml += im.ItemName;
+                        gridAllItemHtml += ItemName;
                         gridAllItemHtml += "</p>";
                         gridAllItemHtml += "<p class=\"box-star\">";
                         gridAllItemHtml += "<i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i>";
@@ -204,7 +233,18 @@
         var url = '@Url.Action("NewsDetail", "Home", new { id = "__id__" })';
         window.location.href = url.replace('__id__', e);
     }
+    function SearchDetail(e) {
+        var url = '@Url.Action("Search", "Home", new { key = "__key__" })';
+        window.location.href = url.replace('__key__', e);
+    }
 
+    function scrollup() {
+          $("html, body").animate({
+            scrollTop: 0
+        }, 600);
+        return false;
+    }
+    
 </script>
 
     <div class="bg">
@@ -219,14 +259,29 @@
                             <p style="float: left; padding-left: 90px;"><img class="img-responsive" src="@Url.Content("~/Content/FontEnd/images/tencty.png")" /></p>
                         </div>
                         <div class="col-md-5 col-lg-5" style="padding-top: 50px;">
-                            <div class="col-md-6 col-lg-6 pull-right">
-                                <input type="text" class="form-control" style="font-style: italic;" placeholder="Tìm kiếm..." />
+                            <form method="get" action="@Url.Action("Search", "Home")">
+                                <div class="col-md-6 col-lg-6 pull-right">
+                                    <input type="text" name="search"  class="form-control" style="font-style: italic;" placeholder="@Resource.Search..." />
+                                    <button type="submit" class="btn btn-primary start" id="btnSearch">
+                                        <i class="glyphicon glyphicon-search"></i>
+                                    </button>
+                                </div>
+                                <div class="col-md-6 col-lg-6 pull-right">
+                                    <select name="category" class="form-control" id="cboCategory"></select>
+                                </div>
+                                
+                            </form>
+                            @*<div class="col-md-6 col-lg-6 pull-right">
+                                <input type="text" class="form-control" style="font-style: italic;" placeholder="@Resource.Search..." />
+                                <button type="button" class="btn btn-primary start" id="btnSearch">
+                                    <i class="glyphicon glyphicon-search"></i>                                    
+                                </button>
                             </div>
                             <div class="col-md-6 col-lg-6 pull-right" >
                                 <select class="form-control" id="cboCategory">
                                     
                                 </select>
-                            </div>
+                            </div>*@
                         </div>
                         <div class="col-md-12 col-lg-12">
                             <p class="address-top">Ðịa chỉ: Phòng 606, Tòa nhà Indochina Park Tower.Số 4 Nguyễn Đình Chiểu,P. Đa Kao, Q.1,TP.HCM</p>
@@ -250,9 +305,9 @@
                                     <ul class="nav navbar-nav">
                                         <li><a href="@Url.Action("Index", "Home")">@Resource.HomePage</a></li>
                                         <li><a href="@Url.Action("About", "Home")">@Resource.AboutUs</a></li>
-                                        <li><a href="@Url.Action("Index", "Home")">Sản Phẩm</a></li>
-                                        <li><a href="@Url.Action("News", "Home")">Tin Công Ty</a></li>
-                                        <li><a href="@Url.Action("Contact", "Home")">Liên Hệ</a></li>
+                                        <li><a href="@Url.Action("Index", "Home")">@Resource.Products</a></li>
+                                        <li><a href="@Url.Action("News", "Home")">@Resource.News</a></li>
+                                        <li><a href="@Url.Action("Contact", "Home")">@Resource.ContactUs</a></li>
                                     </ul>
 
                                     <div class="mullanguage" id="mulange">@{Html.RenderAction("MultiLanguageNav", "MultiLanguage");}</div>
@@ -314,7 +369,7 @@
                     <div class="danhmucsp-menu col-md-3 col-lg-3 padd0">
                         <div class="col-md-12 col-lg-12 padd0">
                             <p class="danhmucsp-menu-title">
-                                <i class="fa fa-list" style="padding-right: 10px;"></i>Danh Mục Sản Phẩm
+                                <i class="fa fa-list" style="padding-right: 10px;"></i>@Resource.ProductCategories
                             </p>
                             <ul class="nav nav-pills nav-stacked" id="lstCategoryPanelLeft">
                                 <li class="active">
@@ -345,7 +400,7 @@
                         </div>
                         <div class="col-md-12 col-lg-12 padd0">
                             <p class="danhmucsp-menu-title">
-                                <i class="fa fa-cubes" style="padding-right: 10px;"></i>Sản Phẩm Mới
+                                <i class="fa fa-cubes" style="padding-right: 10px;"></i>@Resource.NewProducts
                             </p>
                             <div class="list-newproduct col-md-12 col-lg-12 paddtopbotton10 borderbottom">
                                 <ul style="list-style: none;" id="lstItemHotPanelLeft">
@@ -355,7 +410,7 @@
                         </div>
                         <div class="col-md-12 col-lg-12 padd0">
                             <p class="danhmucsp-menu-title">
-                                <i class="fa fa-building" style="padding-right: 10px;"></i>Tin Công Ty
+                                <i class="fa fa-building" style="padding-right: 10px;"></i>@Resource.News
                             </p>
                             <div class="list-newcompany col-md-12 col-lg-12 paddtopbotton10 ">
                                 <ul style="list-style: none;" id="lstNewsPanelLeft">
@@ -387,11 +442,11 @@
                             <nav class="navbar navbar-static-top footer-menu">
                                 <div id="Div1" class="navbar-collapse collapse">
                                     <ul class="nav navbar-nav">                                       
-                                        <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
-                                        <li><a href="@Url.Action("About", "Home")">Giới Thiệu</a></li>
-                                        <li><a href="@Url.Action("Index", "Home")">Sản Phẩm</a></li>
-                                        <li><a href="@Url.Action("News", "Home")">Tin Công Ty</a></li>
-                                        <li><a href="@Url.Action("Contact", "Home")">Liên Hệ</a></li>
+                                        <li><a href="@Url.Action("Index", "Home")">@Resource.HomePage</a></li>
+                                        <li><a href="@Url.Action("About", "Home")">@Resource.AboutUs</a></li>
+                                        <li><a href="@Url.Action("Index", "Home")">@Resource.Products</a></li>
+                                        <li><a href="@Url.Action("News", "Home")">@Resource.News</a></li>
+                                        <li><a href="@Url.Action("Contact", "Home")">@Resource.ContactUs</a></li>
                                     </ul>
                                 </div>
                             </nav>

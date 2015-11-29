@@ -120,7 +120,61 @@
   <data name="AboutUs" xml:space="preserve">
     <value>Giới Thiệu</value>
   </data>
+  <data name="All" xml:space="preserve">
+    <value>Tất Cả</value>
+  </data>
+  <data name="Body" xml:space="preserve">
+    <value>Nội dung</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Làm lại</value>
+  </data>
+  <data name="ContactUs" xml:space="preserve">
+    <value>Liên Hệ</value>
+  </data>
+  <data name="EmailUs" xml:space="preserve">
+    <value>Gởi e-mail cho chúng tôi</value>
+  </data>
   <data name="HomePage" xml:space="preserve">
     <value>Trang Chủ</value>
+  </data>
+  <data name="NewProducts" xml:space="preserve">
+    <value>Sản Phẩm Mới</value>
+  </data>
+  <data name="News" xml:space="preserve">
+    <value>Tin Công Ty</value>
+  </data>
+  <data name="ProductCategories" xml:space="preserve">
+    <value>Danh Mục Sản Phẩm</value>
+  </data>
+  <data name="Products" xml:space="preserve">
+    <value>Sản Phẩm</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Tìm kiếm</value>
+  </data>
+  <data name="SendEmail" xml:space="preserve">
+    <value>Gửi Email</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>Tiêu đề</value>
+  </data>
+  <data name="ViewDetails" xml:space="preserve">
+    <value>Chi tiết</value>
+  </data>
+  <data name="YourAddress" xml:space="preserve">
+    <value>Địa chỉ</value>
+  </data>
+  <data name="YourCompany" xml:space="preserve">
+    <value>Công ty</value>
+  </data>
+  <data name="YourName" xml:space="preserve">
+    <value>Họ và tên</value>
+  </data>
+  <data name="YourPhone" xml:space="preserve">
+    <value>Điện thoại</value>
+  </data>
+  <data name="YourPosition" xml:space="preserve">
+    <value>Chức vụ</value>
   </data>
 </root>

@@ -39,7 +39,9 @@
           <Property Name="Description" Type="ntext" />
           <Property Name="Description2" Type="ntext" />
           <Property Name="ItemPrice" Type="nvarchar" MaxLength="250" />
+          <Property Name="ItemPrice2" Type="nvarchar" MaxLength="250" />
           <Property Name="ItemCondition" Type="nvarchar" MaxLength="250" />
+          <Property Name="ItemCondition2" Type="nvarchar" MaxLength="250" />
           <Property Name="Active" Type="nvarchar" MaxLength="50" />
           <Property Name="Hot" Type="nvarchar" MaxLength="50" />
           <Property Name="CreatedDate" Type="datetime" />
@@ -112,6 +114,8 @@
           <Property Name="ItemImageURL3" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="ItemImageURL4" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="FolderID" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ItemPrice2" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ItemCondition2" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityContainer Name="EntityDBContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Categories" EntityType="Self.Category" />
@@ -172,6 +176,8 @@
           <EntitySetMapping Name="Items">
             <EntityTypeMapping TypeName="EntitySolutionModel.Item">
               <MappingFragment StoreEntitySet="Item">
+                <ScalarProperty Name="ItemCondition2" ColumnName="ItemCondition2" />
+                <ScalarProperty Name="ItemPrice2" ColumnName="ItemPrice2" />
                 <ScalarProperty Name="FolderID" ColumnName="FolderID" />
                 <ScalarProperty Name="ItemImageURL4" ColumnName="ItemImageURL4" />
                 <ScalarProperty Name="ItemImageURL3" ColumnName="ItemImageURL3" />

@@ -32,5 +32,7 @@ namespace EntitySolution.EntityDB
         public string ItemImageURL3 { get; set; }
         public string ItemImageURL4 { get; set; }
         public string FolderID { get; set; }
+        public string ItemPrice2 { get; set; }
+        public string ItemCondition2 { get; set; }
     }
 }
