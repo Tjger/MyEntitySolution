@@ -188,5 +188,24 @@ namespace EntitySolution.WebUI.Controllers
 
             return jResult;
         }
+
+
+        public JsonResult SendEmail(string EmailAddress, string Subject, string Body)
+        {
+            JsonResult jResult = new JsonResult();
+            try
+            {
+                 
+                jResult = Json(new { success = Core.ProcessSendEmail(EmailAddress, Subject, Body)  }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception)
+            {
+
+
+            }
+
+            return jResult;
+        }
     }
 }

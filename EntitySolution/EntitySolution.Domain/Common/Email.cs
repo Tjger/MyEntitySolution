@@ -52,8 +52,8 @@ namespace EntitySolution.Domain.Common
                     }
 
                     smptclient.Credentials = new System.Net.NetworkCredential(RwMailAccount, RwMailPassword);
-                    smptclient.SendMailAsync(mailMessage);
-                    //smptclient.Send(mailMessage);
+                    //smptclient.SendMailAsync(mailMessage);
+                    smptclient.Send(mailMessage);
                     bFlag = true;
 
                 }

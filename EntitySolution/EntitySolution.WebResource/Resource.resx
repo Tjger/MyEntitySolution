@@ -132,6 +132,9 @@
   <data name="ContactUs" xml:space="preserve">
     <value>Contact Us</value>
   </data>
+  <data name="EmailThank" xml:space="preserve">
+    <value>Thank you for contacting us – we will get back to you soon!</value>
+  </data>
   <data name="EmailUs" xml:space="preserve">
     <value>Email Us</value>
   </data>
@@ -150,6 +153,9 @@
   <data name="Products" xml:space="preserve">
     <value>Products</value>
   </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
   <data name="Search" xml:space="preserve">
     <value>Search</value>
   </data>
@@ -158,6 +164,12 @@
   </data>
   <data name="Subject" xml:space="preserve">
     <value>Subject</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="ThisIsARequiredField" xml:space="preserve">
+    <value>This is a required field</value>
   </data>
   <data name="ViewDetails" xml:space="preserve">
     <value>View Details</value>

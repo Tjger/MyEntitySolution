@@ -127,10 +127,13 @@
     <value>Nội dung</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>Làm lại</value>
+    <value>Hủy</value>
   </data>
   <data name="ContactUs" xml:space="preserve">
     <value>Liên Hệ</value>
+  </data>
+  <data name="EmailThank" xml:space="preserve">
+    <value>Cám ơn quý khách, chúng tôi sẽ sớm liên lạc lại với quý khách !</value>
   </data>
   <data name="EmailUs" xml:space="preserve">
     <value>Gởi e-mail cho chúng tôi</value>
@@ -150,6 +153,9 @@
   <data name="Products" xml:space="preserve">
     <value>Sản Phẩm</value>
   </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Làm lại</value>
+  </data>
   <data name="Search" xml:space="preserve">
     <value>Tìm kiếm</value>
   </data>
@@ -158,6 +164,12 @@
   </data>
   <data name="Subject" xml:space="preserve">
     <value>Tiêu đề</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>Thành Công</value>
+  </data>
+  <data name="ThisIsARequiredField" xml:space="preserve">
+    <value>Đây là thông tin bắt buộc phải nhập</value>
   </data>
   <data name="ViewDetails" xml:space="preserve">
     <value>Chi tiết</value>

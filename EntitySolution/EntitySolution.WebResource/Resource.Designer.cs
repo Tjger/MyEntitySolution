@@ -106,6 +106,15 @@ namespace EntitySolution.WebResource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Thank you for contacting us – we will get back to you soon!.
+        /// </summary>
+        public static string EmailThank {
+            get {
+                return ResourceManager.GetString("EmailThank", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email Us.
         /// </summary>
         public static string EmailUs {
@@ -160,6 +169,15 @@ namespace EntitySolution.WebResource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reset.
+        /// </summary>
+        public static string Reset {
+            get {
+                return ResourceManager.GetString("Reset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search.
         /// </summary>
         public static string Search {
@@ -183,6 +201,24 @@ namespace EntitySolution.WebResource {
         public static string Subject {
             get {
                 return ResourceManager.GetString("Subject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        public static string Success {
+            get {
+                return ResourceManager.GetString("Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This is a required field.
+        /// </summary>
+        public static string ThisIsARequiredField {
+            get {
+                return ResourceManager.GetString("ThisIsARequiredField", resourceCulture);
             }
         }
         

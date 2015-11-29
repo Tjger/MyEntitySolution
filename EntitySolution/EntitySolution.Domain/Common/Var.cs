@@ -20,14 +20,15 @@ namespace EntitySolution.Domain.Common
         public static string CultureLanguage = "vi-VN";
         public static int PageSize =8;
 
-        public static string SMTPHost = "";
-        public static string SMTPEmailAddress = "";
-        public static string SMTPEmailPassword = "";
-        public static string SMTPEmailSenderName = "";
-        public static string SMTPEmailManager = "";
+      
+        public static string SMTPHost = "smtp.gmail.com";
+        public static string SMTPEmailAddress = "nstung@paradigmsft.com";
+        public static string SMTPEmailPassword = "nst2161986";
+        public static string SMTPEmailSenderName = "Tj";
+        public static string SMTPEmailManager = "bwtiger86@gmail.com";
         public static bool SMTPEnableSSL = true;
-        public static int SMTPPort = -1;
-
+        public static int SMTPPort = 587;
+         
         public enum SystemStatus
         {
             Inactive = 0,

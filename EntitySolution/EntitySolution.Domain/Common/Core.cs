@@ -87,7 +87,7 @@ namespace EntitySolution.Domain.Common
             }
         }
 
-        private static void ProcessSendEmail(string EmailAddress, string Subject, string Body)
+        public static bool ProcessSendEmail(string EmailAddress, string Subject, string Body)
         {
             bool bFlag = false;
              
@@ -98,7 +98,7 @@ namespace EntitySolution.Domain.Common
 
                     Email em = new Email();
                     System.Net.Mail.MailMessage mailMessage = new System.Net.Mail.MailMessage();
-                    mailMessage = em.BuildMailMessage(EmailAddress, Subject, Body, true);
+                    mailMessage = em.BuildMailMessage(EmailAddress, Subject, Body, false   );
                     bFlag = em.SendMail(mailMessage);
                 }
             }
@@ -106,7 +106,7 @@ namespace EntitySolution.Domain.Common
             {
                 ErrorHandle.WriteError(ex.Message);
             }
-            
+            return bFlag;
         }
     }
 }

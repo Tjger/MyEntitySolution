@@ -13,28 +13,51 @@
     @Styles.Render("~/Content/FontEnd/css/tanphong.css")
     @Styles.Render("~/Content/FontEnd/css/animations.css")
     @Styles.Render("~/Content/FontEnd/css/buttons.css")
-    @Styles.Render("~/Content/FontEnd/css/tabstyles.css")
-    
-    @*<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" />*@
+    @Styles.Render("~/Content/FontEnd/css/tabstyles.css")     
     @Styles.Render("~/Content/BackEnd/css/jquery-ui.css")
     @Styles.Render("~/Content/BackEnd/css/font-awesome.min.css")
+    @Styles.Render("~/Content/FontEnd/css/jquery.bxslider.css")
+    @Styles.Render("~/Content/FontEnd/css/block.css")
     
-    
-    @*<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>*@
+
     @Scripts.Render("~/Content/BackEnd/js/jquery-1.11.1.min.js")
     @Scripts.Render("~/Content/bootstrap-3.3.5/js/bootstrap.min.js")
  
     @Scripts.Render("~/Content/FontEnd/js/buttons.js")
- 
-    @*<script type="text/javascript" src="http://code.jquery.com/ui/1.11.3/jquery-ui.js"></script>*@
+  
     @Scripts.Render("~/Content/BackEnd/js/jquery-ui.min.js")
     @Scripts.Render("~/Content/FontEnd/js/jssor.js")
     @Scripts.Render("~/Content/FontEnd/js/jssor.slider.js")
     @Scripts.Render("~/Content/FontEnd/js/jquery.bxslider.min.js")
- 
-    <!-- bxSlider CSS file -->
-    @Styles.Render("~/Content/FontEnd/css/jquery.bxslider.css")
-   
+    @Scripts.Render("~/Content/form-validator/jquery.form-validator.js")
+    @Scripts.Render("~/Content/FontEnd/js/jquery.blockUI.js")
+    
+    <style>
+        div.growlUI {
+            background: url("@Url.Content("~/Content/FontEnd/images/check48.png")") no-repeat 10px 10px;
+        }
+
+            div.growlUI h1, div.growlUI h2 {
+                color: white;
+                padding: 5px 5px 5px 75px;
+                text-align: left;
+            }
+
+        .modal-header {
+            padding: 5px 5px;
+        }
+
+        .modal-header, h4, .close {
+            background-color: #5cb85c;
+            color: white !important;
+            text-align: center;
+            font-size: 30px;
+        }
+
+        .modal-footer {
+            background-color: #f9f9f9;
+        }
+    </style>
 </head>
 <body>
 
@@ -461,6 +484,26 @@
                     </div>
                 </div>
             </footer>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalShowError" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4>Thông Báo</h4>
+                </div>
+                <div class="modal-body">
+                    <p id="lblMessageModal">Thông Báo</p>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-danger btn-default" data-dismiss="modal">Close</button>
+
+                </div>
+            </div>
         </div>
     </div>
 </body>
