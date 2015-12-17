@@ -11,7 +11,7 @@ namespace EntitySolution.Domain.Concrete
 {
     public class EFAuthenticateRepository : EFBaseRepository, IAuthenticateRepository
     {
-        public bool Authenticate(string Username, string Password, ref bool isSuperAdmin, ref string sUserID)
+        public bool Authenticate(string Username, string Password, ref bool isSuperAdmin, ref string sUserID, ref string sEmail)
         {
             bool ret = false;
             try
@@ -35,6 +35,7 @@ namespace EntitySolution.Domain.Concrete
                             ret = true;
                             isSuperAdmin = false;
                             sUserID = e.EmpID.ToString();
+                            sEmail = e.Email;
                         }
                     }
                 }
@@ -43,7 +44,7 @@ namespace EntitySolution.Domain.Concrete
             catch (Exception)
             {
 
-                throw;
+               
             }
             return ret;
         }

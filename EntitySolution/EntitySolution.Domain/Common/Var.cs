@@ -25,7 +25,7 @@ namespace EntitySolution.Domain.Common
         public static string SMTPEmailAddress = "nstung@paradigmsft.com";
         public static string SMTPEmailPassword = "nst2161986";
         public static string SMTPEmailSenderName = "Tj";
-        public static string SMTPEmailManager = "bwtiger86@gmail.com";
+        public static string SMTPEmailManager = "sales@tanphongcontainer.vn";
         public static bool SMTPEnableSSL = true;
         public static int SMTPPort = 587;
          

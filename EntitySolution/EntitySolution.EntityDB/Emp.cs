@@ -17,5 +17,6 @@ namespace EntitySolution.EntityDB
         public int EmpID { get; set; }
         public string LoginID { get; set; }
         public string Pass { get; set; }
+        public string Email { get; set; }
     }
 }

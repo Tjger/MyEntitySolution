@@ -50,9 +50,12 @@ namespace EntitySolution.WebUI.Controllers
                     {
                         bool isSuperAdmin = false;
                         string sUserID = "";
-                        if (authenticateProvider.Authenticate(model.UserName, model.Password, ref isSuperAdmin, ref sUserID))
+                        string sEmail = "";
+                        if (authenticateProvider.Authenticate(model.UserName, model.Password, ref isSuperAdmin, ref sUserID, ref sEmail))
                         {
                             Session["EmpID"] = sUserID;
+                            Session["LoginID"] = model.UserName;
+                            Session["EmpEmail"] = sEmail;
                             if (isSuperAdmin)
                             {
                                 Session["isSuperAdmin"] = "1";
@@ -72,6 +75,7 @@ namespace EntitySolution.WebUI.Controllers
             }
 
             // If we got this far, something failed, redisplay form
+            ModelState.AddModelError("", "Invalid username or password.");
             return View(model);
         }
 
@@ -146,6 +150,8 @@ namespace EntitySolution.WebUI.Controllers
         {
             if (Session["EmpID"] != null)
             {
+                ViewBag.LoginID = Session["LoginID"];
+                ViewBag.EmpEmail = Session["EmpEmail"];
                 return View();
             }
             else

@@ -21,6 +21,7 @@
           <Property Name="EmpID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="LoginID" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Pass" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="Item">
           <Key>
@@ -131,6 +132,7 @@
           <Property Name="EmpID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="LoginID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Pass" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="News">
           <Key>
@@ -202,6 +204,7 @@
           <EntitySetMapping Name="Emps">
             <EntityTypeMapping TypeName="EntitySolutionModel.Emp">
               <MappingFragment StoreEntitySet="Emp">
+                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Pass" ColumnName="Pass" />
                 <ScalarProperty Name="LoginID" ColumnName="LoginID" />
                 <ScalarProperty Name="EmpID" ColumnName="EmpID" />

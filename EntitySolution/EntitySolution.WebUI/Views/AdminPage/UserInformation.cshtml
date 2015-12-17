@@ -4,5 +4,217 @@
     Layout = "~/Views/Shared/_LayoutBackEnd.cshtml";
 }
 
-<h2>UserInformation</h2>
+<h2>Thông tin Quản trị</h2>
+@using EntitySolution.Domain.Common
+ 
+<script>
+    
+    $(document).ready(function () {
+        
+        $("#btnModalSave").click(function (e) {
+            e.preventDefault();
 
+            SaveItem();
+        });
+
+        $.validate({
+            form: '#frmModalPasswordInformation',
+            modules: 'security',
+
+        });
+
+        $("#btnModalSavePassword").click(function (e) {
+
+            $.validate({
+                form: '#frmModalPasswordInformation',
+                modules: 'security',
+                onError: function ($form) {
+
+                },
+                onSuccess: function ($form) {
+                      
+                    $.ajax({
+                        url: '@Url.Action("SendEmail", "Home")',
+                        contentType: "application/json; charset=utf-8",
+                        type: 'POST',
+                        dataType: "json",
+                        data: JSON.stringify({ "EmailAddress": EmailAddress, "Subject": Subject, "Body": Body }),
+                        success: function (data) {
+                            if (data.success === true) {
+                                 
+                            }
+                            else {
+                                $("#lblMessageModal").html("Có lỗi xảy ra , xin hãy thử lại sau.");
+
+                                $("#modalShowError").modal("show");
+                            }
+                        }
+                    });
+
+                    return false; // Will stop the submission of the form
+                },
+                onValidate: function ($form) {
+
+                },
+                onElementValidate: function (valid, $el, $form, errorMess) {
+
+                }
+            });
+        });
+
+        $("#btnPasswordInformation").click(function (e) {
+            e.preventDefault();
+
+            $("#modalPasswordInformation").modal("show");
+        });
+
+
+        $("#btnEmailInformation").click(function (e) {
+            e.preventDefault();
+
+            $("#modalEmailInformation").modal("show");
+        });
+
+
+    });// end of document ready
+
+    function SaveItem() {
+
+        var mainContent = CKEDITOR.instances.itemMainContent.getData();
+        var mainContent2 = CKEDITOR.instances.itemMainContent2.getData();
+
+        var editSysPara = {
+            AutoID: "-1",
+            Field: '@Var.ConfigContacts',
+            Value: mainContent,
+            DefaultValue: mainContent2,
+
+        }
+
+        $.ajax({
+            url: '@Url.Action("EditSysPara", "AdminPage")',
+            contentType: "application/json; charset=utf-8",
+            type: 'POST',
+            dataType: "json",
+            data: JSON.stringify({ "editSysPara": editSysPara }),
+            success: function (data) {
+
+                if (data.success === true) {
+                    $("#lblMessageModal").html("Lưu trữ thành công.");
+
+                    $("#modalShowError").modal("show");
+                }
+
+
+            }
+        });
+
+    };
+
+
+    function GetSysPara() {
+        $.ajax({
+            url: '@Url.Action("GetSysPara", "AdminPage")',
+            contentType: "application/json; charset=utf-8",
+            type: 'POST',
+            dataType: "json",
+            data: JSON.stringify({ "fieldSysPara": '@Var.ConfigContacts' }),
+            success: function (data) {
+                CKEDITOR.instances.itemMainContent.setData(data.returnList.Value);
+                CKEDITOR.instances.itemMainContent2.setData(data.returnList.DefaultValue);
+            }
+        });
+    };
+
+</script>
+<form role="form" id="frmModalDetailsInformation">
+
+    <div class="form-group">
+        <label for="itemDescription">Login ID</label>
+        <input class="form-control" disabled value="@ViewBag.LoginID" /> 
+
+    </div>
+
+    <div class="form-group">
+        <label for="itemDescription">Email</label>
+        <input class="form-control" disabled value="@ViewBag.EmpEmail" />
+
+    </div>
+ 
+    <button type="button" id="btnPasswordInformation" class="btn btn-info btn-default" data-dismiss="modal">Thay Đổi Mật Khẩu</button>
+
+    <button type="button" id="btnEmailInformation" class="btn btn-success btn-default" data-dismiss="modal">Thay Đổi Email</button>
+     
+</form>
+
+
+<div class="modal fade" id="modalPasswordInformation" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4>Thay Đổi Mật Khẩu</h4>
+            </div>
+            <div class="modal-body " style="padding:10px 10px;">
+                <input type="hidden" disabled="disabled" id="itemID">
+                <input type="hidden" disabled="disabled" id="FolderID">
+                <form role="form" id="frmModalPasswordInformation">
+                    <div class="form-group">
+                        <label for="itemDescription">New Password</label>
+                        <input class="form-control" name="newPassword" id="newPassword" data-validation-optional="true" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="itemDescription">Confirm Password</label>
+                        <input class="form-control" name="repeat" data-validation="confirmation" data-validation-confirm="newPassword" id="confirmPassword"/>
+                    </div>
+                     
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="btnModalSavePassword" class="btn btn-primary  btn-default" data-dismiss="modal">Save</button>
+                <button type="button" id="btnModalCancel" class="btn btn-danger btn-default" data-dismiss="modal">Cancel</button>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="modal fade" id="modalEmailInformation" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4>Thay Đổi Email</h4>
+            </div>
+            <div class="modal-body " style="padding:10px 10px;">
+                <input type="hidden" disabled="disabled" id="itemID">
+                <input type="hidden" disabled="disabled" id="FolderID">
+                <form role="form" id="frmModalDetailsInformation">
+                    <div class="form-group">
+                        <label>Email Cũ</label>
+                        <input class="form-control" disabled value="@ViewBag.EmpEmail" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email Mới</label>
+                        <input class="form-control" name="newEmail" id="newEmail" data-validation="email" data-validation-optional="true" />
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="btnModalSave" class="btn btn-primary  btn-default" data-dismiss="modal">Save</button>
+                <button type="button" id="btnModalCancel" class="btn btn-danger btn-default" data-dismiss="modal">Cancel</button>
+
+            </div>
+        </div>
+
+    </div>
+</div>

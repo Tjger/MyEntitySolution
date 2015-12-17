@@ -8,6 +8,6 @@ namespace EntitySolution.Domain.Abstract
 {
     public interface IAuthenticateRepository
     {
-        bool Authenticate(string Username, string Password, ref bool isSuperAdmin, ref string sUserID);
+        bool Authenticate(string Username, string Password, ref bool isSuperAdmin, ref string sUserID, ref string sEmail);
     }
 }
