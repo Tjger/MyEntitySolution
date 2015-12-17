@@ -692,8 +692,6 @@
     <Content Include="Content\FontEnd\images\btnlikefb.png" />
     <Content Include="Content\FontEnd\images\bx_loader.gif" />
     <Content Include="Content\FontEnd\images\check48.png" />
-    <Content Include="Content\FontEnd\images\con-kho.png" />
-    <Content Include="Content\FontEnd\images\conkho2.png" />
     <Content Include="Content\FontEnd\images\controls.png" />
     <Content Include="Content\FontEnd\images\England-Flag-icon.png" />
     <Content Include="Content\FontEnd\images\grid.png" />
@@ -706,17 +704,11 @@
     <Content Include="Content\FontEnd\images\ic-turmbr.png" />
     <Content Include="Content\FontEnd\images\ic-twits.png" />
     <Content Include="Content\FontEnd\images\ic-youtube.png" />
-    <Content Include="Content\FontEnd\images\img-container.png" />
     <Content Include="Content\FontEnd\images\likebtn.png" />
     <Content Include="Content\FontEnd\images\loading.gif" />
     <Content Include="Content\FontEnd\images\logo-top.png" />
     <Content Include="Content\FontEnd\images\logotanphong.png" />
-    <Content Include="Content\FontEnd\images\newc.png" />
-    <Content Include="Content\FontEnd\images\newproduct.png" />
-    <Content Include="Content\FontEnd\images\newproduct1.png" />
-    <Content Include="Content\FontEnd\images\newproduct2.png" />
     <Content Include="Content\FontEnd\images\no_image.png" />
-    <Content Include="Content\FontEnd\images\pro.jpg" />
     <Content Include="Content\FontEnd\images\share-fb.png" />
     <Content Include="Content\FontEnd\images\share-googleplus.png" />
     <Content Include="Content\FontEnd\images\share-twist.png" />
@@ -861,6 +853,7 @@
     <Content Include="Content\ckeditor\skins\moono\readme.md" />
     <Content Include="Content\FontEnd\css\bootstrap-theme.css.map" />
     <Content Include="Content\FontEnd\css\bootstrap.css.map" />
+    <None Include="Properties\PublishProfiles\WebPublish.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
