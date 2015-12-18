@@ -20,7 +20,7 @@
             }
             else
             {
-                 @Model.ItemName2
+                @Model.ItemName2
             }
 
         </p>
@@ -29,26 +29,98 @@
         <div class="col-md-5 col-lg-5">
             <div class="box-show-lg col-md-12 col-lg-12 padd0">
                 <ul class="pic-show">
-                    <li><img src="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL)" class="img-responsive" style=" width: 320px;" /></li>
-                    <li><img src="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL2)" class="img-responsive" style=" width: 320px;" /></li>
-                    <li><img src="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL3)" class="img-responsive" style=" width:320px;" /></li>
-                    <li><img src="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL4)" class="img-responsive" style=" width:320px;" /></li>
+                    @if (Model.ItemImageURL != "")
+                    {
+                       <li><img src="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL)" class="img-responsive" style=" width: 320px;" /></li>
+                    }
+                    else
+                    {
+                        <li><img src="@Url.Content("~/Content/FontEnd/images/no_image.png")" class="img-responsive" style=" width: 320px;" /></li>
+                         
+                    }
+
+                    @if (Model.ItemImageURL2 != "")
+                    {
+                        <li><img src="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL2)" class="img-responsive" style=" width: 320px;" /></li>
+                    }
+                    else
+                    {
+                        <li><img src="@Url.Content("~/Content/FontEnd/images/no_image.png")" class="img-responsive" style=" width: 320px;" /></li>
+
+                    }
+                    @if (Model.ItemImageURL3 != "")
+                    {
+                        <li><img src="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL3)" class="img-responsive" style=" width: 320px;" /></li>
+                    }
+                    else
+                    {
+                        <li><img src="@Url.Content("~/Content/FontEnd/images/no_image.png")" class="img-responsive" style=" width: 320px;" /></li>
+
+                    }
+                    @if (Model.ItemImageURL4 != "")
+                    {
+                        <li><img src="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL4)" class="img-responsive" style=" width: 320px;" /></li>
+                    }
+                    else
+                    {
+                        <li><img src="@Url.Content("~/Content/FontEnd/images/no_image.png")" class="img-responsive" style=" width: 320px;" /></li>
+
+                    }
                 </ul>
             </div>
             <div class="box-show-thumb col-md-12 col-lg-12">
                 <div id="bx-pager" style="height:100px;">
-                    <div class="col-md-3 col-lg-3 padd0">
-                        <a data-slide-index="0" href=""><img src="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL)" class="img-responsive" style=" width: 70px;" /></a>
-                    </div>
-                    <div class="col-md-3 col-lg-3 padd0">
-                        <a data-slide-index="1" href=""><img src="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL2)" class="img-responsive" style=" width: 70px;" /></a>
-                    </div>
-                    <div class="col-md-3 col-lg-3 padd0">
-                        <a data-slide-index="2" href=""><img src="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL3)" class="img-responsive" style=" width: 70px;" /></a>
-                    </div>
-                    <div class="col-md-3 col-lg-3 padd0">
-                        <a data-slide-index="3" href=""><img src="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL4)" class="img-responsive" style=" width: 70px;" /></a>
-                    </div>
+                    @if (Model.ItemImageURL != "")
+                    {
+                        <div class="col-md-3 col-lg-3 padd0">
+                            <a data-slide-index="0" href=""><img src="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL)" class="img-responsive" style=" width: 70px;" /></a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-3 col-lg-3 padd0">
+                            <a data-slide-index="0" href=""><img src="@Url.Content("~/Content/FontEnd/images/no_image.png")" class="img-responsive" style=" width: 70px;" /></a>
+                        </div>
+                    }
+
+                    @if (Model.ItemImageURL2 != "")
+                    {
+                        <div class="col-md-3 col-lg-3 padd0">
+                            <a data-slide-index="1" href=""><img src="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL2)" class="img-responsive" style=" width: 70px;" /></a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-3 col-lg-3 padd0">
+                            <a data-slide-index="1" href=""><img src="@Url.Content("~/Content/FontEnd/images/no_image.png")" class="img-responsive" style=" width: 70px;" /></a>
+                        </div>
+                    }
+
+                    @if (Model.ItemImageURL3 != "")
+                    {
+                        <div class="col-md-3 col-lg-3 padd0">
+                            <a data-slide-index="2" href=""><img src="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL3)" class="img-responsive" style=" width: 70px;" /></a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-3 col-lg-3 padd0">
+                            <a data-slide-index="2" href=""><img src="@Url.Content("~/Content/FontEnd/images/no_image.png")" class="img-responsive" style=" width: 70px;" /></a>
+                        </div>
+                    }
+                    @if (Model.ItemImageURL4 != "")
+                    {
+                        <div class="col-md-3 col-lg-3 padd0">
+                            <a data-slide-index="3" href=""><img src="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL4)" class="img-responsive" style=" width: 70px;" /></a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-3 col-lg-3 padd0">
+                            <a data-slide-index="3" href=""><img src="@Url.Content("~/Content/FontEnd/images/no_image.png")" class="img-responsive" style=" width: 70px;" /></a>
+                        </div>
+                    }
+                   
                 </div>
 
             </div>
@@ -67,7 +139,7 @@
                             @Model.ItemName2
                         }
                         <br>
-                        <i class="fa fa-plus" style="color:#ff6a00;"></i>  <strong>Condition</strong>: 
+                        <i class="fa fa-plus" style="color:#ff6a00;"></i>  <strong>Condition</strong>:
                         @if (Session["Culture"].ToString().Contains("vi-VN"))
                         {
                             @Model.ItemCondition
@@ -76,29 +148,29 @@
                         {
                             @Model.ItemCondition2
                         }
-                      <br>
+                        <br>
                         <i class="fa fa-plus" style="color:#ff6a00;"></i>  <strong>Size</strong>:
                         @if (Session["Culture"].ToString().Contains("vi-VN"))
                         {
-                              @Model.ItemPrice
+                            @Model.ItemPrice
                         }
                         else
                         {
                             @Model.ItemPrice2
                         }
-                       <br>
+                        <br>
                         <!--<i class="fa fa-plus" style="color:#ff6a00;"></i>  <strong>PRICE:</strong><span style="color: rgb(255, 0, 0);">$140.000</span><br>-->
                         <br>
                         @if (Session["Culture"].ToString().Contains("vi-VN"))
-{
-    @Html.Raw(Model.Description)
-}
-else
-{
-     @Html.Raw(Model.Description2)
-}
+                        {
+                            @Html.Raw(Model.Description)
+                        }
+                        else
+                        {
+                            @Html.Raw(Model.Description2)
+                        }
 
-                      
+
                         <br>
                         &nbsp;<br>
                         <br>
@@ -277,17 +349,17 @@ else
             <li>
                 @if (Session["Culture"].ToString().Contains("vi-VN"))
                 {
-                   <a title="@ListProductAndRelative[i].ItemName" style="text-decoration: none;" href='@Url.Action("ProductDetails", "Home", new { id = ListProductAndRelative[i].ItemID })'>
-                    @ListProductAndRelative[i].ItemName
-                </a>
+                    <a title="@ListProductAndRelative[i].ItemName" style="text-decoration: none;" href='@Url.Action("ProductDetails", "Home", new { id = ListProductAndRelative[i].ItemID })'>
+                        @ListProductAndRelative[i].ItemName
+                    </a>
                 }
                 else
                 {
-                   <a title="@ListProductAndRelative[i].ItemName2" style="text-decoration: none;" href='@Url.Action("ProductDetails", "Home", new { id = ListProductAndRelative[i].ItemID })'>
-                    @ListProductAndRelative[i].ItemName2
-                </a>
+                    <a title="@ListProductAndRelative[i].ItemName2" style="text-decoration: none;" href='@Url.Action("ProductDetails", "Home", new { id = ListProductAndRelative[i].ItemID })'>
+                        @ListProductAndRelative[i].ItemName2
+                    </a>
                 }
-               
+
             </li>
         }
 

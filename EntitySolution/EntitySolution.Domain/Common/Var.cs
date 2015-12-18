@@ -11,8 +11,8 @@ namespace EntitySolution.Domain.Common
         public static string SuperAdminLoginID = "tientung";
         public static string SuperAdminPassword = "tungtien";
         public static string FormatDate = "dd/MM/yyyy";
-        public static string UrlUploadItemImage = "~/Content/Upload/images";
-        public static string UrlUploadCompanyNewsImage = "~/Content/Upload/images/TinCongTy";
+        public static string UrlUploadItemImage = "~/Upload/images";
+        public static string UrlUploadCompanyNewsImage = "~/Upload/images/TinCongTy";
         public static int DefaultValueInComboBox = -1;
 
         public static string ConfigAbout = "ConfigAbout";

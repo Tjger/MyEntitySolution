@@ -476,7 +476,7 @@ namespace EntitySolution.WebUI.Controllers
             {
                
                 string message = "File upload failed";
-                string pathForSaving = Server.MapPath(Var.UrlUploadItemImage);
+                string pathForSaving = Server.MapPath(Var.UrlUploadItemImage + "/" + itemInfor.FolderID);
                
                 SetURLImage(pathForSaving, itemInfor.FolderID, ref itemInfor);
                  
