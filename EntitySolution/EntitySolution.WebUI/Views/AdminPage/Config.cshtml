@@ -1,8 +1,85 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Config";
     Layout = "~/Views/Shared/_LayoutBackEnd.cshtml";
 }
 
 <h2>Config</h2>
+@using EntitySolution.Domain.Common
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#btnSaveConfig").click(function (e) {
+
+            var arrSyspara = [];
+
+            arrSyspara.push({ Field: "@Var.SMTPHostField", Value: $("#@Var.SMTPHostField").val(), DefaultValue: "smtp.gmail.com" });
+            arrSyspara.push({ Field: "@Var.SMTPEmailAddressField", Value: $("#@Var.SMTPEmailAddressField").val(), DefaultValue: "sales@tanphongcontainer.vn" });
+            arrSyspara.push({ Field: "@Var.SMTPEmailPasswordField", Value: $("#@Var.SMTPEmailPasswordField").val(), DefaultValue: "12345678" });
+            arrSyspara.push({ Field: "@Var.SMTPEmailManagerField", Value: $("#@Var.SMTPEmailManagerField").val(), DefaultValue: "sales@tanphongcontainer.vn" });
+
+            SaveConfiguration(arrSyspara);
+
+        });
+
+    });// end of document ready
+
+    function SaveConfiguration(arrSyspara) {
+
+        $.ajax({
+            url: "@Url.Action("UpdateSysParam", "AdminPage")",
+            contentType: "application/json; charset=utf-8",
+            type: 'POST',
+            dataType: "json",            
+            data: JSON.stringify({ "lstSysparam": JSON.stringify(arrSyspara) })  ,
+            success: function (data) {
+                if (data.success == true) {
+                    $("#lblMessageModal").html("Thành Công.");
+
+                    $("#modalShowError").modal("show");
+                } else {
+                    $("#lblMessageModal").html("Có lỗi xảy ra , xin hãy thử lại sau.");
+
+                    $("#modalShowError").modal("show");
+                }
+            },
+            error: function () {
+                $("#lblMessageModal").html("Có lỗi ajax xảy ra , xin hãy thử lại sau.");
+
+                $("#modalShowError").modal("show");
+            }
+        });
+    };
+
+</script>
+<form role="form">
+
+    <div class="form-group">
+        <label>Mail Server</label>
+        <input class="form-control" type="text" value="@Var.SMTPHost" id="@Var.SMTPHostField" />
+
+    </div>
+
+    <div class="form-group">
+        <label>Mail Account</label>
+        <input class="form-control" type="text" value="@Var.SMTPEmailAddress" id="@Var.SMTPEmailAddressField" />
+
+    </div>
+
+    <div class="form-group">
+        <label>Mail Password</label>
+        <input class="form-control" type="password" value="@Var.SMTPEmailPassword" id="@Var.SMTPEmailPasswordField" />
+
+    </div>
+
+    <div class="form-group">
+        <label>Manager Email</label>
+        <input class="form-control" type="text" value="@Var.SMTPEmailManager" id="@Var.SMTPEmailManagerField" />
+
+    </div>
+
+    <button type="button" id="btnSaveConfig" class="btn btn-primary  btn-default">Save</button>
+
+</form>
 

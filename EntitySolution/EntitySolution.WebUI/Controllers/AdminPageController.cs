@@ -12,6 +12,7 @@ using System.Web.Security;
 using EntitySolution.Domain.Common;
 using EntitySolution.Domain.Common.Paging;
 using System.IO;
+using Newtonsoft.Json.Linq;
 namespace EntitySolution.WebUI.Controllers
 {
     public class AdminPageController : Controller
@@ -86,7 +87,6 @@ namespace EntitySolution.WebUI.Controllers
             Session.Abandon();
             return RedirectToAction("Login");
         }
-
         public ActionResult Receipt()
         {
             if (Session["EmpID"] != null)
@@ -98,7 +98,6 @@ namespace EntitySolution.WebUI.Controllers
                 return RedirectToAction("Login");
             }
         }
-
         public ActionResult Category()
         {
             if (Session["EmpID"] != null)
@@ -110,7 +109,6 @@ namespace EntitySolution.WebUI.Controllers
                 return RedirectToAction("Login");
             }
         }
-
         public ActionResult Item()
         {
             if (Session["EmpID"] != null)
@@ -122,7 +120,6 @@ namespace EntitySolution.WebUI.Controllers
                 return RedirectToAction("Login");
             }
         }
-
         public ActionResult News()
         {
             if (Session["EmpID"] != null)
@@ -134,7 +131,6 @@ namespace EntitySolution.WebUI.Controllers
                 return RedirectToAction("Login");
             }
         }
-
         public ActionResult Config()
         {
             if (Session["EmpID"] != null)
@@ -159,7 +155,6 @@ namespace EntitySolution.WebUI.Controllers
                 return RedirectToAction("Login");
             }
         }
-
         public ActionResult ConfigAbout()
         {
             if (Session["EmpID"] != null)
@@ -183,6 +178,150 @@ namespace EntitySolution.WebUI.Controllers
             }
         }
 
+        //[AcceptVerbs(HttpVerbs.Post)]
+        //public JsonResult UpdateSysParam(string lstSysparam)
+        //{
+        //    JsonResult jsonResult = new JsonResult();
+        //    HttpRequestBase request = this.HttpContext.Request;
+        //    if (ValidateRequestHeader(request))
+        //    {
+        //        try
+        //        {
+        //            if (((List<int>)Session["UserRight"]).Contains((int)Var.UserRightEnum.Edit_System_Parameter))
+        //            {
+
+        //                var arrItem = JArray.Parse(lstSysparam);
+        //                List<SysParaEntity> lst = new List<SysParaEntity>();
+        //                foreach (var item in arrItem)
+        //                {
+        //                    SysParaEntity oSysPara = new SysParaEntity();
+        //                    oSysPara.Module = item["Module"].ToString();
+        //                    oSysPara.Field = item["Field"].ToString();
+        //                    oSysPara.Value = item["Value"] == null ? "" : item["Value"].ToString();
+        //                    if (item["CommonVariable"] != null && item["CommonVariable"].ToString() != "" && item["CommonVariable"].ToString() == "1")
+        //                    {
+        //                        oSysPara.RevID = "";
+        //                        oSysPara.SiteID = "";
+        //                    }
+        //                    else
+        //                    {
+        //                        oSysPara.RevID = Session["RevID"].ToString();
+        //                        oSysPara.SiteID = Session["SiteID"].ToString();
+        //                    }
+
+        //                    lst.Add(oSysPara);
+        //                }
+
+        //                string Mes = string.Empty;
+
+        //                if (lst != null && lst.Count > 0)
+        //                {
+        //                    if (_systemVariableProvider.UpdateListSystemPara(lst, ref Mes))
+        //                    {
+
+        //                        jsonResult = Json(new { success = true, msgError = Var.None_Error, errorCode = ((int)Var.eErrorCodePage.None_Error).ToString() }, JsonRequestBehavior.AllowGet);
+        //                    }
+        //                    else
+        //                    {
+        //                        jsonResult = Json(new { success = false, msgError = Var.Unknown_Error, errorCode = ((int)Var.eErrorCodePage.Unknown_Error).ToString() }, JsonRequestBehavior.AllowGet);
+        //                    }
+        //                }
+        //                else
+        //                {
+        //                    jsonResult = Json(new { success = false, msgError = Var.Unknown_Error, errorCode = ((int)Var.eErrorCodePage.Unknown_Error).ToString() }, JsonRequestBehavior.AllowGet);
+        //                }
+
+
+        //            }
+        //            else
+        //            {
+        //                jsonResult = Json(new { success = false, msgError = Var.Right_Authentication_Error, errorCode = ((int)Var.eErrorCodePage.Right_Authentication_Error).ToString() }, JsonRequestBehavior.AllowGet);
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            jsonResult = Json(new { success = false, msgError = Var.Unknown_Error, errorCode = ((int)Var.eErrorCodePage.Unknown_Error).ToString() }, JsonRequestBehavior.AllowGet);
+        //            ErrorHandle.WriteError(ex.Message);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        jsonResult = Json(new { success = false, msgError = Var.Authentication_Error, errorCode = ((int)Var.eErrorCodePage.Authentication_Error).ToString() }, JsonRequestBehavior.AllowGet);
+
+        //    }
+        //    return jsonResult;
+
+        //}
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public JsonResult UpdateSysParam(string lstSysparam)
+        {
+            string Mes = string.Empty;
+            JsonResult jsonResult = new JsonResult();
+            try
+            {
+                if (Session["LoginID"] != null)
+                {
+
+                    var arrItem = JArray.Parse(lstSysparam);
+                    List<SysPara> lst = new List<SysPara>();
+                    foreach (var item in arrItem)
+                    {
+                        SysPara oSysPara = new SysPara();
+                         
+                        oSysPara.Field = item["Field"].ToString();
+                        oSysPara.Value = item["Value"] == null ? "" : item["Value"].ToString();
+                        oSysPara.DefaultValue = item["DefaultValue"] == null ? "" : item["DefaultValue"].ToString();
+                        adminPageProvider.EditSysPara(oSysPara);
+                    }
+                    adminPageProvider.SetSysPara();
+                    jsonResult = Json(new { success = true, msgError = Mes }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    jsonResult = Json(new { success = false, msgError = Mes }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                jsonResult = Json(new { success = false, msgError = Mes }, JsonRequestBehavior.AllowGet);
+             
+            }
+            return jsonResult;
+
+        }
+
+        public JsonResult ChangePassword(string NewPassword, string NewConfirmPassword)
+        {
+            JsonResult jResult = new JsonResult();
+            try
+            {
+                if (Session["LoginID"] != null)
+                {
+                    if (NewPassword != null && NewPassword != "" && NewPassword == NewConfirmPassword)
+                    {
+                        jResult = Json(new { success = authenticateProvider.ChangePassword(Session["LoginID"].ToString(), NewPassword), MsgError = "Có Lỗi Xảy Ra, Hãy Thử Lại Sau" }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        jResult = Json(new { success = false, MsgError = "Mật Khẩu Và Xác Nhận Mật Khẩu Phải Giống Nhau" }, JsonRequestBehavior.AllowGet);
+                    }
+                    
+                }
+                else
+                {
+                    jResult = Json(new { success = false, MsgError = "Session Đã Quá Hạn, Làm Ơn Đăng Nhập Và Thử Lại Sau" }, JsonRequestBehavior.AllowGet);
+                }
+                 
+            }
+            catch (Exception)
+            {
+
+
+            }
+
+            return jResult;
+        }
 
         public JsonResult LoadAllCategory(string sCategoryStatus)
         {

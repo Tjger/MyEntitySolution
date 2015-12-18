@@ -8,30 +8,28 @@
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700"
           rel="stylesheet" />
 
-    @Styles.Render("~/Content/bootstrap-3.3.5/css/bootstrap.min.css")
-    @Styles.Render("~/Content/bootstrap-3.3.5/css/bootstrap-theme.min.css")
-    @Styles.Render("~/Content/FontEnd/css/tanphong.css")
-    @Styles.Render("~/Content/FontEnd/css/animations.css")
-    @Styles.Render("~/Content/FontEnd/css/buttons.css")
-    @Styles.Render("~/Content/FontEnd/css/tabstyles.css")     
-    @Styles.Render("~/Content/BackEnd/css/jquery-ui.css")
-    @Styles.Render("~/Content/BackEnd/css/font-awesome.min.css")
-    @Styles.Render("~/Content/FontEnd/css/jquery.bxslider.css")
-    @Styles.Render("~/Content/FontEnd/css/block.css")
-    
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Content/bootstrap-3.3.5/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Content/bootstrap-3.3.5/css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="~/Content/FontEnd/css/tanphong.css" />
+    <link rel="stylesheet" href="~/Content/FontEnd/css/animations.css" />
+    <link rel="stylesheet" href="~/Content/FontEnd/css/buttons.css" />
+    <link rel="stylesheet" href="~/Content/FontEnd/css/tabstyles.css" />
+    <link rel="stylesheet" href="~/Content/BackEnd/css/jquery-ui.css" />
+    <link rel="stylesheet" href="~/Content/BackEnd/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/Content/FontEnd/css/jquery.bxslider.css" />
+    <link rel="stylesheet" href="~/Content/FontEnd/css/block.css" />
 
-    @Scripts.Render("~/Content/BackEnd/js/jquery-1.11.1.min.js")
-    @Scripts.Render("~/Content/bootstrap-3.3.5/js/bootstrap.min.js")
- 
-    @Scripts.Render("~/Content/FontEnd/js/buttons.js")
-  
-    @Scripts.Render("~/Content/BackEnd/js/jquery-ui.min.js")
-    @Scripts.Render("~/Content/FontEnd/js/jssor.js")
-    @Scripts.Render("~/Content/FontEnd/js/jssor.slider.js")
-    @Scripts.Render("~/Content/FontEnd/js/jquery.bxslider.min.js")
-    @Scripts.Render("~/Content/form-validator/jquery.form-validator.js")
-    @Scripts.Render("~/Content/FontEnd/js/jquery.blockUI.js")
-    
+    <script type="text/javascript" src="~/Content/BackEnd/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="~/Content/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/Content/FontEnd/js/buttons.js"></script>
+    <script type="text/javascript" src="~/Content/BackEnd/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="~/Content/FontEnd/js/jssor.js"></script>
+    <script type="text/javascript" src="~/Content/FontEnd/js/jssor.slider.js"></script>
+    <script type="text/javascript" src="~/Content/FontEnd/js/jquery.bxslider.min.js"></script>
+    <script type="text/javascript" src="~/Content/form-validator/jquery.form-validator.js"></script>
+    <script type="text/javascript" src="~/Content/FontEnd/js/jquery.blockUI.js"></script>
+    @Scripts.Render("~/bundles/modernizr")
     <style>
         div.growlUI {
             background: url("@Url.Content("~/Content/FontEnd/images/check48.png")") no-repeat 10px 10px;
@@ -61,250 +59,256 @@
 </head>
 <body>
 
-<script>
-    var CategoryList = null;
-    var Langguage = '@Session["Culture"].ToString()';
-    $(document).ready(function () {
-        LoadAllDataForHomePage();
+    <script>
+        var CategoryList = null;
+        var Langguage = '@Session["Culture"].ToString()';
+        $(document).ready(function () {
+            LoadAllDataForHomePage();
 
-        $('.pic-show').bxSlider({
-            pagerCustom: '#bx-pager'
+            $('.pic-show').bxSlider({
+                pagerCustom: '#bx-pager'
+            });
+            $('.bxslider').bxSlider({
+                auto: true
+            });
+            $("#btn_close_modal").click(function () {
+                playPause();
+
+            });
+
         });
-        $('.bxslider').bxSlider({
-            auto: true
-        });
-        $("#btn_close_modal").click(function () {
-            playPause();
 
-        });
-
-    });
-
-    function playPause() {
-        if ($("#video1").paused) {
-            $("#video1").play();
+        function playPause() {
+            if ($("#video1").paused) {
+                $("#video1").play();
+            }
+            else
+                $("#video1").pause();
         }
-        else
-            $("#video1").pause();
-    }
 
 
-    function LoadAllDataForHomePage() {
+        function LoadAllDataForHomePage() {
 
-        $.ajax({
-            url: '@Url.Action("LoadAllDataForHomePage", "Home")',
-            contentType: "application/json; charset=utf-8",
-            type: 'POST',
-            dataType: "json",
-            data: {},
-            success: function (data) {
+            $.ajax({
+                url: '@Url.Action("LoadAllDataForHomePage", "Home")',
+                contentType: "application/json; charset=utf-8",
+                type: 'POST',
+                dataType: "json",
+                data: {},
+                success: function (data) {
 
-                //
-                $("#cboCategory").html("");
+                    //
+                    $("#cboCategory").html("");
 
 
-                CategoryList = data.CategoryList;
-                var gridTableComboBoxHtml = "<option value=\"" + '@((int)Var.DefaultValueInComboBox)' + "\" selected>" + '@Resource.All' + "</option>";
-                var gridTablePanelLeftHtml = "";
-                var gridTablePanelTopHtml = "";
-                $.each(CategoryList, function (index, item) {
-                    var CategoryName = "";
-                    if (Langguage === "vi-VN") {
-                        CategoryName = item.CategoryName;
-                    }
-                    else {
-                        CategoryName = item.CategoryName2;
-                    }
-
-                    gridTableComboBoxHtml += "<option value=\"" + item.CategoryID + "\">" + CategoryName + "</option>";
-
-                    if (index == '0') {
-                        gridTablePanelLeftHtml += "<li  class=\"active\"> <a data-toggle=\"tab\" href=\"#menu" + index + "\"> <i class=\"fa fa-chevron-right\" style=\"padding-right: 10px;\"> </i>" + CategoryName + "</a></li>";
-                    }
-                    else {
-                        gridTablePanelLeftHtml += "<li> <a data-toggle=\"tab\" href=\"#menu" + index + "\"> <i class=\"fa fa-chevron-right\" style=\"padding-right: 10px;\"> </i>" + CategoryName + "</a></li>";
-                    }
-
-                    if (index == '0') {
-                        gridTablePanelTopHtml += "<li class=\"active\"> <a data-toggle=\"tab\" href=\"#menu" + index + "\">" + CategoryName + "</a></li>";
-                    }
-                    else {
-                        gridTablePanelTopHtml += "<li> <a data-toggle=\"tab\" href=\"#menu" + index + "\">" + CategoryName + "</a></li>";
-                    }
-
-                });
-
-                $("#cboCategory").html(gridTableComboBoxHtml);
-                $("#lstCategoryPanelLeft").html("");
-                $("#lstCategoryPanelLeft").html(gridTablePanelLeftHtml);
-
-                $("#lstCategoryPanelTop").html("");
-                $("#lstCategoryPanelTop").html(gridTablePanelTopHtml);
-
-                //
-                $("#lstItemHotPanelLeft").html("");
-                var gridItemListHotHtml = "";
-                $.each(data.ItemListHot, function (index, item) {
-                    var ItemName = "";
-                    if (Langguage === "vi-VN") {
-                        ItemName = item.ItemName;
-                    }
-                    else {
-                        ItemName = item.ItemName2;
-                    }
-                    gridItemListHotHtml += "<li> <a href=\"javascript:ShowItemDetail('" + item.ItemID + "')\">";
-                    gridItemListHotHtml += "<img src=\"" + '@Url.Content(Var.UrlUploadItemImage)' + item.ItemImageURL + "\" class=\"img-responsive\"> ";
-                    gridItemListHotHtml += "<p class=\"tittle-small\">" + ItemName + "</p></a></li>";
-                });
-                $("#lstItemHotPanelLeft").html(gridItemListHotHtml);
-
-                //
-                $("#lstNewsPanelLeft").html("");
-                var gridNewsPanelLeftHtml = "";
-                $.each(data.NewsList, function (index, item) {
-                    var Title = "";
-                    if (Langguage === "vi-VN") {
-                        Title = item.Title;
-                    }
-                    else {
-                        Title = item.Title2;
-                    }
-                    gridNewsPanelLeftHtml += "<li style=\"height: 85px;\"> <a href=\"javascript:ShowNewsDetail('" + item.NewsID + "')\">";
-                    gridNewsPanelLeftHtml += "<img src=\"" + '@Url.Content(Var.UrlUploadCompanyNewsImage)' + item.ItemImageURL + "\" class=\"img-responsive\" style=\"height: 47px; width: 70px;\"> ";
-                    gridNewsPanelLeftHtml += "<p class=\"tittle-small\">" + Title + "</p>";
-                    gridNewsPanelLeftHtml += "<span class=\"link-deatail\"  onclick=\"ShowNewsDetail('" + item.NewsID + "'\">" + '@Resource.ViewDetails' + "</span></a></li>";
-                });
-
-                $("#lstNewsPanelLeft").html(gridNewsPanelLeftHtml);
-
-                //
-                $("#lstAllItem").html("");
-                var gridAllItemHtml = "";
-                var isFist = false;
-                $.each(data.ItemInCategory, function (index, item) {
-
-                    if (index == '0') {
-
-                        gridAllItemHtml += "<div id=\"menu" + index + "\" class=\"tab-pane fade in active\">";
-
-                    }
-                    else {
-                        gridAllItemHtml += "<div id=\"menu" + index + "\" class=\"tab-pane fade \">";
-
-                    }
-
-                    var numberRow = 1;
-                    gridAllItemHtml += "<div class=\"col-md-12 col-lg-12 padd0\" id=\"row" + index + numberRow + "\">";
-                    var indexTotal = 0;
-                    var numberRow = 1;
-                    $.each(item, function (ix, im) {
-                        indexTotal++;
-                        var ItemName = "";
+                    CategoryList = data.CategoryList;
+                    var gridTableComboBoxHtml = "<option value=\"" + '@((int)Var.DefaultValueInComboBox)' + "\" selected>" + '@Resource.All' + "</option>";
+                    var gridTablePanelLeftHtml = "";
+                    var gridTablePanelTopHtml = "";
+                    $.each(CategoryList, function (index, item) {
+                        var CategoryName = "";
                         if (Langguage === "vi-VN") {
-                            ItemName = im.ItemName;
+                            CategoryName = item.CategoryName;
                         }
                         else {
-                            ItemName = im.ItemName2;
+                            CategoryName = item.CategoryName2;
                         }
-                        gridAllItemHtml += "<div class=\"col-md-4 col-lg-4 mt15\">";
-                        gridAllItemHtml += "<div class=\"box-show-product col-md-12 col-lg-12 padd0\">";
-                        gridAllItemHtml += "<div class=\"box-img col-md-12 col-lg-12\">";
-                        gridAllItemHtml += "<a href=\"javascript:ShowItemDetail('" + im.ItemID + "')\">";
-                        gridAllItemHtml += "<img src=\"" + '@Url.Content(Var.UrlUploadItemImage)' + im.ItemImageURL + "\" class=\"img-responsive\" style=\"height: 105px; width: 190px;\"> ";
-                        gridAllItemHtml += "</a>";
-                        gridAllItemHtml += "</div>";
-                        gridAllItemHtml += "<div class=\"col-md-12 col-lg-12 padd0\">";
-                        gridAllItemHtml += "<p class=\"box-info-danhgia\">";
-                        gridAllItemHtml += ItemName;
-                        gridAllItemHtml += "</p>";
-                        gridAllItemHtml += "<p class=\"box-star\">";
-                        gridAllItemHtml += "<i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i>";
-                        gridAllItemHtml += "</p>";
-                        gridAllItemHtml += "</div>";
-                        gridAllItemHtml += "<div class=\"col-md-12 col-lg-12\">";
-                        gridAllItemHtml += "<p class=\"box-datetime\">";
-                        gridAllItemHtml += "<i class=\"fa fa-clock-o\"></i>";
-                        gridAllItemHtml += "<span class=\"small day-post\">239 Days</span>";
-                        gridAllItemHtml += "<span class=\"small time-post\">13:13:11</span>";
-                        gridAllItemHtml += "</p>";
-                        gridAllItemHtml += "</div>";
-                        gridAllItemHtml += "</div>";
-                        gridAllItemHtml += "</div>";
-                        gridAllItemHtml += "";
 
-                        if (indexTotal % 3 == 0) {
-                            numberRow++;
-                            gridAllItemHtml += "</div><div class=\"col-md-12 col-lg-12 padd0\" id=\"row" + index + numberRow + "\">";
+                        gridTableComboBoxHtml += "<option value=\"" + item.CategoryID + "\">" + CategoryName + "</option>";
+
+                        if (index == '0') {
+                            gridTablePanelLeftHtml += "<li  class=\"active\"> <a data-toggle=\"tab\" href=\"#menu" + index + "\"> <i class=\"fa fa-chevron-right\" style=\"padding-right: 10px;\"> </i>" + CategoryName + "</a></li>";
                         }
+                        else {
+                            gridTablePanelLeftHtml += "<li> <a data-toggle=\"tab\" href=\"#menu" + index + "\"> <i class=\"fa fa-chevron-right\" style=\"padding-right: 10px;\"> </i>" + CategoryName + "</a></li>";
+                        }
+
+                        if (index == '0') {
+                            gridTablePanelTopHtml += "<li class=\"active\"> <a data-toggle=\"tab\" href=\"#menu" + index + "\">" + CategoryName + "</a></li>";
+                        }
+                        else {
+                            gridTablePanelTopHtml += "<li> <a data-toggle=\"tab\" href=\"#menu" + index + "\">" + CategoryName + "</a></li>";
+                        }
+
                     });
 
-                    gridAllItemHtml += "</div></div>"
-                });
-                $("#lstAllItem").html(gridAllItemHtml);
-            }
-        });
+                    $("#cboCategory").html(gridTableComboBoxHtml);
+                    $("#lstCategoryPanelLeft").html("");
+                    $("#lstCategoryPanelLeft").html(gridTablePanelLeftHtml);
 
-    };
+                    $("#lstCategoryPanelTop").html("");
+                    $("#lstCategoryPanelTop").html(gridTablePanelTopHtml);
 
-    function ShowItemDetail(e) {
+                    //
+                    $("#lstItemHotPanelLeft").html("");
+                    var gridItemListHotHtml = "";
+                    $.each(data.ItemListHot, function (index, item) {
+                        var ItemName = "";
+                        if (Langguage === "vi-VN") {
+                            ItemName = item.ItemName;
+                        }
+                        else {
+                            ItemName = item.ItemName2;
+                        }
+                        gridItemListHotHtml += "<li> <a href=\"javascript:ShowItemDetail('" + item.ItemID + "')\">";
+                        gridItemListHotHtml += "<img src=\"" + '@Url.Content(Var.UrlUploadItemImage)' + item.ItemImageURL + "\" class=\"img-responsive\"> ";
+                        gridItemListHotHtml += "<p class=\"tittle-small\">" + ItemName + "</p></a></li>";
+                    });
+                    $("#lstItemHotPanelLeft").html(gridItemListHotHtml);
 
-        var url = '@Url.Action("ProductDetails", "Home", new { id = "__id__" })';
-        window.location.href = url.replace('__id__', e);
-    }
+                    //
+                    $("#lstNewsPanelLeft").html("");
+                    var gridNewsPanelLeftHtml = "";
+                    $.each(data.NewsList, function (index, item) {
+                        var Title = "";
+                        if (Langguage === "vi-VN") {
+                            Title = item.Title;
+                        }
+                        else {
+                            Title = item.Title2;
+                        }
+                        gridNewsPanelLeftHtml += "<li style=\"height: 85px;\"> <a href=\"javascript:ShowNewsDetail('" + item.NewsID + "')\">";
+                        gridNewsPanelLeftHtml += "<img src=\"" + '@Url.Content(Var.UrlUploadCompanyNewsImage)' + item.ItemImageURL + "\" class=\"img-responsive\" style=\"height: 47px; width: 70px;\"> ";
+                        gridNewsPanelLeftHtml += "<p class=\"tittle-small\">" + Title + "</p>";
+                        gridNewsPanelLeftHtml += "<span class=\"link-deatail\"  onclick=\"ShowNewsDetail('" + item.NewsID + "'\">" + '@Resource.ViewDetails' + "</span></a></li>";
+                    });
 
-    function ShowNewsDetail(e) {
-        var url = '@Url.Action("NewsDetail", "Home", new { id = "__id__" })';
-        window.location.href = url.replace('__id__', e);
-    }
-    function SearchDetail(e) {
-        var url = '@Url.Action("Search", "Home", new { key = "__key__" })';
-        window.location.href = url.replace('__key__', e);
-    }
+                    $("#lstNewsPanelLeft").html(gridNewsPanelLeftHtml);
 
-    function scrollup() {
-          $("html, body").animate({
-            scrollTop: 0
-        }, 600);
-        return false;
-    }
-    
-</script>
+                    //
+                    $("#lstAllItem").html("");
+                    var gridAllItemHtml = "";
+                    var isFist = false;
+                    $.each(data.ItemInCategory, function (index, item) {
 
+                        if (index == '0') {
+
+                            gridAllItemHtml += "<div id=\"menu" + index + "\" class=\"tab-pane fade in active\">";
+
+                        }
+                        else {
+                            gridAllItemHtml += "<div id=\"menu" + index + "\" class=\"tab-pane fade \">";
+
+                        }
+
+                        var numberRow = 1;
+                        gridAllItemHtml += "<div class=\"col-md-12 col-lg-12 padd0\" id=\"row" + index + numberRow + "\">";
+                        var indexTotal = 0;
+                        var numberRow = 1;
+                        $.each(item, function (ix, im) {
+                            indexTotal++;
+                            var ItemName = "";
+                            if (Langguage === "vi-VN") {
+                                ItemName = im.ItemName;
+                            }
+                            else {
+                                ItemName = im.ItemName2;
+                            }
+                            gridAllItemHtml += "<div class=\"col-md-4 col-lg-4 mt15\">";
+                            gridAllItemHtml += "<div class=\"box-show-product col-md-12 col-lg-12 padd0\">";
+                            gridAllItemHtml += "<div class=\"box-img col-md-12 col-lg-12\">";
+                            gridAllItemHtml += "<a href=\"javascript:ShowItemDetail('" + im.ItemID + "')\">";
+                            gridAllItemHtml += "<img src=\"" + '@Url.Content(Var.UrlUploadItemImage)' + im.ItemImageURL + "\" class=\"img-responsive\" style=\"height: 105px; width: 190px;\"> ";
+                            gridAllItemHtml += "</a>";
+                            gridAllItemHtml += "</div>";
+                            gridAllItemHtml += "<div class=\"col-md-12 col-lg-12 padd0\">";
+                            gridAllItemHtml += "<p class=\"box-info-danhgia\">";
+                            gridAllItemHtml += ItemName;
+                            gridAllItemHtml += "</p>";
+                            gridAllItemHtml += "<p class=\"box-star\">";
+                            gridAllItemHtml += "<i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i>";
+                            gridAllItemHtml += "</p>";
+                            gridAllItemHtml += "</div>";
+                            gridAllItemHtml += "<div class=\"col-md-12 col-lg-12\">";
+                            gridAllItemHtml += "<p class=\"box-datetime\">";
+                            gridAllItemHtml += "<i class=\"fa fa-clock-o\"></i>";
+                            gridAllItemHtml += "<span class=\"small day-post\">239 Days</span>";
+                            gridAllItemHtml += "<span class=\"small time-post\">13:13:11</span>";
+                            gridAllItemHtml += "</p>";
+                            gridAllItemHtml += "</div>";
+                            gridAllItemHtml += "</div>";
+                            gridAllItemHtml += "</div>";
+                            gridAllItemHtml += "";
+
+                            if (indexTotal % 3 == 0) {
+                                numberRow++;
+                                gridAllItemHtml += "</div><div class=\"col-md-12 col-lg-12 padd0\" id=\"row" + index + numberRow + "\">";
+                            }
+                        });
+
+                        gridAllItemHtml += "</div></div>"
+                    });
+                    $("#lstAllItem").html(gridAllItemHtml);
+                }
+            });
+
+        };
+
+        function ShowItemDetail(e) {
+
+            var url = '@Url.Action("ProductDetails", "Home", new { id = "__id__" })';
+            window.location.href = url.replace('__id__', e);
+        }
+
+        function ShowNewsDetail(e) {
+            var url = '@Url.Action("NewsDetail", "Home", new { id = "__id__" })';
+            window.location.href = url.replace('__id__', e);
+        }
+        function SearchDetail(e) {
+            var url = '@Url.Action("Search", "Home", new { key = "__key__" })';
+            window.location.href = url.replace('__key__', e);
+        }
+
+        function scrollup() {
+            $("html, body").animate({
+                scrollTop: 0
+            }, 600);
+            return false;
+        }
+
+    </script>
     <div class="bg">
         <div class="container box-content">
             <header>
                 <div class="top-banner col-md-12 col-lg-12 padd0">
                     <div class="bg-header">
-                        <div class="col-md-7 col-lg-7" style="padding-top: 12px;">
+                        <div class="col-md-12 col-lg-12 pull-right">
+                            <div class="mullanguage" id="mulange">@{Html.RenderAction("MultiLanguageNav", "MultiLanguage");}</div>
+                        </div>
+                        <div class="col-md-7 col-lg-7">
                             <a href="#" style="float:left;">
                                 <img class="img-responsive" src="@Url.Content("~/Content/FontEnd/images/logotanphong.png")" />
                             </a>
                             <p style="float: left; padding-left: 90px;"><img class="img-responsive" src="@Url.Content("~/Content/FontEnd/images/tencty.png")" /></p>
                         </div>
-                        <div class="col-md-5 col-lg-5" style="padding-top: 50px;">
+                        <div class="col-md-5 col-lg-5" style="padding-top: 15px;">
                             <form method="get" action="@Url.Action("Search", "Home")">
                                 <div class="col-md-6 col-lg-6 pull-right">
-                                    <input type="text" name="search"  class="form-control" style="font-style: italic;" placeholder="@Resource.Search..." />
-                                    <button type="submit" class="btn btn-primary start" id="btnSearch">
-                                        <i class="glyphicon glyphicon-search"></i>
-                                    </button>
+                                    <div class="input-group">
+                                        <input type="text" name="search" class="form-control" style="font-style: italic;" placeholder="@Resource.Search..." />
+                                        <span class="input-group-btn">
+                                            <button type="submit" class="btn btn-warning start" id="btnSearch">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </span>
+                                    </div>
                                 </div>
                                 <div class="col-md-6 col-lg-6 pull-right">
                                     <select name="category" class="form-control" id="cboCategory"></select>
                                 </div>
-                                
+
                             </form>
                             @*<div class="col-md-6 col-lg-6 pull-right">
-                                <input type="text" class="form-control" style="font-style: italic;" placeholder="@Resource.Search..." />
-                                <button type="button" class="btn btn-primary start" id="btnSearch">
-                                    <i class="glyphicon glyphicon-search"></i>                                    
-                                </button>
-                            </div>
-                            <div class="col-md-6 col-lg-6 pull-right" >
-                                <select class="form-control" id="cboCategory">
-                                    
-                                </select>
-                            </div>*@
+                                    <input type="text" class="form-control" style="font-style: italic;" placeholder="@Resource.Search..." />
+                                    <button type="button" class="btn btn-primary start" id="btnSearch">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                                <div class="col-md-6 col-lg-6 pull-right" >
+                                    <select class="form-control" id="cboCategory">
+
+                                    </select>
+                                </div>*@
                         </div>
                         <div class="col-md-12 col-lg-12">
                             <p class="address-top">Ðịa chỉ: Phòng 606, Tòa nhà Indochina Park Tower.Số 4 Nguyễn Đình Chiểu,P. Đa Kao, Q.1,TP.HCM</p>
@@ -333,7 +337,7 @@
                                         <li><a href="@Url.Action("Contact", "Home")">@Resource.ContactUs</a></li>
                                     </ul>
 
-                                    <div class="mullanguage" id="mulange">@{Html.RenderAction("MultiLanguageNav", "MultiLanguage");}</div>
+
                                 </div>
                             </div>
                         </nav>
@@ -355,7 +359,7 @@
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner" role="listbox">
                                 <div class="item active">
-                                    <img src="@Url.Content("~/Content/FontEnd/images/sl1.jpg")"  class="img-responsive" />
+                                    <img src="@Url.Content("~/Content/FontEnd/images/sl1.jpg")" class="img-responsive" />
                                     <div class="carousel-caption">
                                         <h3>
                                             CÔNG TY CỔ PHẦN THƯƠNG MẠI CƠ KHÍ TÂN PHONG
@@ -367,7 +371,7 @@
                                     </div>
                                 </div>
                                 <div class="item">
-                                    <img src="@Url.Content("~/Content/FontEnd/images/sl2.png")"   class="img-responsive" />
+                                    <img src="@Url.Content("~/Content/FontEnd/images/sl2.png")" class="img-responsive" />
                                     <div class="carousel-caption">
                                         <h3>
                                             CÔNG TY CỔ PHẦN THƯƠNG MẠI CƠ KHÍ TÂN PHONG
@@ -377,12 +381,12 @@
                             </div>
                             <!-- Left and right controls -->
                             <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><span class="sr-only">
+                                <span class="fa fa-chevron-left" aria-hidden="true"></span><span class="sr-only">
                                     Previous
                                 </span>
                             </a><a class="right carousel-control" href="#myCarousel" role="button"
                                    data-slide="next">
-                                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true">
+                                <span class="fa fa-chevron-right" aria-hidden="true">
                                 </span><span class="sr-only">Next</span>
                             </a>
                         </div>
@@ -418,7 +422,7 @@
                                         <i class="fa fa-chevron-right" style="padding-right: 10px;"></i>Container
                                         Lạnh
                                     </a>
-                                </li>                                
+                                </li>
                             </ul>
                         </div>
                         <div class="col-md-12 col-lg-12 padd0">
@@ -426,9 +430,7 @@
                                 <i class="fa fa-cubes" style="padding-right: 10px;"></i>@Resource.NewProducts
                             </p>
                             <div class="list-newproduct col-md-12 col-lg-12 paddtopbotton10 borderbottom">
-                                <ul style="list-style: none;" id="lstItemHotPanelLeft">
-                                    
-                                </ul>
+                                <ul style="list-style: none;" id="lstItemHotPanelLeft"></ul>
                             </div>
                         </div>
                         <div class="col-md-12 col-lg-12 padd0">
@@ -438,23 +440,23 @@
                             <div class="list-newcompany col-md-12 col-lg-12 paddtopbotton10 ">
                                 <ul style="list-style: none;" id="lstNewsPanelLeft">
                                     @*<li>
-                                        <a href="#">
-                                            <img src="@Url.Content("~/Content/FontEnd/images/newc.png")" class="img-responsive" />
-                                            <p class="tittle-small">
-                                                SỨ MỆNH: CÔNG TY CP TM CK TÂN PHONG hoạt động với sứ mệnh tạo ra...
-                                            </p>
-                                            
-                                            <span class="link-deatail">Chi tiết</span>
-                                        </a>
-                                    </li>*@
-                                 
+                                            <a href="#">
+                                                <img src="@Url.Content("~/Content/FontEnd/images/newc.png")" class="img-responsive" />
+                                                <p class="tittle-small">
+                                                    SỨ MỆNH: CÔNG TY CP TM CK TÂN PHONG hoạt động với sứ mệnh tạo ra...
+                                                </p>
+
+                                                <span class="link-deatail">Chi tiết</span>
+                                            </a>
+                                        </li>*@
+
                                 </ul>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-9 col-lg-9">
                         @RenderBody()
-                     
+
                     </div>
                 </div>
             </div>
@@ -464,7 +466,7 @@
                         <div class="navbar-wrapper">
                             <nav class="navbar navbar-static-top footer-menu">
                                 <div id="Div1" class="navbar-collapse collapse">
-                                    <ul class="nav navbar-nav">                                       
+                                    <ul class="nav navbar-nav">
                                         <li><a href="@Url.Action("Index", "Home")">@Resource.HomePage</a></li>
                                         <li><a href="@Url.Action("About", "Home")">@Resource.AboutUs</a></li>
                                         <li><a href="@Url.Action("Index", "Home")">@Resource.Products</a></li>

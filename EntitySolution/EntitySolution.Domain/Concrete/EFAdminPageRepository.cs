@@ -123,7 +123,7 @@ namespace EntitySolution.Domain.Concrete
                     ret = _ret.Where(e => (sItemStatus == null || sItemStatus == "" || sItemStatus == allValue || e.Active == sItemStatus) 
                         && (sHotStatus == null || sHotStatus == "" || sHotStatus == allValue || e.Hot == sHotStatus)
                          && (sCategoryID == null || sCategoryID == "" || sCategoryID == allValue || e.CategoryID.Value.ToString() == sCategoryID)
-                         && (sSearchText == null || sSearchText == "" || sSearchText == allValue || e.ItemName.Contains(sSearchText) || e.ItemName2.Contains(sSearchText))).ToList();
+                         && (sSearchText == null || sSearchText == "" || sSearchText == allValue || e.ItemName.Contains(sSearchText) || e.ItemName2.Contains(sSearchText) || e.ItemName.Contains(sSearchText.ToUpper()) || e.ItemName2.Contains(sSearchText.ToUpper()))).ToList();
 
                   
                 }
@@ -556,5 +556,56 @@ namespace EntitySolution.Domain.Concrete
             }
             return ret;
         }
+        public bool SetSysPara()
+        {
+            bool ret = true;
+            try
+            {
+                Var.SMTPHost = InitSysPara(Var.SMTPHostField, "smtp.gmail.com");
+                Var.SMTPEmailAddress = InitSysPara(Var.SMTPEmailAddressField, "sales@tanphongcontainer.vn");
+                Var.SMTPEmailPassword = InitSysPara(Var.SMTPEmailPasswordField, "smtp.gmail.com");
+                Var.SMTPEmailManager = InitSysPara(Var.SMTPEmailManagerField, "sales@tanphongcontainer.vn");
+            }
+            catch (Exception e)
+            {
+                ErrorHandle.WriteError("GetAllCategory", e.Message);
+            }
+            return ret;
+        }
+
+
+        public string InitSysPara(string fieldSysPara, string defaultValueSysPara)
+        {
+            string ret = "";
+            try
+            {
+                var _ret = (from ite in _context.SysParas
+                            where ite.Field == fieldSysPara
+                            select ite).FirstOrDefault();
+                if (_ret != null)
+                {
+                    ret = _ret.Value;
+                }
+                else
+                {
+                    SysPara sys = new SysPara();
+                    sys.Field = fieldSysPara;
+                    sys.Value = defaultValueSysPara;
+                    sys.DefaultValue = defaultValueSysPara;
+
+                    _context.SysParas.Add(sys);
+                    if (_context.SaveChanges() > 0)
+                    {
+                        ret = defaultValueSysPara;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                ErrorHandle.WriteError("GetAllCategory", e.Message);
+            }
+            return ret;
+        }
+
     }
 }

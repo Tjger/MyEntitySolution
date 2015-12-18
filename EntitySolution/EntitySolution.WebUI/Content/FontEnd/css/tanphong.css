@@ -9,7 +9,9 @@
 body {
     background: #fff;
 }
-
+.mullanguage a img{
+float: right; height: 20px;
+}
 #contact-form ul {
     list-style: none;
 }
@@ -149,11 +151,11 @@ body {
 }
 
 .address-top {
+   color: rgb(255, 255, 255);
     float: right;
-    color: rgb(255, 255, 255);
-    padding-top: 10px;
     font-size: 13px;
     font-style: italic;
+    margin: 0 auto;
 }
 
 .form-control {
@@ -318,11 +320,11 @@ body {
 }
 
 .bg {
-    background: rgba(0, 0, 0, 0) url("../images/bg.png") repeat scroll 0 0 / cover;
+    background: #e8e8e8 none repeat scroll 0 0;
 }
 
 .bg-header {
-    padding-top: 10px;
+    padding-top: 5px;
     height: 155px;
     background: rgba(0, 0, 0, 0) url("../images/bg-header.png") repeat scroll 0 0 / cover;
 }
@@ -350,6 +352,7 @@ body {
     padding-left: 0px;
     padding-right: 0px;
     background: #fff;
+    box-shadow: 0 0 10px 1px rgba(158, 158, 158, 0.82);
 }
 
 .subcontent-mostview ul {
@@ -511,8 +514,8 @@ body {
         float: right;
         height: 35px;
         opacity: 0.85;
-        right: 55px;
-        top: 10px;
+        left: 10px;
+        top: 35%;
         width: 38px;
     }
 
@@ -522,7 +525,7 @@ body {
         height: 35px;
         opacity: 0.85;
         right: 10px;
-        top: 10px;
+        top: 35%;
         width: 38px;
     }
 

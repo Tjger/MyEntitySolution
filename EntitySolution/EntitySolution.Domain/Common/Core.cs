@@ -108,5 +108,48 @@ namespace EntitySolution.Domain.Common
             }
             return bFlag;
         }
+
+        //public bool ValidateRequestHeader(HttpRequestBase request)
+        //{
+        //    bool result = false;
+        //    string cookieToken = "";
+        //    string formToken = "";
+        //    try
+        //    {
+        //        //IEnumerable<string> tokenHeaders;
+        //        string[] token = request.Headers.GetValues("RequestVerificationToken");
+
+        //        if (token.Length > 0)
+        //        {
+        //            string[] tokens = token[0].Split(':');
+        //            if (tokens.Length == 2)
+        //            {
+        //                cookieToken = tokens[0].Trim();
+        //                formToken = tokens[1].Trim();
+        //            }
+        //        }
+        //        AntiForgery.Validate(cookieToken, formToken);
+        //        result = true;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        result = false;
+        //        ErrorHandle.WriteError(ex.Message);
+
+        //    }
+        //    return result;
+
+
+        //}
+
+        //public static string TokenHeaderValue()
+        //{
+        //    string cookieToken = "";
+        //    string formToken = "";
+        //    AntiForgery.GetTokens(null, out cookieToken, out formToken);
+        //    return cookieToken + ":" + formToken;
+        //}
+
+
     }
 }

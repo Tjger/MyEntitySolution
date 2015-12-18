@@ -68,18 +68,9 @@ namespace EntitySolution.Domain.Common
         public MailMessage BuildMailMessage(string sToAddress, string sSubject, string sBody, Boolean IsBodyHtml)
         {
             System.Net.Mail.MailMessage mailMessage = new System.Net.Mail.MailMessage();
-            System.Net.Mail.MailAddress fromAddress = new System.Net.Mail.MailAddress(RwMailSender);
+            System.Net.Mail.MailAddress fromAddress = new System.Net.Mail.MailAddress(RwMailAccount);
             System.Net.Mail.MailAddress toAddress;
             string mail = string.Empty;
-            //if (Var.DevEnvironment)
-            //{
-
-            //    toAddress = new System.Net.Mail.MailAddress(Var.DevEmail);
-            //}
-            //else
-            //{
-            //    toAddress = new System.Net.Mail.MailAddress(sToAddress);
-            //}
 
             toAddress = new System.Net.Mail.MailAddress(sToAddress);
             mailMessage.From = fromAddress;

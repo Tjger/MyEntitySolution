@@ -48,5 +48,35 @@ namespace EntitySolution.Domain.Concrete
             }
             return ret;
         }
+
+
+        public bool ChangePassword(string Username, string NewPassword)
+        {
+            bool ret = false;
+            try
+            {
+                Emp e = (from it in _context.Emps
+                         where it.LoginID.ToLower() == Username.ToLower()
+                         select it).FirstOrDefault();
+                if (e != null)
+                {
+                    string PasswordEncrypt = Core.Encrypt(NewPassword);
+
+                    e.Pass = PasswordEncrypt;
+
+                    if (_context.SaveChanges() > 0)
+                    {
+                        ret = true;
+                        
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+
+            }
+            return ret;
+        }
     }
 }

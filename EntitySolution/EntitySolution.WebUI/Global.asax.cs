@@ -1,4 +1,6 @@
-﻿using EntitySolution.Domain.Common;
+﻿using EntitySolution.Domain.Abstract;
+using EntitySolution.Domain.Common;
+using EntitySolution.Domain.Concrete;
 using EntitySolution.WebUI.Infrastructure;
 using System;
 using System.Globalization;
@@ -22,6 +24,9 @@ namespace EntitySolution.WebUI
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory());
+            IAdminPageRepository admin = new EFAdminPageRepository();
+
+            admin.SetSysPara();
         }
 
         private void Application_AcquireRequestState(Object source, EventArgs e)

@@ -28,7 +28,9 @@ namespace EntitySolution.Domain.Abstract
        bool DeleteNews(int deleteNewsID);
        News LoadNewsAndRelativeOfIt(string sNewsID, int numberOfRecordRelative, ref List<News> listNewsAndRelative);
 
+       bool SetSysPara();
        SysPara GetSysPara(string fieldSysPara);
        bool EditSysPara(SysPara editSysPara);
+        
     }
 }

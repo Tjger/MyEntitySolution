@@ -335,8 +335,7 @@
                 url: '@Url.Action("AddNewItem", "AdminPage")',
                 contentType: "application/json; charset=utf-8",
                 type: 'POST',
-                dataType: "json",
-                data: itemInfor,
+                dataType: "json",               
                 data: JSON.stringify({ "itemInfor": itemInfor }),
                 success: function (data) {
 

@@ -8,39 +8,36 @@
     <meta name="author" content="" />
 
     <title>Trang Quản lý - Admin Page</title>
-     
-    @Styles.Render("~/Content/BackEnd/css/style.default.css")
-    @Styles.Render("~/Content/BackEnd/css/morris.css")
-    @Styles.Render("~/Content/BackEnd/css/select2.css")  
-    @Styles.Render("~/Content/bootstrap-3.3.5/css/bootstrap.min.css")
-    @Styles.Render("~/Content/bootstrap-switch/css/bootstrap3/bootstrap-switch.min.css")
+
+    <link rel="stylesheet" href="~/Content/BackEnd/css/style.default.css" />
+    <link rel="stylesheet" href="~/Content/BackEnd/css/morris.css" />
+    <link rel="stylesheet" href="~/Content/BackEnd/css/select2.css" />
+    <link rel="stylesheet" href="~/Content/bootstrap-3.3.5/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Content/bootstrap-switch/css/bootstrap3/bootstrap-switch.min.css" />
 
     @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/Content/BackEnd/js/jquery-1.11.1.min.js")
-    @Scripts.Render("~/Content/bootstrap-3.3.5/js/bootstrap.min.js")
-    @Scripts.Render("~/Content/bootstrap-switch/js/bootstrap-switch.min.js")
-    @Scripts.Render("~/Content/BackEnd/js/modernizr.min.js")
-    @Scripts.Render("~/Content/BackEnd/js/pace.min.js")
-    @Scripts.Render("~/Content/BackEnd/js/retina.min.js")
-    @Scripts.Render("~/Content/BackEnd/js/jquery.cookies.js")
-    @Scripts.Render("~/Content/BackEnd/js/jquery.sparkline.min.js")
-    @Scripts.Render("~/Content/BackEnd/js/morris.min.js")
-    @Scripts.Render("~/Content/BackEnd/js/raphael-2.1.0.min.js")
-    @Scripts.Render("~/Content/BackEnd/js/bootstrap-wizard.min.js")
-    @Scripts.Render("~/Content/BackEnd/js/select2.min.js")
-    @Scripts.Render("~/Content/BackEnd/js/custom.js")
-    @Scripts.Render("~/Content/ckeditor/ckeditor.js")
+    <script type="text/javascript" src="~/Content/BackEnd/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="~/Content/bootstrap-3.3.5/js/bootstrap.min.js"></script>)
+    <script type="text/javascript" src="~/Content/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+    <script type="text/javascript" src="~/Content/BackEnd/js/modernizr.min.js"></script>
+    <script type="text/javascript" src="~/Content/BackEnd/js/pace.min.js"></script>
+    <script type="text/javascript" src="~/Content/BackEnd/js/retina.min.js"></script>
+    <script type="text/javascript" src="~/Content/BackEnd/js/jquery.cookies.js"></script>
+    <script type="text/javascript" src="~/Content/BackEnd/js/jquery.sparkline.min.js"></script>
+    <script type="text/javascript" src="~/Content/BackEnd/js/morris.min.js"></script>
+    <script type="text/javascript" src="~/Content/BackEnd/js/raphael-2.1.0.min.js"></script>
+    <script type="text/javascript" src="~/Content/BackEnd/js/bootstrap-wizard.min.js"></script>
+    <script type="text/javascript" src="~/Content/BackEnd/js/select2.min.js"></script>
+    <script type="text/javascript" src="~/Content/BackEnd/js/custom.js"></script>
+    <script type="text/javascript" src="~/Content/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="~/Content/BackEnd/js/jquery-ui-1.10.3.js"></script>
+    <script type="text/javascript" src="~/Content/jQueryFileUpload/js/vendor/jquery.ui.widget.js"></script>
+    <script type="text/javascript" src="~/Content/jQueryFileUpload/js/jquery.iframe-transport.js"></script>
+    <script type="text/javascript" src="~/Content/jQueryFileUpload/js/jquery.fileupload.js"></script>
+    <script type="text/javascript" src="~/Content/jQueryFileUpload/js/jquery.fileupload-ui.js"></script>
+    <script type="text/javascript" src="~/Content/form-validator/jquery.form-validator.js"></script>
+    <script type="text/javascript" src="~/Content/FontEnd/js/jquery.blockUI.js"></script>
 
-
-   
-    @Scripts.Render("~/Content/BackEnd/js/jquery-ui-1.10.3.js")
-    @Scripts.Render("~/Content/jQueryFileUpload/js/vendor/jquery.ui.widget.js")
-    @Scripts.Render("~/Content/jQueryFileUpload/js/jquery.iframe-transport.js")
-    @Scripts.Render("~/Content/jQueryFileUpload/js/jquery.fileupload.js")
-    @Scripts.Render("~/Content/jQueryFileUpload/js/jquery.fileupload-ui.js")
-
-    @Scripts.Render("~/Content/form-validator/jquery.form-validator.js")
-    @Scripts.Render("~/Content/FontEnd/js/jquery.blockUI.js")
     <style>
         .modal-header {
             padding: 5px 5px;
@@ -59,12 +56,78 @@
     </style>
 
     <script>
+        $(document).ready(function () {
+            $.validate({
+                form: '#frmModalPasswordInformation',
+                modules: 'security',
+
+            });
+
+
+            $("#btnModalSavePassword").click(function (e) {
+              
+               
+                $.validate({
+                    form: '#frmModalPasswordInformation',
+                    modules: 'security',
+                    onError: function ($form) {
+                       
+                        return false;
+                    },
+                    onSuccess: function ($form) {
+                        $.ajax({
+                            url: '@Url.Action("ChangePassword", "AdminPage")',
+                            contentType: "application/json; charset=utf-8",
+                            type: 'POST',
+                            dataType: "json",
+                            data: JSON.stringify({ "NewPassword": $("#newPassword").val(), "NewConfirmPassword": $("#confirmPassword").val() }),
+                            success: function (data) {
+
+                                $("#modalPasswordInformation").modal("hide");
+                                if (data.success === true) {
+                                    $("#lblMessageModal").html("Thành công.");
+
+                                    $("#modalShowError").modal("show");
+                                }
+                                else {
+                                    $("#lblMessageModal").html(data.MsgError);
+
+                                    $("#modalShowError").modal("show");
+                                }
+
+
+                            }
+                        });
+                        return false; // Will stop the submission of the form
+                    },
+                    onValidate: function ($form) {
+                        return false;
+                    },
+                    onElementValidate: function (valid, $el, $form, errorMess) {
+                        return false;
+                    }
+                });
+
+            });
+        });
+      
         function scrollup() {
             $("html, body").animate({
                 scrollTop: 0
             }, 600);
             return false;
         }
+
+        function ChangePassword() {
+
+            $("#newPassword").val('');
+            $("#confirmPassword").val('');
+            $("#modalPasswordInformation").modal("show");
+            return false;
+        }
+
+      
+         
     </script>
 </head>
 
@@ -122,7 +185,7 @@
             <div class="leftpanel">
                 <div class="media profile-left">            
                     <div class="media-body">
-                        <h3 class="media-heading"><a href="@Url.Action("UserInformation","AdminPage")">Admin</a></h3>
+                        <h3 class="media-heading"><a onclick="ChangePassword()">Admin</a></h3>
                         <small class="text-muted">Management</small>
                     </div>
                 </div>
@@ -130,11 +193,12 @@
              
                 <ul class="nav nav-pills nav-stacked">  
                          
-                    <li><a href="@Url.Action("Category","AdminPage")"><i class="fa fa-qrcode"></i><span>Nhóm Sản Phẩm</span></a></li>
-                    <li><a href="@Url.Action("Item","AdminPage")"><i class="fa fa-suitcase"></i><span>Sản Phẩm</span></a></li>
-                    <li><a href="@Url.Action("News","AdminPage")"><i class="fa fa-pencil-square-o"></i><span>Tin Tức</span></a></li>
-                    <li><a href="@Url.Action("ConfigAbout","AdminPage")"><i class="fa fa-check-circle"></i><span>Giới Thiệu</span></a></li>     
-                    <li><a href="@Url.Action("ConfigContacts","AdminPage")"><i class="fa fa-check-circle"></i><span>Liên Hệ</span></a></li>             
+                    <li><a href="@Url.Action("Category", "AdminPage")"><i class="fa fa-qrcode"></i><span>Nhóm Sản Phẩm</span></a></li>
+                    <li><a href="@Url.Action("Item", "AdminPage")"><i class="fa fa-suitcase"></i><span>Sản Phẩm</span></a></li>
+                    <li><a href="@Url.Action("News", "AdminPage")"><i class="fa fa-pencil-square-o"></i><span>Tin Tức</span></a></li>
+                    <li><a href="@Url.Action("ConfigAbout", "AdminPage")"><i class="fa fa-check-circle"></i><span>Giới Thiệu</span></a></li>     
+                    <li><a href="@Url.Action("ConfigContacts", "AdminPage")"><i class="fa fa-check-circle"></i><span>Liên Hệ</span></a></li>   
+                    <li><a href="@Url.Action("Config", "AdminPage")"><i class="fa fa-check-circle"></i><span>Config</span></a></li>                  
                 </ul>
             </div>
             <!-- leftpanel -->
@@ -190,6 +254,40 @@
 
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalPasswordInformation" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <form  id="frmModalPasswordInformation">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4>Thay Đổi Mật Khẩu</h4>
+                    </div>
+                    <div class="modal-body " style="padding:10px 10px;">
+
+
+                        <div class="form-group">
+                            <label>New Password</label>
+                            <input class="form-control" type="password" id="newPassword" name="pass_confirmation" data-validation="length" data-validation-length="min4" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Confirm Password</label>
+                            <input class="form-control" type="password" name="pass" data-validation="confirmation" id="confirmPassword" />
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" id="btnModalSavePassword" class="btn btn-primary  btn-default">Save</button>
+                        <button type="button" id="btnModalCancel" class="btn btn-danger btn-default" data-dismiss="modal">Cancel</button>
+
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </body>

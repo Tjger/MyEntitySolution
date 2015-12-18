@@ -196,7 +196,7 @@ namespace EntitySolution.WebUI.Controllers
             try
             {
                  
-                jResult = Json(new { success = Core.ProcessSendEmail(EmailAddress, Subject, Body)  }, JsonRequestBehavior.AllowGet);
+                jResult = Json(new { success = Core.ProcessSendEmail(Var.SMTPEmailManager, Subject, Body)  }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception)
