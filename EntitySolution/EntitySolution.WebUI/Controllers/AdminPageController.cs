@@ -577,7 +577,7 @@ namespace EntitySolution.WebUI.Controllers
                 {
 
                     HttpPostedFileBase file = (HttpPostedFileBase)TempData["HttpPostedFileBase"];
-                    string pathForSaving = Server.MapPath(Var.UrlUploadItemImage);
+                    string pathForSaving = Server.MapPath(Var.UrlUploadCompanyNewsImage);
                     if (this.CreateFolderIfNeeded(pathForSaving))
                     {
                         try

@@ -66,7 +66,7 @@ namespace EntitySolution.Domain.Concrete
                     {
                         ret = true;
                     }
-
+                    ret = true;
                 }
 
             }
@@ -235,6 +235,10 @@ namespace EntitySolution.Domain.Concrete
                     oldItem.Active = editItem.Active == null ? "" : editItem.Active;
 
                     if (_context.SaveChanges() > 0)
+                    {
+                        ret = true;
+                    }
+                    else
                     {
                         ret = true;
                     }
@@ -428,7 +432,7 @@ namespace EntitySolution.Domain.Concrete
                     {
                         ret = true;
                     }
-
+                    ret = true;
                 }
 
             }
