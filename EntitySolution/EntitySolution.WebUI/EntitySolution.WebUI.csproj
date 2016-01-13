@@ -668,6 +668,9 @@
     <Content Include="Content\FontEnd\css\jquery.bxslider.css" />
     <Content Include="Content\FontEnd\css\tabstyles.css" />
     <Content Include="Content\FontEnd\css\tanphong.css" />
+    <Content Include="Content\FontEnd\images\1.jpg" />
+    <Content Include="Content\FontEnd\images\2.jpg" />
+    <Content Include="Content\FontEnd\images\3.jpg" />
     <Content Include="Content\FontEnd\images\a21.png" />
     <Content Include="Content\FontEnd\images\appAdroid.png" />
     <Content Include="Content\FontEnd\images\AppiOS.png" />
@@ -679,8 +682,6 @@
     <Content Include="Content\FontEnd\images\bg-main-menu-top.png" />
     <Content Include="Content\FontEnd\images\bg-most-shared-active.png" />
     <Content Include="Content\FontEnd\images\bg-most-viewed-active.png" />
-    <Content Include="Content\FontEnd\images\bg.jpg" />
-    <Content Include="Content\FontEnd\images\bg.png" />
     <Content Include="Content\FontEnd\images\bgEducate.png" />
     <Content Include="Content\FontEnd\images\bgfooter.png" />
     <Content Include="Content\FontEnd\images\bgGadgets.png" />
@@ -708,14 +709,14 @@
     <Content Include="Content\FontEnd\images\ic-youtube.png" />
     <Content Include="Content\FontEnd\images\likebtn.png" />
     <Content Include="Content\FontEnd\images\loading.gif" />
+    <Content Include="Content\FontEnd\images\logo-small.png" />
     <Content Include="Content\FontEnd\images\logo-top.png" />
     <Content Include="Content\FontEnd\images\logotanphong.png" />
     <Content Include="Content\FontEnd\images\no_image.png" />
     <Content Include="Content\FontEnd\images\share-fb.png" />
     <Content Include="Content\FontEnd\images\share-googleplus.png" />
     <Content Include="Content\FontEnd\images\share-twist.png" />
-    <Content Include="Content\FontEnd\images\sl1.jpg" />
-    <Content Include="Content\FontEnd\images\sl2.png" />
+    <Content Include="Content\FontEnd\images\slo.png" />
     <Content Include="Content\FontEnd\images\tabvideo.png" />
     <Content Include="Content\FontEnd\images\tencty.png" />
     <Content Include="Content\FontEnd\images\Vietnam-Flag-icon.png" />
