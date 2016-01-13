@@ -129,6 +129,9 @@
   <data name="Cancel" xml:space="preserve">
     <value>Hủy</value>
   </data>
+  <data name="Condition" xml:space="preserve">
+    <value>Trạng Thái</value>
+  </data>
   <data name="ContactUs" xml:space="preserve">
     <value>Liên Hệ</value>
   </data>
@@ -138,6 +141,9 @@
   <data name="EmailUs" xml:space="preserve">
     <value>Gởi e-mail cho chúng tôi</value>
   </data>
+  <data name="FeaturesAndUsesAndAccessories" xml:space="preserve">
+    <value>Đặc Tính Kỹ Thuật</value>
+  </data>
   <data name="HomePage" xml:space="preserve">
     <value>Trang Chủ</value>
   </data>
@@ -146,6 +152,9 @@
   </data>
   <data name="News" xml:space="preserve">
     <value>Tin Công Ty</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>Sản Phẩm</value>
   </data>
   <data name="ProductCategories" xml:space="preserve">
     <value>Danh Mục Sản Phẩm</value>
@@ -161,6 +170,12 @@
   </data>
   <data name="SendEmail" xml:space="preserve">
     <value>Gửi Email</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Kích Cỡ</value>
+  </data>
+  <data name="SpecificationAndDimension" xml:space="preserve">
+    <value>Thông Tin Sản Phẩm</value>
   </data>
   <data name="Subject" xml:space="preserve">
     <value>Tiêu đề</value>

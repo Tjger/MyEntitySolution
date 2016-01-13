@@ -9,7 +9,7 @@
         <EntityTypeShape EntityType="EntitySolutionModel.Item" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="EntitySolutionModel.Emp" Width="1.5" PointX="0.75" PointY="3.75" />
         <EntityTypeShape EntityType="EntitySolutionModel.News" Width="1.5" PointX="5.375" PointY="0.75" />
-        <EntityTypeShape EntityType="EntitySolutionModel.SysPara" Width="1.5" PointX="3.375" PointY="5.75" />
+        <EntityTypeShape EntityType="EntitySolutionModel.SysPara" Width="1.5" PointX="5.5" PointY="4.25" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

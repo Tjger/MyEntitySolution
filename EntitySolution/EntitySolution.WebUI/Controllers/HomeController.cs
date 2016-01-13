@@ -24,7 +24,17 @@ namespace EntitySolution.WebUI.Controllers
         }
 
         public ActionResult Index()
-        {
+        {             
+            if (TempData["CategoryIndex"] != null)
+            {
+
+                ViewBag.DefaultCategory = TempData["CategoryIndex"];
+
+            }
+            else
+            {
+                ViewBag.DefaultCategory = "0";
+            } 
             return View();
         }
 
@@ -103,8 +113,30 @@ namespace EntitySolution.WebUI.Controllers
             {
                 int totalCount = 0;
                 var CategoryList = adminPageProvider.LoadAllCategory(allValue);
-                var ItemList = adminPageProvider.LoadAllItem(activeValue, allValue, ref totalCount);
+                var ItemListHot = adminPageProvider.LoadAllItem(activeValue, activeValue, ref totalCount);
                 var NewsList = adminPageProvider.LoadAllNews(activeValue, 3, ref totalCount);
+ 
+                jResult = Json(new { success = true, CategoryList = CategoryList, NewsList = NewsList, ItemListHot = ItemListHot }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception)
+            {
+
+
+            }
+
+            return jResult;
+        }
+
+        public JsonResult LoadAllDataForIndexPage()
+        {
+            JsonResult jResult = new JsonResult();
+            try
+            {
+                int totalCount = 0;
+                var CategoryList = adminPageProvider.LoadAllCategory(allValue);
+                var ItemList = adminPageProvider.LoadAllItem(activeValue, allValue, ref totalCount);
+               
 
                 var ItemInCategory = new List<Item>[CategoryList.Capacity];
 
@@ -114,8 +146,25 @@ namespace EntitySolution.WebUI.Controllers
                     ItemInCategory[i] = ItemInCat;
                 }
 
-                var ItemListHot = ItemList.Where(e => e.Hot == activeValue).ToList();
-                jResult = Json(new { success = true, CategoryList = CategoryList, NewsList = NewsList, ItemListHot = ItemListHot, ItemInCategory = ItemInCategory }, JsonRequestBehavior.AllowGet);
+                jResult = Json(new { success = true, ItemInCategory = ItemInCategory }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception)
+            {
+
+
+            }
+
+            return jResult;
+        }
+
+        public JsonResult SetDefaultCategory(string CategoryIndex)
+        {
+            JsonResult jResult = new JsonResult();
+            try
+            {
+                TempData["CategoryIndex"] = CategoryIndex;
+                jResult = Json(new { success = true }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception)

@@ -31,6 +31,7 @@ float: right; height: 20px;
 
     .box-show-thumb a img {
         border: 1px solid #cdcdcd;
+height: 60px;
     }
 
 .box-title-detail {
@@ -59,8 +60,7 @@ float: right; height: 20px;
 }
 
 .title-namecompany {
-    text-transform: uppercase;
-    color: #008AFF;
+    
 }
 
 .othernews {
@@ -155,15 +155,11 @@ float: right; height: 20px;
     float: right;
     font-size: 13px;
     font-style: italic;
-    margin: 0 auto;
+    margin: -22px auto;
 }
 
 .form-control {
-    border: 1px solid #fff;
-    border-radius: 0px;
-    height: 35px;
-    margin-top: 2px;
-    width: 100%;
+   
 }
 
 .footer-menu {
@@ -325,7 +321,7 @@ float: right; height: 20px;
 
 .bg-header {
     padding-top: 5px;
-    height: 155px;
+    height: 196px;
     background: rgba(0, 0, 0, 0) url("../images/bg-header.png") repeat scroll 0 0 / cover;
 }
 
@@ -403,7 +399,7 @@ float: right; height: 20px;
 
 .danhmucsp-menu-title {
     padding-left: 15px;
-    background: #082589 none repeat scroll 0 0;
+    background: #5dc5dc  none repeat scroll 0 0;
     color: #fff;
     font-weight: bold;
     height: 45px;
@@ -428,7 +424,10 @@ float: right; height: 20px;
     padding-left: 0px;
     margin: 0 auto;
 }
-
+ .list-newproduct ul > li {
+padding-bottom: 10px; 
+border-bottom: 1px dashed rgb(205, 205, 205);
+}
     .list-newproduct ul > li > a:hover {
         color: #337ab7;
         text-decoration: none;
@@ -889,7 +888,7 @@ div.ft-contact {
 }
 
 .menu-main {
-    background: #082589;
+    background: #5dc5dc;
     height: 47px;
     margin-bottom: 0;
 }

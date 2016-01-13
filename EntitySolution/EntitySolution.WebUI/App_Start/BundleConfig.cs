@@ -9,7 +9,10 @@ namespace EntitySolution.WebUI
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/jquery.form-validator.js",
+                        "~/Scripts/jquery.blockUI.js",
+                        "~/Scripts/jquery.bxslider.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -21,11 +24,20 @@ namespace EntitySolution.WebUI
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
+                      "~/Scripts/bootstrap-switch.js",
                       "~/Scripts/respond.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+            bundles.Add(new ScriptBundle("~/bundles/Backend").Include(
+                  "~/Scripts/bootstrap.js",
+                      "~/Scripts/bootstrap-switch.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/FileUpload").Include(
+                 "~/Content/jQueryFileUpload/js/vendor/jquery.ui.widget.js",
+                 "~/Content/jQueryFileUpload/js/jquery.iframe-transport.js",
+                 "~/Content/jQueryFileUpload/js/jquery.fileupload.js",
+                 "~/Content/jQueryFileUpload/js/jquery.fileupload-ui.js"));
+
+            BundleTable.EnableOptimizations = true;
         }
     }
 }

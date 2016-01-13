@@ -97,6 +97,15 @@ namespace EntitySolution.WebResource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Condition.
+        /// </summary>
+        public static string Condition {
+            get {
+                return ResourceManager.GetString("Condition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Contact Us.
         /// </summary>
         public static string ContactUs {
@@ -124,6 +133,15 @@ namespace EntitySolution.WebResource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Features &amp; Uses &amp; Accessories.
+        /// </summary>
+        public static string FeaturesAndUsesAndAccessories {
+            get {
+                return ResourceManager.GetString("FeaturesAndUsesAndAccessories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         public static string HomePage {
@@ -147,6 +165,15 @@ namespace EntitySolution.WebResource {
         public static string News {
             get {
                 return ResourceManager.GetString("News", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product.
+        /// </summary>
+        public static string Product {
+            get {
+                return ResourceManager.GetString("Product", resourceCulture);
             }
         }
         
@@ -192,6 +219,24 @@ namespace EntitySolution.WebResource {
         public static string SendEmail {
             get {
                 return ResourceManager.GetString("SendEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Size.
+        /// </summary>
+        public static string Size {
+            get {
+                return ResourceManager.GetString("Size", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specification &amp; Dimension.
+        /// </summary>
+        public static string SpecificationAndDimension {
+            get {
+                return ResourceManager.GetString("SpecificationAndDimension", resourceCulture);
             }
         }
         

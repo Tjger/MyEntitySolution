@@ -34,5 +34,9 @@ namespace EntitySolution.EntityDB
         public string FolderID { get; set; }
         public string ItemPrice2 { get; set; }
         public string ItemCondition2 { get; set; }
+        public string ItemSpecification { get; set; }
+        public string ItemSpecification2 { get; set; }
+        public string ItemFeatures { get; set; }
+        public string ItemFeatures2 { get; set; }
     }
 }

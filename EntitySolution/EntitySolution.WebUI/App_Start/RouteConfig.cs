@@ -36,6 +36,7 @@ namespace EntitySolution.WebUI
              url: "{Home}/{Search}/{key}",
              defaults: new { controller = "Home", action = "Search", key = UrlParameter.Optional }
          );
+             
         }
     }
 }

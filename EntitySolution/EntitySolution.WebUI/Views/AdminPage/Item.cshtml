@@ -75,6 +75,12 @@
         CKEDITOR.replace('itemDescription');
         CKEDITOR.replace('itemDescription2');
 
+        CKEDITOR.replace('itemSpecification');
+        CKEDITOR.replace('itemSpecification2');
+
+        CKEDITOR.replace('itemFeatures');
+        CKEDITOR.replace('itemFeatures2');
+
         $("#btnAddNew").click(function () {
             if (isAddNew === false) {
                 isAddNew = true;
@@ -286,6 +292,13 @@
         $('#itemHot').bootstrapSwitch('state', true);
         CKEDITOR.instances.itemDescription.setData('<p>Mô tả sản phẩm bằng tiếng việt.</p>');
         CKEDITOR.instances.itemDescription2.setData('<p>Mô tả sản phẩm bằng tiếng anh.</p>');
+
+        CKEDITOR.instances.itemSpecification.setData('<p>Thông tin sản phẩm bằng tiếng việt.</p>');
+        CKEDITOR.instances.itemSpecification2.setData('<p>Thông tin sản phẩm bằng tiếng anh.</p>');
+
+        CKEDITOR.instances.itemFeatures.setData('<p>Đặc tính kỹ thuật bằng tiếng việt.</p>');
+        CKEDITOR.instances.itemFeatures2.setData('<p>Đặc tính kỹ thuật bằng tiếng anh.</p>');
+
         $("#itemPrice").val("");
         $("#itemCondition").val("");
         $("#itemPrice2").val("");
@@ -304,6 +317,12 @@
         var description = CKEDITOR.instances.itemDescription.getData();
         var description2 = CKEDITOR.instances.itemDescription2.getData();
 
+        var itemSpecification = CKEDITOR.instances.itemSpecification.getData();
+        var itemSpecification2 = CKEDITOR.instances.itemSpecification2.getData();
+
+        var itemFeatures = CKEDITOR.instances.itemFeatures.getData();
+        var itemFeatures2 = CKEDITOR.instances.itemFeatures2.getData();
+
         if ($('#itemActive').bootstrapSwitch('state')) {
             cActive = "1";
         }
@@ -320,6 +339,10 @@
             CategoryName: $("#cboCategory option:selected").text(),
             Description: description,
             Description2: description2,
+            ItemSpecification: itemSpecification,
+            ItemSpecification2: itemSpecification2,
+            ItemFeatures: itemFeatures,
+            ItemFeatures2: itemFeatures2,
             ItemPrice: $("#itemPrice").val(),
             ItemCondition: $("#itemCondition").val(),
             ItemPrice2: $("#itemPrice2").val(),
@@ -530,6 +553,12 @@
                     $("#itemKeySearch").val(data.returnList.KeySearch);
                     CKEDITOR.instances.itemDescription.setData(data.returnList.Description);
                     CKEDITOR.instances.itemDescription2.setData(data.returnList.Description2);
+
+                    CKEDITOR.instances.itemSpecification.setData(data.returnList.ItemSpecification);
+                    CKEDITOR.instances.itemSpecification2.setData(data.returnList.ItemSpecification2);
+
+                    CKEDITOR.instances.itemFeatures.setData(data.returnList.ItemFeatures);
+                    CKEDITOR.instances.itemFeatures2.setData(data.returnList.ItemFeatures2);
 
                     $("#modalDetailsInformation").modal("show");
                 }
@@ -753,6 +782,29 @@
                         <textarea class="form-control" name="ItemDescription2" id="itemDescription2"></textarea>
 
                     </div>
+
+                    <div class="form-group">
+                        <label for="itemSpecification">Thông Tin Sản Phẩm</label>
+                        <textarea class="form-control" name="ItemSpecification" id="itemSpecification"></textarea>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="itemSpecification2">Thông Tin Sản Phẩm 2</label>
+                        <textarea class="form-control" name="ItemSpecification2" id="itemSpecification2"></textarea>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="itemFeatures">Đặc Tính Kỹ Thuật</label>
+                        <textarea class="form-control" name="ItemFeatures" id="itemFeatures"></textarea>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="itemFeatures2">Đặc Tính Kỹ Thuật 2</label>
+                        <textarea class="form-control" name="ItemFeatures2" id="itemFeatures2"></textarea>
+
+                    </div>
+
                 </form>
             </div>
             <div class="modal-footer">

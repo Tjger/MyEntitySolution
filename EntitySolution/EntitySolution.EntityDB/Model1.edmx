@@ -47,6 +47,10 @@
           <Property Name="Hot" Type="nvarchar" MaxLength="50" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="KeySearch" Type="ntext" />
+          <Property Name="ItemSpecification" Type="ntext" />
+          <Property Name="ItemSpecification2" Type="ntext" />
+          <Property Name="ItemFeatures" Type="ntext" />
+          <Property Name="ItemFeatures2" Type="ntext" />
         </EntityType>
         <EntityType Name="News">
           <Key>
@@ -117,6 +121,10 @@
           <Property Name="FolderID" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="ItemPrice2" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="ItemCondition2" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ItemSpecification" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ItemSpecification2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ItemFeatures" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ItemFeatures2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityContainer Name="EntityDBContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Categories" EntityType="Self.Category" />
@@ -178,6 +186,10 @@
           <EntitySetMapping Name="Items">
             <EntityTypeMapping TypeName="EntitySolutionModel.Item">
               <MappingFragment StoreEntitySet="Item">
+                <ScalarProperty Name="ItemFeatures2" ColumnName="ItemFeatures2" />
+                <ScalarProperty Name="ItemFeatures" ColumnName="ItemFeatures" />
+                <ScalarProperty Name="ItemSpecification2" ColumnName="ItemSpecification2" />
+                <ScalarProperty Name="ItemSpecification" ColumnName="ItemSpecification" />
                 <ScalarProperty Name="ItemCondition2" ColumnName="ItemCondition2" />
                 <ScalarProperty Name="ItemPrice2" ColumnName="ItemPrice2" />
                 <ScalarProperty Name="FolderID" ColumnName="FolderID" />

@@ -129,6 +129,9 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="Condition" xml:space="preserve">
+    <value>Condition</value>
+  </data>
   <data name="ContactUs" xml:space="preserve">
     <value>Contact Us</value>
   </data>
@@ -138,6 +141,9 @@
   <data name="EmailUs" xml:space="preserve">
     <value>Email Us</value>
   </data>
+  <data name="FeaturesAndUsesAndAccessories" xml:space="preserve">
+    <value>Features &amp; Uses &amp; Accessories</value>
+  </data>
   <data name="HomePage" xml:space="preserve">
     <value>Home</value>
   </data>
@@ -146,6 +152,9 @@
   </data>
   <data name="News" xml:space="preserve">
     <value>News</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>Product</value>
   </data>
   <data name="ProductCategories" xml:space="preserve">
     <value>Product Categories</value>
@@ -161,6 +170,12 @@
   </data>
   <data name="SendEmail" xml:space="preserve">
     <value>Send Email</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="SpecificationAndDimension" xml:space="preserve">
+    <value>Specification &amp; Dimension</value>
   </data>
   <data name="Subject" xml:space="preserve">
     <value>Subject</value>

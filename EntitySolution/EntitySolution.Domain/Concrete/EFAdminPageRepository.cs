@@ -147,6 +147,13 @@ namespace EntitySolution.Domain.Concrete
                 newItem.CategoryName = newItem.CategoryName == null ? "" : newItem.CategoryName;
                 newItem.Description = newItem.Description == null ? "" : newItem.Description;
                 newItem.Description2 = newItem.Description2 == null ? "" : newItem.Description2;
+
+                newItem.ItemSpecification = newItem.ItemSpecification == null ? "" : newItem.ItemSpecification;
+                newItem.ItemSpecification2 = newItem.ItemSpecification2 == null ? "" : newItem.ItemSpecification2;
+
+                newItem.ItemFeatures = newItem.ItemFeatures == null ? "" : newItem.ItemFeatures;
+                newItem.ItemFeatures2 = newItem.ItemFeatures2 == null ? "" : newItem.ItemFeatures2;
+
                 newItem.ItemPrice = newItem.ItemPrice == null ? "" : newItem.ItemPrice;
                 newItem.ItemCondition = newItem.ItemCondition == null ? "" : newItem.ItemCondition;
                 newItem.ItemPrice2 = newItem.ItemPrice2 == null ? "" : newItem.ItemPrice2;
@@ -206,6 +213,13 @@ namespace EntitySolution.Domain.Concrete
                     oldItem.CategoryName = editItem.CategoryName == null ? "" : editItem.CategoryName;
                     oldItem.Description = editItem.Description == null ? "" : editItem.Description;
                     oldItem.Description2 = editItem.Description2 == null ? "" : editItem.Description2;
+
+                    oldItem.ItemSpecification = editItem.ItemSpecification == null ? "" : editItem.ItemSpecification;
+                    oldItem.ItemSpecification2 = editItem.ItemSpecification2 == null ? "" : editItem.ItemSpecification2;
+
+                    oldItem.ItemFeatures = editItem.ItemFeatures == null ? "" : editItem.ItemFeatures;
+                    oldItem.ItemFeatures2 = editItem.ItemFeatures2 == null ? "" : editItem.ItemFeatures2;
+
                     oldItem.ItemPrice = editItem.ItemPrice == null ? "" : editItem.ItemPrice;
                     oldItem.ItemCondition = editItem.ItemCondition == null ? "" : editItem.ItemCondition;
                     oldItem.ItemPrice2 = editItem.ItemPrice2 == null ? "" : editItem.ItemPrice2;
