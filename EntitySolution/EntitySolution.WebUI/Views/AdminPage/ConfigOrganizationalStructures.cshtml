@@ -1,0 +1,88 @@
+﻿
+@{
+    ViewBag.Title = "ConfigOrganizationalStructures";
+    Layout = "~/Views/Shared/_LayoutBackEnd.cshtml";
+}
+ 
+@using EntitySolution.Domain.Common
+<h2>Cơ Cấu Tổ Chức</h2>
+<script>
+
+    $(document).ready(function () {
+        GetSysPara();
+
+        CKEDITOR.replace('itemMainContent');
+        CKEDITOR.replace('itemMainContent2');
+
+        $("#btnModalSave").click(function (e) {
+            e.preventDefault();
+
+            SaveItem();
+        });
+
+    });// end of document ready
+
+    function SaveItem() {
+
+        var mainContent = CKEDITOR.instances.itemMainContent.getData();
+        var mainContent2 = CKEDITOR.instances.itemMainContent2.getData();
+
+        var editSysPara = {
+            AutoID: "-1",
+            Field: '@Var.ConfigOrganizationalStructures',
+            Value: mainContent,
+            DefaultValue: mainContent2,
+
+        }
+
+        $.ajax({
+            url: '@Url.Action("EditSysPara", "AdminPage")',
+            contentType: "application/json; charset=utf-8",
+            type: 'POST',
+            dataType: "json",
+            data: JSON.stringify({ "editSysPara": editSysPara }),
+            success: function (data) {
+
+                if (data.success === true) {
+                    $("#lblMessageModal").html("Lưu trữ thành công.");
+
+                    $("#modalShowError").modal("show");
+                }
+
+
+            }
+        });
+
+    };
+
+
+    function GetSysPara() {
+        $.ajax({
+            url: '@Url.Action("GetSysPara", "AdminPage")',
+            contentType: "application/json; charset=utf-8",
+            type: 'POST',
+            dataType: "json",
+            data: JSON.stringify({ "fieldSysPara": '@Var.ConfigOrganizationalStructures' }),
+            success: function (data) {
+                CKEDITOR.instances.itemMainContent.setData(data.returnList.Value);
+                CKEDITOR.instances.itemMainContent2.setData(data.returnList.DefaultValue);
+            }
+        });
+    };
+
+</script>
+<form role="form" id="frmModalDetailsInformation">
+
+    <div class="form-group">
+        <label for="itemDescription">Nội Dung </label>
+        <textarea class="form-control" name="ItemMainContent" id="itemMainContent"></textarea>
+
+    </div>
+
+    <div class="form-group">
+        <label for="itemDescription">Nội Dung 2</label>
+        <textarea class="form-control" name="ItemMainContent2" id="itemMainContent2"></textarea>
+
+    </div>
+    <button type="submit" id="btnModalSave" class="btn btn-primary  btn-default" data-dismiss="modal">Save</button>
+</form>

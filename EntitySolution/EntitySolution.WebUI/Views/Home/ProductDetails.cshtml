@@ -12,377 +12,143 @@
     }
 }
 
-<div class="col-md-12 col-lg-12 padd0">
-    <div class="box-title-detail col-md-12 col-lg-12">
-        <p class="title-subpost">
-            @if (Session["Culture"].ToString().Contains("vi-VN"))
+
+<div class="top">
+    <div class="left"></div>
+    <div class="right"></div>
+    <div class="center">
+        <h1>THÔNG TIN SẢN PHẨM</h1>
+    </div>
+</div>
+<div style="text-align: left;" class="middle" id="box-listnews">
+    
+    <div class="row col-md-12 col-lg-12 padd0">
+
+        <div style="width:250px;float:left;">
+            @if (Model.ItemImageURL != "")
             {
-                @Model.ItemName
+                <img src="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL)" class="img-responsive" style=" height: 250px; width: 250px;" />
             }
             else
             {
-                @Model.ItemName2
+                <img src="@Url.Content("~/Content/FontEnd/images/no_image.png")" class="img-responsive" style="height: 250px; width: 250px;" />
+
             }
 
-        </p>
-    </div>
-    <div class="col-md-12 col-lg-12 padd0">
-        <div class="col-md-5 col-lg-5">
-            <div class="box-show-lg col-md-12 col-lg-12 padd0">
-                <ul class="pic-show">
-                    @if (Model.ItemImageURL != "")
-                    {
-                        <li><img src="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL)" class="img-responsive" style=" width: 320px;" /></li>
-                    }
-                    else
-                    {
-                        <li><img src="@Url.Content("~/Content/FontEnd/images/no_image.png")" class="img-responsive" style=" width: 320px;" /></li>
-
-                    }
-
-                    @if (Model.ItemImageURL2 != "")
-                    {
-                        <li><img src="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL2)" class="img-responsive" style=" width: 320px;" /></li>
-                    }
-                    else
-                    {
-                        <li><img src="@Url.Content("~/Content/FontEnd/images/no_image.png")" class="img-responsive" style=" width: 320px;" /></li>
-
-                    }
-                    @if (Model.ItemImageURL3 != "")
-                    {
-                        <li><img src="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL3)" class="img-responsive" style=" width: 320px;" /></li>
-                    }
-                    else
-                    {
-                        <li><img src="@Url.Content("~/Content/FontEnd/images/no_image.png")" class="img-responsive" style=" width: 320px;" /></li>
-
-                    }
-                    @if (Model.ItemImageURL4 != "")
-                    {
-                        <li><img src="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL4)" class="img-responsive" style=" width: 320px;" /></li>
-                    }
-                    else
-                    {
-                        <li><img src="@Url.Content("~/Content/FontEnd/images/no_image.png")" class="img-responsive" style=" width: 320px;" /></li>
-
-                    }
-                </ul>
-            </div>
-            <div class="box-show-thumb col-md-12 col-lg-12">
-                <div id="bx-pager" style="height:100px;">
-                    @if (Model.ItemImageURL != "")
-                    {
-                        <div class="col-md-3 col-lg-3 padd0">
-                            <a data-slide-index="0" href=""><img src="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL)" class="img-responsive" style=" width: 70px;" /></a>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="col-md-3 col-lg-3 padd0">
-                            <a data-slide-index="0" href=""><img src="@Url.Content("~/Content/FontEnd/images/no_image.png")" class="img-responsive" style=" width: 70px;" /></a>
-                        </div>
-                    }
-
-                    @if (Model.ItemImageURL2 != "")
-                    {
-                        <div class="col-md-3 col-lg-3 padd0">
-                            <a data-slide-index="1" href=""><img src="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL2)" class="img-responsive" style=" width: 70px;" /></a>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="col-md-3 col-lg-3 padd0">
-                            <a data-slide-index="1" href=""><img src="@Url.Content("~/Content/FontEnd/images/no_image.png")" class="img-responsive" style=" width: 70px;" /></a>
-                        </div>
-                    }
-
-                    @if (Model.ItemImageURL3 != "")
-                    {
-                        <div class="col-md-3 col-lg-3 padd0">
-                            <a data-slide-index="2" href=""><img src="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL3)" class="img-responsive" style=" width: 70px;" /></a>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="col-md-3 col-lg-3 padd0">
-                            <a data-slide-index="2" href=""><img src="@Url.Content("~/Content/FontEnd/images/no_image.png")" class="img-responsive" style=" width: 70px;" /></a>
-                        </div>
-                    }
-                    @if (Model.ItemImageURL4 != "")
-                    {
-                        <div class="col-md-3 col-lg-3 padd0">
-                            <a data-slide-index="3" href=""><img src="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL4)" class="img-responsive" style=" width: 70px;" /></a>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="col-md-3 col-lg-3 padd0">
-                            <a data-slide-index="3" href=""><img src="@Url.Content("~/Content/FontEnd/images/no_image.png")" class="img-responsive" style=" width: 70px;" /></a>
-                        </div>
-                    }
-
-                </div>
-
-            </div>
         </div>
-        <div class="col-md-7 col-lg-7">
-            <div class="box-sum-info">
-                <div class="pro_rightface left">
-                    <div class="pro_intro">
-                        <i class="fa fa-plus" style="color:#ff6a00;"></i>  <strong>@Resource.Product</strong>:
-                        @if (Session["Culture"].ToString().Contains("vi-VN"))
-                        {
-                            @Model.ItemName
-                        }
-                        else
-                        {
-                            @Model.ItemName2
-                        }
-                        <br>
-                        <i class="fa fa-plus" style="color:#ff6a00;"></i>  <strong>@Resource.Condition</strong>:
-                        @if (Session["Culture"].ToString().Contains("vi-VN"))
-                        {
-                            @Model.ItemCondition
-                        }
-                        else
-                        {
-                            @Model.ItemCondition2
-                        }
-                        <br>
-                        <i class="fa fa-plus" style="color:#ff6a00;"></i>  <strong>@Resource.Size</strong>:
-                        @if (Session["Culture"].ToString().Contains("vi-VN"))
-                        {
-                            @Model.ItemPrice
-                        }
-                        else
-                        {
-                            @Model.ItemPrice2
-                        }
-                        <br>
-                        <!--<i class="fa fa-plus" style="color:#ff6a00;"></i>  <strong>PRICE:</strong><span style="color: rgb(255, 0, 0);">$140.000</span><br>-->
-                        <br>
-                        @if (Session["Culture"].ToString().Contains("vi-VN"))
-                        {
-                            @Html.Raw(Model.Description)
-                        }
-                        else
-                        {
-                            @Html.Raw(Model.Description2)
-                        }
+        <div style="width:250px;float:left;">
+            <p>
+                @Resource.Product :
+                <b>
+                    @if (Session["Culture"].ToString().Contains("vi-VN"))
+                    {
+                        @Model.ItemName
+                    }
+                    else
+                    {
+                        @Model.ItemName2
+                    }
+                </b>
+            </p>
+            <p>
+                @Resource.Condition:
+                <b>
+                    @if (Session["Culture"].ToString().Contains("vi-VN"))
+                    {
+                        @Model.ItemCondition
+                    }
+                    else
+                    {
+                        @Model.ItemCondition2
+                    }
+                </b>
+            </p>
 
-
-                        <br>
-                        &nbsp;<br>
-                        <br>
-                        <br>
-                    </div>
-
-                </div>
-            </div>
+            <p>
+                @Resource.Size:
+                <b>
+                    @if (Session["Culture"].ToString().Contains("vi-VN"))
+                    {
+                        @Model.ItemPrice
+                    }
+                    else
+                    {
+                        @Model.ItemPrice2
+                    }
+                </b>
+            </p>
+            <p>
+                Mô tả sản phẩm:
+                <b>
+                    @if (Session["Culture"].ToString().Contains("vi-VN"))
+                    {
+                        @Html.Raw(Model.Description)
+                    }
+                    else
+                    {
+                        @Html.Raw(Model.Description2)
+                    }
+                </b>
+            </p>
         </div>
+
     </div>
-    <div class="col-md-12 col-lg-12 padd0" style="margin-bottom:25px;">
-        <div class="content-description">
-            <div class="menu-content-main col-md-12 col-lg-12 padd0">
-                <ul class="nav nav-tabs nav-justified">
-                    <li class="active"><a data-toggle="tab" href="#SpecificationDimension">@Resource.SpecificationAndDimension</a></li>
-                    <li><a data-toggle="tab" href="#FeaturesUsesAccessories">@Resource.FeaturesAndUsesAndAccessories</a></li>
-                    @*<li><a data-toggle="tab" href="#TestingInspection">Testing & Inspection</a></li>*@
-                </ul>
-            </div>
-            <div class="col-md-12 col-lg-12 padd0">
-                <div class="tab-content">
-                    <div id="SpecificationDimension" class="tab-pane fade in active">
-                        <div class="showContent">
-                            @*<h3>Specifications of 40 Feet Standard Container:</h3>
-                                1) 40' Standard Container Dimension:40' x 8' x 8'6" <br>
-                                2) Solid steel structural components<br>
-                                3) Timber flooring<br>
-                                4) Standard double doors<br>
-                                5) Contract type: sales<br>
-                                6) Minimum order quantity: 10 units&#65279;&#65279;<br>
-                                <br>
-                                <img width="652" height="659" src="images/pro.jpg" alt=""><br>
-                                <h3>Dimension of 40 Feet Standard Container:&#65279;</h3>
-                                <table cellspacing="0" cellpadding="0">
-                                    <colgroup>   <col width="108">   <col width="80">   <col width="99">   <col width="97">   <col width="91">   <col width="89">   </colgroup>
-                                    <tbody>
-                                        <tr>
-                                            <td bgcolor="#CCCCCC" colspan="2" rowspan="2"><strong>Dimension</strong></td>
-                                            <td bgcolor="#CCCCCC" colspan="2"><strong>40' Standard Container</strong></td>
-                                        </tr>
-                                        <tr>
-                                            <td width="146" bgcolor="#CCCCCC"><strong>Millimetres</strong></td>
-                                            <td width="181" bgcolor="#CCCCCC"><strong>Feet</strong></td>
-                                        </tr>
-                                        <tr>
-                                            <td width="108" rowspan="3">Internal Dimensions</td>
-                                            <td width="94">Length</td>
-                                            <td width="146">12,024</td>
-                                            <td width="181">39'5.7"</td>
-                                        </tr>
-                                        <tr>
-                                            <td width="94">Width</td>
-                                            <td width="146">2,352</td>
-                                            <td width="181">7'8.5"</td>
-                                        </tr>
-                                        <tr>
-                                            <td width="94">Height</td>
-                                            <td width="146">2,390</td>
-                                            <td width="181">7'10"</td>
-                                        </tr>
-                                        <tr>
-                                            <td width="108" rowspan="2">Door Opening&nbsp;</td>
-                                            <td width="94">Width</td>
-                                            <td width="146">2,340</td>
-                                            <td width="181">7'8"</td>
-                                        </tr>
-                                        <tr>
-                                            <td width="94">Height</td>
-                                            <td width="146">2,280</td>
-                                            <td width="181">7'5.8"</td>
-                                        </tr>
-                                        <tr>
-                                            <td bgcolor="#CCCCCC" colspan="2" rowspan="2"><strong>Weight</strong></td>
-                                            <td bgcolor="#CCCCCC" colspan="2"><strong>40' Standard Container</strong></td>
-                                        </tr>
-                                        <tr>
-                                            <td width="146" bgcolor="#CCCCCC"><strong>Kilograms&nbsp;</strong></td>
-                                            <td width="181" bgcolor="#CCCCCC"><strong>Pounds&nbsp;</strong></td>
-                                        </tr>
-                                        <tr>
-                                            <td rowspan="3">Weight</td>
-                                            <td width="94">Max Gross&nbsp;</td>
-                                            <td width="146">30,480</td>
-                                            <td width="181">67,200</td>
-                                        </tr>
-                                        <tr>
-                                            <td width="94">Tare&nbsp;</td>
-                                            <td width="146">3,830</td>
-                                            <td width="181">8,450</td>
-                                        </tr>
-                                        <tr>
-                                            <td width="94">Max Payload&nbsp;</td>
-                                            <td width="146">26,650</td>
-                                            <td width="181">58,750</td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2" rowspan="2">Internal Capacity</td>
-                                            <td width="146">Cube Metres&nbsp;</td>
-                                            <td width="181">Cube Feet&nbsp;</td>
-                                        </tr>
-                                        <tr>
-                                            <td>67.7</td>
-                                            <td>2,390</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <br>*@
 
-                            @if (Session["Culture"].ToString().Contains("vi-VN"))
-                            {
-                                @Html.Raw(Model.ItemSpecification)
-                            }
-                            else
-                            {
-                                @Html.Raw(Model.ItemSpecification2)
-                            }
+    <div class="row col-md-12 col-lg-12 padd0">
 
-                        </div>
-                    </div>
-                    <div id="FeaturesUsesAccessories" class="tab-pane fade">
-                        <div class="col-md-12 col-lg-12 padd0">
-                            <div class="showContent">
-                                @*<h3>Features of 40 Feet Standard Container:</h3>
-                                    - Cost-efficiency<br>
-                                    - High quality specification to ensure maximum strength and rust protection<br>
-                                    - Wind and waterproof
-                                    <br>
-                                    <h3>Applications of 40 Feet Standard Container:</h3>
-                                    Those standard shipping containers are mostly used for general purposes to transport and store products.&#65279;&#65279;<br>
-
-                                    <h3>Accessories of 40 Feet Standard Container include:</h3>
-                                    1.Fully painted inside and outbsp <br>
-                                    2.Container locks are available<br>
-                                    <br>
-                                    <img width="652" height="659" src="images/pro.jpg" alt=""><br>*@
-
-                                @if (Session["Culture"].ToString().Contains("vi-VN"))
-                                {
-                                    @Html.Raw(Model.ItemFeatures)
-                                }
-                                else
-                                {
-                                    @Html.Raw(Model.ItemFeatures2)
-                                }
-
-                            </div>
-                        </div>
-                    </div>
-                    @*<div id="TestingInspection" class="tab-pane fade">
-                            <div class="col-md-12 col-lg-12 padd0">
-                                <div class="showContent">
-                                    <h3>Testing &amp; Inspection</h3>
-                                    <strong>1 Materials and Parts Inspection</strong><br>
-                                    All materials and parts are inspected by the manufacturer's Quality Control department to ensure they are up to the specification called fr in the design.
-                                    <p>&nbsp;</p>
-                                    <p>
-                                        <strong>2 Production Line Quality Control</strong><br>
-                                        All containers are manufactured under effective quality control procedures to meet the specified standards. All dimensions are checked and smoothe operation of the doors are ensured after each container's completion. A light and watertight test is conducted on all containers.
-                                    </p>
-                                    <p>Quality control personnel independent of the production dept. will be inspecting on all phaes of the production as well as ad hoc inspections by the calssificatin soceity's surveyor and buyer's representatives to assure the quality of the container.</p>
-                                    <h3>
-                                        <br>
-                                        Warranty
-                                    </h3>
-                                    <strong>1 Guarantee</strong><br>
-                                    The guarantee period will commence the day after the certification is issued by the calssifcation society.
-                                    <p>&nbsp;</p>
-                                    <p>
-                                        <strong>2 Paint Guarantee</strong><br>
-                                        The application of paint will be guaranteed against corrosion and paint failure for a period of three years. The guarantee is for all faults affecting more than 10% of the painted surfaces and will assure partial or total re-painting of the contianers. Normal wear/tear, or corrosion caued by acid, alkali or results of damages by abrasion, impact or accident are excluede.
-                                    </p>
-                                    <p>Note: Corrosion is defined as rusting which exceed RE3 (European scale of degree of rusting) on at least ten percent of the total container surface coated with the concerned coating system.</p>
-                                    <p>
-                                        <strong>
-                                            <br>
-                                            3 Other Guarantee
-                                        </strong><br>
-                                        This container will be guaranteed againt any defect or omissions in construction, workmanship and materials for a period of 24 months. In the event of defects, FACTORY will replace. correct or install to make the container satisfactory to this specification and its intended service at FACTORY's expense. Any damages caused by mis-handling, mis-securing, mis-loading, impact and any natures of accidents are excluded.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>*@
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="col-md-12 col-lg-12 othernews">
-    <h2>
-        @Resource.Products
-    </h2>
-    <ul>
-        @for (int i = 0; i < ListProductAndRelative.Count; i++)
+        @if (Session["Culture"].ToString().Contains("vi-VN"))
         {
-            <li>
-                @if (Session["Culture"].ToString().Contains("vi-VN"))
-                {
-                    <a title="@ListProductAndRelative[i].ItemName" style="text-decoration: none;" href='@Url.Action("ProductDetails", "Home", new { id = ListProductAndRelative[i].ItemID })'>
-                        @ListProductAndRelative[i].ItemName
-                    </a>
-                }
-                else
-                {
-                    <a title="@ListProductAndRelative[i].ItemName2" style="text-decoration: none;" href='@Url.Action("ProductDetails", "Home", new { id = ListProductAndRelative[i].ItemID })'>
-                        @ListProductAndRelative[i].ItemName2
-                    </a>
-                }
-
-            </li>
+            @Html.Raw(Model.ItemSpecification)
+        }
+        else
+        {
+            @Html.Raw(Model.ItemSpecification2)
         }
 
-    </ul>
+        @if (Session["Culture"].ToString().Contains("vi-VN"))
+        {
+            @Html.Raw(Model.ItemFeatures)
+        }
+        else
+        {
+            @Html.Raw(Model.ItemFeatures2)
+        }
+
+
+    </div>
+
+
+    <div class="row col-md-12 col-lg-12 othernews">
+        <h2>
+            @Resource.Products
+        </h2>
+        <ul>
+            @for (int i = 0; i < ListProductAndRelative.Count; i++)
+            {
+                <li>
+                    @if (Session["Culture"].ToString().Contains("vi-VN"))
+                    {
+                        <a title="@ListProductAndRelative[i].ItemName" style="text-decoration: none;" href='@Url.Action("ProductDetails", "Home", new { id = ListProductAndRelative[i].ItemID })'>
+                            @ListProductAndRelative[i].ItemName
+                        </a>
+                    }
+                    else
+                    {
+                        <a title="@ListProductAndRelative[i].ItemName2" style="text-decoration: none;" href='@Url.Action("ProductDetails", "Home", new { id = ListProductAndRelative[i].ItemID })'>
+                            @ListProductAndRelative[i].ItemName2
+                        </a>
+                    }
+
+                </li>
+            }
+
+        </ul>
+    </div>
 </div>
+
+<div class="bottom">
+    <div class="left"></div>
+    <div class="right"></div>
+    <div class="center"></div>
+</div>
+<br>

@@ -1,0 +1,160 @@
+﻿@{
+    ViewBag.Title = "Product";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using EntitySolution.WebResource
+@using EntitySolution.Domain.Common
+<script>
+    var Langguage = '@Session["Culture"].ToString()';
+    $(document).ready(function () {
+
+        $.ajax({
+            url: '@Url.Action("LoadAllDataForIndexPage", "Home")',
+            contentType: "application/json; charset=utf-8",
+            type: 'POST',
+            dataType: "json",
+            data: {},
+            success: function (data) {
+                $("#ContactContent").html("");
+                var gridAllItemHtml = "";
+                var isFist = false;
+                $.each(data.ItemInCategory, function (index, item) {
+                    gridAllItemHtml += "<div class=\"top \">";
+                    gridAllItemHtml += "<div class=\"left \"></div>";
+                    gridAllItemHtml += "<div class=\"right \"></div>";
+                    isFist = false;
+                    var indexTotal = 0;
+                    var numberRow = 1;
+                    $.each(item, function (ix, im) {
+                        indexTotal++;
+                        var ItemName = "";
+                        if (Langguage === "vi-VN") {
+                            ItemName = im.ItemName;
+                        }
+                        else {
+                            ItemName = im.ItemName2;
+                        }
+
+                        if (!isFist) {
+                            gridAllItemHtml += "<div class=\"center \"> <h1>" + im.CategoryName + " </h1>";
+                            gridAllItemHtml += "</div></div>";
+
+                            gridAllItemHtml += "<div class=\"middle\" style=\"text-align: left;\" >";
+                            gridAllItemHtml += "<table class=\"list\">";
+                            gridAllItemHtml += "<tbody><tr>";
+                            isFist = true;
+                        }
+
+                        gridAllItemHtml += "<td style=\"width: 15%;\">"
+                        gridAllItemHtml += "<a href=\"javascript:ShowItemDetail('" + im.ItemID + "')\">";
+                        gridAllItemHtml += "<img src=\"" + '@Url.Content(Var.UrlUploadItemImage)' + im.ItemImageURL + "\" class=\"img-responsive\" style=\"height: 100px; width: 100px;border: 1px solid #DDD;padding: 0px;margin-right: 10px;background: white;\"> ";
+                        gridAllItemHtml += "</a><br></td> ";
+
+                        gridAllItemHtml += "<td>"
+                        gridAllItemHtml += "<a href=\"javascript:ShowItemDetail('" + im.ItemID + "')\"> <b>" + ItemName + "</b></a><br></td>";
+
+                        if (indexTotal % 2 == 0) {
+                            numberRow++;
+                            gridAllItemHtml += "</tr><tr>";
+                        }
+
+
+                    });
+
+                    gridAllItemHtml += "</tr>";
+                    gridAllItemHtml += "</tbody></table></div>";
+                });
+
+              
+                $("#ContactContent").html(gridAllItemHtml);
+
+            }
+        });
+
+
+    });
+
+</script>
+
+
+<div id="ContactContent">
+    @*<div class="top">
+        <div class="left"></div>
+        <div class="right"></div>
+        <div class="center">
+            <h1>CONTAINER KHÔ</h1>
+        </div>
+    </div>
+    <div style="text-align: left;" class="middle">
+
+        <table class="list">
+
+            <tbody>
+                <tr>
+
+
+                    <td style="width: 15%;">
+                        <a href="#">
+                            <img style="border: 1px solid #DDD;padding: 0px;margin-right: 10px;background: white;" alt="CONTAINER VP 20 FEET" title="&quot;Chăm&quot; chưa đúng cách, cơ khí Việt Nam chậm lớn" src="http://ducphatvp.com.vn/image/cache/data/image027-120x100.jpg">
+                        </a>
+                        <br>
+
+                    </td>
+                    <td>
+                        <a href="#"><b>CONTAINER VP 20 FEET</b></a><br>
+
+                    </td>
+
+
+                    <td style="width: 15%;">
+                        <a href="#">
+                            <img style="border: 1px solid #DDD;padding: 0px;margin-right: 10px;background: white;" alt="Ngành cơ khí - không chỉ là tiện, phay, bào, hàn" title="Ngành cơ khí - không chỉ là tin, phay, bào, hàn" src="http://ducphatvp.com.vn/image/cache/data/theme/images (10)-120x100.jpg">
+                        </a>
+                        <br>
+
+
+                    </td>
+                    <td>
+                        <a href="#"><b>Container VP 40 Feet</b></a><br>
+
+                    </td>
+
+                </tr>
+                <tr>
+                    <td style="width: 15%;">
+                        <a href="#">
+                            <img style="border: 1px solid #DDD;padding: 0px;margin-right: 10px;background: white;" src="http://ducphatvp.com.vn/image/cache/data/HTV2-120x100.jpg">
+                        </a>
+                        <br>
+
+                    </td>
+                    <td>
+                        <a href="#">
+                            <b>Container Toilet 10 Feet</b>
+                        </a>
+                        <br>
+
+                    </td>
+
+
+                    <td style="width: 15%;">
+                        <a href="#">
+                            <img style="border: 1px solid #DDD;padding: 0px;margin-right: 10px;background: white;" src="http://ducphatvp.com.vn/image/cache/data/image022-120x100.jpg">
+                        </a>
+                        <br>
+
+                    </td>
+                    <td>
+                        <a href="#">
+                            <b>Container Kho 10 Feet</b>
+                        </a>
+                        <br>
+
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>*@
+
+</div>

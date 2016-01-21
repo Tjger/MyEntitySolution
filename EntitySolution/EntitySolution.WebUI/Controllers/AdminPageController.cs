@@ -178,6 +178,42 @@ namespace EntitySolution.WebUI.Controllers
             }
         }
 
+        public ActionResult ConfigOrganizationalStructures()
+        {
+            if (Session["EmpID"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+        }
+
+        public ActionResult ConfigOrientedDevelopment()
+        {
+            if (Session["EmpID"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+        }
+
+        public ActionResult ConfigTypicalProjects()
+        {
+            if (Session["EmpID"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+        }
+
         //[AcceptVerbs(HttpVerbs.Post)]
         //public JsonResult UpdateSysParam(string lstSysparam)
         //{

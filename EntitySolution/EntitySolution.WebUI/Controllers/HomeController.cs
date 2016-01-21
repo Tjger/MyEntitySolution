@@ -24,7 +24,7 @@ namespace EntitySolution.WebUI.Controllers
         }
 
         public ActionResult Index()
-        {             
+        {
             if (TempData["CategoryIndex"] != null)
             {
 
@@ -34,13 +34,12 @@ namespace EntitySolution.WebUI.Controllers
             else
             {
                 ViewBag.DefaultCategory = "0";
-            } 
+            }
             return View();
         }
 
         public ActionResult About()
         {
-
             return View();
         }
 
@@ -59,18 +58,24 @@ namespace EntitySolution.WebUI.Controllers
         public ActionResult NewsDetail()
         {
             var id = RouteData.Values["id"];
-          
+
             ViewBag.ListNewsAndRelative = new List<News>();
             List<News> ListNewsAndRelative = new List<News>();
             News NewsDetail = new News();
             if (id != null)
             {
-               
+
                 NewsDetail = adminPageProvider.LoadNewsAndRelativeOfIt(id.ToString(), 5, ref ListNewsAndRelative);
                 ViewBag.ListNewsAndRelative = ListNewsAndRelative;
-                
+
             }
             return View(NewsDetail);
+        }
+
+        public ActionResult Product()
+        {
+            
+            return View();
         }
 
         public ActionResult ProductDetails()
@@ -81,17 +86,32 @@ namespace EntitySolution.WebUI.Controllers
             Item ItemDetail = new Item();
             if (id != null)
             {
-                ItemDetail = adminPageProvider.LoadItemAndRelativeOfIt(id.ToString(),ref ListProductAndRelative);
+                ItemDetail = adminPageProvider.LoadItemAndRelativeOfIt(id.ToString(), ref ListProductAndRelative);
                 ViewBag.ListProductAndRelative = ListProductAndRelative;
             }
             return View(ItemDetail);
         }
 
+        public ActionResult OrganizationalStructures()
+        {
+            return View();
+        }
+
+        public ActionResult OrientedDevelopment()
+        {
+            return View();
+        }
+
+        public ActionResult TypicalProjects()
+        {
+            return View();
+        }
+
         public ActionResult Search(string search, string category)
         {
-           
-           
-            
+
+
+
             if (search != null && search.Trim() != "")
             {
                 ViewBag.SearchText = search;
@@ -102,9 +122,8 @@ namespace EntitySolution.WebUI.Controllers
             {
                 return RedirectToAction("Index");
             }
-           
-        }
 
+        }
 
         public JsonResult LoadAllDataForHomePage()
         {
@@ -113,10 +132,12 @@ namespace EntitySolution.WebUI.Controllers
             {
                 int totalCount = 0;
                 var CategoryList = adminPageProvider.LoadAllCategory(allValue);
-                var ItemListHot = adminPageProvider.LoadAllItem(activeValue, activeValue, ref totalCount);
+                var AllItemList = adminPageProvider.LoadAllItem(allValue, allValue, ref totalCount);
                 var NewsList = adminPageProvider.LoadAllNews(activeValue, 3, ref totalCount);
- 
-                jResult = Json(new { success = true, CategoryList = CategoryList, NewsList = NewsList, ItemListHot = ItemListHot }, JsonRequestBehavior.AllowGet);
+
+                var ItemListHot = AllItemList.Where(x => x.Hot == activeValue).Take(10);
+                var ItemListFeatured = AllItemList.Where(x => x.Active == activeValue).Take(4);
+                jResult = Json(new { success = true, CategoryList = CategoryList, NewsList = NewsList, ItemListHot = ItemListHot, ItemListFeatured = ItemListFeatured }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception)
@@ -136,7 +157,7 @@ namespace EntitySolution.WebUI.Controllers
                 int totalCount = 0;
                 var CategoryList = adminPageProvider.LoadAllCategory(allValue);
                 var ItemList = adminPageProvider.LoadAllItem(activeValue, allValue, ref totalCount);
-               
+
 
                 var ItemInCategory = new List<Item>[CategoryList.Capacity];
 
@@ -194,7 +215,7 @@ namespace EntitySolution.WebUI.Controllers
             return jResult;
         }
 
-        public JsonResult LoadAllItem(int sPageIndex, string sItemStatus, string sHotStatus, string sSearchText , string sCategoryID)
+        public JsonResult LoadAllItem(int sPageIndex, string sItemStatus, string sHotStatus, string sSearchText, string sCategoryID)
         {
             JsonResult jResult = new JsonResult();
             try
@@ -244,8 +265,8 @@ namespace EntitySolution.WebUI.Controllers
             JsonResult jResult = new JsonResult();
             try
             {
-                 
-                jResult = Json(new { success = Core.ProcessSendEmail(Var.SMTPEmailManager, Subject, Body)  }, JsonRequestBehavior.AllowGet);
+
+                jResult = Json(new { success = Core.ProcessSendEmail(Var.SMTPEmailManager, Subject, Body) }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception)

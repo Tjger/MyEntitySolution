@@ -1,0 +1,133 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using EntitySolution.Domain.Common
+<script>
+    var DefaultCategory = '@ViewBag.DefaultCategory';
+    $(document).ready(function () {
+
+        $.ajax({
+            url: '@Url.Action("LoadAllDataForIndexPage", "Home")',
+            contentType: "application/json; charset=utf-8",
+            type: 'POST',
+            dataType: "json",
+            data: {},
+            success: function (data) {
+                $("#tabs").html("");
+                var gridAllItemHtml = "";
+                var isFist = false;
+                $.each(data.ItemInCategory, function (index, item) {
+
+                    if (index == '0') {
+
+                        //gridAllItemHtml += "<div id=\"menu" + index + "\" class=\"tab-pane fade in active\">";
+                        gridAllItemHtml += "<div id=\"menu" + index + "\" class=\"tab-pane fade \">";
+
+                    }
+                    else {
+                        gridAllItemHtml += "<div id=\"menu" + index + "\" class=\"tab-pane fade \">";
+
+                    }
+
+                    var numberRow = 1;
+                    gridAllItemHtml += "<div class=\"col-md-12 col-lg-12 padd0\" id=\"row" + index + numberRow + "\">";
+                    var indexTotal = 0;
+                    var numberRow = 1;
+                    $.each(item, function (ix, im) {
+                        indexTotal++;
+                        var ItemName = "";
+                        if (Langguage === "vi-VN") {
+                            ItemName = im.ItemName;
+                        }
+                        else {
+                            ItemName = im.ItemName2;
+                        }
+                        gridAllItemHtml += "<div class=\"col-md-4 col-lg-4 mt15\">";
+                        gridAllItemHtml += "<div class=\"box-show-product col-md-12 col-lg-12 padd0\">";
+                        gridAllItemHtml += "<div class=\"box-img col-md-12 col-lg-12\">";
+                        gridAllItemHtml += "<a href=\"javascript:ShowItemDetail('" + im.ItemID + "')\">";
+                        gridAllItemHtml += "<img src=\"" + '@Url.Content(Var.UrlUploadItemImage)' + im.ItemImageURL + "\" class=\"img-responsive\" style=\"height: 105px; width: 190px;\"> ";
+                        gridAllItemHtml += "</a>";
+                        gridAllItemHtml += "</div>";
+                        gridAllItemHtml += "<div class=\"col-md-12 col-lg-12 padd0\">";
+                        gridAllItemHtml += "<a href=\"javascript:ShowItemDetail('" + im.ItemID + "')\">";
+                        gridAllItemHtml += "<p class=\"box-info-danhgia\">";
+                        gridAllItemHtml += ItemName;
+                        gridAllItemHtml += "</p>";
+                        gridAllItemHtml += "<p class=\"box-star\">";
+                        gridAllItemHtml += "<i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i>";
+                        gridAllItemHtml += "</p>";
+                        gridAllItemHtml += "</a>";
+                        gridAllItemHtml += "</div>";
+                        gridAllItemHtml += "<div class=\"col-md-12 col-lg-12\">";
+                        gridAllItemHtml += "<p class=\"box-datetime\">";
+                        gridAllItemHtml += "<i class=\"fa fa-clock-o\"></i>";
+                        gridAllItemHtml += "<span class=\"small day-post\">239 Days</span>";
+                        gridAllItemHtml += "<span class=\"small time-post\">13:13:11</span>";
+                        gridAllItemHtml += "</p>";
+                        gridAllItemHtml += "</div>";
+                        gridAllItemHtml += "</div>";
+                        gridAllItemHtml += "</div>";
+                        gridAllItemHtml += "";
+
+                        if (indexTotal % 3 == 0) {
+                            numberRow++;
+                            gridAllItemHtml += "</div><div class=\"col-md-12 col-lg-12 padd0\" id=\"row" + index + numberRow + "\">";
+                        }
+                    });
+
+                    gridAllItemHtml += "</div></div>"
+                });
+                $("#tabs").html(gridAllItemHtml);
+                 
+                var menu = "#menu" + '@ViewBag.DefaultCategory';
+
+                activaTab(menu);
+
+            }
+        });
+
+      
+    });
+
+    function activaTab(tab) {
+    
+        $('.nav-tabs a[href="' + tab + '"]').tab('show');
+
+
+        //
+       
+    };
+
+</script>
+
+<div class="menu-content-main col-md-12 col-lg-12 padd0">
+    <ul class="nav nav-tabs nav-justified" id="lstCategoryPanelTop">
+        <li id="limenu0"><a data-toggle="tab" href="#menu0">CONTAINER VĂN PHÒNG</a></li>
+        <li id="limenu1"><a data-toggle="tab" href="#menu1">CONTAINER KHÔ</a></li>
+        <li id="limenu2"><a data-toggle="tab" href="#menu2">CONTAINER LẠNH</a></li>
+        <li id="limenu3"><a data-toggle="tab" href="#menu3">CONTAINER TOILET</a></li>
+    </ul>
+</div>
+<div class="col-md-12 col-lg-12 padd0">
+    <div class="tab-content" id="tabs">
+
+    </div>
+
+    @*<div class="col-md-12 col-lg-12 text-center padd0">
+            <ul class="pagination mt50" id="ulPaging">
+                <li>
+                    <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span> </a>
+                </li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span> </a></li>
+            </ul>
+        </div>*@
+
+</div>

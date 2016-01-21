@@ -18,6 +18,10 @@ namespace EntitySolution.Domain.Common
         public static string ConfigAbout = "ConfigAbout";
         public static string ConfigContacts = "ConfigContacts";
 
+        public static string ConfigOrganizationalStructures = "ConfigOrganizationalStructures";
+        public static string ConfigOrientedDevelopment = "ConfigOrientedDevelopment";
+        public static string ConfigTypicalProjects = "ConfigTypicalProjects";
+
         public static string SMTPHostField = "SMTPHost";
         public static string SMTPEmailAddressField = "SMTPEmailAddress";
         public static string SMTPEmailPasswordField = "SMTPEmailPassword";

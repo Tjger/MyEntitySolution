@@ -1,0 +1,163 @@
+﻿@{
+    ViewBag.Title = "Contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using EntitySolution.WebResource
+@using EntitySolution.Domain.Common
+<script>
+    var Langguage = '@Session["Culture"].ToString()';
+    $(document).ready(function () {
+        GetSysPara();
+
+
+        $.validate({
+            form: '#frmSendEmail',
+            modules: 'security',
+
+        });
+
+        $("#btnSendEmail").click(function (e) {
+
+            $.validate({
+                form: '#frmSendEmail',
+                modules: 'security',
+                onError: function ($form) {
+                    
+                },
+                onSuccess: function ($form) {
+                    
+
+                    var EmailAddress = "";
+                    var Subject = $("#guestSubject").val();
+                    var Body = "Tên: " + $("#guestSubject").val() + " " + "\r\n" +
+                        "Chức Vụ: " + $("#guestPosition").val() + " " + "\r\n" +
+                         "Công Ty: " + $("#guestCompany").val() + " " + "\r\n" +
+                          "Địa Chỉ: " + $("#guestAddress").val() + " " + "\r\n" +
+                           "Email: " + $("#guestEmail").val() + " " + "\r\n" +
+                            "Số Điện Thoại: " + $("#guestTelephone").val() + " " + "\r\n" +
+                             "Tiêu Đề: " + $("#guestSubject").val() + " " + "\r\n" +
+                              "Nội Dung: " + $("#guestBody").val() + " " + "\r\n"
+                    ;
+
+                    $.blockUI({ message: null });
+                    setTimeout($.unblockUI, 2000);
+                    $.ajax({
+                        url: '@Url.Action("SendEmail", "Home")',
+                        contentType: "application/json; charset=utf-8",
+                        type: 'POST',
+                        dataType: "json",
+                        data: JSON.stringify({ "EmailAddress": EmailAddress, "Subject": Subject, "Body": Body }),
+                        success: function (data) {
+                            if (data.success === true) {
+
+                                $.growlUI('@Resource.Success', '@Resource.EmailThank');
+
+                                document.getElementById("frmSendEmail").reset();
+
+                            }
+                            else {
+                                $("#lblMessageModal").html("Có lỗi xảy ra , xin hãy thử lại sau.");
+
+                                $("#modalShowError").modal("show");
+                            }
+                        }
+                    });
+
+                    return false; // Will stop the submission of the form
+                },
+                onValidate: function ($form) {
+
+                },
+                onElementValidate: function (valid, $el, $form, errorMess) {
+
+                }
+            });
+        });
+    });
+
+      function GetSysPara() {
+        $.ajax({
+            url: '@Url.Action("GetSysPara", "AdminPage")',
+            contentType: "application/json; charset=utf-8",
+            type: 'POST',
+            dataType: "json",
+            data: JSON.stringify({ "fieldSysPara": '@Var.ConfigContacts' }),
+            success: function (data) {
+               
+                if (Langguage === "vi-VN") {
+                    $("#ContactContent").html(data.returnList.Value);
+                }
+                else {
+                    $("#ContactContent").html(data.returnList.DefaultValue);
+                }
+                
+            }
+        });
+    };
+</script>
+
+<div class="col-md-12 col-lg-12 padd0">
+    <p class="title-post">
+        @Resource.ContactUs
+    </p>
+</div>
+<div class="box-listnews">
+    <div class="sub-listnews col-md-12 col-lg-12" id="ContactContent">
+       
+    </div>
+</div>
+<div id="contact-form">
+    <div class="title-namecompany col-md-12 col-lg-12">
+        <b>@Resource.EmailUs</b>
+    </div>
+    <div class="col-md-12 col-lg-12">
+        <form id="frmSendEmail" action="" method="POST">
+            <ul>
+                <li>
+                    @Resource.YourName<span style="color: #f00;">(*)</span><br />
+                    <input type="text" data-validation="required" data-validation-error-msg="@Resource.ThisIsARequiredField" class="form-control2" name="Name" id="guestName" />
+                </li>
+                <li>
+                    @Resource.YourPosition<br />
+                    <input type="text" value="" class="form-control2" name="Position" id="guestPosition" />
+                </li>
+                <li>
+                    @Resource.YourCompany<br />
+                    <input type="text" value="" class="form-control2" name="Company" id="guestCompany" />
+                </li>
+                <li>
+                    @Resource.YourAddress<br />
+                    <input type="text" class="form-control2" name="Address" id="guestAddress" />
+                </li>
+                <li>
+                    Email<span style="color: #f00;">(*)</span><br />
+                    <input type="text" data-validation="email" data-validation-error-msg="@Resource.ThisIsARequiredField" class="form-control2" name="Email" id="guestEmail" />
+                </li>
+                <li>
+                    @Resource.YourPhone<span style="color: #f00;">(*)</span><br />
+                    <input type="text" data-validation="required" data-validation-error-msg="@Resource.ThisIsARequiredField" class="form-control2" name="Telephone" id="guestTelephone" />
+                </li>
+                <li>
+                    @Resource.Subject<span style="color: #f00;">(*)</span><br />
+                    <input type="text" data-validation="required" data-validation-error-msg="@Resource.ThisIsARequiredField" class="form-control2" name="Subject" id="guestSubject" />
+                </li>
+                <li>
+                    @Resource.Body<span style="color: #f00;">(*)</span><br />
+                    <textarea style="width:350px;" data-validation="required" data-validation-error-msg="@Resource.ThisIsARequiredField" name="Body" id="guestBody" rows="8"></textarea>
+                </li>
+            </ul>
+            <div class="col-md-12 col-lg-12">
+                <p align="center">
+                    <button name="SendEmail" id="btnSendEmail" class="btn btn-info" type="submit">
+                        @Resource.SendEmail
+                    </button>
+                    <button type="reset" class="btn btn-warning" id="btnresetEmail">
+                        @Resource.Reset
+                    </button>
+                </p>
+            </div>
+
+        </form>
+
+    </div>
+</div>

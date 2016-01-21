@@ -3,131 +3,160 @@
 
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@using EntitySolution.WebResource
 @using EntitySolution.Domain.Common
 <script>
     var DefaultCategory = '@ViewBag.DefaultCategory';
     $(document).ready(function () {
-
         $.ajax({
-            url: '@Url.Action("LoadAllDataForIndexPage", "Home")',
+            url: '@Url.Action("GetSysPara", "AdminPage")',
             contentType: "application/json; charset=utf-8",
             type: 'POST',
             dataType: "json",
-            data: {},
+            data: JSON.stringify({ "fieldSysPara": '@Var.ConfigAbout' }),
             success: function (data) {
-                $("#tabs").html("");
-                var gridAllItemHtml = "";
-                var isFist = false;
-                $.each(data.ItemInCategory, function (index, item) {
+                if (Langguage === "vi-VN") {
+                    $("#ContactContent").html(data.returnList.Value);
+                }
+                else {
+                    $("#ContactContent").html(data.returnList.DefaultValue);
+                }
+                $("#lstItemFeatured").html("");
+                var gridTablePanelTopHtml = "";
+               
+                var indexTotal = 0;
+                var numberRow = 1;
+                gridTablePanelTopHtml += "<tr>";
 
-                    if (index == '0') {
-
-                        //gridAllItemHtml += "<div id=\"menu" + index + "\" class=\"tab-pane fade in active\">";
-                        gridAllItemHtml += "<div id=\"menu" + index + "\" class=\"tab-pane fade \">";
-
+                $.each(FeaturedProducts, function (index, item) {
+                    indexTotal++;
+                    var ItemName = "";
+                    if (Langguage === "vi-VN") {
+                        ItemName = item.ItemName;
                     }
                     else {
-                        gridAllItemHtml += "<div id=\"menu" + index + "\" class=\"tab-pane fade \">";
-
+                        ItemName = item.ItemName2;
                     }
 
-                    var numberRow = 1;
-                    gridAllItemHtml += "<div class=\"col-md-12 col-lg-12 padd0\" id=\"row" + index + numberRow + "\">";
-                    var indexTotal = 0;
-                    var numberRow = 1;
-                    $.each(item, function (ix, im) {
-                        indexTotal++;
-                        var ItemName = "";
-                        if (Langguage === "vi-VN") {
-                            ItemName = im.ItemName;
-                        }
-                        else {
-                            ItemName = im.ItemName2;
-                        }
-                        gridAllItemHtml += "<div class=\"col-md-4 col-lg-4 mt15\">";
-                        gridAllItemHtml += "<div class=\"box-show-product col-md-12 col-lg-12 padd0\">";
-                        gridAllItemHtml += "<div class=\"box-img col-md-12 col-lg-12\">";
-                        gridAllItemHtml += "<a href=\"javascript:ShowItemDetail('" + im.ItemID + "')\">";
-                        gridAllItemHtml += "<img src=\"" + '@Url.Content(Var.UrlUploadItemImage)' + im.ItemImageURL + "\" class=\"img-responsive\" style=\"height: 105px; width: 190px;\"> ";
-                        gridAllItemHtml += "</a>";
-                        gridAllItemHtml += "</div>";
-                        gridAllItemHtml += "<div class=\"col-md-12 col-lg-12 padd0\">";
-                        gridAllItemHtml += "<a href=\"javascript:ShowItemDetail('" + im.ItemID + "')\">";
-                        gridAllItemHtml += "<p class=\"box-info-danhgia\">";
-                        gridAllItemHtml += ItemName;
-                        gridAllItemHtml += "</p>";
-                        gridAllItemHtml += "<p class=\"box-star\">";
-                        gridAllItemHtml += "<i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i>";
-                        gridAllItemHtml += "</p>";
-                        gridAllItemHtml += "</a>";
-                        gridAllItemHtml += "</div>";
-                        gridAllItemHtml += "<div class=\"col-md-12 col-lg-12\">";
-                        gridAllItemHtml += "<p class=\"box-datetime\">";
-                        gridAllItemHtml += "<i class=\"fa fa-clock-o\"></i>";
-                        gridAllItemHtml += "<span class=\"small day-post\">239 Days</span>";
-                        gridAllItemHtml += "<span class=\"small time-post\">13:13:11</span>";
-                        gridAllItemHtml += "</p>";
-                        gridAllItemHtml += "</div>";
-                        gridAllItemHtml += "</div>";
-                        gridAllItemHtml += "</div>";
-                        gridAllItemHtml += "";
+                    gridTablePanelTopHtml += "<td style=\"width: 15%;\">"
+                    gridTablePanelTopHtml += "<a href=\"javascript:ShowItemDetail('" + item.ItemID + "')\">";
+                    gridTablePanelTopHtml += "<img src=\"" + '@Url.Content(Var.UrlUploadItemImage)' + item.ItemImageURL + "\" class=\"img-responsive\" style=\"height: 100px; width: 100px;border: 1px solid #DDD;padding: 0px;margin-right: 10px;background: white;\"> ";
+                    gridTablePanelTopHtml += "</a><br></td> ";
 
-                        if (indexTotal % 3 == 0) {
-                            numberRow++;
-                            gridAllItemHtml += "</div><div class=\"col-md-12 col-lg-12 padd0\" id=\"row" + index + numberRow + "\">";
-                        }
-                    });
+                    gridTablePanelTopHtml += "<td>"
+                    gridTablePanelTopHtml += "<a href=\"javascript:ShowItemDetail('" + item.ItemID + "')\"> <b>" + ItemName + "</b></a><br></td>";
 
-                    gridAllItemHtml += "</div></div>"
+                    if (indexTotal % 2 == 0) {
+                        numberRow++;
+                        gridTablePanelTopHtml += "</tr><tr>";
+                    }
+
                 });
-                $("#tabs").html(gridAllItemHtml);
-                 
-                var menu = "#menu" + '@ViewBag.DefaultCategory';
+                gridTablePanelTopHtml += "</tr>"
+                $("#lstItemFeatured").html(gridTablePanelTopHtml);
 
-                activaTab(menu);
 
             }
         });
-
-      
     });
-
-    function activaTab(tab) {
-    
-        $('.nav-tabs a[href="' + tab + '"]').tab('show');
-
-
-        //
-       
-    };
-
+     
 </script>
 
-<div class="menu-content-main col-md-12 col-lg-12 padd0">
-    <ul class="nav nav-tabs nav-justified" id="lstCategoryPanelTop">
-        <li id="limenu0"><a data-toggle="tab" href="#menu0">CONTAINER VĂN PHÒNG</a></li>
-        <li id="limenu1"><a data-toggle="tab" href="#menu1">CONTAINER KHÔ</a></li>
-        <li id="limenu2"><a data-toggle="tab" href="#menu2">CONTAINER LẠNH</a></li>
-        <li id="limenu3"><a data-toggle="tab" href="#menu3">CONTAINER TOILET</a></li>
-    </ul>
-</div>
-<div class="col-md-12 col-lg-12 padd0">
-    <div class="tab-content" id="tabs">
-
+<div class="top">
+    <div class="left"></div>
+    <div class="right"></div>
+    <div class="center">
+        <h1>@Resource.AboutUs </h1>
     </div>
+</div>
+<div style="text-align: left;" class="middle" id="ContactContent">
 
-    @*<div class="col-md-12 col-lg-12 text-center padd0">
-            <ul class="pagination mt50" id="ulPaging">
-                <li>
-                    <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span> </a>
-                </li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span> </a></li>
-            </ul>
-        </div>*@
+</div>
+<div class="bottom">
+    <div class="left"></div>
+    <div class="right"></div>
+    <div class="center"></div>
+</div>
+<br>
+<div class="topnd">
+    <div class="left"></div>
+    <div class="right"></div>
+    <div class="center">
+        <div class="headingnd">
+           @Resource.FeaturedProducts
+        </div>
+    </div>
+</div>
+<div class="middlend">
+    <table class="list" >
 
+        <tbody id="lstItemFeatured">
+            @*<tr>
+
+
+                <td style="width: 15%;">
+                    <a href="#">
+                        <img style="border: 1px solid #DDD;padding: 0px;margin-right: 10px;background: white;" alt="CONTAINER VP 20 FEET" title="&quot;Chăm&quot; chưa đúng cách, cơ khí Việt Nam chậm lớn" src="http://ducphatvp.com.vn/image/cache/data/image027-120x100.jpg">
+                    </a><br>
+
+                </td>
+                <td>
+                    <a href="http://ducphatvp.com.vn/cham-chua-dung-cach-co-khi-viet-nam-cham-lon"><b>CONTAINER VP 20 FEET</b></a><br>
+
+                </td>
+
+
+                <td style="width: 15%;">
+                    <a href="http://ducphatvp.com.vn/index.php?route=product/product&amp;product_id=78">
+                        <img style="border: 1px solid #DDD;padding: 0px;margin-right: 10px;background: white;" alt="Ngành cơ khí - không chỉ là tiện, phay, bào, hàn" title="Ngành cơ khí - không chỉ là tin, phay, bào, hàn" src="http://ducphatvp.com.vn/image/cache/data/theme/images (10)-120x100.jpg">
+                    </a><br>
+
+
+                </td>
+                <td>
+                    <a href="http://ducphatvp.com.vn/index.php?route=product/product&amp;product_id=78"><b>Container VP 40 Feet</b></a><br>
+
+                </td>
+
+            </tr>
+            <tr>
+                <td style="width: 15%;">
+                    <a href="http://ducphatvp.com.vn/ha-noi-diem-ten-nhung-du-an-gia-binh-dan-sap-hoan-thien">
+                        <img style="border: 1px solid #DDD;padding: 0px;margin-right: 10px;background: white;" src="http://ducphatvp.com.vn/image/cache/data/HTV2-120x100.jpg">
+                    </a>
+                    <br>
+
+                </td>
+                <td>
+                    <a href="http://ducphatvp.com.vn/ha-noi-diem-ten-nhung-du-an-gia-binh-dan-sap-hoan-thien">
+                        <b>Container Toilet 10 Feet</b>
+                    </a>
+                    <br>
+
+                </td>
+
+
+                <td style="width: 15%;">
+                    <a href="http://ducphatvp.com.vn/thi-diem-dua-ra-thi-truong-can-ho-25m2">
+                        <img style="border: 1px solid #DDD;padding: 0px;margin-right: 10px;background: white;" src="http://ducphatvp.com.vn/image/cache/data/image022-120x100.jpg">
+                    </a>
+                    <br>
+
+                </td>
+                <td>
+                    <a href="http://ducphatvp.com.vn/thi-diem-dua-ra-thi-truong-can-ho-25m2">
+                        <b>Container Kho 10 Feet</b>
+                    </a>
+                    <br>
+
+                </td>
+
+            </tr>*@
+        </tbody>
+    </table>
+</div>
+<div class="bottomnd">
+    <div class="left"></div>
+    <div class="right"></div>
+    <div class="center"></div>
 </div>

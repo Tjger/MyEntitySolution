@@ -129,6 +129,9 @@
   <data name="Cancel" xml:space="preserve">
     <value>Hủy</value>
   </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Danh Mục</value>
+  </data>
   <data name="Condition" xml:space="preserve">
     <value>Trạng Thái</value>
   </data>
@@ -141,17 +144,29 @@
   <data name="EmailUs" xml:space="preserve">
     <value>Gởi e-mail cho chúng tôi</value>
   </data>
+  <data name="FeaturedProducts" xml:space="preserve">
+    <value>Sản phẩm Đặc Trưng</value>
+  </data>
   <data name="FeaturesAndUsesAndAccessories" xml:space="preserve">
     <value>Đặc Tính Kỹ Thuật</value>
   </data>
   <data name="HomePage" xml:space="preserve">
     <value>Trang Chủ</value>
   </data>
+  <data name="LinkWebsites" xml:space="preserve">
+    <value>Liên Kết Websites</value>
+  </data>
   <data name="NewProducts" xml:space="preserve">
     <value>Sản Phẩm Mới</value>
   </data>
   <data name="News" xml:space="preserve">
     <value>Tin Công Ty</value>
+  </data>
+  <data name="OrganizationalStructures" xml:space="preserve">
+    <value>Cơ Cấu Tổ Chức</value>
+  </data>
+  <data name="OrientedDevelopment" xml:space="preserve">
+    <value>Định Hướng Phát Triển</value>
   </data>
   <data name="Product" xml:space="preserve">
     <value>Sản Phẩm</value>
@@ -183,11 +198,20 @@
   <data name="Success" xml:space="preserve">
     <value>Thành Công</value>
   </data>
+  <data name="Support" xml:space="preserve">
+    <value>Hỗ Trợ</value>
+  </data>
   <data name="ThisIsARequiredField" xml:space="preserve">
     <value>Đây là thông tin bắt buộc phải nhập</value>
   </data>
+  <data name="TypicalProjects" xml:space="preserve">
+    <value>Dự Án Tiêu Biểu</value>
+  </data>
   <data name="ViewDetails" xml:space="preserve">
     <value>Chi tiết</value>
+  </data>
+  <data name="VisitorCounter" xml:space="preserve">
+    <value>Thống Kê Truy Cập</value>
   </data>
   <data name="YourAddress" xml:space="preserve">
     <value>Địa chỉ</value>

@@ -1,7 +1,9 @@
-﻿@{
-    ViewBag.Title = "About";
+﻿
+@{
+    ViewBag.Title = "OrganizationalStructures";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+ 
 @using EntitySolution.WebResource
 @using EntitySolution.Domain.Common
 <script>
@@ -9,7 +11,7 @@
     var Langguage = '@Session["Culture"].ToString()';
     $(document).ready(function () {
         GetSysPara();
-         
+
     });
 
     function GetSysPara() {
@@ -18,7 +20,7 @@
             contentType: "application/json; charset=utf-8",
             type: 'POST',
             dataType: "json",
-            data: JSON.stringify({ "fieldSysPara": '@Var.ConfigAbout' }),
+            data: JSON.stringify({ "fieldSysPara": '@Var.ConfigOrganizationalStructures' }),
             success: function (data) {
                 if (Langguage === "vi-VN") {
                     $("#ContactContent").html(data.returnList.Value);
@@ -35,7 +37,7 @@
     <div class="left"></div>
     <div class="right"></div>
     <div class="center">
-        <h1>@Resource.AboutUs</h1>
+        <h1>@Resource.OrganizationalStructures</h1>
     </div>
 </div>
 <div style="text-align: left;" class="middle" id="ContactContent">

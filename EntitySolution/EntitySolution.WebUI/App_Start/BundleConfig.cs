@@ -22,7 +22,7 @@ namespace EntitySolution.WebUI
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+            bundles.Add(new ScriptBundle("~/bundles/FontEnd").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/bootstrap-switch.js",
                       "~/Scripts/respond.js"));

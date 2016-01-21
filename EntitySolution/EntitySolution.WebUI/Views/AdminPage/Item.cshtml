@@ -288,7 +288,7 @@
     function ClearModal() {
         $("#itemName").val("");
         $("#itemName2").val("");
-        $('#itemActive').bootstrapSwitch('state', true);
+        $('#itemActive').bootstrapSwitch('state', false);
         $('#itemHot').bootstrapSwitch('state', true);
         CKEDITOR.instances.itemDescription.setData('<p>Mô tả sản phẩm bằng tiếng việt.</p>');
         CKEDITOR.instances.itemDescription2.setData('<p>Mô tả sản phẩm bằng tiếng anh.</p>');
@@ -582,8 +582,8 @@
         gridTableHtml += "<th scope=\"col\">Tên 2</th>";
         gridTableHtml += "<th scope=\"col\" class=\"hidden\">ID</th>";
         gridTableHtml += "<th scope=\"col\">Nhóm Sản Phẩm</th>";
-        gridTableHtml += "<th scope=\"col\">Trạng Thái</th>";
-        gridTableHtml += "<th scope=\"col\">Hot</th>";
+        gridTableHtml += "<th scope=\"col\">Sản Phẩm Đặc Trưng</th>";
+        gridTableHtml += "<th scope=\"col\">Sản Phẩm Mới</th>";
         gridTableHtml += "<th scope=\"col\">Size</th>";
         gridTableHtml += "<th scope=\"col\">Condition</th>";
         gridTableHtml += "<th scope=\"col\">Từ Khóa Tìm Kiếm</th>";
@@ -736,13 +736,13 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="itemActive">Trạng Thái</label>
+                        <label for="itemActive">Sản Phẩm Đặc Trưng</label>
                         <br />
                         <input type="checkbox" id="itemActive">
                     </div>
 
                     <div class="form-group">
-                        <label for="itemHot">Hot</label>
+                        <label for="itemHot">Sản Phẩm Mới</label>
                         <br />
                         <input type="checkbox" id="itemHot">
                     </div>

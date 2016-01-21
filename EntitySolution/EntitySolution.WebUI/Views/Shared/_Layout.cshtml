@@ -1,91 +1,37 @@
 ﻿@using EntitySolution.Domain.Common
 @using EntitySolution.WebResource
-<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="vi" xml:lang="vi" dir="ltr" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta content="width=device-width" name="viewport" />
-    <title>Tân Phong</title>
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700"
-          rel="stylesheet" />
+    <title>Công ty TNHH Thương mại, Cơ khí và Xây dựng Đức Phát</title>
+    <meta content="Công ty TNHH Thương mại, Cơ khí và Xây dựng Đức Phát" name="description">
 
-    <link rel="stylesheet" href="~/Content/bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/Content/bootstrap/css/bootstrap-theme.min.css" />
-    <link rel="stylesheet" href="~/Content/FontEnd/css/tanphong.css" />
-    @*<link rel="stylesheet" href="~/Content/BackEnd/css/jquery-ui.css" />*@
-    <link rel="stylesheet" href="~/Content/BackEnd/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="~/Content/FontEnd/css/jquery.bxslider.css" />
-    <link rel="stylesheet" href="~/Content/FontEnd/css/block.css" />
+    <link rel="icon" href="http://ducphatvp.com.vn/image/data/theme/logodp.png">
+    <link href="~/Content/FontEnd/NewDesign/css/stylesheet.css" type="text/css" rel="stylesheet">
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/bootstrap")
 
-    @*<script type="text/javascript" src="~/Content/FontEnd/js/buttons.js"></script>
+  
+    <script src="~/Content/FontEnd/NewDesign/js/thickbox-compressed.js" type="text/javascript"></script>
+    <link href="~/Content/FontEnd/NewDesign/css/thickbox.css" type="text/css" rel="stylesheet">
+    <script src="~/Content/FontEnd/NewDesign/js/tab.js" type="text/javascript"></script>
 
-        <script type="text/javascript" src="~/Content/FontEnd/js/jssor.js"></script>
-        <script type="text/javascript" src="~/Content/FontEnd/js/jssor.slider.js"></script>*@
-
-
-    <style>
-        .modal-header {
-            padding: 5px 5px;
-        }
-
-        .modal-header, h4, .close {
-            background-color: #5cb85c;
-            color: white !important;
-            text-align: center;
-            font-size: 30px;
-        }
-
-        .modal-footer {
-            background-color: #f9f9f9;
-        }
-
-
-        #sidebar {
-            width: 97px;
-            float: right;
-            left: -99px;
-        }
-
-        #sidebar {
-            margin-left: 98px;
-            position: fixed;
-            width: 190px;
-        }
-    </style>
-
+    <!-- thêm để sile sản phẩm yeni.tpl -->
+    <link href="~/Content/FontEnd/NewDesign/css/footerslider.css" type="text/css" rel="stylesheet">
+    <script src="~/Content/FontEnd/NewDesign/js/jcarousel-lite.js" type="text/javascript"></script>
+    <script src="~/Content/FontEnd/NewDesign/js/footerslider.js" type="text/javascript"></script>
+    <!-- end thêm để sile sản phẩm yeni.tpl -->
 </head>
 <body>
-
     <script>
         var CategoryList = null;
+        var FeaturedProducts = null;
         var Langguage = '@Session["Culture"].ToString()';
         $(document).ready(function () {
             LoadAllDataForHomePage();
 
-            $('.pic-show').bxSlider({
-                pagerCustom: '#bx-pager'
-            });
-            $('.bxslider').bxSlider({
-                auto: true
-            });
-            $("#btn_close_modal").click(function () {
-                playPause();
-
-            });
-
         });
-
-        function playPause() {
-            if ($("#video1").paused) {
-                $("#video1").play();
-            }
-            else
-                $("#video1").pause();
-        }
-
 
         function LoadAllDataForHomePage() {
 
@@ -96,69 +42,14 @@
                 dataType: "json",
                 data: {},
                 success: function (data) {
-
-                    //
-                    $("#cboCategory").html("");
-
-
+ 
                     CategoryList = data.CategoryList;
-                    var gridTableComboBoxHtml = "<option value=\"" + '@((int)Var.DefaultValueInComboBox)' + "\" selected>" + '@Resource.All' + "</option>";
-                    var gridTablePanelLeftHtml = "";
-                    var gridTablePanelTopHtml = "";
-                    $.each(CategoryList, function (index, item) {
-                        var CategoryName = "";
-                        if (Langguage === "vi-VN") {
-                            CategoryName = item.CategoryName;
-                        }
-                        else {
-                            CategoryName = item.CategoryName2;
-                        }
-                       
-                        gridTableComboBoxHtml += "<option value=\"" + item.CategoryID + "\">" + CategoryName + "</option>";
-
-                        if (index == '0') {
-                            gridTablePanelLeftHtml += "<li  class=\"active\"> <a href=\"javascript:ShowCategory('" + index + "')\"> <i class=\"fa fa-chevron-right\" style=\"padding-right: 10px;\"> </i>" + CategoryName + "</a></li>";
-                        }
-                        else {
-                            gridTablePanelLeftHtml += "<li> <a href=\"javascript:ShowCategory('" + index + "')\"> <i class=\"fa fa-chevron-right\" style=\"padding-right: 10px;\"> </i>" + CategoryName + "</a></li>";
-                        }
-
-                        if (index == '0') {
-                            gridTablePanelTopHtml += "<li id=\"limenu" + index + "\"> <a data-toggle=\"tab\" href=\"#menu" + index + "\">" + CategoryName + "</a></li>";
-                        }
-                        else {
-                            gridTablePanelTopHtml += "<li id=\"limenu" + index + "\"> <a data-toggle=\"tab\" href=\"#menu" + index + "\">" + CategoryName + "</a></li>";
-                        }
-
-                    });
-
-                    $("#cboCategory").html(gridTableComboBoxHtml);
-                    $("#lstCategoryPanelLeft").html("");
-                    $("#lstCategoryPanelLeft").html(gridTablePanelLeftHtml);
-
-                    $("#lstCategoryPanelTop").html("");
-                    $("#lstCategoryPanelTop").html(gridTablePanelTopHtml);
-
-                    //
-                    $("#lstItemHotPanelLeft").html("");
-                    var gridItemListHotHtml = "";
-                    $.each(data.ItemListHot, function (index, item) {
-                        var ItemName = "";
-                        if (Langguage === "vi-VN") {
-                            ItemName = item.ItemName;
-                        }
-                        else {
-                            ItemName = item.ItemName2;
-                        }
-                        gridItemListHotHtml += "<li> <a href=\"javascript:ShowItemDetail('" + item.ItemID + "')\">";
-                        gridItemListHotHtml += "<img src=\"" + '@Url.Content(Var.UrlUploadItemImage)' + item.ItemImageURL + "\" class=\"img-responsive\"> ";
-                        gridItemListHotHtml += "<p class=\"tittle-small\">" + ItemName + "</p></a></li>";
-                    });
-                    $("#lstItemHotPanelLeft").html(gridItemListHotHtml);
-
+                    FeaturedProducts = data.ItemListFeatured;
+                     
                     //
                     $("#lstNewsPanelLeft").html("");
                     var gridNewsPanelLeftHtml = "";
+
                     $.each(data.NewsList, function (index, item) {
                         var Title = "";
                         if (Langguage === "vi-VN") {
@@ -167,14 +58,49 @@
                         else {
                             Title = item.Title2;
                         }
-                        gridNewsPanelLeftHtml += "<li style=\"height: 85px;\"> <a href=\"javascript:ShowNewsDetail('" + item.NewsID + "')\">";
-                        gridNewsPanelLeftHtml += "<img src=\"" + '@Url.Content(Var.UrlUploadCompanyNewsImage)' + item.ItemImageURL + "\" class=\"img-responsive\" style=\"height: 47px; width: 70px;\"> ";
+                        gridNewsPanelLeftHtml += "<li> <a href=\"javascript:ShowNewsDetail('" + item.NewsID + "')\">";                   
                         gridNewsPanelLeftHtml += "<p class=\"tittle-small\">" + Title + "</p>";
-                        gridNewsPanelLeftHtml += "<span class=\"link-deatail\"  onclick=\"ShowNewsDetail('" + item.NewsID + "'\">" + '@Resource.ViewDetails' + "</span></a></li>";
+                        gridNewsPanelLeftHtml += "</a></li>";
                     });
 
                     $("#lstNewsPanelLeft").html(gridNewsPanelLeftHtml);
-                     
+
+                    //
+                    $("#lstItemHotPanelLeft").html("");
+                    var gridItemHotPanelLeftHtml = "";
+
+                    $.each(data.ItemListHot, function (index, item) {
+                        var ItemName = "";
+                        if (Langguage === "vi-VN") {
+                            ItemName = item.ItemName;
+                        }
+                        else {
+                            ItemName = item.ItemName2;
+                        }
+
+                        gridItemHotPanelLeftHtml += "<tr><td valign =\"top\" style=\"padding-bottom: 10px;\">"
+                        gridItemHotPanelLeftHtml += "<a href=\"javascript:ShowItemDetail('" + item.ItemID + "')\">";
+                        gridItemHotPanelLeftHtml += "<img src=\"" + '@Url.Content(Var.UrlUploadItemImage)' + item.ItemImageURL + "\" class=\"img-responsive\" style=\"height: 100px; width: 180px;border: 1px solid #DDD;padding: 0px;margin-right: 10px;\"> ";
+                        gridItemHotPanelLeftHtml += "</a> ";
+
+                       
+                        gridItemHotPanelLeftHtml += "<a href=\"javascript:ShowItemDetail('" + item.ItemID + "')\"> <span style=\"font-weight: bold; color: #fff;\">" + ItemName + "</span></a><br></td>";
+
+
+
+                        //<tr>
+                        //                    <td valign="top" style="padding-bottom: 10px;">
+                        //                        <a title="Sản phẩm 1" href="http://ducphatvp.com.vn/san-pham-2"><img title="Sản phẩm 1" alt="Sản phẩm 2" src="http://ducphatvp.com.vn/image/cache/data/Sp2-170x120.png" style="margin-right: 10px;border: 1px solid #DDD;"></a>
+                        //                        <a href="#"><span title="Sản phẩm 1" style="font-weight: bold; color: #fff;">Sản phẩm 1</span></a>
+
+                        //                    </td>
+                        //                </tr>
+
+                        gridNewsPanelLeftHtml += "</tr>";
+                    });
+
+                    $("#lstItemHotPanelLeft").html(gridItemHotPanelLeftHtml);
+
                 }
             });
 
@@ -187,7 +113,7 @@
         }
 
         function ShowCategory(e) {
-             
+
             $.ajax({
                 url: '@Url.Action("SetDefaultCategory", "Home")',
                 contentType: "application/json; charset=utf-8",
@@ -201,13 +127,14 @@
                     }
                 }
             });
-             
+
         }
-         
+
         function ShowNewsDetail(e) {
             var url = '@Url.Action("NewsDetail", "Home", new { id = "__id__" })';
             window.location.href = url.replace('__id__', e);
         }
+
         function SearchDetail(e) {
             var url = '@Url.Action("Search", "Home", new { key = "__key__" })';
             window.location.href = url.replace('__key__', e);
@@ -221,288 +148,216 @@
         }
 
     </script>
-    <script type="text/javascript">
-        $(function () {
-            var offset = $("#sidebar").offset();
-            var topPadding = 5;
-            $(window).scroll(function () {
-                if ($(window).scrollTop() > offset.top) {
-                    $("#sidebar").stop().animate({
-                        marginTop: $(window).scrollTop() - offset.top + topPadding
-                    });
-                } else {
-                    $("#sidebar").stop().animate({
-                        marginTop: 0
-                    });
-                };
-            });
-        });
-    </script>
-
-
-
-
-
-    <div class="bg">
-        <div class="container box-content">
-            <header>
-                <div class="top-banner col-md-12 col-lg-12 padd0">
-                    <div class="bg-header">
-                        <div class="col-md-12 col-lg-12 pull-right">
-                            <div class="mullanguage" id="mulange">@{Html.RenderAction("MultiLanguageNav", "MultiLanguage");}</div>
-                        </div>
-                        <div class="col-md-7 col-lg-7">
-                            <a href="#" style="float:left;">
-                                <img class="img-responsive" style="width:200px;margin-top:-25px;" src="@Url.Content("~/Content/FontEnd/images/logotanphong.png")" />
-                            </a>
-                            <p style="float: left; "><img class="img-responsive" src="@Url.Content("~/Content/FontEnd/images/tencty.png")" /></p>
-                        </div>
-                        <div class="col-md-5 col-lg-5" style="padding-top: 15px;">
-                            <form method="get" action="@Url.Action("Search", "Home")">
-                                <div class="col-md-6 col-lg-6 pull-right">
-                                    <div class="input-group">
-                                        <input type="text" name="search" class="form-control" style="font-style: italic;" placeholder="@Resource.Search..." />
-                                        <span class="input-group-btn">
-                                            <button type="submit" class="btn btn-warning start" id="btnSearch">
-                                                <i class="fa fa-search"></i>
-                                            </button>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-6 pull-right">
-                                    <select name="category" class="form-control" id="cboCategory"></select>
-                                </div>
-
-                            </form>
-                            @*<div class="col-md-6 col-lg-6 pull-right">
-                                    <input type="text" class="form-control" style="font-style: italic;" placeholder="@Resource.Search..." />
-                                    <button type="button" class="btn btn-primary start" id="btnSearch">
-                                        <i class="fa fa-search"></i>
-                                    </button>
-                                </div>
-                                <div class="col-md-6 col-lg-6 pull-right" >
-                                    <select class="form-control" id="cboCategory">
-
-                                    </select>
-                                </div>*@
-                        </div>
-                        <div class="col-md-12 col-lg-12" style="margin-top: -26px;">
-                            <p class="address-top">Ðịa chỉ: Phòng 606, Tòa nhà Indochina Park Tower.Số 4 Nguyễn Đình Chiểu,P. Đa Kao, Q.1,TP.HCM</p>
-                            <br>
-                            <p class="address-top">Chi nhánh tại Bình Dương: KCN Sóng Thần 1, Đường DT 743, Thuận An - Dĩ An - Bình Dương.</p>
-                            <br>
-                            <p class="address-top">Liên hệ địa chỉ:<b> sales@tanphongcontainer.vn </b> - Hotline: <b>098 77 99 579 - 0982 222 599</p>
-                        </div>
-                    </div>
+    <div id="container">
+        <div id="header">
+            <div class="div1">
+                <div class="div2">
+                    <a href=""><img alt="Công ty CP Thương mại Cơ khí TAN PHONG" title="Công ty CP Thương mại Cơ khí TAN PHONG" src="http://ducphatvp.com.vn/image/data/logo-ducphat-2.png"></a>
                 </div>
-                <div class="col-md-12 col-lg-12 padd0">
-                    <div class="navbar-wrapper">
-                        <nav class="navbar navbar-static-top menu-main">
-                            <div class="container">
-                                <div class="navbar-header">
-                                    <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
-                                        <span class="sr-only">Toggle navigation</span>
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                    </button>
 
-                                </div>
-                                <div class="navbar-collapse collapse" id="navbar">
-                                    <ul class="nav navbar-nav">
-                                        <li><a href="@Url.Action("Index", "Home")">@Resource.HomePage</a></li>
-                                        <li><a href="@Url.Action("About", "Home")">@Resource.AboutUs</a></li>
-                                        <li><a href="@Url.Action("Index", "Home")">@Resource.Products</a></li>
-                                        <li><a href="@Url.Action("News", "Home")">@Resource.News</a></li>
-                                        <li><a href="@Url.Action("Contact", "Home")">@Resource.ContactUs</a></li>
-                                    </ul>
+                <div class="div4">
 
 
-                                </div>
+                </div>
+                <div class="div5">                  
+                    <div class="menu">
+
+                        <ul>
+                            <li><a href="@Url.Action("Index", "Home")" class="hide">@Resource.HomePage</a></li>
+                            <li><a href="@Url.Action("OrganizationalStructures", "Home")" class="hide">@Resource.OrganizationalStructures</a></li>
+                            <li><a href="@Url.Action("TypicalProjects", "Home")" class="hide">@Resource.TypicalProjects</a></li>
+                            <li><a href="@Url.Action("OrientedDevelopment", "Home")" class="hide">@Resource.OrientedDevelopment</a></li>
+                            <li><a href="@Url.Action("Product", "Home")" class="hide">@Resource.Products</a></li>
+                            <li><a href="@Url.Action("News", "Home")" class="hide">@Resource.News</a></li>                        
+                            <li><a href="@Url.Action("Contact", "Home")" class="hide">@Resource.ContactUs</a></li>
+
+                        </ul>
+                    </div>
+
+                    <div class="div6">
+                        <div class="left"></div>
+                        <div class="right"></div>
+                        <div class="center">
+                            <div id="breadcrumb">
                             </div>
-                        </nav>
-                    </div>
-                </div>
 
-            </header>
-            <div class="main-content">
-                <div class="col-md-12 col-lg-12 padd0">
-                    <div class="box-newsslider col-md-12 col-lg-12 padd0">
-                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                            <!-- Indicators -->
-                            <ol class="carousel-indicators">
-                                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                                <li data-target="#myCarousel" data-slide-to="1"></li>
-                                <li data-target="#myCarousel" data-slide-to="2"></li>
-                                <li data-target="#myCarousel" data-slide-to="3"></li>
-                            </ol>
-                            <!-- Wrapper for slides -->
-                            <div class="carousel-inner" role="listbox">
-                                <div class="item active">
-                                    <img src="@Url.Content("~/Content/FontEnd/images/1.jpg")" class="img-responsive" />
-                                    <div class="carousel-caption">
-                                        <h3>
-                                            CÔNG TY CỔ PHẦN THƯƠNG MẠI CƠ KHÍ TÂN PHONG
-                                        </h3>
-                                        <p>
-                                            Địa chỉ: Phòng 606, Tòa nhà Indochina Park Tower.
-                                            Số 4 Nguyễn Đình Chiểu,P. Đa Kao, Q.1,TP.HCM
-                                        </p>
-
-                                    </div>
-                                </div>
-                                <div class="item">
-                                    <img src="@Url.Content("~/Content/FontEnd/images/2.jpg")" class="img-responsive" />
-                                    <div class="carousel-caption">
-                                        <h3>
-                                            CÔNG TY CỔ PHẦN THƯƠNG MẠI CƠ KHÍ TÂN PHONG
-                                        </h3>
-                                    </div>
-                                </div>
-                                <div class="item">
-                                    <img src="@Url.Content("~/Content/FontEnd/images/3.jpg")" class="img-responsive" />
-                                    <div class="carousel-caption">
-                                        <h3>
-                                            CÔNG TY CỔ PHẦN THƯƠNG MẠI CƠ KHÍ TÂN PHONG
-                                        </h3>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Left and right controls -->
-                            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                                <span class="fa fa-chevron-left" aria-hidden="true"></span><span class="sr-only">
-                                    Previous
-                                </span>
-                            </a><a class="right carousel-control" href="#myCarousel" role="button"
-                                   data-slide="next">
-                                <span class="fa fa-chevron-right" aria-hidden="true">
-                                </span><span class="sr-only">Next</span>
-                            </a>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12 col-lg-12 margintop5 padd0">
-                    <div class="danhmucsp-menu col-md-3 col-lg-3 padd0">
-                        <div class="col-md-12 col-lg-12 padd0">
-                            <p class="danhmucsp-menu-title">
-                                <i class="fa fa-list" style="padding-right: 10px;"></i>@Resource.ProductCategories
+
+                <div id="column_left">
+                    <div class="box">
+                        <div class="top">@Resource.Categories</div>
+                        <div class="middle" id="category">
+                            <ul>
+                              
+                                <li><a href="@Url.Action("OrganizationalStructures", "Home")" ><span style="color: #fff;">@Resource.OrganizationalStructures</span></a></li>
+                                <li><a href="@Url.Action("TypicalProjects", "Home")"  ><span style="color: #fff;">@Resource.TypicalProjects</span></a></li>
+                                <li><a href="@Url.Action("OrientedDevelopment", "Home")"  ><span style="color: #fff;">@Resource.OrientedDevelopment</span></a></li>
+                                <li><a href="@Url.Action("Product", "Home")"  ><span style="color: #fff;">@Resource.Products</span></a></li>
+                                <li><a href="@Url.Action("News", "Home")"><span style="color: #fff;">@Resource.News</span></a></li>
+                                <li><a href="@Url.Action("Contact", "Home")"  ><span style="color: #fff;">@Resource.ContactUs</span></a></li>
+                                
+                            </ul>
+
+                        </div>
+                        <div class="bottom">&nbsp;</div>
+
+                    </div>
+
+                    @*<div class="box">
+                        <div class="top"><img alt="" src="catalog/view/theme/default/image/icon-youtube.gif">Video</div>
+                        <div style="text-align: center;" class="middle">
+                            <object width="170" height="130"><param value="http://www.youtube.com/v/player_embedded&amp;v=tbi0kEUuNCE#t=923&amp;hl=en_US&amp;fs=1&amp;" name="movie"><param value="true" name="allowFullScreen"><param value="always" name="allowscriptaccess"><embed width="170" height="130" allowfullscreen="true" allowscriptaccess="always" type="application/x-shockwave-flash" src="http://www.youtube.com/v/player_embedded&amp;v=tbi0kEUuNCE#t=923&amp;hl=en_US&amp;fs=1&amp;"></object>
+                        </div>
+                        <div class="bottom">&nbsp;</div>
+                    </div>*@
+
+                    <div class="box">
+                        <div class="top">
+                            Chứng nhận
+                        </div>
+                        <div style="text-align: left;" class="middle">
+                            <p style="text-align: center;">
+                                <img width="170" src="http://ducphatvp.com.vn/image/data/theme/iso.jpg" alt="">
                             </p>
-                            <ul class="nav nav-pills nav-stacked" id="lstCategoryPanelLeft">
-                                <li class="active">
-                                    <a href="#">
-                                        <i class="fa fa-chevron-right" style="padding-right: 10px;">
-                                        </i>Container Văn Phòng
+                        </div>
+                        <div class="bottom">&nbsp;</div>
+                    </div>
+                    <div class="box">
+                        <div class="top">@Resource.LinkWebsites</div>
+                        <div id="information" class="middle">
+                            <ul>
+                                <li>
+                                    <a target="_blank" href="#">
+                                        Facebook
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
-                                        <i class="fa fa-chevron-right" style="padding-right: 10px;"></i>Container
-                                        Khô
+                                    <a target="_blank" href="http://www.youtube.com/">
+                                        Youtube
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
-                                        <i class="fa fa-chevron-right" style="padding-right: 10px;"></i>Container
-                                        Toilet
+                                    <a target="_blank" href="#">
+                                        Yellowpages
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
-                                        <i class="fa fa-chevron-right" style="padding-right: 10px;"></i>Container
-                                        Lạnh
+                                    <a target="_blank" href="#">
+                                        Vieclam24h
+                                    </a>
+                                </li>
+                                <li>
+                                    <a target="_blank" href="#">
+                                        Mywork
+                                    </a>
+                                </li>
+                                <li>
+                                    <a target="_blank" href="#">
+                                        Vatgia
                                     </a>
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-md-12 col-lg-12 padd0">
-                            <p class="danhmucsp-menu-title">
-                                <i class="fa fa-cubes" style="padding-right: 10px;"></i>@Resource.NewProducts
+                        <div class="bottom">&nbsp;</div>
+                    </div>
+                    <div class="box">
+                        <div class="top"><img alt="" src="catalog/view/theme/default/image/information.png">@Resource.News</div>
+                        <div class="middle" id="information">
+                            <ul id="lstNewsPanelLeft">
+                                <li><a href="#">Các Quy chuẩn container</a></li>
+                                <li><a href="#">Tài liệu kỹ thuật chuyên ngành</a></li>
+
+                            </ul>
+                        </div>
+                        <div class="bottom">&nbsp;</div>
+                    </div>
+                </div>
+                <div id="column_right">
+                    <div class="box">
+                        <div class="top">@Resource.NewProducts</div>
+                        <div class="middle">
+                            <marquee height="390" scrollamount="3" direction="up" behavior="scroll">
+                                <table cellspacing="0" cellpadding="2" style="width: 100%;">
+                                    <tbody id="lstItemHotPanelLeft">
+                                        
+                                        <tr>
+                                            <td valign="top" style="padding-bottom: 10px;">
+                                                <a title="Sản phẩm 1" href="http://ducphatvp.com.vn/san-pham-2"><img title="Sản phẩm 2" alt="Sản phẩm 2" src="http://ducphatvp.com.vn/image/cache/data/Sp2-170x120.png" style="margin-right: 10px;border: 1px solid #DDD;"></a>
+                                                <a href="#"><span title="Sản phẩm 1" style="font-weight: bold; color: #fff;">Sản phẩm 2</span></a>
+                                            </td>
+
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </marquee>
+                        </div>
+                        <div class="bottom">&nbsp;</div>
+                    </div>
+                    <div class="box">
+                        <div class="top">
+                            <img alt="" src="catalog/view/theme/default/image/brands.png">@Resource.Support 
+                        </div>
+                        <div style="text-align: left;" class="middle">
+                            <p style="text-align: center;">
+                                <img width="155" height="180" style="font-size: 12px;" src="http://ducphatvp.com.vn/image/data/tu_van.jpg" alt="">
                             </p>
-                            <div class="list-newproduct col-md-12 col-lg-12 paddtopbotton10 borderbottom">
-                                <ul style="list-style: none;" id="lstItemHotPanelLeft"></ul>
-                            </div>
-                        </div>
-                        <div class="col-md-12 col-lg-12 padd0">
-                            <p class="danhmucsp-menu-title">
-                                <i class="fa fa-building" style="padding-right: 10px;"></i>@Resource.News
+                            <p align="center" style="margin-top:0cm;margin-right:0cm;margin-bottom:6.0pt;margin-left:0cm;text-align:center">
+                                <span style="font-size:10.0pt;font-family:13px;Aria;color:white;mso-themecolor:background1">KD 1:090-000-000<u1:p></u1:p><o:p></o:p></span><u2:p></u2:p>
                             </p>
-                            <div class="list-newcompany col-md-12 col-lg-12 paddtopbotton10 ">
-                                <ul style="list-style: none;" id="lstNewsPanelLeft">
-                                    @*<li>
-                                            <a href="#">
-                                                <img src="@Url.Content("~/Content/FontEnd/images/newc.png")" class="img-responsive" />
-                                                <p class="tittle-small">
-                                                    SỨ MỆNH: CÔNG TY CP TM CK TÂN PHONG hoạt động với sứ mệnh tạo ra...
-                                                </p>
 
-                                                <span class="link-deatail">Chi tiết</span>
-                                            </a>
-                                        </li>*@
-
-                                </ul>
-                            </div>
                         </div>
+                        <div class="bottom">&nbsp;</div>
                     </div>
-                    <div class="col-md-9 col-lg-9">
-                        @RenderBody()
 
-                    </div>
-                </div>
-            </div>
-            <footer>
-                <div class="col-md-12 col-lg-12 padd0" style="background: #2642a2;">
-                    <div class="col-md-9 col-lg-9 col-md-offset-2 col-lg-offset-2 padd0">
-                        <div class="navbar-wrapper">
-                            <nav class="navbar navbar-static-top footer-menu">
-                                <div id="Div1" class="navbar-collapse collapse">
-                                    <ul class="nav navbar-nav">
-                                        <li><a href="@Url.Action("Index", "Home")">@Resource.HomePage</a></li>
-                                        <li><a href="@Url.Action("About", "Home")">@Resource.AboutUs</a></li>
-                                        <li><a href="@Url.Action("Index", "Home")">@Resource.Products</a></li>
-                                        <li><a href="@Url.Action("News", "Home")">@Resource.News</a></li>
-                                        <li><a href="@Url.Action("Contact", "Home")">@Resource.ContactUs</a></li>
-                                    </ul>
-                                </div>
-                            </nav>
+                    <div class="box">
+                        <div class="top"><img alt="" src="catalog/view/theme/default/image/special.png"> @Resource.VisitorCounter </div>
+                        <div style="text-align: center;" class="middle">
+                            <div>00885843</div>
+
                         </div>
+                        <div class="bottom">&nbsp;</div>
                     </div>
-                </div>
-                <div class="bg-footer col-md-12 col-lg-12 padd0">
-                    <div class="text-center" style=" padding-bottom: 15px;">
-                        <p class="name-company">CÔNG TY CỔ PHẦN THƯƠNG MẠI CƠ KHÍ TÂN PHONG</p>
-                        <p class="address-company">Địa chỉ: Phòng 606, Tòa nhà Indochina Park Tower.</p>
-                        <p class="address-company">Số 4 Nguyễn Đình Chiểu,P. Đa Kao, Q.1,TP.HCM</p>
-                    </div>
-                </div>
-            </footer>
-            <div id="sidebar">
 
-                <img src="/Content/FontEnd/images/slo.png" style="width:97px;" class="img-responsive">
 
+                </div>
+
+                <div id="content">
+
+                    @RenderBody()
+                </div>
             </div>
         </div>
-
     </div>
+    <div id="footer">
+        <div id="footer1">
+            <div class="div1">             
+                <a href="@Url.Action("OrganizationalStructures", "Home")">@Resource.OrganizationalStructures </a> |
+                <a href="@Url.Action("TypicalProjects", "Home")">@Resource.TypicalProjects </a> |
+                <a href="@Url.Action("OrientedDevelopment", "Home")">@Resource.OrientedDevelopment</a>
+            </div>
+            <div class="div2">
+                <a href="@Url.Action("Product", "Home")">@Resource.Products </a> |               
+                <a href="@Url.Action("News", "Home")">@Resource.News </a> |
+                <a href="@Url.Action("Contact", "Home")">@Resource.ContactUs </a>
+            </div>
 
-    <div class="modal fade" id="modalShowError" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="div3">
+                <p>
+                    <br>
+                    <strong> </strong><br>
+                    <br>
+                    <strong>Công ty CP Thương mại Cơ khí TÂN PHONG</strong><br>
+                    Ðịa chỉ: Phòng 606, Tòa nhà Indochina Park Tower.Số 4 Nguyễn Đình Chiểu,P. Đa Kao, Q.1,TP.HCM<span style="color:yellow; font-size: 14px">
+                        <br />
+                        <strong>Điện thoại: </strong>098 77 99 579 - Mr.Duy | 0938 007 507 - Mr.Phong
+                    </span>
 
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4>Thông Báo</h4>
-                </div>
-                <div class="modal-body">
-                    <p id="lblMessageModal">Thông Báo</p>
-                </div>
-                <div class="modal-footer">
-
-                    <button type="button" class="btn btn-danger btn-default" data-dismiss="modal">Close</button>
-
-                </div>
+                </p>
             </div>
         </div>
-
     </div>
 </body>
 </html>

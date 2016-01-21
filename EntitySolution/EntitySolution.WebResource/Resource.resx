@@ -129,6 +129,9 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Categories</value>
+  </data>
   <data name="Condition" xml:space="preserve">
     <value>Condition</value>
   </data>
@@ -141,17 +144,29 @@
   <data name="EmailUs" xml:space="preserve">
     <value>Email Us</value>
   </data>
+  <data name="FeaturedProducts" xml:space="preserve">
+    <value>Featured Products</value>
+  </data>
   <data name="FeaturesAndUsesAndAccessories" xml:space="preserve">
     <value>Features &amp; Uses &amp; Accessories</value>
   </data>
   <data name="HomePage" xml:space="preserve">
     <value>Home</value>
   </data>
+  <data name="LinkWebsites" xml:space="preserve">
+    <value>Link Websites</value>
+  </data>
   <data name="NewProducts" xml:space="preserve">
     <value>New Products</value>
   </data>
   <data name="News" xml:space="preserve">
     <value>News</value>
+  </data>
+  <data name="OrganizationalStructures" xml:space="preserve">
+    <value>Organizational Structures</value>
+  </data>
+  <data name="OrientedDevelopment" xml:space="preserve">
+    <value>Oriented Development</value>
   </data>
   <data name="Product" xml:space="preserve">
     <value>Product</value>
@@ -183,11 +198,20 @@
   <data name="Success" xml:space="preserve">
     <value>Success</value>
   </data>
+  <data name="Support" xml:space="preserve">
+    <value>Support</value>
+  </data>
   <data name="ThisIsARequiredField" xml:space="preserve">
     <value>This is a required field</value>
   </data>
+  <data name="TypicalProjects" xml:space="preserve">
+    <value>Typical Projects</value>
+  </data>
   <data name="ViewDetails" xml:space="preserve">
     <value>View Details</value>
+  </data>
+  <data name="VisitorCounter" xml:space="preserve">
+    <value>Visitor Counter</value>
   </data>
   <data name="YourAddress" xml:space="preserve">
     <value>Address</value>

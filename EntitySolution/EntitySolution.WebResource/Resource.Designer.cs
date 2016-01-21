@@ -97,6 +97,15 @@ namespace EntitySolution.WebResource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Categories.
+        /// </summary>
+        public static string Categories {
+            get {
+                return ResourceManager.GetString("Categories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Condition.
         /// </summary>
         public static string Condition {
@@ -133,6 +142,15 @@ namespace EntitySolution.WebResource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Featured Products.
+        /// </summary>
+        public static string FeaturedProducts {
+            get {
+                return ResourceManager.GetString("FeaturedProducts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Features &amp; Uses &amp; Accessories.
         /// </summary>
         public static string FeaturesAndUsesAndAccessories {
@@ -151,6 +169,15 @@ namespace EntitySolution.WebResource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Link Websites.
+        /// </summary>
+        public static string LinkWebsites {
+            get {
+                return ResourceManager.GetString("LinkWebsites", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New Products.
         /// </summary>
         public static string NewProducts {
@@ -165,6 +192,24 @@ namespace EntitySolution.WebResource {
         public static string News {
             get {
                 return ResourceManager.GetString("News", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Organizational Structures.
+        /// </summary>
+        public static string OrganizationalStructures {
+            get {
+                return ResourceManager.GetString("OrganizationalStructures", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oriented Development.
+        /// </summary>
+        public static string OrientedDevelopment {
+            get {
+                return ResourceManager.GetString("OrientedDevelopment", resourceCulture);
             }
         }
         
@@ -259,6 +304,15 @@ namespace EntitySolution.WebResource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Support.
+        /// </summary>
+        public static string Support {
+            get {
+                return ResourceManager.GetString("Support", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This is a required field.
         /// </summary>
         public static string ThisIsARequiredField {
@@ -268,11 +322,29 @@ namespace EntitySolution.WebResource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Typical Projects.
+        /// </summary>
+        public static string TypicalProjects {
+            get {
+                return ResourceManager.GetString("TypicalProjects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to View Details.
         /// </summary>
         public static string ViewDetails {
             get {
                 return ResourceManager.GetString("ViewDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Visitor Counter.
+        /// </summary>
+        public static string VisitorCounter {
+            get {
+                return ResourceManager.GetString("VisitorCounter", resourceCulture);
             }
         }
         

@@ -727,6 +727,23 @@
     <Content Include="Content\FontEnd\js\jssor.js" />
     <Content Include="Content\FontEnd\js\jssor.slider.js" />
     <Content Include="Content\FontEnd\js\npm.js" />
+    <Content Include="Content\FontEnd\NewDesign\css\footerslider.css" />
+    <Content Include="Content\FontEnd\NewDesign\css\stylesheet.css" />
+    <Content Include="Content\FontEnd\NewDesign\css\thickbox.css" />
+    <Content Include="Content\FontEnd\NewDesign\img\bg-footer.png" />
+    <Content Include="Content\FontEnd\NewDesign\img\bg-li-start.png" />
+    <Content Include="Content\FontEnd\NewDesign\img\bg-tab-home.png" />
+    <Content Include="Content\FontEnd\NewDesign\img\bg-tab.png" />
+    <Content Include="Content\FontEnd\NewDesign\img\bg-ul.png" />
+    <Content Include="Content\FontEnd\NewDesign\img\bgboxduoi.png" />
+    <Content Include="Content\FontEnd\NewDesign\img\bgcc.png" />
+    <Content Include="Content\FontEnd\NewDesign\img\tu_van.jpg" />
+    <Content Include="Content\FontEnd\NewDesign\js\footerslider.js" />
+    <Content Include="Content\FontEnd\NewDesign\js\homeslidershow.js" />
+    <Content Include="Content\FontEnd\NewDesign\js\jcarousel-lite.js" />
+    <Content Include="Content\FontEnd\NewDesign\js\jquery-1.3.2.min.js" />
+    <Content Include="Content\FontEnd\NewDesign\js\tab.js" />
+    <Content Include="Content\FontEnd\NewDesign\js\thickbox-compressed.js" />
     <Content Include="Content\form-validator\brazil.dev.js" />
     <Content Include="Content\form-validator\brazil.js" />
     <Content Include="Content\form-validator\date.dev.js" />
@@ -931,6 +948,19 @@
     <Content Include="Views\Home\ProductDetails.cshtml" />
     <Content Include="Views\MultiLanguage\MultiLanguageNav.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Shared\_Layout - Copy.cshtml" />
+    <Content Include="Views\Home\Index - Copy.cshtml" />
+    <Content Include="Views\Shared\_LayoutContact.cshtml" />
+    <Content Include="Views\Home\Contact - Copy.cshtml" />
+    <Content Include="Views\Home\About - Copy.cshtml" />
+    <Content Include="Views\Home\Product.cshtml" />
+    <Content Include="Views\AdminPage\ConfigOrganizationalStructures.cshtml" />
+    <Content Include="Views\AdminPage\ConfigOrientedDevelopment.cshtml" />
+    <Content Include="Views\AdminPage\ConfigTypicalProjects.cshtml" />
+    <Content Include="Views\Home\OrganizationalStructures.cshtml" />
+    <Content Include="Views\Home\OrientedDevelopment.cshtml" />
+    <Content Include="Views\Home\TypicalProjects.cshtml" />
+    <Content Include="Views\Home\ProductDetails - Copy.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

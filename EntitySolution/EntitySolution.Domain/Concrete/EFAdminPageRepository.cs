@@ -117,7 +117,7 @@ namespace EntitySolution.Domain.Concrete
             try
             {
                 var _ret = (from ite in _context.Items
-                            select ite).ToList();
+                            select ite).OrderByDescending(p => p.CreatedDate).ToList();
                 if (_ret != null)
                 {
                     ret = _ret.Where(e => (sItemStatus == null || sItemStatus == "" || sItemStatus == allValue || e.Active == sItemStatus) 

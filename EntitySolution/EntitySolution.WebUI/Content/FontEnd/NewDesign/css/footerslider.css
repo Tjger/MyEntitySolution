@@ -1,0 +1,57 @@
+#carousel_cont {
+	background: #ffffff;
+	width: 560px;
+	padding: 3px 3px 0 3px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: left;
+	border: solid 0px #CCCCCC;
+}
+#carousel_man {
+	float: left;
+	width: 485px !important;
+	text-align:center;
+	vertical-align:middle;
+	overflow: hidden;
+	padding-top: 0px;
+	padding-bottom: 30px;
+	
+}
+#carousel_man li{
+	margin-left: 10px;
+	margin-right: 10px;
+	height:110px;
+	width:80px;
+}
+
+#carousel_man li a{
+	color:#000000;
+}
+#carousel_cont a.prevsmall {
+	float:left;
+	margin-top: 40px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+#carousel_cont a.nextsmall {
+	float:left;
+	margin-top: 40px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+#scrollup {
+position: relative;
+overflow: hidden;
+border: 0px solid #000;
+height: 160px;
+width: 150px
+}
+.headline {
+position: absolute;
+top: 210px;
+left: 5px;
+height: 160px;
+width:150px;
+text-align: center;
+}
