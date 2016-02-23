@@ -182,9 +182,10 @@
     <Content Include="Content\BackEnd\css\animate.delay.css" />
     <Content Include="Content\BackEnd\css\animate.min.css" />
     <Content Include="Content\BackEnd\css\bootstrap-override.css" />
+    <Content Include="Content\BackEnd\css\lsswitch.min.css" />
     <Content Include="Content\BackEnd\css\bootstrap-timepicker.min.css" />
     <Content Include="Content\BackEnd\css\bootstrap-wysihtml5.css" />
-    <Content Include="Content\BackEnd\css\bootstrap.min.css" />
+    <Content Include="Content\BackEnd\css\ls.min.css" />
     <Content Include="Content\BackEnd\css\codemirror\codemirror.css" />
     <Content Include="Content\BackEnd\css\codemirror\theme\ambiance.css" />
     <Content Include="Content\BackEnd\css\colorpicker.css" />
@@ -727,8 +728,14 @@
     <Content Include="Content\FontEnd\js\jssor.js" />
     <Content Include="Content\FontEnd\js\jssor.slider.js" />
     <Content Include="Content\FontEnd\js\npm.js" />
+    <Content Include="Content\FontEnd\NewDesign\css\bootstrap.min.css" />
+    <Content Include="Content\FontEnd\NewDesign\css\cssShow.css" />
     <Content Include="Content\FontEnd\NewDesign\css\footerslider.css" />
+    <Content Include="Content\FontEnd\NewDesign\css\jquery.bxslider.css" />
+    <Content Include="Content\FontEnd\NewDesign\css\owl.transitions.css" />
+    <Content Include="Content\FontEnd\NewDesign\css\sl.css" />
     <Content Include="Content\FontEnd\NewDesign\css\stylesheet.css" />
+    <Content Include="Content\FontEnd\NewDesign\css\succulents.css" />
     <Content Include="Content\FontEnd\NewDesign\css\thickbox.css" />
     <Content Include="Content\FontEnd\NewDesign\img\bg-footer.png" />
     <Content Include="Content\FontEnd\NewDesign\img\bg-li-start.png" />
@@ -738,10 +745,12 @@
     <Content Include="Content\FontEnd\NewDesign\img\bgboxduoi.png" />
     <Content Include="Content\FontEnd\NewDesign\img\bgcc.png" />
     <Content Include="Content\FontEnd\NewDesign\img\tu_van.jpg" />
+    <Content Include="Content\FontEnd\NewDesign\js\bootstrap.min.js" />
     <Content Include="Content\FontEnd\NewDesign\js\footerslider.js" />
     <Content Include="Content\FontEnd\NewDesign\js\homeslidershow.js" />
     <Content Include="Content\FontEnd\NewDesign\js\jcarousel-lite.js" />
     <Content Include="Content\FontEnd\NewDesign\js\jquery-1.3.2.min.js" />
+    <Content Include="Content\FontEnd\NewDesign\js\s3Slider.js" />
     <Content Include="Content\FontEnd\NewDesign\js\tab.js" />
     <Content Include="Content\FontEnd\NewDesign\js\thickbox-compressed.js" />
     <Content Include="Content\form-validator\brazil.dev.js" />
@@ -961,6 +970,9 @@
     <Content Include="Views\Home\OrientedDevelopment.cshtml" />
     <Content Include="Views\Home\TypicalProjects.cshtml" />
     <Content Include="Views\Home\ProductDetails - Copy.cshtml" />
+    <Content Include="Views\Home\Services.cshtml" />
+    <Content Include="Views\Home\FeaturedProducts.cshtml" />
+    <Content Include="Views\AdminPage\ConfigServices.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

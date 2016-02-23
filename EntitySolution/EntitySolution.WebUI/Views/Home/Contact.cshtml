@@ -7,12 +7,75 @@
 <script>
     var Langguage = '@Session["Culture"].ToString()';
     $(document).ready(function () {
-         
+
+        $.validate({
+            form: '#frmSendEmail',
+            modules: 'security',
+
+        });
+
+        $("#btnSendEmail").click(function (e) {
+
+            $.validate({
+                form: '#frmSendEmail',
+                modules: 'security',
+                onError: function ($form) {
+
+                },
+                onSuccess: function ($form) {
+
+
+                    var EmailAddress = "";
+                    var Subject = $("#guestSubject").val();
+                    var Body = "Tên: " + $("#guestSubject").val() + " " + "\r\n" +
+                        "Chức Vụ: " + $("#guestPosition").val() + " " + "\r\n" +
+                         "Công Ty: " + $("#guestCompany").val() + " " + "\r\n" +
+                          "Địa Chỉ: " + $("#guestAddress").val() + " " + "\r\n" +
+                           "Email: " + $("#guestEmail").val() + " " + "\r\n" +
+                            "Số Điện Thoại: " + $("#guestTelephone").val() + " " + "\r\n" +
+                             "Tiêu Đề: " + $("#guestSubject").val() + " " + "\r\n" +
+                              "Nội Dung: " + $("#guestBody").val() + " " + "\r\n"
+                    ;
+
+                    $.blockUI({ message: null });
+                    setTimeout($.unblockUI, 2000);
+                    $.ajax({
+                        url: '@Url.Action("SendEmail", "Home")',
+                        contentType: "application/json; charset=utf-8",
+                        type: 'POST',
+                        dataType: "json",
+                        data: JSON.stringify({ "EmailAddress": EmailAddress, "Subject": Subject, "Body": Body }),
+                        success: function (data) {
+                            if (data.success === true) {
+
+                                $.growlUI('@Resource.Success', '@Resource.EmailThank');
+
+                                document.getElementById("frmSendEmail").reset();
+
+                            }
+                            else {
+                                $("#lblMessageModal").html("Có lỗi xảy ra , xin hãy thử lại sau.");
+
+                                $("#modalShowError").modal("show");
+                            }
+                        }
+                    });
+
+                    return false; // Will stop the submission of the form
+                },
+                onValidate: function ($form) {
+
+                },
+                onElementValidate: function (valid, $el, $form, errorMess) {
+
+                }
+            });
+        });
     });
-     
+
 </script>
 
- 
+
 <div class="top">
     <div class="left"></div>
     <div class="right"></div>
@@ -20,7 +83,7 @@
         <h1>@Resource.ContactUs</h1>
     </div>
 </div>
-<div style="text-align: left;" class="middle">
+<div style="text-align: left;width:573px;" class="middle">
 
     <div class="col-md-12 col-lg-12">
         <form id="frmSendEmail" action="" method="POST" class="has-validation-callback">
@@ -82,7 +145,7 @@
             </div>
             <div class="col-md-12 col-lg-12 padd0" style="margin-bottom:18px;">
                 <p align="center">
-                   
+
                     <button type="reset" class="btn btn-warning" id="btnresetEmail">
                         @Resource.Reset
                     </button>
@@ -94,7 +157,9 @@
             </div>
 
         </form>
-
+        <div class="col-md-6 col-lg-6" style="padding-top:0px;padding-left:0px;">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3917.8751227046437!2d106.73804641525601!3d10.897093959933459!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3174d83de8fffe63%3A0xb6c8677ea23917e7!2zS2h1IEPDtG5nIE5naGnhu4dwIFPDs25nIFRo4bqnbg!5e0!3m2!1sen!2s!4v1452761250379" width="550" height="450" frameborder="0" style="border:0;margin-left:-33px;" allowfullscreen></iframe>
+        </div>
     </div>
 </div>
 <div class="bottom">

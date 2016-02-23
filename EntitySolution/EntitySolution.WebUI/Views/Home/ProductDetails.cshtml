@@ -22,21 +22,121 @@
 </div>
 <div style="text-align: left;" class="middle" id="box-listnews">
     
-    <div class="row col-md-12 col-lg-12 padd0">
+    <div class="row">
 
-        <div style="width:250px;float:left;">
-            @if (Model.ItemImageURL != "")
+<div style="float:left;">
+
+<div style="float:left;">
+<div style="width:250px;">
+                    <div class="zoomWrapper">
+                        <div class="zoomWrapper single-zoom" id="img-1">
+                            <a href="#">
+                                <div class="zoomWrapper">
+
+
+
+   @if (Model.ItemImageURL != "")
             {
-                <img src="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL)" class="img-responsive" style=" height: 250px; width: 250px;" />
+                <img id="zoom1"  src="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL)" alt="big-1"  data-zoom-image="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL)"/>
             }
-            else
+               else
             {
                 <img src="@Url.Content("~/Content/FontEnd/images/no_image.png")" class="img-responsive" style="height: 250px; width: 250px;" />
 
             }
 
-        </div>
-        <div style="width:250px;float:left;">
+
+
+</div>
+                            </a>
+                        </div>
+                        <div class="single-zoom-thumb">
+                            <div class="bx-wrapper" style="max-width: 362px;">
+                                <div class="bx-viewport">
+                                    <ul id="gallery_01" class="bxslider">
+                                             @if (Model.ItemImageURL != "")
+                                                    {
+
+
+                                                    <li class="bx-clone">
+                                                        <a data-zoom-image="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL)" data-image="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL)" class="elevatezoom-gallery" href="#"><img  src="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL)"></a>
+                                                    </li>
+                                                  
+                                                    }
+                                                    else
+                                                    {
+
+                                                    <li class="bx-clone">
+                                                        <a data-zoom-image="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL)" data-image="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL)" class="elevatezoom-gallery" href="#"><img src="@Url.Content("~/Content/FontEnd/images/no_image.png")"></a>
+                                                    </li>
+
+                                                    }
+
+                                                    @if (Model.ItemImageURL2 != "")
+                                                    {
+
+
+                                                    <li class="bx-clone">
+                                                        <a data-zoom-image="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL2)" data-image="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL2)" class="elevatezoom-gallery" href="#"><img src="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL2)"></a>
+                                                    </li>
+
+                                                    }
+                                                    else
+                                                    {
+
+                                                    <li class="bx-clone">
+                                                        <a data-zoom-image="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL2)" data-image="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL2)" class="elevatezoom-gallery" href="#"><img src="@Url.Content("~/>Content/FontEnd/images/no_image.png")"></a>
+                                                    </li>
+
+                                                    }
+                                                    @if (Model.ItemImageURL3 != "")
+                                                    {
+
+
+                                                    <li class="bx-clone">
+                                                        <a data-zoom-image="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL3)" data-image="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL3)" class="elevatezoom-gallery" href="#"><img src="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL3)"></a>
+                                                    </li>
+
+                                                    }
+                                                    else
+                                                    {
+
+                                                    <li class="bx-clone">
+                                                        <a data-zoom-image="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL3)" data-image="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL3)" class="elevatezoom-gallery" href="#"><img src="@Url.Content("~/>Content/FontEnd/images/no_image.png")"></a>
+                                                    </li>
+
+                                                    }
+
+                                                    @if (Model.ItemImageURL4 != "")
+                                                    {
+
+
+                                                    <li class="bx-clone">
+                                                        <a data-zoom-image="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL4)" data-image="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL4)" class="elevatezoom-gallery" href="#"><img src="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL4)"></a>
+                                                    </li>
+
+                                                    }
+                                                    else
+                                                    {
+
+                                                    <li class="bx-clone">
+                                                        <a data-zoom-image="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL4)" data-image="@Url.Content(Var.UrlUploadItemImage + Model.ItemImageURL4)" class="elevatezoom-gallery" href="#"><img src="@Url.Content("~/>Content/FontEnd/images/no_image.png")"></a>
+                                                    </li>
+
+                                                    }
+
+
+
+                                    </ul>
+                                </div>                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+</div>
+
+       
+        <div style="width:250px;float:left;margin-left:26px;">
             <p>
                 @Resource.Product :
                 <b>

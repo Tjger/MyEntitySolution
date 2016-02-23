@@ -214,6 +214,18 @@ namespace EntitySolution.WebUI.Controllers
             }
         }
 
+        public ActionResult ConfigServices()
+        {
+            if (Session["EmpID"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+        }
+
         //[AcceptVerbs(HttpVerbs.Post)]
         //public JsonResult UpdateSysParam(string lstSysparam)
         //{

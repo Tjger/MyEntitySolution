@@ -186,6 +186,9 @@
   <data name="SendEmail" xml:space="preserve">
     <value>Send Email</value>
   </data>
+  <data name="Services" xml:space="preserve">
+    <value>Services</value>
+  </data>
   <data name="Size" xml:space="preserve">
     <value>Size</value>
   </data>

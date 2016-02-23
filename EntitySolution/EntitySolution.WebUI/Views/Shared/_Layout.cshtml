@@ -2,20 +2,29 @@
 @using EntitySolution.WebResource
 <html lang="vi" xml:lang="vi" dir="ltr" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Công ty TNHH Thương mại, Cơ khí và Xây dựng Đức Phát</title>
-    <meta content="Công ty TNHH Thương mại, Cơ khí và Xây dựng Đức Phát" name="description">
+    <title>Công ty TNHH Thương mại, Cơ khí Tân Phong</title>
+    <meta content="Công ty TNHH Thương mại, Cơ khí Tân Phong" name="description">
 
-    <link rel="icon" href="http://ducphatvp.com.vn/image/data/theme/logodp.png">
+
+    <link href="~/Content/FontEnd/NewDesign/css/sl.css" type="text/css" rel="stylesheet">
     <link href="~/Content/FontEnd/NewDesign/css/stylesheet.css" type="text/css" rel="stylesheet">
-
+    <link href="~/Content/FontEnd/NewDesign/css/jquery.bxslider.css" type="text/css" rel="stylesheet">
+    <link href="~/Content/FontEnd/NewDesign/css/owl.transitions.css" type="text/css" rel="stylesheet">
+    <link href="~/Content/FontEnd/NewDesign/css/succulents.css" type="text/css" rel="stylesheet">
+    <link href="~/Content/FontEnd/NewDesign/css/cssShow.css" type="text/css" rel="stylesheet">
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/FontEnd")
 
-  
+
+    <script src="~/Content/FontEnd/NewDesign/js/bootstrap.min.js"></script>
+    <script src="~/Content/FontEnd/NewDesign/js/s3Slider.js"></script>
     <script src="~/Content/FontEnd/NewDesign/js/thickbox-compressed.js" type="text/javascript"></script>
     <link href="~/Content/FontEnd/NewDesign/css/thickbox.css" type="text/css" rel="stylesheet">
     <script src="~/Content/FontEnd/NewDesign/js/tab.js" type="text/javascript"></script>
+
+    <script type="text/javascript" src="~/Content/FontEnd/js/jssor.js"></script>
+    <script type="text/javascript" src="~/Content/FontEnd/js/jssor.slider.js"></script>
 
     <!-- thêm để sile sản phẩm yeni.tpl -->
     <link href="~/Content/FontEnd/NewDesign/css/footerslider.css" type="text/css" rel="stylesheet">
@@ -25,10 +34,13 @@
 </head>
 <body>
     <script>
-        var CategoryList = null;
-        var FeaturedProducts = null;
+       
         var Langguage = '@Session["Culture"].ToString()';
         $(document).ready(function () {
+
+            $('#s3slider').s3Slider({
+                timeOut: 4000
+            });
             LoadAllDataForHomePage();
 
         });
@@ -42,9 +54,6 @@
                 dataType: "json",
                 data: {},
                 success: function (data) {
- 
-                    CategoryList = data.CategoryList;
-                    FeaturedProducts = data.ItemListFeatured;
                      
                     //
                     $("#lstNewsPanelLeft").html("");
@@ -58,7 +67,7 @@
                         else {
                             Title = item.Title2;
                         }
-                        gridNewsPanelLeftHtml += "<li> <a href=\"javascript:ShowNewsDetail('" + item.NewsID + "')\">";                   
+                        gridNewsPanelLeftHtml += "<li> <a href=\"javascript:ShowNewsDetail('" + item.NewsID + "')\">";
                         gridNewsPanelLeftHtml += "<p class=\"tittle-small\">" + Title + "</p>";
                         gridNewsPanelLeftHtml += "</a></li>";
                     });
@@ -66,6 +75,8 @@
                     $("#lstNewsPanelLeft").html(gridNewsPanelLeftHtml);
 
                     //
+
+                    $("#lstItemHotPanelRight").html("");
                     $("#lstItemHotPanelLeft").html("");
                     var gridItemHotPanelLeftHtml = "";
 
@@ -83,24 +94,16 @@
                         gridItemHotPanelLeftHtml += "<img src=\"" + '@Url.Content(Var.UrlUploadItemImage)' + item.ItemImageURL + "\" class=\"img-responsive\" style=\"height: 100px; width: 180px;border: 1px solid #DDD;padding: 0px;margin-right: 10px;\"> ";
                         gridItemHotPanelLeftHtml += "</a> ";
 
-                       
+
                         gridItemHotPanelLeftHtml += "<a href=\"javascript:ShowItemDetail('" + item.ItemID + "')\"> <span style=\"font-weight: bold; color: #fff;\">" + ItemName + "</span></a><br></td>";
 
 
-
-                        //<tr>
-                        //                    <td valign="top" style="padding-bottom: 10px;">
-                        //                        <a title="Sản phẩm 1" href="http://ducphatvp.com.vn/san-pham-2"><img title="Sản phẩm 1" alt="Sản phẩm 2" src="http://ducphatvp.com.vn/image/cache/data/Sp2-170x120.png" style="margin-right: 10px;border: 1px solid #DDD;"></a>
-                        //                        <a href="#"><span title="Sản phẩm 1" style="font-weight: bold; color: #fff;">Sản phẩm 1</span></a>
-
-                        //                    </td>
-                        //                </tr>
 
                         gridNewsPanelLeftHtml += "</tr>";
                     });
 
                     $("#lstItemHotPanelLeft").html(gridItemHotPanelLeftHtml);
-
+                    $("#lstItemHotPanelRight").html(gridItemHotPanelLeftHtml);
                 }
             });
 
@@ -149,197 +152,244 @@
 
     </script>
     <div id="container">
+
+
+
         <div id="header">
             <div class="div1">
                 <div class="div2">
-                    <a href=""><img alt="Công ty CP Thương mại Cơ khí TAN PHONG" title="Công ty CP Thương mại Cơ khí TAN PHONG" src="http://ducphatvp.com.vn/image/data/logo-ducphat-2.png"></a>
+                    <a href=""><img alt="Công ty CP Thương mại Cơ khí TAN PHONG" title="Công ty CP Thương mại Cơ khí TAN PHONG" src="/Content/FontEnd/images/logo-ducphat-2.png"></a>
                 </div>
 
                 <div class="div4">
 
 
                 </div>
-                <div class="div5">                  
+                <div class="div5">
                     <div class="menu">
 
                         <ul>
-                            <li><a href="@Url.Action("Index", "Home")" class="hide">@Resource.HomePage</a></li>
-                            <li><a href="@Url.Action("OrganizationalStructures", "Home")" class="hide">@Resource.OrganizationalStructures</a></li>
-                            <li><a href="@Url.Action("TypicalProjects", "Home")" class="hide">@Resource.TypicalProjects</a></li>
-                            <li><a href="@Url.Action("OrientedDevelopment", "Home")" class="hide">@Resource.OrientedDevelopment</a></li>
-                            <li><a href="@Url.Action("Product", "Home")" class="hide">@Resource.Products</a></li>
-                            <li><a href="@Url.Action("News", "Home")" class="hide">@Resource.News</a></li>                        
-                            <li><a href="@Url.Action("Contact", "Home")" class="hide">@Resource.ContactUs</a></li>
+                            <li>
+                                <a href="@Url.Action("Index", "Home")">@Resource.HomePage</a>
+
+                            </li>
+                            <li>
+                                <a>@Resource.AboutUs</a>
+                                <ul>
+                                    <li>
+                                        <a href="@Url.Action("About", "Home")">@Resource.AboutUs</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("OrganizationalStructures", "Home")">@Resource.OrganizationalStructures</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("OrientedDevelopment", "Home")">@Resource.OrientedDevelopment</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a>@Resource.Products</a>
+
+                                <ul>
+                                    <li>
+                                        <a href="@Url.Action("FeaturedProducts", "Home")">@Resource.FeaturedProducts</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Product", "Home")">@Resource.NewProducts</a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                            <li><a href="@Url.Action("TypicalProjects", "Home")">@Resource.TypicalProjects</a></li>
+                            <li><a href="@Url.Action("Services", "Home")">@Resource.Services</a></li>
+
+                            <li><a href="@Url.Action("News", "Home")">@Resource.News</a></li>
+                            <li><a href="@Url.Action("Contact", "Home")">@Resource.ContactUs</a></li>
 
                         </ul>
                     </div>
 
                     <div class="div6">
-                        <div class="left"></div>
-                        <div class="right"></div>
-                        <div class="center">
-                            <div id="breadcrumb">
+
+                        <div class="center" style="height:300px;">
+                            <div id="s3slider">
+                                <ul id="s3sliderContent">
+                                    <li class="s3sliderImage">
+                                        <img src="@Url.Content("~/Content/FontEnd/images/a.jpg")" alt="CÔNG TY CỔ PHẦN THƯƠNG MẠI CƠ KHÍ TÂN PHONG" style="height:300px !important;" width="1024" />
+                                        <span>Công ty CP Thương mại Cơ khí TÂN PHONG</span>
+                                    </li>
+                                    <li class="s3sliderImage">
+                                        <img src="@Url.Content("~/Content/FontEnd/images/b.jpg")" alt="CÔNG TY CỔ PHẦN THƯƠNG MẠI CƠ KHÍ TÂN PHONG" style="height:300px !important;" width="1024" />
+                                        <span>Công ty CP Thương mại Cơ khí TÂN PHONG</span>
+                                    </li>
+                                    <li class="s3sliderImage">
+                                        <img src="@Url.Content("~/Content/FontEnd/images/c.jpg")" alt="CÔNG TY CỔ PHẦN THƯƠNG MẠI CƠ KHÍ TÂN PHONG" style="height:300px !important;" width="1024" />
+                                        <span>Công ty CP Thương mại Cơ khí TÂN PHONG</span>
+                                    </li>
+                                    <li class="s3sliderImage">
+                                        <img src="@Url.Content("~/Content/FontEnd/images/d.jpg")" alt="CÔNG TY CỔ PHẦN THƯƠNG MẠI CƠ KHÍ TÂN PHONG" style="height:300px !important;" width="1024" />
+                                        <span>Công ty CP Thương mại Cơ khí TÂN PHONG</span>
+                                    </li>
+                                    <li class="s3sliderImage">
+                                        <img src="@Url.Content("~/Content/FontEnd/images/e.jpg")" alt="CÔNG TY CỔ PHẦN THƯƠNG MẠI CƠ KHÍ TÂN PHONG" style="height:300px !important;" width="1024" />
+                                        <span>Công ty CP Thương mại Cơ khí TÂN PHONG</span>
+                                    </li>
+                                    <div class="clear s3sliderImage"></div>
+                                </ul>
                             </div>
 
+                            <!-- Left and right controls -->
+
                         </div>
                     </div>
                 </div>
 
-                <div id="column_left">
-                    <div class="box">
-                        <div class="top">@Resource.Categories</div>
-                        <div class="middle" id="category">
-                            <ul>
-                              
-                                <li><a href="@Url.Action("OrganizationalStructures", "Home")" ><span style="color: #fff;">@Resource.OrganizationalStructures</span></a></li>
-                                <li><a href="@Url.Action("TypicalProjects", "Home")"  ><span style="color: #fff;">@Resource.TypicalProjects</span></a></li>
-                                <li><a href="@Url.Action("OrientedDevelopment", "Home")"  ><span style="color: #fff;">@Resource.OrientedDevelopment</span></a></li>
-                                <li><a href="@Url.Action("Product", "Home")"  ><span style="color: #fff;">@Resource.Products</span></a></li>
-                                <li><a href="@Url.Action("News", "Home")"><span style="color: #fff;">@Resource.News</span></a></li>
-                                <li><a href="@Url.Action("Contact", "Home")"  ><span style="color: #fff;">@Resource.ContactUs</span></a></li>
-                                
-                            </ul>
-
-                        </div>
-                        <div class="bottom">&nbsp;</div>
-
-                    </div>
-
-                    @*<div class="box">
-                        <div class="top"><img alt="" src="catalog/view/theme/default/image/icon-youtube.gif">Video</div>
-                        <div style="text-align: center;" class="middle">
-                            <object width="170" height="130"><param value="http://www.youtube.com/v/player_embedded&amp;v=tbi0kEUuNCE#t=923&amp;hl=en_US&amp;fs=1&amp;" name="movie"><param value="true" name="allowFullScreen"><param value="always" name="allowscriptaccess"><embed width="170" height="130" allowfullscreen="true" allowscriptaccess="always" type="application/x-shockwave-flash" src="http://www.youtube.com/v/player_embedded&amp;v=tbi0kEUuNCE#t=923&amp;hl=en_US&amp;fs=1&amp;"></object>
-                        </div>
-                        <div class="bottom">&nbsp;</div>
-                    </div>*@
-
-                    <div class="box">
-                        <div class="top">
-                            Chứng nhận
-                        </div>
-                        <div style="text-align: left;" class="middle">
-                            <p style="text-align: center;">
-                                <img width="170" src="http://ducphatvp.com.vn/image/data/theme/iso.jpg" alt="">
-                            </p>
-                        </div>
-                        <div class="bottom">&nbsp;</div>
-                    </div>
-                    <div class="box">
-                        <div class="top">@Resource.LinkWebsites</div>
-                        <div id="information" class="middle">
-                            <ul>
-                                <li>
-                                    <a target="_blank" href="#">
-                                        Facebook
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_blank" href="http://www.youtube.com/">
-                                        Youtube
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_blank" href="#">
-                                        Yellowpages
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_blank" href="#">
-                                        Vieclam24h
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_blank" href="#">
-                                        Mywork
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_blank" href="#">
-                                        Vatgia
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="bottom">&nbsp;</div>
-                    </div>
-                    <div class="box">
-                        <div class="top"><img alt="" src="catalog/view/theme/default/image/information.png">@Resource.News</div>
-                        <div class="middle" id="information">
-                            <ul id="lstNewsPanelLeft">
-                                <li><a href="#">Các Quy chuẩn container</a></li>
-                                <li><a href="#">Tài liệu kỹ thuật chuyên ngành</a></li>
-
-                            </ul>
-                        </div>
-                        <div class="bottom">&nbsp;</div>
-                    </div>
-                </div>
-                <div id="column_right">
-                    <div class="box">
-                        <div class="top">@Resource.NewProducts</div>
-                        <div class="middle">
-                            <marquee height="390" scrollamount="3" direction="up" behavior="scroll">
-                                <table cellspacing="0" cellpadding="2" style="width: 100%;">
-                                    <tbody id="lstItemHotPanelLeft">
-                                        
-                                        <tr>
-                                            <td valign="top" style="padding-bottom: 10px;">
-                                                <a title="Sản phẩm 1" href="http://ducphatvp.com.vn/san-pham-2"><img title="Sản phẩm 2" alt="Sản phẩm 2" src="http://ducphatvp.com.vn/image/cache/data/Sp2-170x120.png" style="margin-right: 10px;border: 1px solid #DDD;"></a>
-                                                <a href="#"><span title="Sản phẩm 1" style="font-weight: bold; color: #fff;">Sản phẩm 2</span></a>
-                                            </td>
-
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-                            </marquee>
-                        </div>
-                        <div class="bottom">&nbsp;</div>
-                    </div>
-                    <div class="box">
-                        <div class="top">
-                            <img alt="" src="catalog/view/theme/default/image/brands.png">@Resource.Support 
-                        </div>
-                        <div style="text-align: left;" class="middle">
-                            <p style="text-align: center;">
-                                <img width="155" height="180" style="font-size: 12px;" src="http://ducphatvp.com.vn/image/data/tu_van.jpg" alt="">
-                            </p>
-                            <p align="center" style="margin-top:0cm;margin-right:0cm;margin-bottom:6.0pt;margin-left:0cm;text-align:center">
-                                <span style="font-size:10.0pt;font-family:13px;Aria;color:white;mso-themecolor:background1">KD 1:090-000-000<u1:p></u1:p><o:p></o:p></span><u2:p></u2:p>
-                            </p>
-
-                        </div>
-                        <div class="bottom">&nbsp;</div>
-                    </div>
-
-                    <div class="box">
-                        <div class="top"><img alt="" src="catalog/view/theme/default/image/special.png"> @Resource.VisitorCounter </div>
-                        <div style="text-align: center;" class="middle">
-                            <div>00885843</div>
-
-                        </div>
-                        <div class="bottom">&nbsp;</div>
-                    </div>
-
-
-                </div>
-
-                <div id="content">
-
-                    @RenderBody()
-                </div>
             </div>
         </div>
+
+        <div id="column_left">
+
+
+            <div class="box">
+                <div class="top">@Resource.Categories</div>
+                <div class="middle" id="category">
+                    <ul>
+
+                        <li><a href="@Url.Action("OrganizationalStructures", "Home")"><span style="color: #fff;">@Resource.OrganizationalStructures</span></a></li>
+                        <li><a href="@Url.Action("TypicalProjects", "Home")"><span style="color: #fff;">@Resource.TypicalProjects</span></a></li>
+
+                        <li><a href="@Url.Action("Product", "Home")"><span style="color: #fff;">@Resource.Products</span></a></li>
+                        <li><a href="@Url.Action("News", "Home")"><span style="color: #fff;">@Resource.News</span></a></li>
+                        <li><a href="@Url.Action("Contact", "Home")"><span style="color: #fff;">@Resource.ContactUs</span></a></li>
+
+                    </ul>
+
+                </div>
+                <div class="bottom">&nbsp;</div>
+                <div class="box">
+                    <div class="top">@Resource.FeaturedProducts</div>
+                    <div class="middle">
+                        <marquee height="250" scrollamount="3" direction="up" behavior="scroll">
+                            <table cellspacing="0" cellpadding="20" style="width: 100%;">
+                                <tbody id="lstItemHotPanelLeft"></tbody>
+                            </table>
+                        </marquee>
+                    </div>
+                    <div class="bottom">&nbsp;</div>
+                </div>
+            </div>
+             
+            <div class="box">
+                <div class="top">@Resource.LinkWebsites</div>
+                <div id="information" class="middle">
+                    <ul>
+                        <li>
+                            <a target="_blank" href="#">
+                                Facebook
+                            </a>
+                        </li>
+                        <li>
+                            <a target="_blank" href="http://www.youtube.com/">
+                                Youtube
+                            </a>
+                        </li>
+                        <li>
+                            <a target="_blank" href="#">
+                                Yellowpages
+                            </a>
+                        </li>
+                        <li>
+                            <a target="_blank" href="#">
+                                Vieclam24h
+                            </a>
+                        </li>
+                        <li>
+                            <a target="_blank" href="#">
+                                Mywork
+                            </a>
+                        </li>
+                        <li>
+                            <a target="_blank" href="#">
+                                Vatgia
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bottom">&nbsp;</div>
+            </div>
+            <div class="box">
+                <div class="top"><img alt="" src="catalog/view/theme/default/image/information.png">@Resource.News</div>
+                <div class="middle" id="information" style="height:230px !important;">
+                    <ul id="lstNewsPanelLeft">
+                        <li><a href="#">Các Quy chuẩn container</a></li>
+                        <li><a href="#">Tài liệu kỹ thuật chuyên ngành</a></li>
+
+                    </ul>
+                </div>
+                <div class="bottom">&nbsp;</div>
+            </div>
+        </div>
+        <div id="column_right">
+            <div class="box">
+                <div class="top">@Resource.NewProducts</div>
+                <div class="middle">
+                    <marquee height="390" scrollamount="3" direction="up" behavior="scroll">
+                        <table cellspacing="0" cellpadding="20" style="width: 100%;">
+                            <tbody id="lstItemHotPanelRight"></tbody>
+                        </table>
+                    </marquee>
+                </div>
+                <div class="bottom">&nbsp;</div>
+            </div>
+            <div class="box">
+                <div class="top">
+                    <img alt="" src="catalog/view/theme/default/image/brands.png">Hotline
+                </div>
+                <div style="text-align: left;" class="middle">
+                    <p style="text-align: center;">
+                        <img width="155" height="180" style="font-size: 12px;" src="@Url.Content("~/Content/FontEnd/images/tu_van.jpg")" alt="Tư Vấn">
+                    </p>
+                    <p align="center" style="margin-top:0cm;margin-right:0cm;margin-bottom:6.0pt;margin-left:0cm;text-align:center">
+                        <span style="font-size:12pt;font-family:13px;Aria;color:white;mso-themecolor:background1">Mr.Duy: <b style="color:yellow;">098 77 99 579</b><u1:p></u1:p><o:p></o:p></span><u2:p></u2:p>
+
+                    <p align="center" style="margin-top:0cm;margin-right:0cm;margin-bottom:6.0pt;margin-left:0cm;text-align:center">
+                        <span style="font-size:12pt;font-family:13px;Aria;color:white;mso-themecolor:background1">Mr.Phong: <b style="color:yellow;">0938 007 507</b> <u1:p></u1:p><o:p></o:p></span><u2:p></u2:p>
+                    </p>
+
+                    <p align="center" style="margin-top:0cm;margin-right:0cm;margin-bottom:6.0pt;margin-left:0cm;text-align:center">
+                        <span style="font-size:10.0pt;font-family:13px;Aria;color:white;mso-themecolor:background1">Email: <b style="color:yellow;">sales@tanphongcontainer.vn</b><u1:p></u1:p><o:p></o:p></span><u2:p></u2:p>
+                    </p>
+                </div>
+                <div class="bottom">&nbsp;</div>
+            </div>
+
+            <div class="box">
+                <div class="top"><img alt="" src="catalog/view/theme/default/image/special.png"> @Resource.VisitorCounter </div>
+                <div style="text-align: center;" class="middle">
+                    <div>00885843</div>
+
+                </div>
+                <div class="bottom">&nbsp;</div>
+            </div>
+
+
+        </div>
+
+        <div id="content">
+
+            @RenderBody()
+        </div>
     </div>
+     
     <div id="footer">
         <div id="footer1">
-            <div class="div1">             
+            <div class="div1">
                 <a href="@Url.Action("OrganizationalStructures", "Home")">@Resource.OrganizationalStructures </a> |
                 <a href="@Url.Action("TypicalProjects", "Home")">@Resource.TypicalProjects </a> |
-                <a href="@Url.Action("OrientedDevelopment", "Home")">@Resource.OrientedDevelopment</a>
+
             </div>
             <div class="div2">
-                <a href="@Url.Action("Product", "Home")">@Resource.Products </a> |               
+                <a href="@Url.Action("Product", "Home")">@Resource.Products </a> |
                 <a href="@Url.Action("News", "Home")">@Resource.News </a> |
                 <a href="@Url.Action("Contact", "Home")">@Resource.ContactUs </a>
             </div>
@@ -359,5 +409,21 @@
             </div>
         </div>
     </div>
+
+
+
+    <script src="~/Content/FontEnd/NewDesign/js/wow.min.js"></script>
+
+    <script src="~/Content/FontEnd/NewDesign/js/jquery-price-slider.js"></script>
+
+    <script src="~/Content/FontEnd/NewDesign/js/jquery.meanmenu.js"></script>
+
+    <script src="~/Content/FontEnd/NewDesign/js/jquery.elevateZoom-3.0.8.min.js"></script>
+
+    <script src="~/Content/FontEnd/NewDesign/js/jquery.bxslider.min.js"></script>
+
+    <script src="~/Content/FontEnd/NewDesign/js/owl.carousel.min.js"></script>
+    <script src="~/Content/FontEnd/NewDesign/js/main.js"></script>
+   
 </body>
 </html>

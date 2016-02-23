@@ -1,7 +1,9 @@
-﻿@{
-    ViewBag.Title = "Product";
+﻿
+@{
+    ViewBag.Title = "FeaturedProducts";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+ 
 @using EntitySolution.WebResource
 @using EntitySolution.Domain.Common
 <script>
@@ -9,7 +11,7 @@
     $(document).ready(function () {
 
         $.ajax({
-            url: '@Url.Action("LoadAllDataProducts", "Home")',
+            url: '@Url.Action("LoadAllFeaturedProducts", "Home")',
             contentType: "application/json; charset=utf-8",
             type: 'POST',
             dataType: "json",
@@ -65,7 +67,7 @@
                     gridAllItemHtml += "</tbody></table></div>";
                 });
 
-              
+
                 $("#ContactContent").html(gridAllItemHtml);
 
             }
@@ -78,83 +80,6 @@
 
 
 <div id="ContactContent">
-    @*<div class="top">
-        <div class="left"></div>
-        <div class="right"></div>
-        <div class="center">
-            <h1>CONTAINER KHÔ</h1>
-        </div>
-    </div>
-    <div style="text-align: left;" class="special">
-
-        <table class="list">
-
-            <tbody>
-                <tr>
-
-
-                    <td style="width: 15%;">
-                        <a href="#">
-                            <img style="border: 1px solid #DDD;padding: 0px;margin-right: 10px;background: white;" alt="CONTAINER VP 20 FEET" title="&quot;Chăm&quot; chưa đúng cách, cơ khí Việt Nam chậm lớn" src="http://ducphatvp.com.vn/image/cache/data/image027-120x100.jpg">
-                        </a>
-                        <br>
-
-                    </td>
-                    <td>
-                        <a href="#"><b>CONTAINER VP 20 FEET</b></a><br>
-
-                    </td>
-
-
-                    <td style="width: 15%;">
-                        <a href="#">
-                            <img style="border: 1px solid #DDD;padding: 0px;margin-right: 10px;background: white;" alt="Ngành cơ khí - không chỉ là tiện, phay, bào, hàn" title="Ngành cơ khí - không chỉ là tin, phay, bào, hàn" src="http://ducphatvp.com.vn/image/cache/data/theme/images (10)-120x100.jpg">
-                        </a>
-                        <br>
-
-
-                    </td>
-                    <td>
-                        <a href="#"><b>Container VP 40 Feet</b></a><br>
-
-                    </td>
-
-                </tr>
-                <tr>
-                    <td style="width: 15%;">
-                        <a href="#">
-                            <img style="border: 1px solid #DDD;padding: 0px;margin-right: 10px;background: white;" src="http://ducphatvp.com.vn/image/cache/data/HTV2-120x100.jpg">
-                        </a>
-                        <br>
-
-                    </td>
-                    <td>
-                        <a href="#">
-                            <b>Container Toilet 10 Feet</b>
-                        </a>
-                        <br>
-
-                    </td>
-
-
-                    <td style="width: 15%;">
-                        <a href="#">
-                            <img style="border: 1px solid #DDD;padding: 0px;margin-right: 10px;background: white;" src="http://ducphatvp.com.vn/image/cache/data/image022-120x100.jpg">
-                        </a>
-                        <br>
-
-                    </td>
-                    <td>
-                        <a href="#">
-                            <b>Container Kho 10 Feet</b>
-                        </a>
-                        <br>
-
-                    </td>
-
-                </tr>
-            </tbody>
-        </table>
-    </div>*@
-
+    
 </div>
+

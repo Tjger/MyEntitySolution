@@ -110,7 +110,7 @@ namespace EntitySolution.Domain.Concrete
             return ret;
         }
 
-        public List<Item> LoadAllItem(string sItemStatus, string sHotStatus, ref int totalCount,string sCategoryID = "", string sSearchText = "" )
+        public List<Item> LoadAllItem(string sItemStatus, string sHotStatus, ref int totalCount, string sCategoryID = "", string sSearchText = "")
         {
             List<Item> ret = new List<Item>();
             totalCount = 0;
@@ -120,12 +120,12 @@ namespace EntitySolution.Domain.Concrete
                             select ite).OrderByDescending(p => p.CreatedDate).ToList();
                 if (_ret != null)
                 {
-                    ret = _ret.Where(e => (sItemStatus == null || sItemStatus == "" || sItemStatus == allValue || e.Active == sItemStatus) 
+                    ret = _ret.Where(e => (sItemStatus == null || sItemStatus == "" || sItemStatus == allValue || e.Active == sItemStatus)
                         && (sHotStatus == null || sHotStatus == "" || sHotStatus == allValue || e.Hot == sHotStatus)
                          && (sCategoryID == null || sCategoryID == "" || sCategoryID == allValue || e.CategoryID.Value.ToString() == sCategoryID)
-                         && (sSearchText == null || sSearchText == "" || sSearchText == allValue || e.ItemName.Contains(sSearchText) || e.ItemName2.Contains(sSearchText) || e.ItemName.Contains(sSearchText.ToUpper()) || e.ItemName2.Contains(sSearchText.ToUpper()))).ToList();
+                         && (sSearchText == null || sSearchText == "" || sSearchText == allValue || e.ItemName.Contains(sSearchText) || e.ItemName2.Contains(sSearchText) || e.ItemName.Contains(sSearchText.ToUpper()) || e.ItemName2.Contains(sSearchText.ToUpper()))).OrderBy(x => x.CategoryID).ToList();
 
-                  
+
                 }
                 totalCount = ret.Count;
             }
@@ -504,7 +504,7 @@ namespace EntitySolution.Domain.Concrete
                     {
                         listNewsAndRelative = _retList;
                     }
-                     
+
                 }
 
             }

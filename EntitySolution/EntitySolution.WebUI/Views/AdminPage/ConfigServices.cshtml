@@ -1,11 +1,16 @@
 ﻿
 @{
-    ViewBag.Title = "ConfigOrientedDevelopment";
+    ViewBag.Title = "ConfigServices";
     Layout = "~/Views/Shared/_LayoutBackEnd.cshtml";
 }
- 
+
+@{
+    ViewBag.Title = "ConfigTypicalProjects";
+    Layout = "~/Views/Shared/_LayoutBackEnd.cshtml";
+}
+
 @using EntitySolution.Domain.Common
-<h2>Tầm Nhìn Và Sứ Mệnh</h2>
+<h2>Dịch Vụ</h2>
 <script>
 
     $(document).ready(function () {
@@ -29,7 +34,7 @@
 
         var editSysPara = {
             AutoID: "-1",
-            Field: '@Var.ConfigOrientedDevelopment',
+            Field: '@Var.ConfigServices',
             Value: mainContent,
             DefaultValue: mainContent2,
 
@@ -62,7 +67,7 @@
             contentType: "application/json; charset=utf-8",
             type: 'POST',
             dataType: "json",
-            data: JSON.stringify({ "fieldSysPara": '@Var.ConfigOrientedDevelopment' }),
+            data: JSON.stringify({ "fieldSysPara": '@Var.ConfigServices' }),
             success: function (data) {
                 CKEDITOR.instances.itemMainContent.setData(data.returnList.Value);
                 CKEDITOR.instances.itemMainContent2.setData(data.returnList.DefaultValue);
@@ -86,4 +91,5 @@
     </div>
     <button type="submit" id="btnModalSave" class="btn btn-primary  btn-default" data-dismiss="modal">Save</button>
 </form>
+
 

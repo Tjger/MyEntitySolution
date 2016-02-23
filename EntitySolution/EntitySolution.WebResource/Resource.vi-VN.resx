@@ -166,7 +166,7 @@
     <value>Cơ Cấu Tổ Chức</value>
   </data>
   <data name="OrientedDevelopment" xml:space="preserve">
-    <value>Định Hướng Phát Triển</value>
+    <value>Tầm Nhìn Và Sứ Mệnh</value>
   </data>
   <data name="Product" xml:space="preserve">
     <value>Sản Phẩm</value>
@@ -185,6 +185,9 @@
   </data>
   <data name="SendEmail" xml:space="preserve">
     <value>Gửi Email</value>
+  </data>
+  <data name="Services" xml:space="preserve">
+    <value>Dịch Vụ</value>
   </data>
   <data name="Size" xml:space="preserve">
     <value>Kích Cỡ</value>

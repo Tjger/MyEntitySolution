@@ -51,20 +51,20 @@
                     d.getSeconds().padLeft()].join(':');
 
 
-                    gridTableHtml += " <div class=\"sub-listnews col-md-12 col-lg-12\">";
+                    gridTableHtml += " <div style=\"padding-bottom:15px !important\" class=\"sub-listnews col-md-12 col-lg-12\">";
                     gridTableHtml += " <div class=\"col-md-12 col-lg-12\">";
-                    gridTableHtml += " <p class=\"title-subpost\">";
+                    gridTableHtml += " <p style=\"text-transform: uppercase;\" class=\"title-subpost\">";
                     gridTableHtml += " <a href=\"javascript:ShowNewsDetail('" + item.NewsID + "')\">" + Title + "</a>";
                     gridTableHtml += " </p></div>";
                     gridTableHtml += " <div class=\"col-md-3 col-lg-3\">";
                     gridTableHtml += "<a href=\"javascript:ShowNewsDetail('" + item.NewsID + "')\">";
                     gridTableHtml += "<img src=\"" + '@Url.Content(Var.UrlUploadCompanyNewsImage)' + item.ItemImageURL + "\" class=\"img-responsive\" style=\"height: 125px; width: 175px;\"> ";
                     gridTableHtml += " </a></div>";
-                    gridTableHtml += " <div class=\"col-md-9 col-lg-9\">";
-                    gridTableHtml += " <div class=\"col-md-12 col-lg-12 padd0\">";
+                    gridTableHtml += " <div style=\"padding:0px !important\" class=\"col-md-9 col-lg-9\">";
+                    gridTableHtml += " <div style=\"padding:0px !important\" class=\"col-md-12 col-lg-12 padd0\">";
                     gridTableHtml += " <p>" + Description + "</p></div>";
-                    gridTableHtml += " <div class=\"col-md-12 col-lg-12 padd0\">";
-                    gridTableHtml += " <div class=\"col-md-6 col-lg-6 padd0\">";
+                    gridTableHtml += " <div style=\"padding:0px !important\" class=\"col-md-12 col-lg-12 padd0\">";
+                    gridTableHtml += " <div style=\"padding:0px !important\" class=\"col-md-6 col-lg-6 padd0\">";
                     gridTableHtml += " <p class=\"date-post\" style=\"float: left;\">" + dformat + "</p></div>";
                     gridTableHtml += " <div class=\"col-md-6 col-lg-6 padd0\">";
                     gridTableHtml += " <a href=\"javascript:ShowNewsDetail('" + item.NewsID + "')\" style=\"float: right;\"><span class=\"link-deatail\">"+'@Resource.ViewDetails'+"</span></a>";
@@ -106,7 +106,7 @@
         <h1>@Resource.News</h1>
     </div>
 </div>
-<div style="text-align: left;" class="middle" id="box-listnews">
+<div style="text-align: left; padding-left:0px !important;padding-top:15px; !important;" class="middle" id="box-listnews">
 
 </div>
 <div class="bottom">

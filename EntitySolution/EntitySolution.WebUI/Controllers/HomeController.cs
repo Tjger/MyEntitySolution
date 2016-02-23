@@ -74,7 +74,7 @@ namespace EntitySolution.WebUI.Controllers
 
         public ActionResult Product()
         {
-            
+
             return View();
         }
 
@@ -107,6 +107,17 @@ namespace EntitySolution.WebUI.Controllers
             return View();
         }
 
+        public ActionResult Services()
+        {
+            return View();
+        }
+
+        public ActionResult FeaturedProducts()
+        {
+            return View();
+        }
+
+
         public ActionResult Search(string search, string category)
         {
 
@@ -131,13 +142,11 @@ namespace EntitySolution.WebUI.Controllers
             try
             {
                 int totalCount = 0;
-                var CategoryList = adminPageProvider.LoadAllCategory(allValue);
-                var AllItemList = adminPageProvider.LoadAllItem(allValue, allValue, ref totalCount);
+
+                var ItemListHot = adminPageProvider.LoadAllItem(allValue, activeValue, ref totalCount);
                 var NewsList = adminPageProvider.LoadAllNews(activeValue, 3, ref totalCount);
 
-                var ItemListHot = AllItemList.Where(x => x.Hot == activeValue).Take(10);
-                var ItemListFeatured = AllItemList.Where(x => x.Active == activeValue).Take(4);
-                jResult = Json(new { success = true, CategoryList = CategoryList, NewsList = NewsList, ItemListHot = ItemListHot, ItemListFeatured = ItemListFeatured }, JsonRequestBehavior.AllowGet);
+                jResult = Json(new { success = true, NewsList = NewsList, ItemListHot = ItemListHot }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception)
@@ -150,6 +159,59 @@ namespace EntitySolution.WebUI.Controllers
         }
 
         public JsonResult LoadAllDataForIndexPage()
+        {
+            JsonResult jResult = new JsonResult();
+            try
+            {
+                int totalCount = 0;
+
+                var ItemListFeatured = adminPageProvider.LoadAllItem(activeValue, allValue, ref totalCount);
+
+                
+                jResult = Json(new { success = true, ItemListFeatured = ItemListFeatured }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception)
+            {
+
+
+            }
+
+            return jResult;
+        }
+
+
+        public JsonResult LoadAllDataProducts()
+        {
+            JsonResult jResult = new JsonResult();
+            try
+            {
+                int totalCount = 0;
+                var CategoryList = adminPageProvider.LoadAllCategory(allValue);
+                var ItemList = adminPageProvider.LoadAllItem(allValue, allValue, ref totalCount);
+
+
+                var ItemInCategory = new List<Item>[CategoryList.Capacity];
+
+                for (int i = 0; i < CategoryList.Capacity; i++)
+                {
+                    var ItemInCat = ItemList.Where(e => e.CategoryID == CategoryList[i].CategoryID).ToList();
+                    ItemInCategory[i] = ItemInCat;
+                }
+
+                jResult = Json(new { success = true, ItemInCategory = ItemInCategory }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception)
+            {
+
+
+            }
+
+            return jResult;
+        }
+
+        public JsonResult LoadAllFeaturedProducts()
         {
             JsonResult jResult = new JsonResult();
             try
@@ -178,6 +240,7 @@ namespace EntitySolution.WebUI.Controllers
 
             return jResult;
         }
+
 
         public JsonResult SetDefaultCategory(string CategoryIndex)
         {
